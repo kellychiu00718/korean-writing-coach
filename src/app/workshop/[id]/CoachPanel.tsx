@@ -10,6 +10,7 @@ type Props = {
   grammarId: string;
   prompts: Lesson["prompts"];
   openRounds: Record<number, RoundEntry[]>;
+  initialPrompt?: number;
 };
 
 const SCENE_LABEL: Record<Lesson["prompts"][number]["scene"], string> = {
@@ -25,10 +26,10 @@ const STEPS = [
   { title: "對照參考答案", caption: "寫對或改兩次後出現" },
 ];
 
-export function CoachPanel({ grammarId, prompts, openRounds }: Props) {
-  const [promptIndex, setPromptIndex] = useState(0);
+export function CoachPanel({ grammarId, prompts, openRounds, initialPrompt = 0 }: Props) {
+  const [promptIndex, setPromptIndex] = useState(initialPrompt);
   const [rounds, setRounds] = useState<Record<number, RoundEntry[]>>(openRounds);
-  const [draft, setDraft] = useState(() => openDraft(openRounds[0]));
+  const [draft, setDraft] = useState(() => openDraft(openRounds[initialPrompt]));
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [promoted, setPromoted] = useState<{ grammarId: string; state: ProgressState }[]>([]);

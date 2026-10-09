@@ -3,6 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import { AppHeader } from "@/components/AppHeader";
 import type { RevealedFeedback } from "@/lib/coach";
 import { CATEGORY_LABEL, displayForm, getGrammar, getLesson } from "@/lib/grammar";
+import { getProfile } from "@/lib/profile";
 import { promote } from "@/lib/progress";
 import { createClient } from "@/lib/supabase/server";
 import { CoachPanel, type RoundEntry } from "./CoachPanel";
@@ -19,7 +20,11 @@ export default async function LessonPage({ params }: { params: Promise<{ id: str
   } = await supabase.auth.getUser();
   if (!user) redirect(`/login?next=/workshop/${id}`);
 
-  await promote(supabase, user.id, [{ grammarId: id, state: "seen" }]).catch(() => []);
+  // 打開這課＝看過本題文法；例句裡出現的其他文法也算看過。
+  const exampleIds = [...new Set(lesson.examples.flatMap((ex) => ex.grammar ?? []))];
+  await promote(supabase, user.id, [id, ...exampleIds].map((g) => ({ grammarId: g, state: "seen" as const }))).catch(() => []);
+  const { interests } = getProfile(user);
+  const initialPrompt = Math.max(0, lesson.prompts.findIndex((p) => interests.includes(p.scene)));
 
   // 每個情境還沒結束的那一輪，重新整理頁面也能接著寫。
   const { data } = await supabase
@@ -70,6 +75,25 @@ export default async function LessonPage({ params }: { params: Promise<{ id: str
                     {ex.ko}
                   </span>
                   <span className="text-sm text-ink-soft">{ex.zh}</span>
+                  {ex.grammar && ex.grammar.length > 0 && (
+                    <span className="mt-1.5 flex flex-wrap items-center gap-1.5 text-xs">
+                      <span className="text-ink-soft">句子裡還有：</span>
+                      {ex.grammar.map((gid) => {
+                        const g = getGrammar(gid);
+                        if (!g) return null;
+                        const label = `${displayForm(g.form)}（${g.level} 級）`;
+                        return getLesson(gid) ? (
+                          <Link key={gid} href={`/workshop/${gid}`} lang="ko" className="rounded-full border-2 border-ink bg-white px-2 py-0.5 hover:bg-peach">
+                            {label}
+                          </Link>
+                        ) : (
+                          <span key={gid} lang="ko" className="rounded-full border-2 border-dashed border-line bg-white px-2 py-0.5" title="這個文法的練習還在準備中">
+                            {label}
+                          </span>
+                        );
+                      })}
+                    </span>
+                  )}
                 </li>
               ))}
             </ul>
@@ -79,7 +103,7 @@ export default async function LessonPage({ params }: { params: Promise<{ id: str
             </div>
           </section>
 
-          <CoachPanel grammarId={id} prompts={lesson.prompts} openRounds={openRounds} />
+          <CoachPanel grammarId={id} prompts={lesson.prompts} openRounds={openRounds} initialPrompt={initialPrompt} />
         </div>
       </main>
     </>

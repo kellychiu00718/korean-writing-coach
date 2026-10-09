@@ -4,6 +4,7 @@ import { Mascot } from "@/components/Mascot";
 const NAV = [
   { href: "/workshop", label: "句子工坊" },
   { href: "/map", label: "文法地圖" },
+  { href: "/me", label: "我的" },
 ];
 
 export function AppHeader({ current }: { current?: string }) {

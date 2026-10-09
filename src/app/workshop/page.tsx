@@ -2,8 +2,10 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { AppHeader } from "@/components/AppHeader";
 import { AlmostThere } from "@/components/AlmostThere";
+import { Recommended } from "@/components/Recommended";
 import { StateDot } from "@/components/StateDot";
 import { CATEGORY_LABEL, displayForm, getLesson, grammar, STATE_LABEL } from "@/lib/grammar";
+import { getProfile } from "@/lib/profile";
 import { getProgress } from "@/lib/progress";
 import { createClient } from "@/lib/supabase/server";
 
@@ -15,6 +17,8 @@ export default async function WorkshopPage() {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) redirect("/login?next=/workshop");
+  const profile = getProfile(user);
+  if (!profile.onboarded) redirect("/welcome");
   const progress = await getProgress(supabase, user.id);
 
   return (
@@ -30,6 +34,7 @@ export default async function WorkshopPage() {
         </section>
 
         <AlmostThere progress={progress} />
+        <Recommended progress={progress} interests={profile.interests} />
 
         {LEVELS.map((level) => {
           const items = grammar.filter((g) => g.level === level);

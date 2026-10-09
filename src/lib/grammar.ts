@@ -15,7 +15,7 @@ export type Lesson = {
   title_zh: string;
   core_zh: string;
   pattern: string;
-  examples: { ko: string; zh: string }[];
+  examples: { ko: string; zh: string; grammar?: string[] }[];
   pitfall_zh: string;
   prompts: { scene: "daily" | "fan" | "work" | "topik"; situation_zh: string }[];
   reviewed: boolean;
