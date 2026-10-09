@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { AppHeader } from "@/components/AppHeader";
+import { AlmostThere } from "@/components/AlmostThere";
 import { StateDot } from "@/components/StateDot";
 import { CATEGORY_LABEL, displayForm, getLesson, grammar, STATE_LABEL } from "@/lib/grammar";
 import { getProgress } from "@/lib/progress";
@@ -27,6 +28,8 @@ export default async function WorkshopPage() {
             挑一個文法，自己寫一句韓文。AI 教練只會一層一層給線索，答案要靠自己想出來。
           </p>
         </section>
+
+        <AlmostThere progress={progress} />
 
         {LEVELS.map((level) => {
           const items = grammar.filter((g) => g.level === level);

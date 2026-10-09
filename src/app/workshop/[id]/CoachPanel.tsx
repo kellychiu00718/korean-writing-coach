@@ -19,7 +19,11 @@ const SCENE_LABEL: Record<Lesson["prompts"][number]["scene"], string> = {
   topik: "TOPIK",
 };
 
-const STEPS = ["指出位置", "給線索", "參考寫法"];
+const STEPS = [
+  { title: "圈出要改的地方", caption: "標出哪個字、哪一類要改" },
+  { title: "給你提示", caption: "選項、初聲或要用的文法" },
+  { title: "對照參考答案", caption: "寫對或改兩次後出現" },
+];
 
 export function CoachPanel({ grammarId, prompts, openRounds }: Props) {
   const [promptIndex, setPromptIndex] = useState(0);
@@ -108,15 +112,19 @@ export function CoachPanel({ grammarId, prompts, openRounds }: Props) {
         {prompts[promptIndex].situation_zh}
       </p>
 
-      <ol className="mb-4 flex gap-2 text-xs" aria-label="提示進度">
+      <ol className="mb-4 grid grid-cols-3 gap-2" aria-label="提示進度">
         {STEPS.map((s, i) => (
           <li
-            key={s}
-            className={`flex flex-1 items-center justify-center gap-1 rounded-full border-2 px-2 py-1 ${
+            key={s.title}
+            aria-current={level === i + 1 ? "step" : undefined}
+            className={`rounded-2xl border-2 px-2 py-1.5 text-center ${
               level > i ? "border-ink bg-peach" : "border-dashed border-line text-ink-soft"
             }`}
           >
-            <b>{i + 1}</b> {s}
+            <span className="block text-xs font-bold sm:text-sm">
+              {"①②③"[i]} {s.title}
+            </span>
+            <span className="block text-[11px] leading-snug text-ink-soft">{s.caption}</span>
           </li>
         ))}
       </ol>
@@ -205,26 +213,87 @@ function AttemptView({ entry }: { entry: RoundEntry }) {
         <Highlighted sentence={entry.sentence} spans={fb.issues.map((i) => i.span)} />
       </p>
       {fb.praise && <p className="mb-2 rounded-2xl bg-sage-soft px-4 py-2 text-sage-ink">✓ {fb.praise}</p>}
-      {fb.issues.map((issue, i) => (
-        <div key={i} className="mb-2 rounded-2xl bg-hint px-4 py-2">
-          <span className="mr-2 rounded-full bg-white px-2 py-0.5 text-xs">{issue.category}</span>
-          💡 {issue.location}
-          {issue.rule && <p className="mt-1 text-sm">線索：{issue.rule}</p>}
-        </div>
-      ))}
+      {fb.issues.map((issue, i) => {
+        // 舊紀錄的線索欄位叫 rule
+        const clue = issue.clue ?? (issue as { rule?: string | null }).rule;
+        return (
+          <div key={i} className="mb-2 rounded-2xl bg-hint px-4 py-2">
+            <span className="mr-2 rounded-full bg-white px-2 py-0.5 text-xs">{issue.category}</span>
+            {issue.location}
+            {clue && <p className="mt-1 text-sm">💡 提示：{clue}</p>}
+            {issue.choices?.length > 0 && (
+              <p lang="ko" className="mt-1.5 flex flex-wrap gap-1.5">
+                {issue.choices.map((c) => (
+                  <span key={c} className="rounded-full border-2 border-ink bg-white px-3 py-0.5">
+                    {c}
+                  </span>
+                ))}
+              </p>
+            )}
+          </div>
+        );
+      })}
       {fb.usesTarget === false && fb.level < 3 && (
-        <p className="mb-2 rounded-2xl bg-hint px-4 py-2">💡 這句還沒用到本題的文法，試著放進去看看？</p>
+        <p className="mb-2 rounded-2xl bg-hint px-4 py-2">這句還沒用到本題的文法，試著放進去看看？</p>
+      )}
+      {fb.otherGrammar?.length > 0 && (
+        <p className="mb-2 rounded-2xl bg-sage-soft px-4 py-2 text-sage-ink">
+          ✨ 你還用對了：
+          {fb.otherGrammar.map((g, i) => (
+            <span key={g.id}>
+              {i > 0 && "、"}
+              <span lang="ko">{g.form}</span>（{g.level} 級）
+            </span>
+          ))}
+        </p>
       )}
       {fb.reference && (
         <div className="mt-2 rounded-2xl border-2 border-sage bg-white px-4 py-3">
-          <p className="text-xs text-ink-soft">{fb.solved ? "寫得很好！也可以這樣說" : "參考寫法"}</p>
-          <p lang="ko" className="text-lg">
-            {fb.reference}
+          <p className="text-xs text-ink-soft">
+            {fb.sameAsReference
+              ? "跟參考寫法一模一樣！完全靠自己寫出來了"
+              : fb.solved
+                ? "寫得很好！這是用本題文法的參考寫法"
+                : "參考寫法"}
           </p>
+          {!fb.sameAsReference && (
+            <p lang="ko" className="text-lg">
+              {fb.reference}
+            </p>
+          )}
           {fb.referenceNote && <p className="text-sm text-ink-soft">{fb.referenceNote}</p>}
+          {fb.alternatives?.length > 0 && <Alternatives items={fb.alternatives} />}
         </div>
       )}
     </article>
+  );
+}
+
+function Alternatives({ items }: { items: { ko: string; note_zh: string }[] }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="mt-2">
+      <button
+        type="button"
+        aria-expanded={open}
+        onClick={() => setOpen((o) => !o)}
+        className="text-sm font-medium text-sage-ink underline underline-offset-4"
+      >
+        {open ? "收起其他寫法" : "想知道其他寫法？"}
+      </button>
+      {open && (
+        <ul className="mt-2 grid gap-2">
+          {items.map((a) => (
+            <li key={a.ko} className="animate-pop rounded-2xl bg-cream px-3 py-2">
+              <span lang="ko" className="block">
+                {a.ko}
+              </span>
+              <span className="text-sm text-ink-soft">{a.note_zh}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 }
 

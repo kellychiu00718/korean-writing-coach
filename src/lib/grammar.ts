@@ -25,6 +25,11 @@ export type ProgressState = "seen" | "know" | "use";
 
 export const STATE_RANK: Record<ProgressState, number> = { seen: 1, know: 2, use: 3 };
 export const STATE_LABEL: Record<ProgressState, string> = { seen: "看過", know: "認得", use: "會用" };
+export const STATE_DEFINITION: Record<ProgressState, string> = {
+  seen: "打開過這個文法，或在例句裡看過",
+  know: "自己寫過，但還沒寫對",
+  use: "靠自己寫對了（照抄參考答案不算）",
+};
 
 export const CATEGORY_LABEL: Record<string, string> = {
   조사: "助詞",

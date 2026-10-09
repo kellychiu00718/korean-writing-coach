@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>慢慢寫 천천히 쓰기</title>
 <meta name="description" content="給想把韓文寫得像自己、而不是像 AI 的你。先自己想，再讓 AI 陪你改。">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cellipse cx='32' cy='36' rx='26' ry='22' fill='%23FFEAD5' stroke='%234A3036' stroke-width='3'/%3E%3Ccircle cx='24' cy='34' r='3' fill='%234A3036'/%3E%3Ccircle cx='40' cy='34' r='3' fill='%234A3036'/%3E%3Cpath d='M44 6 l10 10 -18 18 -12 2 2 -12z' fill='%2389B9AD' stroke='%234A3036' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
@@ -234,13 +234,35 @@
 <nav>
   <div class="wrap">
     <a class="logo" href="#top" aria-label="慢慢寫 首頁">
-      <svg width="36" height="36" viewBox="0 0 64 64" aria-hidden="true">
-        <ellipse cx="32" cy="36" rx="26" ry="22" fill="#FFEAD5" stroke="#4A3036" stroke-width="3"/>
-        <circle cx="24" cy="34" r="3" fill="#4A3036"/><circle cx="40" cy="34" r="3" fill="#4A3036"/>
-        <ellipse cx="18" cy="41" rx="4" ry="2.5" fill="#E78895"/><ellipse cx="46" cy="41" rx="4" ry="2.5" fill="#E78895"/>
-        <path d="M28 41 q4 4 8 0" fill="none" stroke="#4A3036" stroke-width="2.5" stroke-linecap="round"/>
-        <path d="M44 6 l10 10 -18 18 -12 2 2 -12z" fill="#89B9AD" stroke="#4A3036" stroke-width="3" stroke-linejoin="round"/>
-      </svg>
+      <svg width="36" height="36" viewBox="0 0 200 200" aria-hidden="true">
+  <path d="M16 186 q12 -6 24 0 t24 0 t24 0 t24 0" fill="none" stroke="#89B9AD" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 9"/>
+  <g stroke="#4A3036" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M26 136 L8 144 L28 150 Z" fill="#FFEAD5"/>
+    <ellipse cx="50" cy="158" rx="14" ry="12" fill="#FFEAD5"/>
+    <ellipse cx="88" cy="162" rx="14" ry="12" fill="#FFEAD5"/>
+    <ellipse cx="124" cy="160" rx="14" ry="12" fill="#FFEAD5"/>
+    <ellipse cx="152" cy="124" rx="13" ry="16" fill="#FFEAD5"/>
+    <path d="M22 142 Q22 62 92 60 Q162 62 162 142 Z" fill="#89B9AD"/>
+    <g fill="#B5D6CD" stroke-width="3">
+      <path d="M112 102 L102 119.3 L82 119.3 L72 102 L82 84.7 L102 84.7 Z"/>
+      <path d="M68 118 L59 133.6 L41 133.6 L32 118 L41 102.4 L59 102.4 Z"/>
+      <path d="M152 118 L143 133.6 L125 133.6 L116 118 L125 102.4 L143 102.4 Z"/>
+    </g>
+    <rect x="16" y="136" width="152" height="14" rx="7" fill="#74A898"/>
+    <g transform="rotate(58 156 160)">
+      <rect x="122" y="153" width="9" height="13" fill="#FFFFFF"/>
+      <rect x="129" y="153" width="44" height="13" rx="2" fill="#E78895"/>
+      <path d="M173 153 L189 159.5 L173 166 Z" fill="#FFEAD5"/>
+      <path d="M183.5 157.3 L189 159.5 L183.5 161.7 Z" fill="#4A3036" stroke-width="2"/>
+    </g>
+    <ellipse cx="150" cy="150" rx="15" ry="10" transform="rotate(30 150 150)" fill="#FFEAD5"/>
+    <circle cx="170" cy="102" r="26" fill="#FFEAD5"/>
+  </g>
+  <circle cx="178" cy="96" r="4.5" fill="#4A3036"/>
+  <circle cx="179.4" cy="94.6" r="1.5" fill="#FFFFFF"/>
+  <ellipse cx="184" cy="110" rx="6" ry="3.8" fill="#E78895"/>
+  <path d="M168 112 q6 5 12 1" fill="none" stroke="#4A3036" stroke-width="3" stroke-linecap="round"/>
+</svg>
       慢慢寫 <small>暫名</small>
     </a>
     <a class="btn small nav-cta" href="/login">開始練習</a>
@@ -281,19 +303,19 @@
         <h2>錯了也沒關係，<br>先給你線索。</h2>
         <p>一般的 AI 批改會直接把整篇改好，看起來很快，但下次你還是不會。這裡的 AI 只會一層一層給提示，要等你自己改過才看得到參考寫法。</p>
         <ol class="steps" id="steps">
-          <li class="on"><span class="num">1</span><span><strong>指出位置</strong>哪一句、哪一類有問題</span></li>
-          <li><span class="num">2</span><span><strong>給線索</strong>提示規則，讓你自己改</span></li>
-          <li><span class="num">3</span><span><strong>參考寫法</strong>你改完後才解鎖</span></li>
+          <li class="on"><span class="num">1</span><span><strong>圈出要改的地方</strong>標出哪個字、哪一類要改</span></li>
+          <li><span class="num">2</span><span><strong>給你提示</strong>選項、初聲或要用的文法</span></li>
+          <li><span class="num">3</span><span><strong>對照參考答案</strong>寫對或改兩次後才出現</span></li>
         </ol>
       </div>
       <div class="card demo-box" aria-live="polite">
         <div class="label">試試看：你寫的句子</div>
         <p class="sentence" lang="ko" id="demo-sentence">어제 <span class="flag">친구가</span> 만났어요.</p>
         <div id="demo-feedback">
-          <div class="bubble">💡 第 1 層：這句的<b>助詞</b>有一個地方怪怪的，在「친구」附近。</div>
+          <div class="bubble">① 「친구가」的<b>助詞</b>要換一個。</div>
         </div>
         <div class="demo-actions">
-          <button class="btn small" id="demo-next" type="button">我想不到，給我下一個提示</button>
+          <button class="btn small" id="demo-next" type="button">再給我一點提示</button>
           <button class="btn small ghost" id="demo-reset" type="button">重來</button>
         </div>
       </div>
@@ -365,13 +387,35 @@
   <!-- 故事 -->
   <section style="background:#fff">
     <div class="wrap story">
-      <svg width="96" height="96" viewBox="0 0 64 64" aria-hidden="true">
-        <ellipse cx="32" cy="36" rx="26" ry="22" fill="#FFEAD5" stroke="#4A3036" stroke-width="3"/>
-        <circle cx="24" cy="34" r="3" fill="#4A3036"/><circle cx="40" cy="34" r="3" fill="#4A3036"/>
-        <ellipse cx="18" cy="41" rx="4" ry="2.5" fill="#E78895"/><ellipse cx="46" cy="41" rx="4" ry="2.5" fill="#E78895"/>
-        <path d="M28 41 q4 4 8 0" fill="none" stroke="#4A3036" stroke-width="2.5" stroke-linecap="round"/>
-        <path d="M44 6 l10 10 -18 18 -12 2 2 -12z" fill="#89B9AD" stroke="#4A3036" stroke-width="3" stroke-linejoin="round"/>
-      </svg>
+      <svg width="96" height="96" viewBox="0 0 200 200" aria-hidden="true">
+  <path d="M16 186 q12 -6 24 0 t24 0 t24 0 t24 0" fill="none" stroke="#89B9AD" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 9"/>
+  <g stroke="#4A3036" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M26 136 L8 144 L28 150 Z" fill="#FFEAD5"/>
+    <ellipse cx="50" cy="158" rx="14" ry="12" fill="#FFEAD5"/>
+    <ellipse cx="88" cy="162" rx="14" ry="12" fill="#FFEAD5"/>
+    <ellipse cx="124" cy="160" rx="14" ry="12" fill="#FFEAD5"/>
+    <ellipse cx="152" cy="124" rx="13" ry="16" fill="#FFEAD5"/>
+    <path d="M22 142 Q22 62 92 60 Q162 62 162 142 Z" fill="#89B9AD"/>
+    <g fill="#B5D6CD" stroke-width="3">
+      <path d="M112 102 L102 119.3 L82 119.3 L72 102 L82 84.7 L102 84.7 Z"/>
+      <path d="M68 118 L59 133.6 L41 133.6 L32 118 L41 102.4 L59 102.4 Z"/>
+      <path d="M152 118 L143 133.6 L125 133.6 L116 118 L125 102.4 L143 102.4 Z"/>
+    </g>
+    <rect x="16" y="136" width="152" height="14" rx="7" fill="#74A898"/>
+    <g transform="rotate(58 156 160)">
+      <rect x="122" y="153" width="9" height="13" fill="#FFFFFF"/>
+      <rect x="129" y="153" width="44" height="13" rx="2" fill="#E78895"/>
+      <path d="M173 153 L189 159.5 L173 166 Z" fill="#FFEAD5"/>
+      <path d="M183.5 157.3 L189 159.5 L183.5 161.7 Z" fill="#4A3036" stroke-width="2"/>
+    </g>
+    <ellipse cx="150" cy="150" rx="15" ry="10" transform="rotate(30 150 150)" fill="#FFEAD5"/>
+    <circle cx="170" cy="102" r="26" fill="#FFEAD5"/>
+  </g>
+  <circle cx="178" cy="96" r="4.5" fill="#4A3036"/>
+  <circle cx="179.4" cy="94.6" r="1.5" fill="#FFFFFF"/>
+  <ellipse cx="184" cy="110" rx="6" ry="3.8" fill="#E78895"/>
+  <path d="M168 112 q6 5 12 1" fill="none" stroke="#4A3036" stroke-width="3" stroke-linecap="round"/>
+</svg>
       <div>
         <span class="eyebrow">為什麼做這個</span>
         <blockquote>
@@ -443,9 +487,9 @@
   /* ---------- 提示階梯 demo ---------- */
   (function () {
     const hints = [
-      { html: '💡 第 1 層：這句的<b>助詞</b>有一個地方怪怪的，在「친구」附近。' },
-      { html: '💡 第 2 層：「만나다」要見的對象，韓文用<b>受詞助詞</b>，不是主格助詞。中文說「見朋友」，朋友是被見的那一方。' },
-      { html: '✓ 第 3 層：參考寫法 <span lang="ko">어제 <span class="fixed">친구를</span> 만났어요.</span> 這是中文母語者很常見的錯誤，已加入你的偏誤卡。', good: true }
+      { html: '① 「친구가」的<b>助詞</b>要換一個。' },
+      { html: '💡 ② 提示：「만나다」見的對象要用<b>受詞助詞</b>。從這兩個選：<span lang="ko">친구를 / 친구에게</span>' },
+      { html: '✓ ③ 參考答案： <span lang="ko">어제 <span class="fixed">친구를</span> 만났어요.</span> 這是中文母語者很常見的錯誤，已加入你的偏誤卡。', good: true }
     ];
     let level = 0;
     const box = document.getElementById('demo-feedback');

@@ -73,7 +73,7 @@ export async function POST(request: Request) {
   let otherIds: string[];
   try {
     const fb = await reviewSentence({ item, lesson, promptIndex, sentence, attempt, previous });
-    revealed = revealFeedback(fb, attempt);
+    revealed = revealFeedback(fb, attempt, sentence, grammarId);
     otherIds = fb.other_grammar_ids;
   } catch (error) {
     if (error instanceof Anthropic.AuthenticationError) return fail(500, "AI 金鑰還沒設定好。");

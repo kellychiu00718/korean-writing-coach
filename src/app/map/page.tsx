@@ -2,7 +2,8 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { AppHeader } from "@/components/AppHeader";
 import { StateDot } from "@/components/StateDot";
-import { displayForm, getLesson, grammar, STATE_LABEL, type ProgressState } from "@/lib/grammar";
+import { displayForm, getLesson, grammar, STATE_DEFINITION, STATE_LABEL, type ProgressState } from "@/lib/grammar";
+import { AlmostThere } from "@/components/AlmostThere";
 import { getProgress } from "@/lib/progress";
 import { createClient } from "@/lib/supabase/server";
 
@@ -39,15 +40,20 @@ export default async function MapPage() {
             <br />
             這裡不追求快速達標，累了就休息，隨時歡迎回來，慢慢來，沒關係的。
           </p>
-          <div className="mt-4 flex flex-wrap gap-4 text-sm" aria-label="圖例">
+          <dl className="mt-5 grid gap-2 text-sm sm:grid-cols-3" aria-label="圖例">
             {(["seen", "know", "use"] as const).map((s) => (
-              <span key={s} className="inline-flex items-center gap-1.5">
-                <StateDot state={s} />
-                {s === "use" ? "自己寫出來且用對" : STATE_LABEL[s]}
-              </span>
+              <div key={s} className="rounded-2xl border-2 border-line bg-white px-4 py-2.5">
+                <dt className="inline-flex items-center gap-1.5 font-bold">
+                  <StateDot state={s} />
+                  {STATE_LABEL[s]}
+                </dt>
+                <dd className="text-ink-soft">{STATE_DEFINITION[s]}</dd>
+              </div>
             ))}
-          </div>
+          </dl>
         </section>
+
+        <AlmostThere progress={progress} />
 
         {[1, 2, 3, 4, 5, 6].map((level) => {
           const items = grammar.filter((g) => g.level === level);
