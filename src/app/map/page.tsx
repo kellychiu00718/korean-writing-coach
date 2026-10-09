@@ -33,7 +33,11 @@ export default async function MapPage() {
             {useCount > 0 ? `你已經能自己寫出 ${useCount} 項文法` : "你的地圖從第一句開始亮起來"}
           </h1>
           <p className="mt-2 max-w-2xl text-ink-soft">
-            依國立國語院標準教育課程，1–6 級共 {grammar.length} 項。只有在你自己寫的句子裡用對了，格子才會變成「會用」；休息幾天也不會消失。
+            依韓國國立國語院標準教育課程，韓檢 1–6 級總共 {grammar.length} 項文法。
+            <br />
+            只有靠自己將文法寫出來應用在句子裡面，格子才會標示成綠色；
+            <br />
+            這裡不追求快速達標，累了就休息，隨時歡迎回來，慢慢來，沒關係的。
           </p>
           <div className="mt-4 flex flex-wrap gap-4 text-sm" aria-label="圖例">
             {(["seen", "know", "use"] as const).map((s) => (

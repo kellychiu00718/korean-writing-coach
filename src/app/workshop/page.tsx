@@ -24,7 +24,7 @@ export default async function WorkshopPage() {
           <span className="eyebrow mb-3">句子工坊</span>
           <h1 className="text-3xl font-bold sm:text-4xl">今天想練哪一個？</h1>
           <p className="mt-2 max-w-2xl text-ink-soft">
-            挑一個文法，看情境，自己寫一句韓文。AI 教練只會一層一層給線索，答案要你自己想出來。
+            挑一個文法，自己寫一句韓文。AI 教練只會一層一層給線索，答案要靠自己想出來。
           </p>
         </section>
 
@@ -35,7 +35,7 @@ export default async function WorkshopPage() {
           return (
             <section key={level} className="mb-12" aria-labelledby={`level-${level}`}>
               <h2 id={`level-${level}`} className="mb-4 text-xl font-bold">
-                {level} 級 <span className="text-base font-normal text-ink-soft">（{items.length} 項）</span>
+                {level} 級 <span className="text-base font-normal text-ink-soft">（{items.length} 項文法）</span>
               </h2>
               <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 {ready.map((g) => {
@@ -68,7 +68,7 @@ export default async function WorkshopPage() {
               {upcoming.length > 0 && (
                 <details className="mt-4 rounded-3xl border-2 border-dashed border-line bg-white/60 px-5 py-3">
                   <summary className="cursor-pointer text-sm text-ink-soft">
-                    還在準備中的 {upcoming.length} 項
+                    還在準備中的其餘 {upcoming.length} 項文法
                   </summary>
                   <p lang="ko" className="mt-2 text-sm leading-8 text-ink-soft">
                     {upcoming.map((g) => displayForm(g.form)).join("・")}
