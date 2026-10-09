@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+/* 主色：第 4 組 Rose / Peach / Sage。文字一律用 ink，粉色只當底色與裝飾。 */
+@theme {
+  --color-rose: #e78895;
+  --color-rose-soft: #f6c9cf;
+  --color-peach: #ffead5;
+  --color-sage: #89b9ad;
+  --color-sage-soft: #d3e8e2;
+  --color-sage-ink: #2f5f55;
+  --color-cream: #fff8f1;
+  --color-ink: #4a3036;
+  --color-ink-soft: #6e5157;
+  --color-line: #f0d9c6;
+  --color-hint: #fff3c9;
+  --color-hint-line: #c9a227;
+
+  --font-sans: "Noto Sans TC", system-ui, sans-serif;
+  --font-ko: "Gowun Dodum", "Noto Sans TC", sans-serif;
+  --font-display: "Jua", "Noto Sans TC", sans-serif;
+
+  --radius-card: 28px;
+  --animate-pop: pop 0.3s ease;
+
+  @keyframes pop {
+    from {
+      opacity: 0;
+      transform: translateY(6px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+[lang="ko"] {
+  font-family: var(--font-ko);
+  word-break: keep-all;
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border-2 border-ink bg-rose px-6 py-3 font-bold text-ink transition-transform duration-100;
+    box-shadow: 0 4px 0 var(--color-ink);
+  }
+  .btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 var(--color-ink);
+  }
+  .btn:active:not(:disabled) {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 var(--color-ink);
+  }
+  .btn:disabled {
+    @apply cursor-not-allowed opacity-60;
+  }
+  .btn-ghost {
+    @apply bg-white;
+  }
+  .btn-sm {
+    @apply px-4 py-2 text-sm;
+  }
+  .card {
+    @apply rounded-[28px] border-2 border-ink bg-white p-6;
+    box-shadow:
+      0 6px 0 rgb(74 48 54 / 0.08),
+      0 12px 32px rgb(74 48 54 / 0.08);
+  }
+  .eyebrow {
+    @apply inline-block rounded-full bg-sage-soft px-3.5 py-1 text-sm font-medium text-sage-ink;
+  }
+  .field {
+    @apply w-full rounded-2xl border-2 border-ink bg-cream px-4 py-3 text-base text-ink;
+  }
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-sage-ink);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
