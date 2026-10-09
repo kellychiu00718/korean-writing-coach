@@ -1,4 +1,4 @@
-/** 慢慢寫的吉祥物：拿著鉛筆、慢慢散步的綠蠵龜。原始檔在 design/turtle.svg。 */
+/** 慢慢寫的吉祥物：拿著鉛筆、慢慢散步的綠蠵龜。原始檔在 design/turtle.svg，改完執行 scripts/sync-mascot.py。 */
 export function Mascot({ size = 36 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 200 200" aria-hidden="true">
@@ -27,8 +27,8 @@ export function Mascot({ size = 36 }: { size?: number }) {
       </g>
       <circle cx="178" cy="96" r="4.5" fill="#4A3036"/>
       <circle cx="179.4" cy="94.6" r="1.5" fill="#FFFFFF"/>
-      <ellipse cx="184" cy="110" rx="6" ry="3.8" fill="#E78895"/>
-      <path d="M168 112 q6 5 12 1" fill="none" stroke="#4A3036" strokeWidth="3" strokeLinecap="round"/>
+      <ellipse cx="161" cy="109" rx="6.5" ry="4" fill="#E78895"/>
+      <path d="M173 111 q5 4.5 10 1" fill="none" stroke="#4A3036" strokeWidth="3" strokeLinecap="round"/>
     </svg>
   );
 }

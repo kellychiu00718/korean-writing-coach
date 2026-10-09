@@ -65,7 +65,10 @@
   /* ---------- nav ---------- */
   nav { padding: 18px 0; }
   nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-  .logo { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-size: 22px; text-decoration: none; }
+  .logo { display: inline-flex; align-items: flex-end; gap: 6px; font-family: var(--font-display); font-size: 22px; line-height: 1; text-decoration: none; }
+  /* 文字底部對齊烏龜的腳：36px 圖下方留白 4.68px，減去 22px 字形底部到行框約 2.57px */
+  .logo-text { padding-bottom: 2.1px; }
+  .logo small { align-self: center; margin-left: 4px; }
   .logo small { font-family: var(--font-zh); font-size: 12px; color: var(--ink-soft); background: var(--peach); padding: 2px 8px; border-radius: var(--radius-pill); }
 
   /* ---------- buttons ---------- */
@@ -260,10 +263,10 @@
   </g>
   <circle cx="178" cy="96" r="4.5" fill="#4A3036"/>
   <circle cx="179.4" cy="94.6" r="1.5" fill="#FFFFFF"/>
-  <ellipse cx="184" cy="110" rx="6" ry="3.8" fill="#E78895"/>
-  <path d="M168 112 q6 5 12 1" fill="none" stroke="#4A3036" stroke-width="3" stroke-linecap="round"/>
+  <ellipse cx="161" cy="109" rx="6.5" ry="4" fill="#E78895"/>
+  <path d="M173 111 q5 4.5 10 1" fill="none" stroke="#4A3036" stroke-width="3" stroke-linecap="round"/>
 </svg>
-      慢慢寫 <small>暫名</small>
+      <span class="logo-text">慢慢寫</span><small>暫名</small>
     </a>
     <a class="btn small nav-cta" href="/login">開始練習</a>
   </div>
@@ -413,8 +416,8 @@
   </g>
   <circle cx="178" cy="96" r="4.5" fill="#4A3036"/>
   <circle cx="179.4" cy="94.6" r="1.5" fill="#FFFFFF"/>
-  <ellipse cx="184" cy="110" rx="6" ry="3.8" fill="#E78895"/>
-  <path d="M168 112 q6 5 12 1" fill="none" stroke="#4A3036" stroke-width="3" stroke-linecap="round"/>
+  <ellipse cx="161" cy="109" rx="6.5" ry="4" fill="#E78895"/>
+  <path d="M173 111 q5 4.5 10 1" fill="none" stroke="#4A3036" stroke-width="3" stroke-linecap="round"/>
 </svg>
       <div>
         <span class="eyebrow">為什麼做這個</span>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mascot } from "@/components/Mascot";
+import { Logo } from "@/components/Logo";
 
 const NAV = [
   { href: "/workshop", label: "句子工坊" },
@@ -10,10 +10,7 @@ const NAV = [
 export function AppHeader({ current }: { current?: string }) {
   return (
     <header className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-5">
-      <Link href="/workshop" className="flex items-center gap-2 font-display text-xl no-underline">
-        <Mascot />
-        慢慢寫
-      </Link>
+      <Logo href="/workshop" />
       <nav className="flex items-center gap-1 sm:gap-2" aria-label="主要選單">
         {NAV.map((n) => (
           <Link

@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { Mascot } from "@/components/Mascot";
+import { Logo } from "@/components/Logo";
 import { supabaseConfigured } from "@/lib/supabase/server";
 import { LoginForm } from "./LoginForm";
 
@@ -12,10 +11,9 @@ export default async function LoginPage({
 
   return (
     <main className="mx-auto flex min-h-dvh max-w-md flex-col justify-center px-4 py-10">
-      <Link href="/landing.html" className="mb-6 flex items-center gap-2 font-display text-xl">
-        <Mascot size={40} />
-        慢慢寫
-      </Link>
+      <div className="mb-6">
+        <Logo href="/landing.html" size={48} />
+      </div>
       <div className="card">
         <h1 className="mb-1 text-2xl font-bold">登入開始練習</h1>
         <p className="mb-5 text-ink-soft">輸入 email，我們會寄一個登入連結給你，不用設定密碼。</p>
