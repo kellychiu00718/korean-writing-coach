@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 import type { RevealedFeedback } from "@/lib/coach";
 import { displayForm, getGrammar, STATE_LABEL, type Lesson, type ProgressState } from "@/lib/grammar";
 
@@ -90,15 +90,14 @@ export function CoachPanel({ grammarId, prompts, openRounds, initialPrompt = 0 }
         <h2 id="coach-title" className="text-xl font-bold">
           自己寫寫看
         </h2>
-        <div role="tablist" aria-label="選擇情境" className="flex gap-1.5">
+        <div role="group" aria-label="選擇情境" className="flex gap-1.5">
           {prompts.map((p, i) => (
             <button
               key={i}
-              role="tab"
               type="button"
-              aria-selected={i === promptIndex}
+              aria-pressed={i === promptIndex}
               onClick={() => switchPrompt(i)}
-              className={`rounded-full border-2 px-3 py-1 text-sm ${
+              className={`min-h-11 rounded-full border-2 px-4 text-sm ${
                 i === promptIndex ? "border-ink bg-rose-soft font-medium" : "border-line bg-white"
               }`}
             >
@@ -165,7 +164,7 @@ export function CoachPanel({ grammarId, prompts, openRounds, initialPrompt = 0 }
           )}
         </div>
       ) : (
-        <form onSubmit={submit} className="mt-5 grid gap-3">
+        <form onSubmit={submit} aria-busy={pending} className="mt-5 grid gap-3">
           <label htmlFor="sentence" className="font-medium">
             {round.length ? "改改看，再送一次" : "你的句子"}
           </label>
@@ -180,7 +179,7 @@ export function CoachPanel({ grammarId, prompts, openRounds, initialPrompt = 0 }
             className="field resize-y text-lg"
           />
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <span className="text-xs text-ink-soft">
+            <span className="text-xs tabular-nums text-ink-soft">
               {draft.length} / 300 字
               {remaining !== null && `・今天還能問 ${remaining} 次`}
             </span>
@@ -208,12 +207,12 @@ function openDraft(round: RoundEntry[] | undefined) {
 function AttemptView({ entry }: { entry: RoundEntry }) {
   const { feedback: fb } = entry;
   return (
-    <article className="animate-pop rounded-3xl border-2 border-line p-4">
+    <article className="animate-pop rounded-[32px] border-2 border-line p-4">
       <p className="mb-1 text-xs text-ink-soft">第 {entry.attempt} 次</p>
       <p lang="ko" className="mb-3 text-xl">
         <Highlighted sentence={entry.sentence} spans={fb.issues.map((i) => i.span)} />
       </p>
-      {fb.praise && <p className="mb-2 rounded-2xl bg-sage-soft px-4 py-2 text-sage-ink">✓ {fb.praise}</p>}
+      {fb.praise && <p className="mb-2 rounded-2xl bg-sage-soft px-4 py-2 text-sage-ink"><span aria-hidden="true">✓ </span>{fb.praise}</p>}
       {fb.issues.map((issue, i) => {
         // 舊紀錄的線索欄位叫 rule
         const clue = issue.clue ?? (issue as { rule?: string | null }).rule;
@@ -221,7 +220,7 @@ function AttemptView({ entry }: { entry: RoundEntry }) {
           <div key={i} className="mb-2 rounded-2xl bg-hint px-4 py-2">
             <span className="mr-2 rounded-full bg-white px-2 py-0.5 text-xs">{issue.category}</span>
             {issue.location}
-            {clue && <p className="mt-1 text-sm">💡 提示：{clue}</p>}
+            {clue && <p className="mt-1 text-sm"><span aria-hidden="true">💡 </span>提示：{clue}</p>}
             {issue.choices?.length > 0 && (
               <p lang="ko" className="mt-1.5 flex flex-wrap gap-1.5">
                 {issue.choices.map((c) => (
@@ -239,7 +238,7 @@ function AttemptView({ entry }: { entry: RoundEntry }) {
       )}
       {fb.otherGrammar?.length > 0 && (
         <p className="mb-2 rounded-2xl bg-sage-soft px-4 py-2 text-sage-ink">
-          ✨ 你還用對了：
+          <span aria-hidden="true">✨ </span>你還用對了：
           {fb.otherGrammar.map((g, i) => (
             <span key={g.id}>
               {i > 0 && "、"}
@@ -272,18 +271,20 @@ function AttemptView({ entry }: { entry: RoundEntry }) {
 
 function Alternatives({ items }: { items: { ko: string; note_zh: string }[] }) {
   const [open, setOpen] = useState(false);
+  const listId = useId();
   return (
     <div className="mt-2">
       <button
         type="button"
         aria-expanded={open}
+        aria-controls={listId}
         onClick={() => setOpen((o) => !o)}
-        className="text-sm font-medium text-sage-ink underline underline-offset-4"
+        className="inline-flex min-h-11 items-center text-sm font-medium text-sage-ink underline underline-offset-4"
       >
         {open ? "收起其他寫法" : "想知道其他寫法？"}
       </button>
       {open && (
-        <ul className="mt-2 grid gap-2">
+        <ul id={listId} className="mt-2 grid gap-2">
           {items.map((a) => (
             <li key={a.ko} className="animate-pop rounded-2xl bg-cream px-3 py-2">
               <span lang="ko" className="block">

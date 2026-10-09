@@ -80,12 +80,13 @@ export default async function MapPage() {
                   return (
                     <li key={g.id}>
                       {getLesson(g.id) ? (
-                        <Link href={`/workshop/${g.id}`} aria-label={label} className={`${cls} hover:-translate-y-0.5`}>
+                        <Link href={`/workshop/${g.id}`} aria-label={label} className={`${cls} transition-transform hover:-translate-y-0.5`}>
                           {displayForm(g.form)}
                         </Link>
                       ) : (
-                        <span aria-label={label} className={cls}>
+                        <span className={cls}>
                           {displayForm(g.form)}
+                          <span className="sr-only">：{state ? STATE_LABEL[state] : "還沒遇到"}</span>
                         </span>
                       )}
                     </li>

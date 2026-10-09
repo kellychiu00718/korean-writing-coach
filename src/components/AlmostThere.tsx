@@ -16,7 +16,7 @@ export function AlmostThere({ progress }: { progress: Map<string, ProgressState>
           <li key={g.id}>
             <Link
               href={`/workshop/${g.id}`}
-              className="inline-block rounded-full border-2 border-ink bg-white px-3.5 py-1.5 hover:-translate-y-0.5"
+              className="inline-block rounded-full border-2 border-ink bg-white px-3.5 py-1.5 transition-transform hover:-translate-y-0.5"
             >
               {displayForm(g.form)}
             </Link>

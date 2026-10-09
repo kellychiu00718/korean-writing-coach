@@ -83,11 +83,11 @@ export default async function LessonPage({ params }: { params: Promise<{ id: str
                         if (!g) return null;
                         const label = `${displayForm(g.form)}（${g.level} 級）`;
                         return getLesson(gid) ? (
-                          <Link key={gid} href={`/workshop/${gid}`} lang="ko" className="rounded-full border-2 border-ink bg-white px-2 py-0.5 hover:bg-peach">
+                          <Link key={gid} href={`/workshop/${gid}`} lang="ko" className="inline-flex min-h-9 items-center rounded-full border-2 border-ink bg-white px-3 hover:bg-peach">
                             {label}
                           </Link>
                         ) : (
-                          <span key={gid} lang="ko" className="rounded-full border-2 border-dashed border-line bg-white px-2 py-0.5" title="這個文法的練習還在準備中">
+                          <span key={gid} lang="ko" className="inline-flex min-h-9 items-center rounded-full border-2 border-dashed border-line bg-white px-3" title="這個文法的練習還在準備中">
                             {label}
                           </span>
                         );

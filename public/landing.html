@@ -53,7 +53,8 @@
   h1, h2, h3 { line-height: 1.35; margin: 0 0 .5em; }
   h2 { font-size: clamp(26px, 4vw, 34px); }
   h3 { font-size: 20px; }
-  p { margin: 0 0 1em; }
+  p { margin: 0 0 1em; text-wrap: pretty; }
+  h1, h2, h3 { text-wrap: balance; }
   .eyebrow {
     display: inline-block;
     font-size: 14px; font-weight: 500;
@@ -291,7 +292,7 @@
         <div class="card" aria-label="範例：自己寫出的句子與提示">
           <div class="label">今天的文法：-(으)ㄹ 줄 알다</div>
           <p class="sentence" lang="ko">저는 김치찌개를 <span class="fixed">만들 줄 알아요</span>.</p>
-          <div class="bubble good" style="animation:none">✓ 這句用對了！「-(으)ㄹ 줄 알다」已經放進你的文法地圖。</div>
+          <div class="bubble good" style="animation:none"><span aria-hidden="true">✓ </span>這句用對了！「-(으)ㄹ 줄 알다」已經放進你的文法地圖。</div>
           <div class="label">你的文法地圖：3 級 <b>12 / 67</b> 項會用了</div>
         </div>
       </div>
@@ -491,8 +492,8 @@
   (function () {
     const hints = [
       { html: '① 「친구가」的<b>助詞</b>要換一個。' },
-      { html: '💡 ② 提示：「만나다」見的對象要用<b>受詞助詞</b>。從這兩個選：<span lang="ko">친구를 / 친구에게</span>' },
-      { html: '✓ ③ 參考答案： <span lang="ko">어제 <span class="fixed">친구를</span> 만났어요.</span> 這是中文母語者很常見的錯誤，已加入你的偏誤卡。', good: true }
+      { html: '<span aria-hidden="true">💡 </span>② 提示：「만나다」見的對象要用<b>受詞助詞</b>。從這兩個選：<span lang="ko">친구를 / 친구에게</span>' },
+      { html: '<span aria-hidden="true">✓ </span>③ 參考答案： <span lang="ko">어제 <span class="fixed">친구를</span> 만났어요.</span> 這是中文母語者很常見的錯誤，已加入你的偏誤卡。', good: true }
     ];
     let level = 0;
     const box = document.getElementById('demo-feedback');

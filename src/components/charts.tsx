@@ -57,7 +57,7 @@ export function GrowthChart({ points }: { points: { date: string; total: number 
         <line x1={x(active)} x2={x(active)} y1={pad.t} y2={H - pad.b} stroke="#4A3036" strokeOpacity="0.2" />
         <circle cx={x(active)} cy={y(series[active].total)} r="5" fill={CHART_GREEN} stroke="#fff" strokeWidth="2" />
       </svg>
-      <figcaption className="mt-1 text-sm text-ink-soft" aria-live="polite">
+      <figcaption className="mt-1 text-sm tabular-nums text-ink-soft" aria-live="polite">
         {series[active].date}：會用 <b className="text-ink">{series[active].total}</b> 項文法
       </figcaption>
     </figure>

@@ -46,6 +46,16 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
 [lang="ko"] {
   font-family: var(--font-ko);
   word-break: keep-all;
