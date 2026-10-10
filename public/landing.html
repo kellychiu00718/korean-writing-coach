@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>慢慢寫 천천히 쓰기</title>
-<meta name="description" content="給想把韓文寫得像自己、而不是像 AI 的你。先自己想，再讓 AI 陪你改。">
+<meta name="description" content="專屬繁體中文使用者的韓文寫作練習網站。先自己想，再讓 AI 教練陪你改。">
 <link rel="icon" href="/icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,6 +27,8 @@
     --radius-md: 18px;
     --radius-pill: 999px;
     --shadow: 0 6px 0 rgba(74, 48, 54, .08), 0 12px 32px rgba(74, 48, 54, .08);
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
     --font-zh: "Noto Sans TC", system-ui, sans-serif;
     --font-ko: "Gowun Dodum", "Noto Sans TC", sans-serif;
     --font-display: "Jua", "Noto Sans TC", sans-serif;
@@ -50,18 +52,81 @@
 
   .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
   section { padding: 80px 0; }
-  h1, h2, h3 { line-height: 1.35; margin: 0 0 .5em; }
+  h1, h2, h3 { line-height: 1.35; margin: 0 0 .5em; text-wrap: balance; }
   h2 { font-size: clamp(26px, 4vw, 34px); }
   h3 { font-size: 20px; }
   p { margin: 0 0 1em; text-wrap: pretty; }
-  h1, h2, h3 { text-wrap: balance; }
   .eyebrow {
     display: inline-block;
-    font-size: 14px; font-weight: 500;
+    font-size: 14px; font-weight: 500; line-height: 1.6;
     background: var(--sage-soft); color: var(--sage-ink);
     padding: 4px 14px; border-radius: var(--radius-pill);
     margin-bottom: 16px;
   }
+  .center { text-align: center; }
+
+  /* ---------- 開場動畫 ---------- */
+  .intro {
+    position: fixed; inset: 0; z-index: 50;
+    background: var(--cream);
+    display: grid; place-items: center; overflow: hidden;
+    transition: opacity .35s var(--ease-out), transform .35s var(--ease-out);
+  }
+  .intro.is-out { opacity: 0; transform: translateY(-12px); pointer-events: none; }
+  .intro-stage { position: relative; width: min(760px, 92vw); height: min(520px, 80vh); }
+  .intro-line {
+    position: absolute; left: 0; right: 0; top: 50%; margin: 0;
+    transform: translateY(-50%);
+    text-align: center; font-weight: 700; line-height: 1.35;
+    font-size: clamp(28px, 6vw, 56px);
+    opacity: 0;
+  }
+  .intro-line .q { color: var(--ink-soft); }
+  .intro-1 { animation: intro-in-out 1.5s var(--ease-out) .2s both; }
+  .intro-2 { animation: intro-in-out 1.5s var(--ease-out) 1.7s both; }
+  .intro-final { top: 58%; opacity: 1; }
+  .intro-final span { display: block; opacity: 0; animation: intro-in 0.6s var(--ease-out) both; }
+  .intro-final span:nth-child(1) { animation-delay: 3.75s; }
+  .intro-final span:nth-child(2) { animation-delay: 3.9s; font-size: .62em; color: var(--ink-soft); font-weight: 500; }
+  .intro-turtle {
+    position: absolute; left: 50%; top: 18%; width: 132px; margin-left: -66px;
+    opacity: 0;
+    animation: intro-walk 1.1s var(--ease-in-out) 3.1s both;
+  }
+  .intro-turtle svg { animation: intro-bob .28s ease-in-out 3.1s 4 alternate both; }
+  .shape {
+    position: absolute; font-family: var(--font-display); font-weight: 400;
+    font-size: clamp(30px, 5vw, 48px); line-height: 1; opacity: 0;
+  }
+  .shape.math { animation: intro-shape 1.6s var(--ease-out) both; }
+  .shape.jamo { animation: intro-shape 1.6s var(--ease-out) both; font-family: var(--font-ko); }
+  .skip {
+    position: absolute; top: 16px; right: 16px;
+    font: 500 14px/1 var(--font-zh); color: var(--ink-soft);
+    background: #fff; border: 2px solid var(--line); border-radius: var(--radius-pill);
+    min-height: 44px; padding: 0 18px; cursor: pointer;
+  }
+  .skip:hover { border-color: var(--ink); color: var(--ink); }
+  @keyframes intro-in-out {
+    0% { opacity: 0; transform: translateY(calc(-50% + 14px)); filter: blur(6px); }
+    20%, 80% { opacity: 1; transform: translateY(-50%); filter: blur(0); }
+    100% { opacity: 0; transform: translateY(calc(-50% - 10px)); filter: blur(6px); }
+  }
+  @keyframes intro-in {
+    from { opacity: 0; transform: translateY(10px) scale(.96); filter: blur(4px); }
+    to { opacity: 1; transform: none; filter: blur(0); }
+  }
+  @keyframes intro-shape {
+    0% { opacity: 0; transform: translateY(16px) rotate(-12deg) scale(.9); filter: blur(4px); }
+    25%, 75% { opacity: 1; transform: none; filter: blur(0); }
+    100% { opacity: 0; transform: translateY(-12px) rotate(10deg) scale(.95); filter: blur(4px); }
+  }
+  @keyframes intro-walk {
+    from { opacity: 0; transform: translateX(-46vw); }
+    15% { opacity: 1; }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes intro-bob { from { transform: translateY(0) rotate(-2deg); } to { transform: translateY(-4px) rotate(2deg); } }
 
   /* ---------- nav ---------- */
   nav { padding: 18px 0; }
@@ -69,7 +134,6 @@
   .logo { display: inline-flex; align-items: flex-end; gap: 6px; font-family: var(--font-display); font-size: 22px; line-height: 1; text-decoration: none; }
   /* 文字底部對齊烏龜的腳：36px 圖下方留白 4.68px，減去 22px 字形底部到行框約 2.57px */
   .logo-text { padding-bottom: 2.1px; }
-  .logo small { font-family: var(--font-zh); font-size: 12px; color: var(--ink-soft); background: var(--peach); padding: 2px 8px; border-radius: var(--radius-pill); }
 
   /* ---------- buttons ---------- */
   .btn {
@@ -79,7 +143,7 @@
     background: var(--rose);
     border: 2px solid var(--ink);
     border-radius: var(--radius-pill);
-    padding: 14px 26px;
+    padding: 14px 26px; min-height: 44px;
     box-shadow: 0 4px 0 var(--ink);
     cursor: pointer;
     text-decoration: none;
@@ -89,7 +153,8 @@
   .btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--ink); }
   .btn.ghost { background: #fff; }
   .btn.small { padding: 10px 18px; font-size: 14px; }
-  .btn:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  .btn[hidden] { display: none; }
+  .btn:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
     outline: 3px solid var(--sage-ink); outline-offset: 3px;
   }
 
@@ -100,7 +165,6 @@
   .hero h1 mark { background: linear-gradient(transparent 58%, var(--rose-soft) 58%); color: inherit; padding: 0 4px; }
   .hero .lead { font-size: 19px; color: var(--ink-soft); max-width: 32em; }
   .hero .cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
-  .hero-art { position: relative; }
 
   /* 範例卡片 */
   .card {
@@ -111,6 +175,28 @@
   .sentence .flag { background: var(--hint); border-bottom: 3px dotted #C9A227; padding: 0 2px; border-radius: 4px; }
   .sentence .fixed { background: var(--sage-soft); color: var(--sage-ink); padding: 0 2px; border-radius: 4px; }
   .label { font-size: 13px; color: var(--ink-soft); }
+
+  /* ---------- 故事 ---------- */
+  .story { display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start; }
+  .story blockquote { margin: 0; font-size: 18px; }
+  .story .sig { color: var(--ink-soft); font-size: 15px; margin-top: 12px; }
+
+  /* ---------- 對象 ---------- */
+  .who { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 28px; }
+  .who div { background: #fff; border: 2px solid var(--ink); border-radius: var(--radius-md); padding: 18px; }
+  .who b { display: block; margin-bottom: 4px; }
+  .who p { font-size: 14.5px; color: var(--ink-soft); margin: 0; }
+
+  /* ---------- 功能 ---------- */
+  .features { background: var(--peach); border-radius: 48px; margin: 0 12px; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 36px; }
+  .feature { background: #fff; border: 2px solid var(--ink); border-radius: var(--radius-lg); padding: 26px; }
+  .feature .icon {
+    width: 56px; height: 56px; border-radius: 18px; display: grid; place-items: center;
+    font-size: 28px; margin-bottom: 14px; border: 2px solid var(--ink);
+  }
+  .feature p { color: var(--ink-soft); font-size: 15.5px; margin: 0; }
+  .tag { display: inline-block; font-size: 12px; padding: 2px 10px; border-radius: var(--radius-pill); background: var(--cream); border: 1px solid var(--line); margin-bottom: 8px; }
 
   /* ---------- 提示階梯 demo ---------- */
   .ladder { display: grid; grid-template-columns: .9fr 1.1fr; gap: 40px; align-items: start; }
@@ -129,25 +215,22 @@
   }
   .steps li.on .num { background: var(--rose); }
   .steps strong { display: block; }
-  .demo-box { min-height: 300px; }
+  .demo-box { min-height: 320px; }
+  .demo-zh { font-size: 18px; margin: 2px 0 16px; }
+  .written { position: relative; border: 2px dashed var(--line); border-radius: var(--radius-md); padding: 22px 16px 4px; }
+  .written .you {
+    position: absolute; top: -12px; right: 14px;
+    font-size: 12px; line-height: 1; background: var(--peach); color: var(--ink);
+    padding: 5px 10px; border-radius: var(--radius-pill);
+  }
+  .written .sentence { margin: 0 0 14px; }
   .bubble {
     background: var(--hint); border-radius: var(--radius-md); padding: 14px 16px; margin: 12px 0;
-    animation: pop .3s ease;
+    animation: pop .3s var(--ease-out);
   }
   .bubble.good { background: var(--sage-soft); color: var(--sage-ink); }
   .demo-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
   @keyframes pop { from { opacity: 0; transform: translateY(6px) scale(.98); } to { opacity: 1; transform: none; } }
-
-  /* ---------- 功能 ---------- */
-  .features { background: var(--peach); border-radius: 48px; margin: 0 12px; }
-  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 36px; }
-  .feature { background: #fff; border: 2px solid var(--ink); border-radius: var(--radius-lg); padding: 26px; }
-  .feature .icon {
-    width: 56px; height: 56px; border-radius: 18px; display: grid; place-items: center;
-    font-size: 28px; margin-bottom: 14px; border: 2px solid var(--ink);
-  }
-  .feature p { color: var(--ink-soft); font-size: 15.5px; margin: 0; }
-  .tag { display: inline-block; font-size: 12px; padding: 2px 10px; border-radius: var(--radius-pill); background: var(--cream); border: 1px solid var(--line); margin-bottom: 8px; }
 
   /* ---------- 文法地圖 ---------- */
   .map-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; align-items: end; }
@@ -160,50 +243,54 @@
   .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
   .chip {
     font-family: var(--font-ko); font-size: 16px;
-    padding: 8px 16px; border-radius: var(--radius-pill);
+    min-height: 44px; padding: 8px 16px; border-radius: var(--radius-pill);
     border: 2px solid var(--ink); background: #fff; color: var(--ink);
     cursor: pointer; transition: background .2s ease, transform .15s ease;
   }
-  .chip:hover { transform: translateY(-2px); }
+  @media (hover: hover) and (pointer: fine) { .chip:hover { transform: translateY(-2px); } }
   .chip[data-state="seen"] { border-style: dashed; }
   .chip[data-state="know"] { background: var(--peach); }
   .chip[data-state="use"] { background: var(--sage); }
   .map-note { margin-top: 18px; font-size: 15px; color: var(--ink-soft); }
   .map-summary { font-size: 15px; background: #fff; border: 2px solid var(--line); border-radius: var(--radius-md); padding: 12px 16px; margin-top: 16px; }
 
-  /* ---------- 不會有的東西 ---------- */
+  /* ---------- 輕鬆無負擔 ---------- */
   .nope { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 28px; }
   .nope div { background: #fff; border-radius: var(--radius-md); padding: 18px 20px; border: 2px solid var(--line); }
   .nope s { color: var(--ink-soft); }
 
-  /* ---------- 故事 ---------- */
-  .story { display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start; }
-  .story blockquote { margin: 0; font-size: 18px; }
-  .story .sig { color: var(--ink-soft); font-size: 15px; margin-top: 12px; }
-
-  /* ---------- 對象 ---------- */
-  .who { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 28px; }
-  .who div { background: #fff; border: 2px solid var(--ink); border-radius: var(--radius-md); padding: 18px; }
-  .who b { display: block; margin-bottom: 4px; }
-  .who p { font-size: 14.5px; color: var(--ink-soft); margin: 0; }
-
-  /* ---------- 等待名單 ---------- */
-  .join .card { max-width: 640px; margin: 28px auto 0; padding: 32px; }
-  form { display: grid; gap: 18px; }
-  label { font-weight: 500; display: grid; gap: 6px; }
-  input, select, textarea {
-    font: 16px var(--font-zh); color: var(--ink);
+  /* ---------- 搶先試用 ---------- */
+  .join { background: var(--peach); }
+  .join .card { max-width: 640px; margin: 28px auto 0; padding: 32px; text-align: left; }
+  form { display: grid; gap: 26px; }
+  .field { display: grid; gap: 8px; }
+  .field > label, .field legend { font-weight: 500; line-height: 1.4; padding: 0; }
+  fieldset.field { border: 0; margin: 0; padding: 0; min-width: 0; }
+  fieldset.field legend { margin-bottom: 8px; }
+  input, textarea {
+    font: 16px/1.5 var(--font-zh); color: var(--ink); width: 100%;
     border: 2px solid var(--ink); border-radius: 14px; padding: 12px 14px; background: var(--cream);
   }
   textarea { min-height: 96px; resize: vertical; }
+  .choices { display: flex; flex-wrap: wrap; gap: 8px; }
+  .choice { position: relative; }
+  .choice input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+  .choice span {
+    display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px;
+    border: 2px solid var(--line); border-radius: var(--radius-pill); background: #fff;
+    transition: background .15s ease, border-color .15s ease;
+  }
+  .choice input:checked + span { background: var(--sage-soft); border-color: var(--ink); font-weight: 500; }
+  .choice input:focus-visible + span { outline: 3px solid var(--sage-ink); outline-offset: 3px; }
+  .other-purpose[hidden] { display: none; }
   .form-msg { border-radius: var(--radius-md); padding: 12px 16px; display: none; }
-  .form-msg.show { display: block; animation: pop .3s ease; }
+  .form-msg.show { display: block; animation: pop .3s var(--ease-out); }
   .form-msg.ok { background: var(--sage-soft); color: var(--sage-ink); }
   .form-msg.warn { background: var(--hint); }
   .privacy { font-size: 13px; color: var(--ink-soft); margin: 0; }
 
   footer { padding: 40px 0 60px; font-size: 13px; color: var(--ink-soft); }
-  footer .wrap { display: grid; gap: 6px; }
+  footer .wrap { display: grid; gap: 6px; text-align: center; }
 
   /* ---------- RWD ---------- */
   @media (max-width: 900px) {
@@ -224,10 +311,65 @@
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
     html { scroll-behavior: auto; }
+    /* 開場只留最後一句，不做位移 */
+    .intro-1, .intro-2, .shape { display: none; }
+    .intro-turtle, .intro-final span { opacity: 1; }
   }
 </style>
 </head>
 <body>
+
+<!-- 開場動畫：每次開啟分頁只播一次，可略過 -->
+<div class="intro" id="intro" role="dialog" aria-label="開場動畫">
+  <button class="skip" id="intro-skip" type="button">略過</button>
+  <div class="intro-stage">
+    <span class="shape math" aria-hidden="true" style="left:6%;top:14%;color:var(--rose);animation-delay:.25s">+</span>
+    <span class="shape math" aria-hidden="true" style="left:84%;top:10%;color:var(--sage);animation-delay:.35s">×</span>
+    <span class="shape math" aria-hidden="true" style="left:12%;top:74%;color:var(--sage);animation-delay:.45s">÷</span>
+    <span class="shape math" aria-hidden="true" style="left:80%;top:72%;color:var(--rose);animation-delay:.3s">=</span>
+    <span class="shape math" aria-hidden="true" style="left:46%;top:6%;color:#D9A86C;animation-delay:.4s">−</span>
+    <span class="shape jamo" aria-hidden="true" style="left:6%;top:14%;color:var(--sage);animation-delay:1.75s">ㄱ</span>
+    <span class="shape jamo" aria-hidden="true" style="left:84%;top:10%;color:var(--rose);animation-delay:1.85s">ㅎ</span>
+    <span class="shape jamo" aria-hidden="true" style="left:12%;top:74%;color:var(--rose);animation-delay:1.95s">ㅏ</span>
+    <span class="shape jamo" aria-hidden="true" style="left:80%;top:72%;color:var(--sage);animation-delay:1.8s">ㄴ</span>
+    <span class="shape jamo" aria-hidden="true" style="left:46%;top:6%;color:#D9A86C;animation-delay:1.9s">ㅗ</span>
+
+    <p class="intro-line intro-1">「數學不會就是不會！」</p>
+    <p class="intro-line intro-2"><span class="q">但</span>韓文寫作不會呢？</p>
+    <div class="intro-turtle" aria-hidden="true">
+      <svg width="132" height="132" viewBox="0 0 200 200" aria-hidden="true">
+  <path d="M16 186 q12 -6 24 0 t24 0 t24 0 t24 0" fill="none" stroke="#89B9AD" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 9"/>
+  <g stroke="#4A3036" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M26 136 L8 144 L28 150 Z" fill="#FFEAD5"/>
+    <ellipse cx="50" cy="158" rx="14" ry="12" fill="#FFEAD5"/>
+    <ellipse cx="88" cy="162" rx="14" ry="12" fill="#FFEAD5"/>
+    <ellipse cx="124" cy="160" rx="14" ry="12" fill="#FFEAD5"/>
+    <ellipse cx="152" cy="124" rx="13" ry="16" fill="#FFEAD5"/>
+    <path d="M22 142 Q22 62 92 60 Q162 62 162 142 Z" fill="#89B9AD"/>
+    <g fill="#B5D6CD" stroke-width="3">
+      <path d="M112 102 L102 119.3 L82 119.3 L72 102 L82 84.7 L102 84.7 Z"/>
+      <path d="M68 118 L59 133.6 L41 133.6 L32 118 L41 102.4 L59 102.4 Z"/>
+      <path d="M152 118 L143 133.6 L125 133.6 L116 118 L125 102.4 L143 102.4 Z"/>
+    </g>
+    <rect x="16" y="136" width="152" height="14" rx="7" fill="#74A898"/>
+    <g transform="rotate(58 156 160)">
+      <rect x="122" y="153" width="9" height="13" fill="#FFFFFF"/>
+      <rect x="129" y="153" width="44" height="13" rx="2" fill="#E78895"/>
+      <path d="M173 153 L189 159.5 L173 166 Z" fill="#FFEAD5"/>
+      <path d="M183.5 157.3 L189 159.5 L183.5 161.7 Z" fill="#4A3036" stroke-width="2"/>
+    </g>
+    <ellipse cx="150" cy="150" rx="15" ry="10" transform="rotate(30 150 150)" fill="#FFEAD5"/>
+    <circle cx="170" cy="102" r="26" fill="#FFEAD5"/>
+  </g>
+  <circle cx="178" cy="96" r="4.5" fill="#4A3036"/>
+  <circle cx="179.4" cy="94.6" r="1.5" fill="#FFFFFF"/>
+  <ellipse cx="161" cy="109" rx="6.5" ry="4" fill="#E78895"/>
+  <path d="M173 111 q5 4.5 10 1" fill="none" stroke="#4A3036" stroke-width="3" stroke-linecap="round"/>
+</svg>
+    </div>
+    <p class="intro-line intro-final"><span>沒關係！</span><span>慢慢寫在這裡陪你。</span></p>
+  </div>
+</div>
 
 <nav>
   <div class="wrap">
@@ -269,11 +411,11 @@
 
 <main id="top">
 
-  <!-- Hero -->
+  <!-- 1. Hero -->
   <section class="hero">
     <div class="wrap">
       <div>
-        <span class="eyebrow">專屬繁體中文使用者的韓文寫作練習</span>
+        <span class="eyebrow">專屬繁體中文使用者的韓文寫作練習網站</span>
         <h1>先<mark>自己想</mark>，<br>再讓 AI 教練陪你改。</h1>
         <p class="lead">給所有想靠自己一步步慢慢寫出韓文句子再到文章的你。<br>從簡短句子，到 TOPIK IBT 作文、粉絲信，再到韓國履歷和求職信，慢慢寫陪著你一起慢慢練。</p>
         <div class="cta">
@@ -281,7 +423,7 @@
           <a class="btn ghost" href="#ladder">先看看怎麼練習</a>
         </div>
       </div>
-      <div class="hero-art">
+      <div>
         <div class="card" aria-label="範例：自己寫出的句子與提示">
           <div class="label">今天的文法：-(으)ㄹ 줄 알다</div>
           <p class="sentence" lang="ko">저는 김치찌개를 <span class="fixed">만들 줄 알아요</span>.</p>
@@ -292,97 +434,7 @@
     </div>
   </section>
 
-  <!-- 提示階梯 -->
-  <section id="ladder">
-    <div class="wrap ladder">
-      <div>
-        <span class="eyebrow">AI 教練不直接給答案</span>
-        <h2>錯了也沒關係，<br>依照線索一步步練習寫。</h2>
-        <p>一般的 AI 工具通常會直接幫你把句子或文章改好，雖然看似完美又有效率，但少了靠自己絞盡腦汁的過程，下次遇到同樣的問題，還是不會。</p>
-        <p>這裡的 AI 教練只會一層一層給提示，必須自己真正經過思考練習寫出來之後，才看得到參考答案。</p>
-        <ol class="steps" id="steps">
-          <li class="on"><span class="num">1</span><span><strong>標示出要改的地方</strong>標出句子中的哪個部分需要修改</span></li>
-          <li><span class="num">2</span><span><strong>提示</strong>提供選項、單字的初聲或文法</span></li>
-          <li><span class="num">3</span><span><strong>對照參考答案</strong>寫對或改兩次後才出現</span></li>
-        </ol>
-      </div>
-      <div class="card demo-box" aria-live="polite">
-        <div class="label">試試看：你寫的句子</div>
-        <p class="sentence" lang="ko" id="demo-sentence">어제 <span class="flag">친구가</span> 만났어요.</p>
-        <div id="demo-feedback">
-          <div class="bubble">① 「친구가」的<b>助詞</b>要換一個。</div>
-        </div>
-        <div class="demo-actions">
-          <button class="btn small" id="demo-next" type="button">再給我一點提示</button>
-          <button class="btn small ghost" id="demo-reset" type="button">重來</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 功能 -->
-  <section class="features">
-    <div class="wrap">
-      <span class="eyebrow">第一版會有的功能</span>
-      <h2>從一句話，練到一整篇。</h2>
-      <div class="grid3">
-        <article class="feature">
-          <div class="icon" style="background:var(--rose-soft)" aria-hidden="true">✏️</div>
-          <span class="tag">核心</span>
-          <h3>句子工坊</h3>
-          <p>選一個文法，看中文情境，自己寫一句韓文。AI 教練分三層給提示，常見的中文母語者錯誤（은/는 和 이/가、-아서 和 -니까）會特別標出來。</p>
-        </article>
-        <article class="feature">
-          <div class="icon" style="background:var(--sage-soft)" aria-hidden="true">🗺️</div>
-          <span class="tag">核心</span>
-          <h3>文法地圖</h3>
-          <p>依國立國語院標準教育課程，把 1–6 級的 336 項文法排成地圖。只有你在自己的句子裡用對了，那一格才會亮起來。</p>
-        </article>
-        <article class="feature">
-          <div class="icon" style="background:var(--peach)" aria-hidden="true">⌨️</div>
-          <span class="tag">接著推出</span>
-          <h3>IBT 寫作室</h3>
-          <p>TOPIK IBT 51、53、54 題型，限時打字作答，即時顯示字數。另有聽寫打字暖身：聽一句、打出來，打字和聽力一起練。</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- 文法地圖 demo -->
-  <section id="map">
-    <div class="wrap">
-      <div class="map-head">
-        <div>
-          <span class="eyebrow">點點看</span>
-          <h2>看見自己學會了什麼。</h2>
-        </div>
-        <div class="legend" aria-label="圖例">
-          <span><i class="dot seen"></i>看過</span>
-          <span><i class="dot know"></i>認得</span>
-          <span><i class="dot use"></i>自己寫出來且用對</span>
-        </div>
-      </div>
-      <div class="chips" id="chips" lang="ko"></div>
-      <p class="map-summary" id="map-summary" aria-live="polite"></p>
-      <p class="map-note">示範用的 3 級文法。點一下可以切換狀態，正式版會根據你寫的句子自動更新。</p>
-    </div>
-  </section>
-
-  <!-- 不會有的東西 -->
-  <section style="padding-top:0">
-    <div class="wrap">
-      <span class="eyebrow">這裡不會有</span>
-      <h2>沒有壓力的練習。</h2>
-      <p>今天沒練也沒關係。你學會的東西會一直留在地圖上，不會因為休息幾天就消失。</p>
-      <div class="nope">
-        <div><s>連續 30 天打卡</s><br>不會用連續天數綁住你。</div>
-        <div><s>「你已經 3 天沒練習了！」</s><br>不會傳催你的通知。</div>
-        <div><s>排行榜、XP</s><br>只跟過去的自己比。</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 故事 -->
+  <!-- 2. 為什麼做這個網站 -->
   <section style="background:#fff">
     <div class="wrap story">
       <svg width="96" height="96" viewBox="0 0 200 200" aria-hidden="true">
@@ -415,55 +467,154 @@
   <path d="M173 111 q5 4.5 10 1" fill="none" stroke="#4A3036" stroke-width="3" stroke-linecap="round"/>
 </svg>
       <div>
-        <span class="eyebrow">為什麼做這個</span>
+        <span class="eyebrow">為什麼做這個網站</span>
         <blockquote>
-          <p>我考到了韓檢六級，但寫正式文件、商業信、甚至履歷，還是得靠 AI。AI 寫出來的韓文總有點尷尬，不像母語者。更讓我擔心的是，能用 AI 的時候，我就不太自己想了。</p>
-          <p>寫作的時候我們會思考，想法也才會變得有條理。我想做一個地方，讓大家用自己的腦袋把韓文寫出來，AI 只在旁邊陪著。</p>
+          <p>我本身靠著自學和學校免費的資源考到了韓檢六級，但寫正式文件、商業信、甚至履歷的時候，還是得靠 AI 幫忙。可是 AI 寫出來的韓文句子常常有點尷尬，改也不是，不改也不是。直到最近，我赫然驚覺，因為有 AI 輔助寫作，我好像不太自己去思考和寫作了⋯⋯</p>
+          <p>儘管 AI 是個很好用的工具，我仍然想創造一個地方，是能夠讓大家（and me）重新體會到思考過程中的樂趣，用自己的腦袋瓜把腦海中的韓文串成句子寫出來。希望大家都能在這個網站中，透過寫作，整理思緒和實際應用學習到的事物！</p>
         </blockquote>
-        <div class="sig">— Kelly，網站作者・住在大田的台灣人</div>
+        <div class="sig">— Kelly，現住在韓國的台灣人</div>
       </div>
     </div>
   </section>
 
-  <!-- 對象 -->
+  <!-- 3. 適合誰 -->
   <section>
     <div class="wrap">
       <span class="eyebrow">適合誰</span>
       <h2>你是不是也這樣？</h2>
       <div class="who">
-        <div><b>📝 準備 TOPIK IBT</b><p>寫作分數卡住，打字也不夠快。</p></div>
-        <div><b>💼 想在韓國工作</b><p>자소서、商務 email 寫得出來，但不夠道地。</p></div>
-        <div><b>🗂️ 工作會用到韓文</b><p>想擺脫「先寫中文再丟翻譯」的習慣。</p></div>
-        <div><b>💌 想寫信給偶像</b><p>簽售會的信、泡泡的訊息，想親手寫。</p></div>
+        <div><b>準備 TOPIK IBT</b><p>寫作分數卡住，打字也不夠快。</p></div>
+        <div><b>想在韓國工作</b><p>자소서、商務 email 不知道該怎麼寫，或是寫得出來，但用詞不夠精準。</p></div>
+        <div><b>工作會用到韓文</b><p>想擺脫「先寫中文再丟給 AI 翻譯」的習慣。</p></div>
+        <div><b>想寫信給偶像</b><p>簽售會的信、泡泡的訊息，想自己構思、自己寫出來。</p></div>
       </div>
     </div>
   </section>
 
-  <!-- 等待名單 -->
-  <section class="join" id="join" style="background:var(--peach)">
-    <div class="wrap" style="text-align:center">
+  <!-- 4. 目前會有的功能 -->
+  <section class="features">
+    <div class="wrap">
+      <span class="eyebrow">目前會有的功能</span>
+      <h2>從一個句子，到寫出一整篇文章。</h2>
+      <div class="grid3">
+        <article class="feature">
+          <div class="icon" style="background:var(--rose-soft)" aria-hidden="true">✏️</div>
+          <span class="tag">核心</span>
+          <h3>句子工坊</h3>
+          <p>選一個文法，依照中文情境，自己寫出對應的韓文句子。AI 教練會分三層給提示，另外中文母語者常搞混的文法（은/는 和 이/가、-아서 和 -니까）會特別標出來。</p>
+        </article>
+        <article class="feature">
+          <div class="icon" style="background:var(--sage-soft)" aria-hidden="true">🗺️</div>
+          <span class="tag">核心</span>
+          <h3>文法地圖</h3>
+          <p>依國立國語院標準教育課程，把 1–6 級的 336 項文法排成地圖。只有在句子工坊中實際練習並正確應用到句子中，那一格才會亮起來。</p>
+        </article>
+        <article class="feature">
+          <div class="icon" style="background:var(--peach)" aria-hidden="true">⌨️</div>
+          <span class="tag">接著推出</span>
+          <h3>IBT 寫作工坊</h3>
+          <p>模擬 TOPIK IBT 寫作題型，即時顯示字數，並限時作答，模擬考試情境。另有聽寫打字暖身：聽一句韓文、嘗試打出韓文句子，讓你打字和聽力一起練！</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. 提示階梯 -->
+  <section id="ladder">
+    <div class="wrap ladder">
+      <div>
+        <span class="eyebrow">AI 教練不直接給答案</span>
+        <h2>錯了也沒關係，<br>依照線索一步步練習寫。</h2>
+        <p>一般的 AI 工具通常會直接幫你把句子或文章改好，雖然看似完美又有效率，但少了靠自己絞盡腦汁的過程，下次遇到同樣的問題，還是不會。</p>
+        <p>這裡的 AI 教練只會一層一層給提示，必須自己真正經過思考練習寫出來之後，才看得到參考答案。</p>
+        <ol class="steps" id="steps">
+          <li><span class="num">1</span><span><strong>標示出要改的地方</strong>標出句子中的哪個部分需要修改</span></li>
+          <li><span class="num">2</span><span><strong>提示</strong>提供選項、單字的初聲或文法</span></li>
+          <li><span class="num">3</span><span><strong>對照參考答案</strong>寫對之後或是修改兩次之後才出現</span></li>
+        </ol>
+      </div>
+      <div class="card demo-box">
+        <div class="label">範例：</div>
+        <p class="demo-zh">昨天和朋友見面了。</p>
+        <div class="written">
+          <span class="you">你寫的句子</span>
+          <p class="sentence" lang="ko" id="demo-sentence">어제 친구가 만났어요.</p>
+        </div>
+        <div id="demo-feedback" aria-live="polite"></div>
+        <div class="demo-actions">
+          <button class="btn small" id="demo-next" type="button">給我一點提示</button>
+          <button class="btn small ghost" id="demo-reset" type="button" hidden>重來</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. 文法地圖 demo -->
+  <section id="map">
+    <div class="wrap">
+      <div class="map-head">
+        <div>
+          <span class="eyebrow">文法地圖</span>
+          <h2>看見自己學會了哪些文法。</h2>
+        </div>
+        <div class="legend" aria-label="圖例">
+          <span><i class="dot seen"></i>看過</span>
+          <span><i class="dot know"></i>認得</span>
+          <span><i class="dot use"></i>自己寫出來且用對</span>
+        </div>
+      </div>
+      <div class="chips" id="chips" lang="ko"></div>
+      <p class="map-summary" id="map-summary" aria-live="polite"></p>
+      <p class="map-note">示範用的 3 級文法。點一下可以切換狀態，正式版會根據你寫的句子自動更新。</p>
+    </div>
+  </section>
+
+  <!-- 7. 輕鬆無負擔 -->
+  <section style="padding-top:0">
+    <div class="wrap">
+      <span class="eyebrow">輕鬆無負擔</span>
+      <h2>按照自己的步伐，慢慢寫、慢慢練習。</h2>
+      <p>今天沒練習也沒關係。學會的東西仍然存在你的腦海和文法地圖裡，不會因為休息幾天就消失。</p>
+      <div class="nope">
+        <div><s>連續 30 天打卡</s><br>不會用連續天數綁住你。</div>
+        <div><s>「你已經 3 天沒練習了！」</s><br>不會傳催促你的通知。</div>
+        <div><s>排行榜、XP</s><br>只跟過去的自己比。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. 搶先試用 -->
+  <section class="join" id="join">
+    <div class="wrap center">
       <span class="eyebrow">搶先試用</span>
       <h2>一起來慢慢寫吧。</h2>
       <p>第一版已經可以用了：句子工坊和文法地圖。用 email 登入就能開始。</p>
-      <p><a class="btn" href="/login">開始練習</a></p>
+      <p><a class="btn" href="/login">免費開始練習</a></p>
       <p style="margin-top:28px">想收到之後的更新？也可以留下 email 和你的困擾。</p>
-      <div class="card" style="text-align:left">
+      <div class="card">
         <form id="waitlist" novalidate>
-          <label>Email
-            <input type="email" name="email" required autocomplete="email" placeholder="you@example.com">
-          </label>
-          <label>你比較接近哪一種？
-            <select name="persona">
-              <option value="ibt">準備 TOPIK IBT</option>
-              <option value="career">想在韓國工作／求職</option>
-              <option value="work">工作會用到韓文</option>
-              <option value="fan">想寫信、聊天給偶像</option>
-              <option value="other">其他</option>
-            </select>
-          </label>
-          <label>現在寫韓文，你最卡的是什麼？（選填）
-            <textarea name="pain" placeholder="例如：文法都懂，但寫出來就是不像韓國人寫的"></textarea>
-          </label>
+          <div class="field">
+            <label for="wl-email">Email</label>
+            <input id="wl-email" type="email" name="email" required autocomplete="email" placeholder="you@example.com">
+          </div>
+          <fieldset class="field">
+            <legend>學習韓文的目的</legend>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="purpose" value="ibt" checked><span>準備 TOPIK IBT</span></label>
+              <label class="choice"><input type="radio" name="purpose" value="career"><span>想在韓國工作、求職</span></label>
+              <label class="choice"><input type="radio" name="purpose" value="work"><span>工作會用到韓文</span></label>
+              <label class="choice"><input type="radio" name="purpose" value="fan"><span>想寫信、寫訊息給偶像</span></label>
+              <label class="choice"><input type="radio" name="purpose" value="other"><span>其他</span></label>
+            </div>
+            <div class="field other-purpose" id="other-purpose" hidden>
+              <label for="wl-other">你的目的是？</label>
+              <input id="wl-other" name="purpose_other" maxlength="100" placeholder="例如：想看懂韓國論文、和韓國家人溝通">
+            </div>
+          </fieldset>
+          <div class="field">
+            <label for="wl-pain">學習韓文寫作，卡住你的是什麼？（選填）</label>
+            <textarea id="wl-pain" name="pain" placeholder="例如：文法都懂，但寫出來就是不像韓國人寫的"></textarea>
+          </div>
           <button class="btn" type="submit">加入等待名單</button>
           <div class="form-msg" id="form-msg" role="status"></div>
           <p class="privacy">只會用來通知上線消息和邀請你試用，不會轉給第三方。</p>
@@ -482,17 +633,45 @@
 </footer>
 
 <script>
-  /* ---------- 提示階梯 demo ---------- */
+  /* ---------- 開場動畫 ---------- */
+  (function () {
+    const intro = document.getElementById('intro');
+    const page = document.querySelectorAll('nav, main, footer');
+    let seen = false;
+    try { seen = sessionStorage.getItem('mmw-intro-seen') === '1'; } catch {}
+    // 已經看過、或是從錨點連結進來（例如 #join），就不播
+    if (seen || location.hash) { intro.remove(); return; }
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    page.forEach((el) => { el.inert = true; });
+    let done = false;
+    function end() {
+      if (done) return;
+      done = true;
+      try { sessionStorage.setItem('mmw-intro-seen', '1'); } catch {}
+      page.forEach((el) => { el.inert = false; });
+      intro.classList.add('is-out');
+      document.removeEventListener('keydown', onKey);
+      setTimeout(() => intro.remove(), reduced ? 0 : 400);
+    }
+    function onKey(e) { if (e.key === 'Escape') end(); }
+    document.getElementById('intro-skip').addEventListener('click', end);
+    document.addEventListener('keydown', onKey);
+    setTimeout(end, reduced ? 1800 : 5600);
+  })();
+
+  /* ---------- 提示階梯 demo：按下按鈕才開始一步一步出現 ---------- */
   (function () {
     const hints = [
       { html: '① 「친구가」的<b>助詞</b>要換一個。' },
-      { html: '<span aria-hidden="true">💡 </span>② 提示：「만나다」見的對象要用<b>受詞助詞</b>。從這兩個選：<span lang="ko">친구를 / 친구에게</span>' },
-      { html: '<span aria-hidden="true">✓ </span>③ 參考答案： <span lang="ko">어제 <span class="fixed">친구를</span> 만났어요.</span> 這是中文母語者很常見的錯誤，已加入你的偏誤卡。', good: true }
+      { html: '② 提示：「만나다」見的對象要用<b>受詞助詞</b>。從這兩個選：<span lang="ko">친구를 / 친구에게</span>' },
+      { html: '③ 參考答案：<span lang="ko">어제 <span class="fixed">친구를</span> 만났어요.</span> 受詞助詞是中文母語者很常搞混的地方，已加入到複習字卡中。', good: true }
     ];
-    let level = 0;
+    let level = -1;
     const box = document.getElementById('demo-feedback');
     const steps = document.querySelectorAll('#steps li');
     const next = document.getElementById('demo-next');
+    const reset = document.getElementById('demo-reset');
     const sentence = document.getElementById('demo-sentence');
 
     function render() {
@@ -505,12 +684,16 @@
       }
       steps.forEach((li, i) => li.classList.toggle('on', i <= level));
       next.hidden = level >= hints.length - 1;
-      sentence.innerHTML = level >= 2
-        ? '어제 <span class="fixed">친구를</span> 만났어요.'
-        : '어제 <span class="flag">친구가</span> 만났어요.';
+      next.textContent = level < 0 ? '給我一點提示' : '再給我一點提示';
+      reset.hidden = level < 0;
+      sentence.innerHTML = level < 0
+        ? '어제 친구가 만났어요.'
+        : level >= 2
+          ? '어제 <span class="fixed">친구를</span> 만났어요.'
+          : '어제 <span class="flag">친구가</span> 만났어요.';
     }
     next.addEventListener('click', () => { if (level < hints.length - 1) { level++; render(); } });
-    document.getElementById('demo-reset').addEventListener('click', () => { level = 0; render(); });
+    reset.addEventListener('click', () => { level = -1; render(); next.focus(); });
     render();
   })();
 
@@ -524,14 +707,14 @@
       ['-자마자', 'know'], ['-(으)ㄴ/는 편이다', 'seen'], ['-도록', 'seen']
     ];
     const order = ['seen', 'know', 'use'];
-    const names = { seen: '看過', know: '認得', use: '會用' };
+    const names = { seen: '看過', know: '認得', use: '自己寫出來且用對' };
     const wrap = document.getElementById('chips');
     const summary = document.getElementById('map-summary');
 
     function updateSummary() {
       const count = { seen: 0, know: 0, use: 0 };
       wrap.querySelectorAll('.chip').forEach(c => count[c.dataset.state]++);
-      summary.textContent = `這 ${items.length} 項裡，你會用 ${count.use} 項、認得 ${count.know} 項、看過 ${count.seen} 項。`;
+      summary.textContent = `這 ${items.length} 項文法裡，你自己寫出來且用對 ${count.use} 項、認得 ${count.know} 項、看過 ${count.seen} 項。`;
     }
     items.forEach(([text, state]) => {
       const b = document.createElement('button');
@@ -555,16 +738,26 @@
   // TODO: 連上收集工具（例如 Google Form、Formspree 或之後的 Supabase）後，把網址填在這裡。
   const WAITLIST_ENDPOINT = '';
 
-  document.getElementById('waitlist').addEventListener('submit', async (e) => {
+  const form = document.getElementById('waitlist');
+  const otherBox = document.getElementById('other-purpose');
+  form.addEventListener('change', (e) => {
+    if (e.target.name !== 'purpose') return;
+    const isOther = e.target.value === 'other';
+    otherBox.hidden = !isOther;
+    if (isOther) document.getElementById('wl-other').focus();
+  });
+
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const form = e.target;
     const msg = document.getElementById('form-msg');
     const email = form.email.value.trim();
     msg.className = 'form-msg';
+    form.email.removeAttribute('aria-invalid');
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       msg.textContent = 'Email 格式好像不太對，再確認一下？';
       msg.classList.add('show', 'warn');
+      form.email.setAttribute('aria-invalid', 'true');
       form.email.focus();
       return;
     }
@@ -576,9 +769,10 @@
     try {
       const res = await fetch(WAITLIST_ENDPOINT, { method: 'POST', body: new FormData(form) });
       if (!res.ok) throw new Error(res.status);
-      msg.textContent = '收到了！第一版做好時會寫信通知你 ♡';
+      msg.textContent = '收到了！有新功能時會寫信通知你 ♡';
       msg.classList.add('show', 'ok');
       form.reset();
+      otherBox.hidden = true;
     } catch {
       msg.textContent = '送出失敗了，請稍後再試一次。';
       msg.classList.add('show', 'warn');

@@ -44,7 +44,9 @@ export function ProfileForm({
   return (
     <form onSubmit={onSubmit} className="grid gap-5">
       <label className="grid gap-1.5 font-medium">
-        暱稱
+        <span>
+          暱稱<span className="font-normal text-ink-soft">（選填）</span>
+        </span>
         <input
           value={nickname}
           onChange={(e) => {
@@ -53,11 +55,15 @@ export function ProfileForm({
           }}
           maxLength={20}
           placeholder="想被怎麼稱呼？"
+          aria-describedby="nickname-help"
           className="field"
         />
+        <span id="nickname-help" className="text-sm font-normal text-ink-soft">
+          只會用在「我的」頁面跟你打招呼，不會公開。
+        </span>
       </label>
       <fieldset>
-        <legend className="mb-2 font-medium">想多練哪些主題？（可複選）</legend>
+        <legend className="mb-2 font-medium">感興趣的主題（可複選）</legend>
         <div className="grid gap-2 sm:grid-cols-2">
           {INTERESTS.map((i) => {
             const on = interests.includes(i.id);

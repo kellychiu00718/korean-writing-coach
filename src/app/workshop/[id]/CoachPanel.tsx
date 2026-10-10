@@ -23,7 +23,7 @@ const SCENE_LABEL: Record<Lesson["prompts"][number]["scene"], string> = {
 const STEPS = [
   { title: "標示出要改的地方", caption: "標出句子中的哪個部分需要修改" },
   { title: "提示", caption: "提供選項、單字的初聲或文法" },
-  { title: "對照參考答案", caption: "寫對或改兩次後出現" },
+  { title: "對照參考答案", caption: "寫對之後或是修改兩次之後才出現" },
 ];
 
 export function CoachPanel({ grammarId, prompts, openRounds, initialPrompt = 0 }: Props) {
