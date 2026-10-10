@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { BackToApp } from "@/components/BackToApp";
 import { Logo } from "@/components/Logo";
 import { CONTACT_EMAIL, PRIVACY_EFFECTIVE_DATE } from "@/lib/site";
 
@@ -44,8 +45,9 @@ const PROCESSORS = [
 export default function PrivacyPage() {
   return (
     <main className="mx-auto max-w-3xl px-4 py-8 sm:px-5">
-      <div className="mb-8">
-        <Logo href="/landing.html" />
+      <div className="mb-8 flex flex-wrap items-center justify-between gap-3">
+        <Logo href="/" />
+        <BackToApp />
       </div>
       <article className="grid min-w-0 grid-cols-1 gap-8 text-[15.5px] [&>*]:min-w-0">
         <header>
@@ -192,6 +194,9 @@ export default function PrivacyPage() {
           <p>內容有變更時，會更新這一頁的生效日期；影響較大的變更，會在網站上另外通知。</p>
         </section>
       </article>
+      <div className="mt-10">
+        <BackToApp />
+      </div>
     </main>
   );
 }

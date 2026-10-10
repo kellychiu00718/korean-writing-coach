@@ -17,7 +17,12 @@ export type Lesson = {
   pattern: string;
   examples: { ko: string; zh: string; grammar?: string[] }[];
   pitfall_zh: string;
-  prompts: { scene: "daily" | "fan" | "work" | "topik"; situation_zh: string }[];
+  prompts: {
+    scene: "daily" | "fan" | "work" | "topik";
+    situation_zh: string;
+    /** 預先寫好的一種寫法：只有當天 AI 次數用完、使用者主動要看時才給 */
+    reference_ko: string;
+  }[];
   reviewed: boolean;
 };
 

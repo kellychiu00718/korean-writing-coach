@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BackToApp } from "@/components/BackToApp";
 import { Logo } from "@/components/Logo";
 import { createClient, supabaseConfigured } from "@/lib/supabase/server";
 import { FeedbackForm } from "./FeedbackForm";
@@ -18,8 +19,9 @@ export default async function FeedbackPage({ searchParams }: { searchParams: Pro
 
   return (
     <main className="mx-auto max-w-xl px-4 py-8 sm:px-5">
-      <div className="mb-8">
-        <Logo href="/landing.html" />
+      <div className="mb-8 flex flex-wrap items-center justify-between gap-3">
+        <Logo href="/" />
+        <BackToApp />
       </div>
       <div className="card">
         <h1 className="mb-1 text-2xl font-bold">意見回報</h1>

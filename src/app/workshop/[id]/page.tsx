@@ -4,6 +4,7 @@ import { AppHeader } from "@/components/AppHeader";
 import type { RevealedFeedback } from "@/lib/coach";
 import { CATEGORY_LABEL, displayForm, getGrammar, getLesson } from "@/lib/grammar";
 import { getProfile } from "@/lib/profile";
+import { DAILY_LIMIT, usedToday } from "@/lib/limits";
 import { promote } from "@/lib/progress";
 import { createClient } from "@/lib/supabase/server";
 import { CoachPanel, type RoundEntry } from "./CoachPanel";
@@ -38,7 +39,7 @@ export default async function LessonPage({
       : Math.max(0, lesson.prompts.findIndex((pr) => interests.includes(pr.scene)));
 
   // 三件事互不相關，同時送出：標記看過、讀還沒結束的那一輪（重新整理也能接著寫）、讀這課的字卡。
-  const [, { data }, { data: cardRows }] = await Promise.all([
+  const [, { data }, { data: cardRows }, used] = await Promise.all([
     promote(supabase, user.id, [id, ...exampleIds].map((g) => ({ grammarId: g, state: "seen" as const }))).catch(() => []),
     supabase
       .from("attempts")
@@ -48,7 +49,11 @@ export default async function LessonPage({
       .order("created_at", { ascending: false })
       .limit(30),
     supabase.from("review_cards").select("prompt_index").eq("user_id", user.id).eq("grammar_id", id),
+    usedToday(supabase, user.id),
   ]);
+  const remaining = used === null ? null : Math.max(0, DAILY_LIMIT - used);
+  // 預先寫好的參考寫法不送到瀏覽器，次數用完時才由 /api/reference 給
+  const prompts = lesson.prompts.map(({ scene, situation_zh }) => ({ scene, situation_zh }));
   const cardPrompts = (cardRows ?? []).map((r) => r.prompt_index as number);
 
   const openRounds: Record<number, RoundEntry[]> = {};
@@ -120,7 +125,7 @@ export default async function LessonPage({
             </div>
           </section>
 
-          <CoachPanel grammarId={id} prompts={lesson.prompts} openRounds={openRounds} initialPrompt={initialPrompt} cardPrompts={cardPrompts} />
+          <CoachPanel grammarId={id} prompts={prompts} openRounds={openRounds} initialRemaining={remaining} initialPrompt={initialPrompt} cardPrompts={cardPrompts} />
         </div>
       </main>
     </>

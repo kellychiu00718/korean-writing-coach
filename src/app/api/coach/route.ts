@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { CoachError, revealFeedback, reviewSentence, type PreviousVersion, type RevealedFeedback } from "@/lib/coach";
 import { getGrammar, getLesson, type ProgressState } from "@/lib/grammar";
+import { DAILY_LIMIT, usedToday } from "@/lib/limits";
 import { promote } from "@/lib/progress";
 import { AUTO_ADD_FROM_ATTEMPT, saveReviewCard } from "@/lib/review";
 import { createClient } from "@/lib/supabase/server";
@@ -12,15 +13,6 @@ const Body = z.object({
   promptIndex: z.number().int().min(0),
   sentence: z.string().trim().min(1).max(300),
 });
-
-const DAILY_LIMIT = Number(process.env.DAILY_AI_LIMIT || 30);
-
-/** 韓國時間（UTC+9）今天 00:00 的 UTC 時間。 */
-function startOfTodayKst() {
-  const kst = new Date(Date.now() + 9 * 3600_000);
-  kst.setUTCHours(0, 0, 0, 0);
-  return new Date(kst.getTime() - 9 * 3600_000).toISOString();
-}
 
 function fail(status: number, message: string) {
   return NextResponse.json({ error: message }, { status });
@@ -42,14 +34,13 @@ export async function POST(request: Request) {
   } = await supabase.auth.getUser();
   if (!user) return fail(401, "請先登入。");
 
-  const { count, error: countError } = await supabase
-    .from("attempts")
-    .select("id", { count: "exact", head: true })
-    .eq("user_id", user.id)
-    .gte("created_at", startOfTodayKst());
-  if (countError) return fail(500, "讀取紀錄時出了問題，請稍後再試。");
-  if ((count ?? 0) >= DAILY_LIMIT) {
-    return fail(429, `今天的 AI 回饋次數（${DAILY_LIMIT} 次）用完了，明天再繼續吧。`);
+  const count = await usedToday(supabase, user.id);
+  if (count === null) return fail(500, "讀取紀錄時出了問題，請稍後再試。");
+  if (count >= DAILY_LIMIT) {
+    return NextResponse.json(
+      { error: `今天的 AI 回饋次數（${DAILY_LIMIT} 次）用完了，明天會恢復。`, limitReached: true },
+      { status: 429 },
+    );
   }
 
   // 第幾次送出由伺服器判斷，避免直接跳到第 3 層拿答案。上一輪已經揭曉參考寫法，就開新的一輪。
@@ -141,6 +132,6 @@ export async function POST(request: Request) {
     feedback: revealed,
     promoted,
     reviewCard,
-    remaining: Math.max(0, DAILY_LIMIT - (count ?? 0) - 1),
+    remaining: Math.max(0, DAILY_LIMIT - count - 1),
   });
 }

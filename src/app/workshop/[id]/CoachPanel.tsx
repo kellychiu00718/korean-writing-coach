@@ -9,11 +9,13 @@ export type RoundEntry = { attempt: number; sentence: string; feedback: Revealed
 
 type Props = {
   grammarId: string;
-  prompts: Lesson["prompts"];
+  prompts: Pick<Lesson["prompts"][number], "scene" | "situation_zh">[];
   openRounds: Record<number, RoundEntry[]>;
   initialPrompt?: number;
   /** 已經在複習字卡裡的情境 */
   cardPrompts?: number[];
+  /** 今天還能請教練看幾次；讀不到就是 null */
+  initialRemaining?: number | null;
 };
 
 const SCENE_LABEL: Record<Lesson["prompts"][number]["scene"], string> = {
@@ -37,14 +39,18 @@ const STEPS = [
   { title: "對照參考答案", caption: "寫對之後或是修改兩次之後才出現" },
 ];
 
-export function CoachPanel({ grammarId, prompts, openRounds, initialPrompt = 0, cardPrompts = [] }: Props) {
+export function CoachPanel({ grammarId, prompts, openRounds, initialPrompt = 0, cardPrompts = [], initialRemaining = null }: Props) {
   const [promptIndex, setPromptIndex] = useState(initialPrompt);
   const [rounds, setRounds] = useState<Record<number, RoundEntry[]>>(openRounds);
   const [draft, setDraft] = useState(() => openDraft(openRounds[initialPrompt]));
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [promoted, setPromoted] = useState<{ grammarId: string; state: ProgressState }[]>([]);
-  const [remaining, setRemaining] = useState<number | null>(null);
+  const [remaining, setRemaining] = useState<number | null>(initialRemaining);
+  // 次數用完後，使用者主動要看的預先寫好參考寫法（依情境存）
+  const [fallback, setFallback] = useState<Record<number, string>>({});
+  const [fallbackPending, setFallbackPending] = useState(false);
+  const outOfTries = remaining === 0;
   const [cards, setCards] = useState<Set<number>>(() => new Set(cardPrompts));
   const [cardNote, setCardNote] = useState<string | null>(null);
   const [cardPending, setCardPending] = useState(false);
@@ -92,6 +98,28 @@ export function CoachPanel({ grammarId, prompts, openRounds, initialPrompt = 0, 
     }
   }
 
+  async function showFallback() {
+    setFallbackPending(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/reference", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ grammarId, promptIndex }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error ?? "出了點問題，請再試一次。");
+        return;
+      }
+      setFallback((f) => ({ ...f, [promptIndex]: data.reference }));
+    } catch {
+      setError("網路好像斷了，再試一次？");
+    } finally {
+      setFallbackPending(false);
+    }
+  }
+
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     const sentence = draft.trim();
@@ -106,7 +134,8 @@ export function CoachPanel({ grammarId, prompts, openRounds, initialPrompt = 0, 
       });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error ?? "出了點問題，請再試一次。");
+        if (data.limitReached) setRemaining(0);
+        else setError(data.error ?? "出了點問題，請再試一次。");
         return;
       }
       setRounds((r) => {
@@ -247,11 +276,35 @@ export function CoachPanel({ grammarId, prompts, openRounds, initialPrompt = 0, 
               {draft.length} / 300 字
               {remaining !== null && `・今天還能問 ${remaining} 次`}
             </span>
-            <button type="submit" className="btn" disabled={pending || !draft.trim()}>
-              {pending ? "教練看看中…" : round.length ? "再請教練看一次" : "請教練看看"}
+            <button type="submit" className="btn" disabled={pending || outOfTries || !draft.trim()}>
+              {outOfTries ? "明天再請教練看" : pending ? "教練看看中…" : round.length ? "再請教練看一次" : "請教練看看"}
             </button>
           </div>
           {pending && <CoachWaiting />}
+          {outOfTries && (
+            <div role="status" className="animate-pop grid gap-3 rounded-[32px] border-2 border-line bg-white p-4">
+              <p>
+                今天的 AI 教練次數用完了，每天韓國時間 00:00（台灣時間 23:00）會恢復。
+                <br />
+                卡住的話，可以先看看這題的一種寫法；也可以把句子留著，明天再請教練看。
+              </p>
+              {fallback[promptIndex] ? (
+                <div className="rounded-2xl border-2 border-sage px-4 py-3">
+                  <p className="text-xs text-ink-soft">這題的一種寫法</p>
+                  <p lang="ko" className="text-lg">
+                    {fallback[promptIndex]}
+                  </p>
+                  <p className="mt-1 text-sm text-ink-soft">
+                    這是預先寫好的參考，不是根據你的句子修改的。明天可以再請教練看看你的版本哪裡要改。
+                  </p>
+                </div>
+              ) : (
+                <button type="button" className="btn btn-ghost btn-sm justify-self-start" onClick={showFallback} disabled={fallbackPending}>
+                  {fallbackPending ? "準備中…" : "看這題的一種寫法"}
+                </button>
+              )}
+            </div>
+          )}
           {error && (
             <p role="alert" className="rounded-2xl bg-hint px-4 py-3">
               {error}
