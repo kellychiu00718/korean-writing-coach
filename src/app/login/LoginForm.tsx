@@ -21,9 +21,17 @@ export function LoginForm({ next }: { next?: string }) {
 
   if (status === "sent") {
     return (
-      <p role="status" className="animate-pop rounded-2xl bg-sage-soft px-4 py-3 text-sage-ink">
-        登入連結已寄到 <b>{email}</b>，去信箱點一下就能開始了 ♡
-      </p>
+      <div className="grid gap-4">
+        <div role="status" className="animate-pop rounded-2xl bg-sage-soft px-4 py-3 text-sage-ink">
+          <p>
+            登入連結已寄到 <b>{email}</b>，去信箱點一下就能開始了 ♡
+          </p>
+          <p className="mt-1 text-sm">請用現在這個瀏覽器打開連結；換手機或換瀏覽器開會登不進來。</p>
+        </div>
+        <button type="button" className="btn btn-ghost justify-self-start" onClick={() => setStatus("idle")}>
+          信箱填錯了？重新輸入
+        </button>
+      </div>
     );
   }
 

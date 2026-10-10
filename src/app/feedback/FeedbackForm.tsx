@@ -47,7 +47,7 @@ export function FeedbackForm({ defaultEmail, page }: { defaultEmail: string; pag
   if (status === "sent") {
     return (
       <div role="status" className="grid gap-4">
-        <p className="animate-pop rounded-2xl bg-sage-soft px-4 py-3 text-sage-ink">收到了，謝謝你願意告訴我們 ♡</p>
+        <p className="animate-pop rounded-2xl bg-sage-soft px-4 py-3 text-sage-ink">收到了，謝謝你願意告訴我 ♡</p>
         <Link href="/workshop" className="btn btn-ghost justify-self-start">
           回到句子工坊
         </Link>
@@ -95,7 +95,7 @@ export function FeedbackForm({ defaultEmail, page }: { defaultEmail: string; pag
       </div>
       <div className="grid gap-2">
         <label htmlFor="fb-email" className="font-medium">
-          回覆用 email<span className="font-normal text-ink-soft">（選填）</span>
+          電子信箱
         </label>
         <input
           id="fb-email"
@@ -103,7 +103,7 @@ export function FeedbackForm({ defaultEmail, page }: { defaultEmail: string; pag
           autoComplete="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="想收到回覆的話再填"
+          placeholder="想收到回覆的話再填寫即可"
           className="field"
         />
       </div>

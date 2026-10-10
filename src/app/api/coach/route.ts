@@ -104,9 +104,12 @@ export async function POST(request: Request) {
   } else if (revealed.usesTarget) {
     changes.push({ grammarId, state: "know" });
   }
-  if (revealed.overall !== "error" && !copied) {
+  // 句子裡順便用對的其他文法：整句都正確才算，而且只算畫面上會顯示的 2 級以上文法（이/가、을/를 這類基礎助詞不另外計入）。
+  if (revealed.overall === "correct" && !copied) {
     for (const id of new Set(otherIds)) {
-      if (id !== grammarId && getGrammar(id)) changes.push({ grammarId: id, state: "use", evidence: sentence });
+      if (id !== grammarId && (getGrammar(id)?.level ?? 0) >= 2) {
+        changes.push({ grammarId: id, state: "use", evidence: sentence });
+      }
     }
   }
 
