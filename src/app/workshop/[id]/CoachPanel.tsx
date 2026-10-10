@@ -23,8 +23,8 @@ const SCENE_LABEL: Record<Lesson["prompts"][number]["scene"], string> = {
   topik: "TOPIK",
 };
 
-// 跟參考寫法完全一樣時輪流出現的誇獎；同一個句子固定同一句，重新整理也不會換。
-const PRAISES = ["給你 6 級分！", "尼超棒～～～～～", "你是韓文小天才吧！", "誰是韓文小天才？你（大喊）！"];
+// 跟參考寫法完全一樣時輪流出現的誇獎（「ㄅ級分」是注音ㄅ的流行語）；同一個句子固定同一句，重新整理也不會換。
+const PRAISES = ["給你ㄅ級分！", "尼超棒～～～～～", "你是韓文小天才吧！", "誰是韓文小天才？你（大喊）！"];
 function praiseFor(sentence: string) {
   let h = 0;
   for (const ch of sentence) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
@@ -277,6 +277,7 @@ function AttemptView({ entry }: { entry: RoundEntry }) {
       <p lang="ko" className="mb-3 text-xl">
         <Highlighted sentence={entry.sentence} spans={fb.issues.map((i) => i.span)} />
       </p>
+      {fb.retracted && <p className="mb-2 rounded-2xl bg-cream px-4 py-2">{fb.retracted}</p>}
       {fb.praise && <p className="mb-2 rounded-2xl bg-sage-soft px-4 py-2 text-sage-ink"><span aria-hidden="true">✓ </span>{fb.praise}</p>}
       {fb.issues.map((issue, i) => {
         // 舊紀錄的線索欄位叫 rule

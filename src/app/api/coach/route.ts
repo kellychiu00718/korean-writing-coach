@@ -1,7 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { CoachError, revealFeedback, reviewSentence, type RevealedFeedback } from "@/lib/coach";
+import { CoachError, revealFeedback, reviewSentence, type PreviousVersion, type RevealedFeedback } from "@/lib/coach";
 import { getGrammar, getLesson, type ProgressState } from "@/lib/grammar";
 import { promote } from "@/lib/progress";
 import { AUTO_ADD_FROM_ATTEMPT, saveReviewCard } from "@/lib/review";
@@ -67,7 +67,16 @@ export async function POST(request: Request) {
   const last = rows[0];
   const roundOpen = last && last.feedback.level < 3;
   const attempt = roundOpen ? last.attempt + 1 : 1;
-  const previous = roundOpen ? rows.slice(0, last.attempt).map((r) => r.sentence).reverse() : [];
+  const previous: PreviousVersion[] = roundOpen
+    ? rows
+        .slice(0, last.attempt)
+        .reverse()
+        .map((r) => ({
+          sentence: r.sentence,
+          overall: r.feedback.overall,
+          issues: r.feedback.issues.map((i) => ({ category: i.category, span: i.span })),
+        }))
+    : [];
   const shownReferences = rows.map((r) => r.feedback.reference).filter((r): r is string => Boolean(r));
 
   let revealed: RevealedFeedback;

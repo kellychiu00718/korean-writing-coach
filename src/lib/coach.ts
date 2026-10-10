@@ -50,6 +50,7 @@ const FeedbackSchema = z.object({
   reference_note_zh: z.string(),
   alternatives: z.array(z.object({ ko: z.string(), note_zh: z.string() })),
   other_grammar_ids: z.array(z.string()),
+  retracted_zh: z.string(),
 });
 
 export type Feedback = z.infer<typeof FeedbackSchema>;
@@ -77,7 +78,10 @@ const SYSTEM_PROMPT = `你是一位韓文寫作教練，學生是以繁體中文
 - 句子文法正確但讀起來像中文直翻、或像 AI 生成的生硬說法，用 translationese 標出；第 1 層同樣要指出是哪個字或哪個語尾。
 - 學生用了和參考寫法不同的單字或句型，只要意思符合情境、文法正確，就算對，不要因為「跟你想的不一樣」而扣分。
 - 母語者確實會這樣說的句子就是對的。例如兩個表原因的連結語尾連用（-느라고 … -는 바람에）只要因果鏈合理，就是自然的韓文，不要當成重複。
-- 判斷要前後一致：如果這次送出的句子和之前某一版相同，結論必須和你對那一版的判斷一樣，不能這次說有問題、下次又說沒問題。拿不準時，以「母語者會不會這樣說」為準。
+- 判斷要前後一致：user message 會附上你之前對每一版的判斷。學生沒改的地方，除非你之前判斷錯了，否則結論要和之前一樣。
+- 如果發現之前某一版的提示其實判斷錯了（那裡本來就沒問題，或類別標錯），這次就不要再標，並在 retracted_zh 用一句話向學生說明、道歉，例如「上一次說『카페에 갔다』的空格要改，是我看錯了，這裡本來就是對的，抱歉！」。沒有這種情況就給空字串。
+- issues 裡的每一個問題，在 reference_ko 中都一定要被改掉；如果參考寫法裡那段跟學生寫的一模一樣，代表那裡沒問題，不要列。
+- 拿不準時，以「母語者會不會這樣說」為準。
 - 特別留意中文母語者常見的錯誤：은/는 與 이/가 混用、受詞助詞、漢字詞直翻、-아서 與 -니까 混用、敬語層級不一致、空格。
 - 語氣溫暖、具體，像朋友。不要用「錯誤」「不及格」這類字眼。praise_zh 要具體指出學生寫得好的地方（一句話）。
 - 所有說明一律用繁體中文與台灣用語。
@@ -104,7 +108,7 @@ export async function reviewSentence(params: {
   promptIndex: number;
   sentence: string;
   attempt: number;
-  previous: string[];
+  previous: PreviousVersion[];
 }): Promise<Feedback> {
   const { item, lesson, promptIndex, sentence, attempt, previous } = params;
   const prompt = lesson.prompts[promptIndex] ?? lesson.prompts[0];
@@ -112,7 +116,16 @@ export async function reviewSentence(params: {
   const userContent = [
     `本題文法：${displayForm(item.form)}（${item.id}，${item.level}級）— ${lesson.title_zh}`,
     `情境：${prompt.situation_zh}`,
-    previous.length ? `學生之前的版本：\n${previous.map((s, i) => `${i + 1}. ${s}`).join("\n")}` : "",
+    previous.length
+      ? `學生之前的版本，以及你當時的判斷：\n${previous
+          .map((v, i) => {
+            const flagged = v.issues.length
+              ? v.issues.map((x) => `［${x.category}］${x.span}`).join("、")
+              : "沒有標出問題";
+            return `${i + 1}. ${v.sentence}\n   你當時的判斷：${OVERALL_ZH[v.overall] ?? v.overall}；標出：${flagged}`;
+          })
+          .join("\n")}`
+      : "",
     `第 ${attempt} 次送出的句子：${sentence}`,
   ]
     .filter(Boolean)
@@ -128,7 +141,43 @@ export async function reviewSentence(params: {
 
   if (response.stop_reason === "refusal") throw new CoachError("refusal");
   if (!response.parsed_output) throw new CoachError("parse");
-  return response.parsed_output;
+  return reconcile(response.parsed_output, sentence, previous);
+}
+
+export type PreviousVersion = {
+  sentence: string;
+  overall: string;
+  issues: { category: string; span: string }[];
+};
+
+const OVERALL_ZH: Record<string, string> = { correct: "正確", minor: "有小問題", error: "有錯" };
+
+/** 只去掉標點、保留空格，用來判斷兩句是否「連空格都一樣」。 */
+const sameText = (a: string, b: string) =>
+  a.replace(/[.,!?。！？~]/g, "").replace(/\s+/g, " ").trim() === b.replace(/[.,!?。！？~]/g, "").replace(/\s+/g, " ").trim();
+
+/**
+ * 用 AI 自己給的參考寫法檢查它的判斷有沒有自相矛盾：
+ * - 參考寫法跟學生的句子一模一樣（連空格都一樣），就代表不用改，算寫對。
+ * - 某個問題的片段原封不動出現在參考寫法裡，代表參考寫法沒改那裡，這個問題不成立。
+ * 另外，句子和上一版完全一樣、這次卻改判正確，一定要跟學生說明上次看錯了。
+ */
+export function reconcile(fb: Feedback, sentence: string, previous: PreviousVersion[]): Feedback {
+  let out = fb;
+  const issues = fb.issues.filter(
+    (i) => !(sentence.includes(i.span) && i.span.replace(/\s/g, "").length >= 2 && fb.reference_ko.includes(i.span)),
+  );
+  if (issues.length !== fb.issues.length) {
+    out = { ...out, issues, ...(issues.length === 0 && { overall: "correct" as const }) };
+  }
+  if (fb.uses_target_grammar && sameText(fb.reference_ko, sentence)) {
+    out = { ...out, overall: "correct", target_grammar_correct: true, issues: [] };
+  }
+  const last = previous.at(-1);
+  if (!out.retracted_zh && out.overall === "correct" && last && last.overall !== "correct" && sameText(last.sentence, sentence)) {
+    out = { ...out, retracted_zh: "這句跟上一版一模一樣，上一次的提示是教練看錯了，這句本來就是對的，抱歉讓你多改了一次！" };
+  }
+  return out;
 }
 
 export class CoachError extends Error {}
@@ -153,6 +202,7 @@ export function revealFeedback(fb: Feedback, attempt: number, sentence: string, 
     usesTarget: fb.uses_target_grammar,
     targetCorrect: fb.target_grammar_correct,
     praise: fb.praise_zh,
+    retracted: fb.retracted_zh || null,
     issues: fb.issues.map((i) => ({
       span: i.span,
       category: CATEGORY_ZH[i.category],

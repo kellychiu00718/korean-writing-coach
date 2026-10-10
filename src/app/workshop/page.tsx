@@ -29,7 +29,9 @@ export default async function WorkshopPage() {
           <span className="eyebrow mb-3">句子工坊</span>
           <h1 className="text-3xl font-bold sm:text-4xl">今天想練哪一個文法？</h1>
           <p className="mt-2 max-w-2xl text-ink-soft">
-            挑一個文法，嘗試自己寫出韓文句子。AI 教練只會一層一層給線索，答案要靠自己一步步想出來。
+            挑一個文法，嘗試自己寫出韓文句子。
+            <br />
+            AI 教練只會一層一層給線索，答案要靠自己一步步想出來。
           </p>
         </section>
 
