@@ -56,9 +56,8 @@ export type DictationItem = Clip | VoiceItem;
 
 const levels = levelData as Record<string, { level: number; hardest: Hardest[] }>;
 
-/** 台詞還沒填好、或還沒確認的候選片段先不顯示。 */
-export const clips: Clip[] = (clipData as Omit<Clip, "kind" | "audio" | "hardest">[])
-  .filter((c) => c.text_ko.trim() && !c.pending)
+const allClips: Clip[] = (clipData as Omit<Clip, "kind" | "audio" | "hardest">[])
+  .filter((c) => c.text_ko.trim())
   .map((c) => ({
     ...c,
     kind: "clip",
@@ -66,6 +65,12 @@ export const clips: Clip[] = (clipData as Omit<Clip, "kind" | "audio" | "hardest
     audio: audioFor(c.id),
     hardest: levels[c.id]?.hardest ?? [],
   }));
+
+/** 網站上看得到的片段：還沒確認的候選先不顯示。 */
+export const clips = allClips.filter((c) => !c.pending);
+
+/** 等 Kelly 確認的候選（只在本機的審核頁 /dictation/pending 看得到） */
+export const pendingClips = allClips.filter((c) => c.pending);
 
 export const voiceItems: VoiceItem[] = lessons.flatMap((l) =>
   l.examples.map((ex, i) => ({
