@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
 
 const ITEMS = [
-  { href: "/me", label: "我的頁面" },
+  { href: "/me", label: "我的" },
   { href: "/review", label: "複習字卡" },
 ];
 

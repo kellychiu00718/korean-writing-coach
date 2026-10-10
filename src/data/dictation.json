@@ -13,5 +13,80 @@
       "channel": "HYBE LABELS",
       "url": "https://www.youtube.com/watch?v=gdZLi9oWNZg"
     }
+  },
+  {
+    "id": "drama-goodpartner-1",
+    "videoId": "U0_cRfdu-H8",
+    "start": 26,
+    "end": 31,
+    "text_ko": "",
+    "text_zh": "",
+    "level": 0,
+    "genre": "drama",
+    "source": {
+      "title": "[#습포이드] 너 지금 뭐하는 거야?💢 장나라 앞에서 무릎 꿇고 사과하는 최사라 #굿파트너 #goodpartner #sbsdrama",
+      "channel": "SBS 스브스 Drama",
+      "url": "https://www.youtube.com/watch?v=U0_cRfdu-H8"
+    }
+  },
+  {
+    "id": "drama-goodpartner-2",
+    "videoId": "U0_cRfdu-H8",
+    "start": 1406,
+    "end": 1415,
+    "text_ko": "",
+    "text_zh": "",
+    "level": 0,
+    "genre": "drama",
+    "source": {
+      "title": "[#습포이드] 너 지금 뭐하는 거야?💢 장나라 앞에서 무릎 꿇고 사과하는 최사라 #굿파트너 #goodpartner #sbsdrama",
+      "channel": "SBS 스브스 Drama",
+      "url": "https://www.youtube.com/watch?v=U0_cRfdu-H8"
+    }
+  },
+  {
+    "id": "variety-eartharcade2-1",
+    "videoId": "3465gjmO_vs",
+    "start": 0,
+    "end": 3,
+    "text_ko": "",
+    "text_zh": "",
+    "level": 0,
+    "genre": "variety",
+    "source": {
+      "title": "[뿅뿅 지구오락실2] 아니 미미가 또│#shorts│TVING",
+      "channel": "TVING 티빙",
+      "url": "https://www.youtube.com/shorts/3465gjmO_vs"
+    }
+  },
+  {
+    "id": "music-aoa-miniskirt-1",
+    "videoId": "q6f-LLM1H6U",
+    "start": 33,
+    "end": 40,
+    "text_ko": "",
+    "text_zh": "",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "AOA - 짧은 치마 (Miniskirt) M/V",
+      "channel": "AOA",
+      "url": "https://www.youtube.com/watch?v=q6f-LLM1H6U"
+    }
+  },
+  {
+    "id": "news-kbs9-20261009-1",
+    "videoId": "a3R8dxLgVeM",
+    "start": 14,
+    "end": 19,
+    "text_ko": "",
+    "text_zh": "",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "[풀영상] 뉴스9 : 한밤중 '먹통' 된 쿠팡·이츠…주문·배송 차질에 \"캐시·쿠폰 보상\" – 2026년 10월 9일(금) / KBS",
+      "channel": "KBS News",
+      "url": "https://www.youtube.com/watch?v=a3R8dxLgVeM"
+    }
   }
 ]

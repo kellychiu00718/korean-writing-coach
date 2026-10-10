@@ -23,7 +23,8 @@ export const GENRE_LABEL: Record<Genre, string> = {
   variety: "綜藝",
 };
 
-export const clips = clipData as Clip[];
+/** 台詞還沒填好的片段先不顯示（text_ko 是空字串）。 */
+export const clips = (clipData as Clip[]).filter((c) => c.text_ko.trim());
 
 export function getClip(id: string) {
   return clips.find((c) => c.id === id);
