@@ -1,20 +1,5 @@
 [
   {
-    "id": "test-1",
-    "videoId": "gdZLi9oWNZg",
-    "start": 10,
-    "end": 15,
-    "text_ko": "테스트용 문장입니다",
-    "text_zh": "（測試用片段：只用來確認播放器能正常播放，台詞不是影片內容，上線前會換成 Kelly 挑的片段。）",
-    "level": 1,
-    "genre": "music",
-    "source": {
-      "title": "BTS (방탄소년단) 'Dynamite' Official MV",
-      "channel": "HYBE LABELS",
-      "url": "https://www.youtube.com/watch?v=gdZLi9oWNZg"
-    }
-  },
-  {
     "id": "drama-goodpartner-1",
     "videoId": "U0_cRfdu-H8",
     "start": 26,
@@ -64,9 +49,9 @@
     "videoId": "q6f-LLM1H6U",
     "start": 33,
     "end": 40,
-    "text_ko": "",
-    "text_zh": "",
-    "level": 0,
+    "text_ko": "널 바라보는 시선이 너는 예전 같지가 않은 걸",
+    "text_zh": "看著你的眼神，已經和從前不一樣了。",
+    "level": 3,
     "genre": "music",
     "source": {
       "title": "AOA - 짧은 치마 (Miniskirt) M/V",
