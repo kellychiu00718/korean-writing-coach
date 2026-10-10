@@ -186,7 +186,7 @@ export function CoachPanel({ grammarId, prompts, openRounds, initialPrompt = 0, 
           {promoted.map((p, i) => (
             <span key={p.grammarId}>
               {i > 0 && "、"}
-              <span lang="ko">「{displayForm(getGrammar(p.grammarId)?.form ?? p.grammarId)}」</span>
+              <span lang="ko" className="ko-inline">「{displayForm(getGrammar(p.grammarId)?.form ?? p.grammarId)}」</span>
               {STATE_LABEL[p.state]}
             </span>
           ))}
@@ -230,7 +230,7 @@ export function CoachPanel({ grammarId, prompts, openRounds, initialPrompt = 0, 
       ) : (
         <form onSubmit={submit} aria-busy={pending} className="mt-5 grid gap-3">
           <label htmlFor="sentence" className="font-medium">
-            {round.length ? "改改看，再送一次" : "你的句子"}
+            {round.length ? "再試一次看看" : "你的句子"}
           </label>
           <textarea
             id="sentence"
@@ -285,7 +285,7 @@ function AttemptView({ entry }: { entry: RoundEntry }) {
           <div key={i} className="mb-2 rounded-2xl bg-hint px-4 py-2">
             <span className="mr-2 rounded-full bg-white px-2 py-0.5 text-xs">{issue.category}</span>
             {issue.location}
-            {clue && <p className="mt-1 text-sm"><span aria-hidden="true">💡 </span>提示：{clue}</p>}
+            {clue && <p className="mt-1"><span aria-hidden="true">💡 </span>提示：{clue}</p>}
             {issue.choices?.length > 0 && (
               <p lang="ko" className="mt-1.5 flex flex-wrap gap-1.5">
                 {issue.choices.map((c) => (
@@ -307,14 +307,14 @@ function AttemptView({ entry }: { entry: RoundEntry }) {
           {fb.otherGrammar.map((g, i) => (
             <span key={g.id}>
               {i > 0 && "、"}
-              <span lang="ko">{g.form}</span>（{g.level} 級）
+              <span lang="ko" className="ko-inline">{g.form}</span>（{g.level} 級）
             </span>
           ))}
         </p>
       )}
       {fb.reference && (
         <div className="mt-2 rounded-2xl border-2 border-sage bg-white px-4 py-3">
-          <p className="text-xs text-ink-soft">
+          <p className={fb.sameAsReference ? "text-sm font-bold text-sage-ink" : "text-xs text-ink-soft"}>
             {fb.sameAsReference
               ? `跟參考寫法一模一樣！${praiseFor(entry.sentence)}`
               : fb.solved

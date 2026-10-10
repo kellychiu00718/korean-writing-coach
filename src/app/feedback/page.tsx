@@ -23,7 +23,11 @@ export default async function FeedbackPage({ searchParams }: { searchParams: Pro
       </div>
       <div className="card">
         <h1 className="mb-1 text-2xl font-bold">意見回報</h1>
-        <p className="mb-5 text-ink-soft">遇到問題、有想要的功能，或只是想說說話，都歡迎告訴我。每一則我都會親自看並且回覆噢！</p>
+        <p className="mb-5 text-ink-soft">
+          遇到問題、有想要的功能，或只是想說說話，都歡迎告訴我。
+          <br />
+          每一則我都會親自看並且回覆噢！
+        </p>
         <FeedbackForm defaultEmail={email} page={from} />
       </div>
     </main>

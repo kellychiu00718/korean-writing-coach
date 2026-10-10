@@ -82,7 +82,7 @@ export default async function LessonPage({
             <p className="mb-4">{lesson.core_zh}</p>
             <p className="mb-4 rounded-2xl bg-peach px-4 py-3 text-sm">
               <b>接法：</b>
-              <span lang="ko">{lesson.pattern}</span>
+              <span lang="ko" className="ko-inline">{lesson.pattern}</span>
             </p>
             <h2 className="mb-2 text-base font-bold">例句</h2>
             <ul className="mb-4 grid gap-2">

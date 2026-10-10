@@ -291,10 +291,10 @@ function LearnedList({ learned }: { learned: LearnedGrammar[] }) {
               </>
             ) : (
               l.evidence && (
-                <p>
-                  <span className="text-xs text-ink-soft">用在這句：</span>
-                  <span lang="ko">{l.evidence}</span>
-                </p>
+                <>
+                  <p className="text-xs text-ink-soft">用在這句：</p>
+                  <p lang="ko">{l.evidence}</p>
+                </>
               )
             )}
           </li>

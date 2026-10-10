@@ -78,6 +78,11 @@ p {
   word-break: keep-all;
 }
 
+/* 夾在中文句子裡的韓文，字型跟著那一句走，同一行不會出現兩種字體 */
+[lang="ko"].ko-inline {
+  font-family: inherit;
+}
+
 @layer components {
   .btn {
     @apply inline-flex items-center justify-center gap-2 rounded-full border-2 border-ink bg-rose px-6 py-3 font-bold text-ink transition-transform duration-100;

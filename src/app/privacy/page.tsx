@@ -24,7 +24,7 @@ const PROCESSORS = [
   {
     name: "Supabase Inc.",
     task: "會員登入與資料庫（存放上面列的資料）",
-    where: "新加坡或日本的資料中心",
+    where: "日本東京的資料中心",
     data: "上表所有項目",
   },
   {
