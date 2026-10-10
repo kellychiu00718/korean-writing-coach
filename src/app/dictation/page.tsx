@@ -1,10 +1,25 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { AppHeader } from "@/components/AppHeader";
-import { clips, GENRE_LABEL, voiceItems } from "@/lib/dictation";
+import { clips, GENRE_LABEL, voiceItems, type Genre } from "@/lib/dictation";
 import { createClient } from "@/lib/supabase/server";
 
-export default async function DictationPage() {
+const GENRES: Genre[] = ["drama", "music", "news", "variety"];
+
+export default async function DictationPage({ searchParams }: { searchParams: Promise<{ genre?: string }> }) {
+  const { genre: g } = await searchParams;
+  const genre = GENRES.find((x) => x === g) ?? null;
+  const shown = genre ? clips.filter((c) => c.genre === genre) : clips;
+  // 同一部影片或同一篇報導有好幾句時，卡片上標「第 N 句」區分
+  const order = new Map<string, string>();
+  const seen = new Map<string, number>();
+  const total = new Map<string, number>();
+  for (const c of clips) total.set(c.source.url, (total.get(c.source.url) ?? 0) + 1);
+  for (const c of clips) {
+    const n = (seen.get(c.source.url) ?? 0) + 1;
+    seen.set(c.source.url, n);
+    if ((total.get(c.source.url) ?? 0) > 1) order.set(c.id, `第\u00a0${n}\u00a0句`);
+  }
   const supabase = await createClient();
   const {
     data: { user },
@@ -39,8 +54,29 @@ export default async function DictationPage() {
         <p className="mb-4 text-sm text-ink-soft">
           台詞出自 YouTube 上的影片，用合成語音唸給你聽；對完答案可以去原影片聽韓國人實際怎麼說。
         </p>
+        {/* 用網址參數篩選，不需要 JavaScript；選了之後重新整理也會保留 */}
+        <nav aria-label="依類型篩選" className="mb-4 flex flex-wrap gap-2">
+          {[null, ...GENRES].map((x) => {
+            const on = x === genre;
+            const count = x ? clips.filter((c) => c.genre === x).length : clips.length;
+            return (
+              <Link
+                key={x ?? "all"}
+                href={x ? `/dictation?genre=${x}` : "/dictation"}
+                scroll={false}
+                aria-current={on ? "page" : undefined}
+                className={`inline-flex min-h-9 items-center rounded-full border-2 px-3 text-sm transition-colors ${
+                  on ? "border-sage-ink bg-sage-soft font-medium text-sage-ink" : "border-line bg-white text-ink-soft hover:bg-cream"
+                }`}
+              >
+                {x ? GENRE_LABEL[x] : "全部"}
+                <span className="ml-1 tabular-nums opacity-70">{count}</span>
+              </Link>
+            );
+          })}
+        </nav>
         <ul className="mb-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {clips.map((c) => {
+          {shown.map((c) => {
             const acc = last.get(c.id);
             return (
               <li key={c.id}>
@@ -60,6 +96,7 @@ export default async function DictationPage() {
                     )}
                   </span>
                   <span className="line-clamp-2 text-sm">{c.source.title}</span>
+                  {order.has(c.id) && <span className="text-xs text-ink-soft">{order.get(c.id)}</span>}
                 </Link>
               </li>
             );
