@@ -96,22 +96,6 @@ export default async function MapPage() {
             </section>
           );
         })}
-        <p className="text-xs text-ink-soft">
-          本網站的文法、詞彙分級，使用國立國語院於 2017 年以
-          <a href="https://www.kogl.or.kr/info/license.do" target="_blank" rel="noopener" className="underline underline-offset-2">
-            公共누리 제1유형
-          </a>
-          開放的〈국제 통용 한국어 표준 교육과정 적용 연구(4단계)〉어휘・문법 등급 목록（2020 修訂版），原始資料可在
-          <a
-            href="https://www.korean.go.kr/front/reportData/reportDataView.do?mn_id=207&report_seq=932"
-            target="_blank"
-            rel="noopener"
-            className="underline underline-offset-2"
-          >
-            國立國語院網站
-          </a>
-          免費下載。
-        </p>
       </main>
     </>
   );

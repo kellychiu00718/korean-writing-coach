@@ -18,6 +18,20 @@
 4.  `cp .env.example .env.local`，填入 Supabase URL／anon key 和 `ANTHROPIC_API_KEY`
 5.  `npm run dev`，打開 <http://localhost:3000>
 
+## 資料庫設定（依序在 Supabase SQL Editor 執行）
+
+1. `supabase/schema.sql`：練習紀錄與文法地圖
+2. `supabase/002_delete_account.sql`：刪除帳號
+3. `supabase/003_review_cards.sql`：複習字卡
+4. `supabase/004_feedback.sql`：意見回報（在 Supabase 後台 Table Editor → `feedback` 查看）
+
+## 上線前待辦
+
+- `src/lib/site.ts` 的 `CONTACT_EMAIL` 填入網站專用信箱（頁尾與隱私權政策會顯示）
+- 確認 Supabase 專案所在地區，更新 `src/app/privacy/page.tsx` 的「所在地」
+- 隱私權政策是依網站實際資料流程擬的草稿，正式公開前建議請熟悉韓國／台灣個資法的人看過
+- 部署平台（例如 Vercel）確定後，加進隱私權政策的委託處理表
+
 ## 補齊 3–4 級課程內容
 
 目前手寫了 12 項（`src/data/lessons.json`），其餘用 Claude 草擬：

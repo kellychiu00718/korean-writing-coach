@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Logo } from "@/components/Logo";
 import { supabaseConfigured } from "@/lib/supabase/server";
 import { LoginForm } from "./LoginForm";
@@ -29,6 +30,13 @@ export default async function LoginPage({
             網站還沒連上會員系統。請先在 <code>.env.local</code> 填好 Supabase 設定（見 README）。
           </p>
         )}
+        <p className="mt-4 text-xs text-ink-soft">
+          登入後我們會用你的 email 寄送登入連結並保存你的練習紀錄，詳見
+          <Link href="/privacy" className="underline underline-offset-2">
+            隱私權政策
+          </Link>
+          。
+        </p>
       </div>
     </main>
   );
