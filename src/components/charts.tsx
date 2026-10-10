@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
 
-// 圖表用的綠：比品牌 sage 飽和一點，在白底上才看得清楚（已通過對比與彩度檢查）。
-const CHART_GREEN = "#2F9A7F";
+// 圖表一律用品牌色：長條 Aqua Sage，滑鼠指到的那一條換成 Whimsy Rose。
+const BAR = "#89B9AD";
+const BAR_ACTIVE = "#E78895";
 
 export type GrowthEvent = { date: string; stamp: string; form: string };
 
@@ -12,7 +13,7 @@ type Bucket = { label: string; title: string; forms: string[]; total: number };
 
 /**
  * 每個時段新寫對了幾項文法的長條圖。
- * 依時間：以「小時」為一格；依日期：以「天」為一格。只列出有練習的時段，不畫空白的日子。
+ * 依時間：同一分鐘寫對的算一格；依日期：以「天」為一格。只列出有練習的時段，不畫空白的日子。
  */
 export function GrowthChart({ events }: { events: GrowthEvent[] }) {
   const [mode, setMode] = useState<"time" | "day">("time");
@@ -34,9 +35,9 @@ export function GrowthChart({ events }: { events: GrowthEvent[] }) {
   const buckets: Bucket[] = [];
   events.forEach((e, i) => {
     // stamp 是「MM-DD HH:mm」（韓國時間）
-    const hour = e.stamp.slice(6, 8);
-    const key = mode === "time" ? `${e.stamp.slice(0, 5)} ${hour}:00` : e.date.slice(5);
-    const title = mode === "time" ? `${e.date} ${hour}:00–${hour}:59` : e.date;
+    // stamp 是「MM-DD HH:mm」（韓國時間），同一分鐘寫對的算一格
+    const key = mode === "time" ? e.stamp : e.date.slice(5);
+    const title = mode === "time" ? `${e.date} ${e.stamp.slice(6)}` : e.date;
     const last = buckets.at(-1);
     if (last?.label === key) {
       last.forms.push(e.form);
@@ -45,7 +46,7 @@ export function GrowthChart({ events }: { events: GrowthEvent[] }) {
   });
 
   const H = W < 420 ? 190 : 210;
-  const pad = { l: 28, r: 8, t: 12, b: 30 };
+  const pad = { l: 28, r: 8, t: 12, b: mode === "time" ? 42 : 30 };
   const max = Math.max(...buckets.map((b) => b.forms.length));
   const yMax = Math.max(2, max);
   const ticks = yMax <= 4 ? Array.from({ length: yMax + 1 }, (_, i) => i) : [0, Math.round(yMax / 2), yMax];
@@ -56,7 +57,7 @@ export function GrowthChart({ events }: { events: GrowthEvent[] }) {
   const y = (v: number) => pad.t + (1 - v / yMax) * (H - pad.t - pad.b);
   const base = y(0);
   // 標籤太多時跳著標，避免疊字。
-  const every = Math.ceil(buckets.length / Math.max(1, Math.floor(plotW / 84)));
+  const every = Math.ceil(buckets.length / Math.max(1, Math.floor(plotW / 56)));
   const tip = active !== null ? buckets[active] : null;
 
   return (
@@ -87,7 +88,7 @@ export function GrowthChart({ events }: { events: GrowthEvent[] }) {
           viewBox={`0 0 ${W} ${H}`}
           className="w-full"
           role="img"
-          aria-label={`每個${mode === "time" ? "小時" : "日子"}新寫對的文法數，目前累積 ${events.length} 項`}
+          aria-label={`每個${mode === "time" ? "時間點" : "日子"}新寫對的文法數，目前累積 ${events.length} 項`}
           onPointerLeave={() => setActive(null)}
         >
           {ticks.map((v) => (
@@ -117,12 +118,20 @@ export function GrowthChart({ events }: { events: GrowthEvent[] }) {
                 <rect x={pad.l + slot * i} y={pad.t} width={slot} height={base - pad.t} fill="transparent" />
                 <path
                   d={`M${x(i)},${base} V${top + r} q0,${-r} ${r},${-r} H${x(i) + barW - r} q${r},0 ${r},${r} V${base} Z`}
-                  fill={CHART_GREEN}
-                  opacity={active === null || active === i ? 1 : 0.45}
+                  fill={active === i ? BAR_ACTIVE : BAR}
                 />
                 {i % every === 0 && (
-                  <text x={x(i) + barW / 2} y={H - 10} textAnchor="middle" fontSize="11" fill="#6E5157">
-                    {b.label}
+                  <text x={x(i) + barW / 2} y={base + 18} textAnchor="middle" fontSize="12" fill="#6E5157">
+                    {mode === "time" ? (
+                      <>
+                        <tspan>{b.label.slice(6)}</tspan>
+                        <tspan x={x(i) + barW / 2} dy="15" fontSize="11">
+                          {b.label.slice(0, 5)}
+                        </tspan>
+                      </>
+                    ) : (
+                      b.label
+                    )}
                   </text>
                 )}
               </g>
@@ -133,12 +142,8 @@ export function GrowthChart({ events }: { events: GrowthEvent[] }) {
         {tip && active !== null && (
           <div
             role="status"
-            className="pointer-events-none absolute z-10 w-max max-w-[15rem] -translate-x-1/2 -translate-y-full rounded-2xl border-2 border-ink bg-white px-3 py-2 text-sm shadow-md"
-            style={{
-              left: `${Math.min(Math.max(((x(active) + barW / 2) / W) * 100, 18), 82)}%`,
-              top: `${(y(tip.forms.length) / H) * 100}%`,
-              marginTop: -8,
-            }}
+            className="pointer-events-none absolute z-10 w-max max-w-[min(15rem,100%)] rounded-2xl border-2 border-ink bg-white px-3 py-2 text-sm shadow-md"
+            style={tipPosition(x(active) + barW / 2, y(tip.forms.length), W)}
           >
             <p className="text-xs tabular-nums text-ink-soft">{tip.title}</p>
             <p>
@@ -155,10 +160,18 @@ export function GrowthChart({ events }: { events: GrowthEvent[] }) {
         )}
       </div>
       <figcaption className="mt-1 text-sm text-ink-soft">
-        每一條是那{mode === "time" ? "一小時" : "一天"}新寫對的文法數，滑鼠移到長條上（或點一下）可以看是哪些文法。
+        每一條是那{mode === "time" ? "個時間點" : "一天"}新寫對的文法數，滑鼠移到長條上可以看是哪些文法。
       </figcaption>
     </figure>
   );
+}
+
+/** 提示框靠近左右邊時改成靠邊對齊，不會超出卡片。 */
+function tipPosition(cx: number, top: number, width: number): React.CSSProperties {
+  const base = { top, marginTop: -8 };
+  if (cx < width * 0.3) return { ...base, left: Math.max(0, cx - 24), transform: "translateY(-100%)" };
+  if (cx > width * 0.7) return { ...base, right: Math.max(0, width - cx - 24), transform: "translateY(-100%)" };
+  return { ...base, left: cx, transform: "translate(-50%, -100%)" };
 }
 
 export type BarDetail = {
@@ -198,7 +211,7 @@ export function BarList({
                 style={{
                   width: `${(r.value / max) * 100}%`,
                   minWidth: r.value ? 6 : 0,
-                  background: CHART_GREEN,
+                  background: BAR,
                 }}
               />
             </span>

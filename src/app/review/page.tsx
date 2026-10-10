@@ -40,9 +40,9 @@ export default async function ReviewPage() {
       <main className="mx-auto max-w-5xl px-4 pb-20 sm:px-5">
         <section className="py-6 sm:py-10">
           <span className="eyebrow mb-3">複習字卡</span>
-          <h1 className="text-3xl font-bold sm:text-4xl">卡住過的地方，再想一次。</h1>
+          <h1 className="text-3xl font-bold sm:text-4xl">卡住的地方，再複習一次！</h1>
           <p className="mt-2 max-w-2xl text-ink-soft">
-            修改了兩次以上的題目會自動放進來，你也可以自己加入想多練的題目。先看中文情境，在心裡（或紙上）寫一次，再翻面對照。
+            修改了兩次以上的題目會自動放進來，你也可以自己加入想多複習的題目。
           </p>
         </section>
 
@@ -51,7 +51,7 @@ export default async function ReviewPage() {
         ) : cards.length ? (
           <ReviewDeck cards={cards} />
         ) : (
-          <p className="rounded-3xl bg-cream px-4 py-10 text-center text-ink-soft">
+          <p className="card py-10 text-center text-ink-soft">
             目前還沒有字卡。在
             <Link href="/workshop" className="underline underline-offset-4">
               句子工坊

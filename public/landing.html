@@ -719,15 +719,36 @@
         });
       });
 
-      // 第三幕：等速走路（持續的移動用 linear），每 .3 秒輕輕晃一下
+      // 第三幕：等速走路（持續的移動用 linear）
       turtle.animate(
         [{ opacity: 0, transform: `translateX(${g.startX}px)` }, { opacity: 1, offset: 0.06 }, { opacity: 1, transform: `translateX(${g.endX}px)` }],
         { duration: T.walkDur, delay: T.walk, easing: 'linear', fill: 'both' }
       );
-      turtle.querySelector('svg').animate(
-        [{ transform: 'translateY(0) rotate(-2deg)' }, { transform: 'translateY(-4px) rotate(2deg)' }],
-        { duration: 300, delay: T.walk, iterations: Math.round(T.walkDur / 300), direction: 'alternate', easing: 'ease-in-out', fill: 'both' }
-      );
+      // 身體不上下晃，只有腳交錯：後腳＋前腳一組、中間的腳一組，輪流抬起往前、落地往後推。
+      // 貼地往後推的距離＝這段時間身體前進的距離，腳看起來才是踩在地上，不會滑。
+      const STEP = 560;                                         // 一隻腳走完一步的時間
+      const speed = (g.endX - g.startX) / T.walkDur;            // 每毫秒前進幾 px
+      const toUnits = 200 / g.size;                             // px → 圖內座標
+      const stride = Math.min(18, Math.max(6, speed * (STEP / 2) * toUnits));
+      const legs = [...turtle.querySelectorAll('svg ellipse')].filter((e) => ['50', '88', '124'].includes(e.getAttribute('cx')));
+      legs.forEach((leg) => {
+        leg.style.transformBox = 'fill-box';
+        leg.style.transformOrigin = 'center';
+        leg.animate(
+          [
+            { transform: `translate(${-stride / 2}px, 0)`, easing: 'ease-out' },   // 在後面，準備抬腳
+            { transform: 'translate(0, -9px)', offset: 0.25, easing: 'ease-in' },   // 抬起、往前跨
+            { transform: `translate(${stride / 2}px, 0)`, offset: 0.5, easing: 'linear' }, // 落地在前面
+            { transform: `translate(${-stride / 2}px, 0)` },                        // 踩著地往後推
+          ],
+          {
+            duration: STEP,
+            delay: T.walk,
+            iterations: Math.round(T.walkDur / STEP),
+            iterationStart: leg.getAttribute('cx') === '88' ? 0.5 : 0,          // 中間的腳慢半拍，跟另外兩隻交錯
+          }
+        );
+      });
       g.chars.forEach((c) => {
         // 前腳走到這個字下方的時間
         const progress = (c.x - g.front - g.startX) / (g.endX - g.startX);

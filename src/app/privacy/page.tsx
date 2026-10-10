@@ -47,7 +47,7 @@ export default function PrivacyPage() {
       <div className="mb-8">
         <Logo href="/landing.html" />
       </div>
-      <article className="grid gap-8 text-[15.5px]">
+      <article className="grid min-w-0 grid-cols-1 gap-8 text-[15.5px] [&>*]:min-w-0">
         <header>
           <span className="eyebrow mb-3">隱私權政策</span>
           <h1 className="text-3xl font-bold">我們怎麼處理你的資料</h1>

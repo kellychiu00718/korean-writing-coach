@@ -53,7 +53,7 @@ export default async function MePage() {
           {stats.rounds.length ? (
             <SentenceBook rounds={stats.rounds} />
           ) : (
-            <p className="rounded-2xl bg-cream px-4 py-6 text-center text-ink-soft">
+            <p className="card py-10 text-center text-ink-soft">
               還沒有句子。<Link href="/workshop" className="underline underline-offset-4">去句子工坊寫第一句</Link>吧！
             </p>
           )}
