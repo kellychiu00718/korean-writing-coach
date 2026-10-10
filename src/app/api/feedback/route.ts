@@ -16,7 +16,7 @@ export async function POST(request: Request) {
   if (!parsed.success) return NextResponse.json({ error: "內容好像有點問題，確認一下再送出？" }, { status: 400 });
   const { kind, message, replyEmail, page } = parsed.data;
   if (replyEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(replyEmail)) {
-    return NextResponse.json({ error: "回覆用的 email 格式好像不太對。" }, { status: 400 });
+    return NextResponse.json({ error: "電子信箱的格式好像不太對。" }, { status: 400 });
   }
 
   const supabase = await createClient();

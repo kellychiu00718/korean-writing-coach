@@ -17,10 +17,10 @@ export default async function LoginPage({
       </div>
       <div className="card">
         <h1 className="mb-1 text-2xl font-bold">登入開始練習</h1>
-        <p className="mb-5 text-ink-soft">輸入 email，我們會寄一個登入連結給你，不用設定密碼。</p>
+        <p className="mb-5 text-ink-soft">輸入電子信箱，我們會寄一個登入連結給你。</p>
         {error === "link" && (
           <p role="alert" className="mb-4 rounded-2xl bg-hint px-4 py-3">
-            登入連結失效或已經用過了，再寄一次吧。
+            這個登入連結沒辦法使用了：可能已經用過、超過 1 小時，或是在另一個瀏覽器打開。請在下面重新寄一封；收到後可以點連結，也可以輸入信裡的驗證碼。
           </p>
         )}
         {supabaseConfigured() ? (
@@ -31,7 +31,7 @@ export default async function LoginPage({
           </p>
         )}
         <p className="mt-4 text-xs text-ink-soft">
-          登入後我們會用你的 email 寄送登入連結並保存你的練習紀錄，詳見
+          登入後我們會用你的電子信箱寄送登入連結並保存你的練習紀錄，詳見
           <Link href="/privacy" className="underline underline-offset-2">
             隱私權政策
           </Link>

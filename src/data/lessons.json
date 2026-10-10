@@ -24,7 +24,7 @@
       },
       {
         "scene": "work",
-        "situation_zh": "主管問你為什麼還沒回覆客戶的 email。你一整個上午都在準備會議資料。"
+        "situation_zh": "主管問你為什麼還沒回覆客戶的電子郵件。你一整個上午都在準備會議資料。"
       }
     ],
     "reviewed": false
@@ -255,7 +255,7 @@
       },
       {
         "scene": "work",
-        "situation_zh": "寫 email 給客戶：想詢問關於新產品交期的事。"
+        "situation_zh": "寫電子郵件給客戶：想詢問關於新產品交期的事。"
       }
     ],
     "reviewed": false

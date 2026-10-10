@@ -5,7 +5,7 @@ export type Interest = Lesson["prompts"][number]["scene"];
 
 export const INTERESTS: { id: Interest; label: string; hint: string }[] = [
   { id: "fan", label: "追星", hint: "粉絲信、泡泡聊天、簽售會" },
-  { id: "work", label: "職場", hint: "email、자소서、面試" },
+  { id: "work", label: "職場", hint: "電子郵件、자소서、面試" },
   { id: "topik", label: "TOPIK", hint: "51–54 題的寫法" },
   { id: "daily", label: "日常", hint: "生活、旅行、交朋友" },
 ];

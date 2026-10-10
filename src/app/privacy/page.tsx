@@ -9,14 +9,14 @@ const ext = { target: "_blank", rel: "noopener" } as const;
 const a = "underline underline-offset-2";
 
 const COLLECTED = [
-  { item: "Email", why: "寄送登入連結、辨識你的帳號", keep: "到你刪除帳號為止" },
+  { item: "電子信箱", why: "寄送登入連結、辨識你的帳號", keep: "到你刪除帳號為止" },
   { item: "暱稱、感興趣的主題（選填）", why: "在「我的」頁面打招呼、依主題出情境題", keep: "到你刪除帳號為止" },
   {
     item: "你寫的句子、AI 回饋、文法地圖、複習字卡",
     why: "提供寫作練習、記錄你的進步",
     keep: "到你刪除帳號為止；複習字卡可以隨時自己移除",
   },
-  { item: "意見回報的內容與回覆用 email（選填）", why: "回覆你、改善網站", keep: "收到後最多保存 1 年" },
+  { item: "意見回報的內容與回覆用電子信箱（選填）", why: "回覆你、改善網站", keep: "收到後最多保存 1 年" },
   { item: "登入狀態（cookie）", why: "讓你不用每次都重新登入", keep: "登出或過期後失效" },
 ];
 
@@ -31,7 +31,7 @@ const PROCESSORS = [
     name: "Anthropic PBC",
     task: "AI 教練：產生句子回饋",
     where: "美國",
-    data: "你送出的句子、題目情境與文法（不包含 email 和暱稱）",
+    data: "你送出的句子、題目情境與文法（不包含電子信箱和暱稱）",
   },
   {
     name: "Google LLC（Google Fonts）",
@@ -131,12 +131,12 @@ export default function PrivacyPage() {
           <h2 className="mb-2 text-xl font-bold">4. 你的權利</h2>
           <p className="mb-2">依台灣《個人資料保護法》第 3 條，你可以對自己的資料提出以下要求：</p>
           <ul className="grid list-disc gap-1 pl-5">
-            <li>查詢或閱覽：在「我的」頁面可以看到你的 email、暱稱、感興趣的主題、寫過的句子和進步紀錄。</li>
+            <li>查詢或閱覽：在「我的」頁面可以看到你的電子信箱、暱稱、感興趣的主題、寫過的句子和進步紀錄。</li>
             <li>製給複製本：想要一份自己全部資料的檔案，請用第 8 點的聯絡方式告訴我們。</li>
             <li>補充或更正：在「我的」頁面可以直接修改暱稱與感興趣的主題。</li>
             <li>停止收集、處理或使用：請用第 8 點的聯絡方式告訴我們。</li>
             <li>
-              刪除：在「我的」頁面按「刪除帳號」，你的 email、寫過的句子、文法地圖和複習字卡會立刻全部刪除，無法復原。
+              刪除：在「我的」頁面按「刪除帳號」，你的電子信箱、寫過的句子、文法地圖和複習字卡會立刻全部刪除，無法復原。
             </li>
           </ul>
           <p className="mt-2">
@@ -147,8 +147,8 @@ export default function PrivacyPage() {
         <section>
           <h2 className="mb-2 text-xl font-bold">5. 不提供資料會怎樣</h2>
           <ul className="grid list-disc gap-1 pl-5">
-            <li>Email 是登入需要的，沒有 email 就無法使用句子工坊、文法地圖等需要登入的功能。</li>
-            <li>暱稱、感興趣的主題、意見回報的回覆用 email 都是選填，不填也能正常使用。</li>
+            <li>電子信箱是登入需要的，沒有電子信箱就無法使用句子工坊、文法地圖等需要登入的功能。</li>
+            <li>暱稱、感興趣的主題、意見回報的回覆用電子信箱都是選填，不填也能正常使用。</li>
           </ul>
         </section>
 

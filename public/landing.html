@@ -468,7 +468,7 @@
       <h2>你是不是也這樣？</h2>
       <div class="who">
         <div><b>準備 TOPIK IBT</b><p>寫作分數卡住，打字也不夠快。</p></div>
-        <div><b>想在韓國工作</b><p>자소서、商務 email 不知道該怎麼寫，或是寫得出來，但用詞不夠精準。</p></div>
+        <div><b>想在韓國工作</b><p>자소서、商務電子郵件不知道該怎麼寫，或是寫得出來，但用詞不夠精準。</p></div>
         <div><b>工作會用到韓文</b><p>想擺脫「先寫中文再丟給 AI 翻譯」的習慣。</p></div>
         <div><b>想寫信給偶像</b><p>簽售會的信、泡泡的訊息，想自己構思、自己寫出來。</p></div>
       </div>
@@ -572,14 +572,14 @@
     <div class="wrap center">
       <span class="eyebrow">搶先試用</span>
       <h2>一起來慢慢寫吧<span class="punct">。</span></h2>
-      <p>第一版已經可以用了：句子工坊和文法地圖。用 email 登入就能開始<span class="punct">。</span></p>
+      <p>第一版已經可以用了：句子工坊和文法地圖。用電子信箱登入就能開始<span class="punct">。</span></p>
       <p><a class="btn" href="/login">免費開始練習</a></p>
       <div class="join-group">
-        <p class="join-lead">想收到之後的更新？也可以留下 email 和你的困擾<span class="punct">。</span></p>
+        <p class="join-lead">想收到之後的更新？也可以留下電子信箱和你的困擾<span class="punct">。</span></p>
         <div class="card">
         <form id="waitlist" novalidate>
           <div class="field">
-            <label for="wl-email">Email</label>
+            <label for="wl-email">電子信箱</label>
             <input id="wl-email" type="email" name="email" required autocomplete="email" placeholder="you@example.com">
           </div>
           <fieldset class="field">
@@ -880,7 +880,7 @@
     form.email.removeAttribute('aria-invalid');
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      msg.textContent = 'Email 格式好像不太對，再確認一下？';
+      msg.textContent = '電子信箱格式好像不太對，再確認一下？';
       msg.classList.add('show', 'warn');
       form.email.setAttribute('aria-invalid', 'true');
       form.email.focus();
