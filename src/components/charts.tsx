@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 
 // 圖表一律用品牌色：長條 Aqua Sage，滑鼠指到的那一條換成 Whimsy Rose。
 const BAR = "#89B9AD";
@@ -21,10 +21,16 @@ export function GrowthChart({ events }: { events: GrowthEvent[] }) {
   // 依實際寬度畫圖，手機上文字才不會跟著縮到看不清楚。
   const boxRef = useRef<HTMLDivElement>(null);
   const [W, setW] = useState(560);
+  // 量提示框的高度：上方放不下時改放到長條下方，不會衝出卡片
+  const tipRef = useRef<HTMLDivElement>(null);
+  const [tipH, setTipH] = useState(0);
+  useLayoutEffect(() => {
+    if (tipRef.current) setTipH(tipRef.current.offsetHeight);
+  }, [active, mode]);
   useEffect(() => {
     const el = boxRef.current;
     if (!el) return;
-    const ro = new ResizeObserver(([entry]) => setW(Math.max(280, Math.round(entry.contentRect.width))));
+    const ro = new ResizeObserver(([entry]) => setW(Math.max(160, Math.round(entry.contentRect.width))));
     ro.observe(el);
     return () => ro.disconnect();
   }, [events.length]);
@@ -88,7 +94,7 @@ export function GrowthChart({ events }: { events: GrowthEvent[] }) {
           viewBox={`0 0 ${W} ${H}`}
           className="w-full"
           role="img"
-          aria-label={`每個${mode === "time" ? "時間點" : "日子"}新寫對的文法數，目前累積 ${events.length} 項`}
+          aria-label={`每個${mode === "time" ? "時間點" : "日子"}新寫對的文法數，目前累積 ${events.length} 項`}
           onPointerLeave={() => setActive(null)}
         >
           {ticks.map((v) => (
@@ -107,7 +113,7 @@ export function GrowthChart({ events }: { events: GrowthEvent[] }) {
                 key={b.label}
                 tabIndex={0}
                 role="button"
-                aria-label={`${b.title}：新寫對 ${b.forms.length} 項（${b.forms.join("、")}），累積 ${b.total} 項`}
+                aria-label={`${b.title}：新寫對 ${b.forms.length} 項（${b.forms.join("、")}），累積 ${b.total} 項`}
                 onPointerEnter={() => setActive(i)}
                 onFocus={() => setActive(i)}
                 onBlur={() => setActive(null)}
@@ -141,21 +147,25 @@ export function GrowthChart({ events }: { events: GrowthEvent[] }) {
         </svg>
         {tip && active !== null && (
           <div
+            ref={tipRef}
             role="status"
-            className="pointer-events-none absolute z-10 w-max max-w-[min(15rem,100%)] rounded-2xl border-2 border-ink bg-white px-3 py-2 text-sm shadow-md"
-            style={tipPosition(x(active) + barW / 2, y(tip.forms.length), W)}
+            className="pointer-events-none absolute z-10 w-max rounded-2xl border-2 border-ink bg-white px-3 py-2 text-sm shadow-md"
+            style={tipPosition(x(active) + barW / 2, y(tip.forms.length), W, tipH)}
           >
             <p className="text-xs tabular-nums text-ink-soft">{tip.title}</p>
-            <p>
-              新寫對 <b className="tabular-nums">{tip.forms.length}</b> 項：
-              {tip.forms.map((f, i) => (
-                <span key={i} lang="ko" className="whitespace-nowrap">
-                  {i ? "、" : ""}
-                  {f}
-                </span>
-              ))}
+            <p className="whitespace-nowrap">
+              新寫對 <b className="tabular-nums">{tip.forms.length}</b> 項：
             </p>
-            <p className="text-xs tabular-nums text-ink-soft">累積 {tip.total} 項</p>
+            {/* 每個文法自成一塊，只在文法之間換行 */}
+            <ul className="flex flex-wrap gap-y-0.5">
+              {tip.forms.map((f, i) => (
+                <li key={i} lang="ko" className="whitespace-nowrap">
+                  {f}
+                  {i < tip.forms.length - 1 ? "、" : ""}
+                </li>
+              ))}
+            </ul>
+            <p className="text-xs tabular-nums text-ink-soft">累積 {tip.total} 項</p>
           </div>
         )}
       </div>
@@ -167,11 +177,22 @@ export function GrowthChart({ events }: { events: GrowthEvent[] }) {
 }
 
 /** 提示框靠近左右邊時改成靠邊對齊，不會超出卡片。 */
-function tipPosition(cx: number, top: number, width: number): React.CSSProperties {
-  const base = { top, marginTop: -8 };
-  if (cx < width * 0.3) return { ...base, left: Math.max(0, cx - 24), transform: "translateY(-100%)" };
-  if (cx > width * 0.7) return { ...base, right: Math.max(0, width - cx - 24), transform: "translateY(-100%)" };
-  return { ...base, left: cx, transform: "translate(-50%, -100%)" };
+function tipPosition(cx: number, barTop: number, width: number, height: number): React.CSSProperties {
+  const MAX = 240;
+  // 長條上方放不下就放到長條頂端下方
+  const below = barTop - 8 - height < 0;
+  const base = { top: below ? barTop + 8 : barTop - 8 };
+  const dy = below ? "0" : "-100%";
+  if (cx < width * 0.3) {
+    const left = Math.max(0, cx - 24);
+    return { ...base, left, maxWidth: Math.min(MAX, width - left), transform: `translateY(${dy})` };
+  }
+  if (cx > width * 0.7) {
+    const right = Math.max(0, width - cx - 24);
+    return { ...base, right, maxWidth: Math.min(MAX, width - right), transform: `translateY(${dy})` };
+  }
+  // 置中時，寬度不能超過離左右兩邊較近的那一側的兩倍
+  return { ...base, left: cx, maxWidth: Math.min(MAX, 2 * Math.min(cx, width - cx)), transform: `translate(-50%, ${dy})` };
 }
 
 export type BarDetail = {

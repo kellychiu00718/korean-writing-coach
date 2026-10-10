@@ -75,7 +75,7 @@ export default async function LessonPage({
         <div className="mt-4 grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
           <section className="card" aria-labelledby="lesson-title">
             <span className="eyebrow mb-3">
-              {item.level} 級・{CATEGORY_LABEL[item.category] ?? item.category}
+              {item.level} 級・{CATEGORY_LABEL[item.category] ?? item.category}
             </span>
             <h1 id="lesson-title" lang="ko" className="text-3xl">
               {displayForm(item.form)}
@@ -100,7 +100,7 @@ export default async function LessonPage({
                       {ex.grammar.map((gid) => {
                         const g = getGrammar(gid);
                         if (!g) return null;
-                        const label = `${displayForm(g.form)}（${g.level} 級）`;
+                        const label = `${displayForm(g.form)}（${g.level} 級）`;
                         return getLesson(gid) ? (
                           <Link key={gid} href={`/workshop/${gid}`} lang="ko" className="inline-flex min-h-9 items-center rounded-full border-2 border-ink bg-white px-3 hover:bg-peach">
                             {label}

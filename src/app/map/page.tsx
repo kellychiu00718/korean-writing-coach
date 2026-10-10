@@ -31,10 +31,10 @@ export default async function MapPage() {
         <section className="py-6 sm:py-10">
           <span className="eyebrow mb-3">文法地圖</span>
           <h1 className="text-3xl font-bold sm:text-4xl">
-            {useCount > 0 ? `你已經能自己寫出 ${useCount} 項文法` : "你的地圖從第一句開始亮起來"}
+            {useCount > 0 ? `你已經能自己寫出 ${useCount} 項文法` : "你的地圖從第一句開始亮起來"}
           </h1>
           <p className="mt-2 max-w-2xl text-ink-soft">
-            依韓國國立國語院標準教育課程，韓檢 1–6 級總共 {grammar.length} 項文法。
+            依韓國國立國語院標準教育課程，韓檢 1–6 級總共 {grammar.length} 項文法。
             <br />
             只有靠自己將文法寫出來應用在句子裡面，格子才會標示成綠色；
             <br />
@@ -66,10 +66,10 @@ export default async function MapPage() {
             <section key={level} className="mb-10" aria-labelledby={`map-${level}`}>
               <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2">
                 <h2 id={`map-${level}`} className="text-xl font-bold">
-                  {level} 級
+                  {level} 級
                 </h2>
                 <p className="text-sm text-ink-soft">
-                  {items.length} 項文法中，自己寫出來且用對 {counts.use}・大概知道 {counts.know}・尚未學習 {items.length - counts.use - counts.know}
+                  {items.length} 項文法中，自己寫出來且用對 {counts.use}・大概知道 {counts.know}・尚未學習 {items.length - counts.use - counts.know}
                 </p>
               </div>
               <ul lang="ko" className="flex flex-wrap gap-2">

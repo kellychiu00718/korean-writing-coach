@@ -52,15 +52,15 @@ export default function PrivacyPage() {
           <span className="eyebrow mb-3">隱私權政策</span>
           <h1 className="text-3xl font-bold">我們怎麼處理你的資料</h1>
           <p className="mt-2 text-ink-soft">
-            慢慢寫只收集提供練習需要的資料：不放廣告、不做追蹤分析，也不會把你的資料賣給任何人。這份政策依台灣《個人資料保護法》第 8
-            條規定的告知事項撰寫；因為網站在韓國經營，也參考了韓國《個人資訊保護法》第 30 條的公開要求。
+            慢慢寫只收集提供練習需要的資料：不放廣告、不做追蹤分析，也不會把你的資料賣給任何人。這份政策依台灣《個人資料保護法》第 8
+            條規定的告知事項撰寫；因為網站在韓國經營，也參考了韓國《個人資訊保護法》第 30 條的公開要求。
           </p>
           <p className="mt-1 text-sm text-ink-soft">生效日期：{PRIVACY_EFFECTIVE_DATE}（韓國時間）</p>
         </header>
 
         <section>
           <h2 className="mb-2 text-xl font-bold">1. 誰在收集你的資料</h2>
-          <p>慢慢寫是由個人經營的網站，負責人是 Kelly（網站作者）。聯絡方式寫在第 8 點。</p>
+          <p>慢慢寫是由個人經營的網站，負責人是 Kelly（網站作者）。聯絡方式寫在第 8 點。</p>
         </section>
 
         <section>
@@ -93,7 +93,7 @@ export default function PrivacyPage() {
         <section>
           <h2 className="mb-2 text-xl font-bold">3. 資料會在哪裡、由誰、怎麼使用</h2>
           <p className="mb-3">
-            資料只用在第 2 點寫的用途，使用期間就是表格裡的保存期間。除了下面這些代為處理的服務，以及法律要求的情況以外，我們不會把你的資料提供給其他人。這些服務位在台灣以外的地區，所以資料會被傳送到國外處理：
+            資料只用在第 2 點寫的用途，使用期間就是表格裡的保存期間。除了下面這些代為處理的服務，以及法律要求的情況以外，我們不會把你的資料提供給其他人。這些服務位在台灣以外的地區，所以資料會被傳送到國外處理：
           </p>
           <div className="overflow-x-auto rounded-2xl border-2 border-line bg-white">
             <table className="w-full min-w-[560px] text-left text-sm">
@@ -129,18 +129,18 @@ export default function PrivacyPage() {
 
         <section>
           <h2 className="mb-2 text-xl font-bold">4. 你的權利</h2>
-          <p className="mb-2">依台灣《個人資料保護法》第 3 條，你可以對自己的資料提出以下要求：</p>
+          <p className="mb-2">依台灣《個人資料保護法》第 3 條，你可以對自己的資料提出以下要求：</p>
           <ul className="grid list-disc gap-1 pl-5">
             <li>查詢或閱覽：在「我的」頁面可以看到你的電子信箱、暱稱、感興趣的主題、寫過的句子和進步紀錄。</li>
-            <li>製給複製本：想要一份自己全部資料的檔案，請用第 8 點的聯絡方式告訴我們。</li>
+            <li>製給複製本：想要一份自己全部資料的檔案，請用第 8 點的聯絡方式告訴我們。</li>
             <li>補充或更正：在「我的」頁面可以直接修改暱稱與感興趣的主題。</li>
-            <li>停止收集、處理或使用：請用第 8 點的聯絡方式告訴我們。</li>
+            <li>停止收集、處理或使用：請用第 8 點的聯絡方式告訴我們。</li>
             <li>
               刪除：在「我的」頁面按「刪除帳號」，你的電子信箱、寫過的句子、文法地圖和複習字卡會立刻全部刪除，無法復原。
             </li>
           </ul>
           <p className="mt-2">
-            透過聯絡方式提出的查詢、閱覽或複製本要求，我們會在 15 天內回覆；補充、更正、停止使用或刪除的要求，會在 30 天內處理完成。
+            透過聯絡方式提出的查詢、閱覽或複製本要求，我們會在 15 天內回覆；補充、更正、停止使用或刪除的要求，會在 30 天內處理完成。
           </p>
         </section>
 

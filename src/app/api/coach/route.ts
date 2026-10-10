@@ -49,7 +49,7 @@ export async function POST(request: Request) {
     .gte("created_at", startOfTodayKst());
   if (countError) return fail(500, "讀取紀錄時出了問題，請稍後再試。");
   if ((count ?? 0) >= DAILY_LIMIT) {
-    return fail(429, `今天的 AI 回饋次數（${DAILY_LIMIT} 次）用完了，明天再繼續吧。`);
+    return fail(429, `今天的 AI 回饋次數（${DAILY_LIMIT} 次）用完了，明天再繼續吧。`);
   }
 
   // 第幾次送出由伺服器判斷，避免直接跳到第 3 層拿答案。上一輪已經揭曉參考寫法，就開新的一輪。

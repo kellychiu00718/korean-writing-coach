@@ -130,7 +130,7 @@ export async function getStats(supabase: SupabaseClient, userId: string) {
       form: r.form,
       grammarId: r.grammarId,
       text: last.sentence,
-      note: r.outcome === "revealed" ? `寫了 ${r.steps.length} 次` : `第 ${last.attempt} 次寫對`,
+      note: r.outcome === "revealed" ? `寫了 ${r.steps.length} 次` : `第 ${last.attempt} 次寫對`,
       stamp: r.stamp,
     });
   }

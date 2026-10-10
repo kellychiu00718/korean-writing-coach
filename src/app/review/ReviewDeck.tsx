@@ -58,7 +58,7 @@ export function ReviewDeck({ cards: initial }: { cards: Card[] }) {
                   {c.form}
                 </span>
                 <span className="text-ink-soft">
-                  {c.level} 級・{c.source === "auto" ? "修改兩次以上" : "自己加入"}
+                  {c.level} 級・{c.source === "auto" ? "修改兩次以上" : "自己加入"}
                 </span>
               </div>
               <p className="text-lg">{c.situation}</p>

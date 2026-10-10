@@ -15,9 +15,9 @@ const OUTCOME_BADGE: Record<
   Round["outcome"],
   { text: string; className: string }
 > = {
-  first: { text: "第 1 次就寫對", className: "bg-sage-soft text-sage-ink" },
-  second: { text: "第 2 次寫對", className: "bg-sage-soft text-sage-ink" },
-  third: { text: "第 3 次以上寫對", className: "bg-sage-soft text-sage-ink" },
+  first: { text: "第 1 次就寫對", className: "bg-sage-soft text-sage-ink" },
+  second: { text: "第 2 次寫對", className: "bg-sage-soft text-sage-ink" },
+  third: { text: "第 3 次以上寫對", className: "bg-sage-soft text-sage-ink" },
   revealed: { text: "看了參考答案", className: "bg-peach text-ink" },
   open: { text: "還在練習中", className: "bg-hint text-ink" },
 };
@@ -65,9 +65,9 @@ type DateRange = (typeof DATE_RANGES)[number]["id"];
 
 const TRIES = [
   { id: "all", label: "全部" },
-  { id: "first", label: "第 1 次" },
-  { id: "second", label: "第 2 次" },
-  { id: "third", label: "第 3 次以上" },
+  { id: "first", label: "第 1 次" },
+  { id: "second", label: "第 2 次" },
+  { id: "third", label: "第 3 次以上" },
   { id: "revealed", label: "看了參考答案" },
   { id: "open", label: "還在練習中" },
 ] as const;
@@ -219,7 +219,7 @@ export function SentenceBook({ rounds }: { rounds: Round[] }) {
               { id: "all", label: "全部" },
               ...levels.map((l) => ({
                 id: String(l),
-                label: `${l} 級`,
+                label: `${l} 級`,
                 count: rounds.filter((r) => r.level === l).length,
               })),
             ]}
@@ -242,7 +242,7 @@ export function SentenceBook({ rounds }: { rounds: Round[] }) {
           />
         )}
         <p className="text-xs text-ink-soft" aria-live="polite">
-          共 {sorted.length} 題
+          共 {sorted.length} 題
         </p>
       </div>
       {sorted.length === 0 && (
@@ -267,7 +267,7 @@ export function SentenceBook({ rounds }: { rounds: Round[] }) {
                   {r.form}
                 </Link>
                 <span className="rounded-full border-2 border-line px-2.5 text-xs leading-6">
-                  {r.level} 級
+                  {r.level} 級
                 </span>
                 <span
                   className={`rounded-full px-2.5 text-xs leading-6 ${badge.className}`}
@@ -316,7 +316,7 @@ export function SentenceBook({ rounds }: { rounds: Round[] }) {
                     </span>
                     <div>
                       <p className="text-xs text-ink-soft">
-                        第 {s.attempt} 次{s.solved ? "：寫對了" : ""}
+                        第 {s.attempt} 次{s.solved ? "：寫對了" : ""}
                       </p>
                       <p
                         lang="ko"

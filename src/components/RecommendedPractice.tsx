@@ -94,7 +94,7 @@ export function RecommendedPractice({ pool }: { pool: Candidate[] }) {
                     {c.reason}
                   </span>
                   <span className="text-ink-soft">
-                    {c.level} 級{prompt.scene && `・${prompt.scene}`}
+                    {c.level} 級{prompt.scene && `・${prompt.scene}`}
                   </span>
                 </span>
                 <span lang="ko" className="text-xl">

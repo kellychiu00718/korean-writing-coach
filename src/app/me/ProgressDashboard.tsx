@@ -6,9 +6,9 @@ import { BarList, GrowthChart, type BarDetail } from "@/components/charts";
 import type { LearnedGrammar, Round, RoundOutcome } from "@/lib/stats";
 
 const OUTCOME_LABEL: Record<RoundOutcome, string> = {
-  first: "第 1 次就寫對",
-  second: "第 2 次寫對",
-  third: "第 3 次以上寫對",
+  first: "第 1 次就寫對",
+  second: "第 2 次寫對",
+  third: "第 3 次以上寫對",
   revealed: "看了參考答案",
 };
 
@@ -42,8 +42,8 @@ export function ProgressDashboard(p: Props) {
       unit: "項",
       note: (
         <>
-          練習題<Keep>{`寫對 ${p.practiceUseCount} 項文法，`}</Keep>
-          寫出的句子中另外正確<Keep>{`應用了 ${bonus} 項文法`}</Keep>
+          練習題<Keep>{`寫對 ${p.practiceUseCount} 項文法，`}</Keep>
+          寫出的句子中另外正確<Keep>{`應用了 ${bonus} 項文法`}</Keep>
         </>
       ),
     },
@@ -133,7 +133,7 @@ export function ProgressDashboard(p: Props) {
             <h3 className="mb-1 font-bold">每一題是第幾次寫對的</h3>
             <p className="mb-3 text-sm text-ink-soft">
               {p.roundCount
-                ? `一共完成 ${p.roundCount} 題，點一下長條可以看是哪些題目。`
+                ? `一共完成 ${p.roundCount} 題，點一下長條可以看是哪些題目。`
                 : "完成第一題後就會出現。"}
             </p>
             {p.roundCount > 0 && (
@@ -191,10 +191,10 @@ export function ProgressDashboard(p: Props) {
                         {r.form}
                       </Link>
                       <span className="rounded-full border-2 border-line px-2 text-xs leading-5">
-                        {r.level} 級
+                        {r.level} 級
                       </span>
                       <span className="rounded-full bg-sage-soft px-2 text-xs leading-5 text-sage-ink">
-                        第 {last.attempt} 次寫對
+                        第 {last.attempt} 次寫對
                       </span>
                       <span className="ml-auto text-xs tabular-nums text-ink-soft">
                         {r.stamp}
@@ -258,7 +258,7 @@ function LearnedList({ learned }: { learned: LearnedGrammar[] }) {
                 {l.form}
               </Link>
               <span className="rounded-full border-2 border-line px-2 text-xs leading-5">
-                {l.level} 級
+                {l.level} 級
               </span>
               <span
                 className={`rounded-full px-2 text-xs leading-5 ${l.source === "practice" ? "bg-sage-soft text-sage-ink" : "bg-peach"}`}

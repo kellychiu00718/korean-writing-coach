@@ -13,7 +13,7 @@ type Problem = { text: string; wait?: number };
 function explain(error: AuthError): Problem {
   const seconds = Number(/after (\d+) seconds?/i.exec(error.message)?.[1]);
   if (error.code === "over_email_send_rate_limit" || error.code === "over_request_rate_limit" || error.status === 429) {
-    if (seconds) return { text: `寄得有點太頻繁了，請等 ${seconds} 秒再試一次。`, wait: seconds };
+    if (seconds) return { text: `寄得有點太頻繁了，請等 ${seconds} 秒再試一次。`, wait: seconds };
     return {
       text: "這段時間寄出的登入信已經到上限了，請過一小時左右再試。如果信箱裡已經有一封登入信，可以直接輸入信裡的驗證碼。",
     };
@@ -77,7 +77,7 @@ export function LoginForm({ next }: { next?: string }) {
     e.preventDefault();
     const token = code.replace(/\s/g, "");
     if (!/^\d{6,8}$/.test(token)) {
-      setCodeError("驗證碼是信裡的 6 位數字，再確認一下？");
+      setCodeError("驗證碼是信裡的 6 位數字，再確認一下？");
       return;
     }
     setBusy(true);
@@ -92,7 +92,7 @@ export function LoginForm({ next }: { next?: string }) {
     window.location.href = safeNext;
   }
 
-  const sendLabel = busy ? "寄送中…" : wait ? `${wait} 秒後可以再寄一次` : "寄登入連結給我";
+  const sendLabel = busy ? "寄送中…" : wait ? `${wait} 秒後可以再寄一次` : "寄登入連結給我";
 
   if (view === "sent") {
     return (
@@ -116,7 +116,7 @@ export function LoginForm({ next }: { next?: string }) {
               maxLength={8}
               value={code}
               onChange={(e) => setCode(e.target.value)}
-              placeholder="6 位數字"
+              placeholder="6 位數字"
               aria-invalid={codeError ? true : undefined}
               aria-describedby={codeError ? "otp-error" : undefined}
               className="field min-w-0 flex-1 tracking-[0.3em] tabular-nums placeholder:tracking-normal"
@@ -134,7 +134,7 @@ export function LoginForm({ next }: { next?: string }) {
 
         <div className="flex flex-wrap gap-3">
           <button type="button" className="btn btn-ghost btn-sm" disabled={busy || wait > 0} onClick={send}>
-            {wait ? `${wait} 秒後可以再寄一次` : "沒收到？再寄一次"}
+            {wait ? `${wait} 秒後可以再寄一次` : "沒收到？再寄一次"}
           </button>
           <button
             type="button"

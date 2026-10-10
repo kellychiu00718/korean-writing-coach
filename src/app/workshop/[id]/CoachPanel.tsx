@@ -22,6 +22,14 @@ const SCENE_LABEL: Record<Lesson["prompts"][number]["scene"], string> = {
   topik: "TOPIK",
 };
 
+// 跟參考寫法完全一樣時輪流出現的誇獎；同一個句子固定同一句，重新整理也不會換。
+const PRAISES = ["給你 6 級分！", "尼超棒～～～～～", "你是韓文小天才吧！", "誰是韓文小天才？你（大喊）！"];
+function praiseFor(sentence: string) {
+  let h = 0;
+  for (const ch of sentence) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+  return PRAISES[h % PRAISES.length];
+}
+
 const STEPS = [
   { title: "標示出要改的地方", caption: "標出句子中的哪個部分需要修改" },
   { title: "提示", caption: "提供選項、單字的初聲或文法" },
@@ -153,7 +161,7 @@ export function CoachPanel({ grammarId, prompts, openRounds, initialPrompt = 0, 
           <li
             key={s.title}
             aria-current={level === i + 1 ? "step" : undefined}
-            className={`rounded-2xl border-2 px-2 py-1.5 text-center ${
+            className={`rounded-2xl border-2 px-2.5 py-1.5 text-left ${
               level > i ? "border-ink bg-peach" : "border-dashed border-line text-ink-soft"
             }`}
           >
@@ -173,7 +181,7 @@ export function CoachPanel({ grammarId, prompts, openRounds, initialPrompt = 0, 
 
       {promoted.length > 0 && (
         <p role="status" className="mt-4 animate-pop rounded-2xl bg-sage-soft px-4 py-3 text-sage-ink">
-          地圖更新了：
+          文法地圖更新了：
           {promoted.map((p, i) => (
             <span key={p.grammarId}>
               {i > 0 && "、"}
@@ -236,7 +244,7 @@ export function CoachPanel({ grammarId, prompts, openRounds, initialPrompt = 0, 
           <div className="flex flex-wrap items-center justify-between gap-3">
             <span className="text-xs tabular-nums text-ink-soft">
               {draft.length} / 300 字
-              {remaining !== null && `・今天還能問 ${remaining} 次`}
+              {remaining !== null && `・今天還能問 ${remaining} 次`}
             </span>
             <button type="submit" className="btn" disabled={pending || !draft.trim()}>
               {pending ? "教練看看中…" : round.length ? "再請教練看一次" : "請教練看看"}
@@ -263,7 +271,7 @@ function AttemptView({ entry }: { entry: RoundEntry }) {
   const { feedback: fb } = entry;
   return (
     <article className="animate-pop rounded-[32px] border-2 border-line p-4">
-      <p className="mb-1 text-xs text-ink-soft">第 {entry.attempt} 次</p>
+      <p className="mb-1 text-xs text-ink-soft">第 {entry.attempt} 次</p>
       <p lang="ko" className="mb-3 text-xl">
         <Highlighted sentence={entry.sentence} spans={fb.issues.map((i) => i.span)} />
       </p>
@@ -297,7 +305,7 @@ function AttemptView({ entry }: { entry: RoundEntry }) {
           {fb.otherGrammar.map((g, i) => (
             <span key={g.id}>
               {i > 0 && "、"}
-              <span lang="ko">{g.form}</span>（{g.level} 級）
+              <span lang="ko">{g.form}</span>（{g.level} 級）
             </span>
           ))}
         </p>
@@ -306,7 +314,7 @@ function AttemptView({ entry }: { entry: RoundEntry }) {
         <div className="mt-2 rounded-2xl border-2 border-sage bg-white px-4 py-3">
           <p className="text-xs text-ink-soft">
             {fb.sameAsReference
-              ? "跟參考寫法一模一樣！完全靠自己寫出來了"
+              ? `跟參考寫法一模一樣！${praiseFor(entry.sentence)}`
               : fb.solved
                 ? "寫得很好！這是用本題文法的參考寫法"
                 : "參考寫法"}
