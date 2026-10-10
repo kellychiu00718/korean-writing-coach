@@ -21,6 +21,23 @@
 
   --radius-card: 28px;
   --animate-pop: pop 0.3s ease;
+  --animate-stroll: stroll 7s linear infinite;
+  --animate-step: step 0.56s ease-in-out infinite alternate;
+
+  /* 等 AI 回饋時，烏龜從左邊慢慢走到右邊 */
+  @keyframes stroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(100%);
+    }
+  }
+  @keyframes step {
+    to {
+      transform: translateY(-2px) rotate(-3deg);
+    }
+  }
 
   @keyframes pop {
     from {

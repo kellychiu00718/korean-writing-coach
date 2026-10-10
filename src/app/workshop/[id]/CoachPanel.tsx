@@ -3,6 +3,7 @@
 import { useId, useState } from "react";
 import type { RevealedFeedback } from "@/lib/coach";
 import { displayForm, getGrammar, STATE_LABEL, type Lesson, type ProgressState } from "@/lib/grammar";
+import { CoachWaiting } from "./CoachWaiting";
 
 export type RoundEntry = { attempt: number; sentence: string; feedback: RevealedFeedback };
 
@@ -250,6 +251,7 @@ export function CoachPanel({ grammarId, prompts, openRounds, initialPrompt = 0, 
               {pending ? "教練看看中…" : round.length ? "再請教練看一次" : "請教練看看"}
             </button>
           </div>
+          {pending && <CoachWaiting />}
           {error && (
             <p role="alert" className="rounded-2xl bg-hint px-4 py-3">
               {error}

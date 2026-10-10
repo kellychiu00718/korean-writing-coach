@@ -19,13 +19,12 @@ export type Card = {
   revisions: number;
 };
 
-type Filter = "all" | "manual" | "two" | "three";
+type Filter = "all" | "manual" | "revised";
 
 const FILTERS: { id: Filter; label: string; match: (c: Card) => boolean }[] = [
   { id: "all", label: "全部", match: () => true },
   { id: "manual", label: "自己加入", match: (c) => c.source === "manual" },
-  { id: "two", label: "修改兩次的題目", match: (c) => c.revisions === 2 },
-  { id: "three", label: "修改三次以上", match: (c) => c.revisions >= 3 },
+  { id: "revised", label: "修改兩次以上的題目", match: (c) => c.revisions >= 2 },
 ];
 
 export function ReviewDeck({ cards: initial }: { cards: Card[] }) {
