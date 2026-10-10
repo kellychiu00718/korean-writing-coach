@@ -17,7 +17,7 @@ const OUTCOME_BADGE: Record<
 > = {
   first: { text: "第 1 次就寫對", className: "bg-sage-soft text-sage-ink" },
   second: { text: "第 2 次寫對", className: "bg-sage-soft text-sage-ink" },
-  third: { text: "第 3 次以上寫對", className: "bg-sage-soft text-sage-ink" },
+  third: { text: "第 3 次寫對", className: "bg-sage-soft text-sage-ink" },
   revealed: { text: "看了參考答案", className: "bg-peach text-ink" },
   open: { text: "還在練習中", className: "bg-hint text-ink" },
 };
@@ -67,7 +67,7 @@ const TRIES = [
   { id: "all", label: "全部" },
   { id: "first", label: "第 1 次" },
   { id: "second", label: "第 2 次" },
-  { id: "third", label: "第 3 次以上" },
+  { id: "third", label: "第 3 次" },
   { id: "revealed", label: "看了參考答案" },
   { id: "open", label: "還在練習中" },
 ] as const;
@@ -216,7 +216,7 @@ export function SentenceBook({ rounds }: { rounds: Round[] }) {
           <Chips
             label="級數"
             options={[
-              { id: "all", label: "全部" },
+              { id: "all", label: "全部", count: rounds.length },
               ...levels.map((l) => ({
                 id: String(l),
                 label: `${l} 級`,
@@ -234,7 +234,7 @@ export function SentenceBook({ rounds }: { rounds: Round[] }) {
               ...t,
               count:
                 t.id === "all"
-                  ? undefined
+                  ? rounds.length
                   : rounds.filter((r) => r.outcome === t.id).length,
             }))}
             value={tries}

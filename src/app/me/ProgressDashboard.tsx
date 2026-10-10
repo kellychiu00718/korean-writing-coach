@@ -8,7 +8,7 @@ import type { LearnedGrammar, Round, RoundOutcome } from "@/lib/stats";
 const OUTCOME_LABEL: Record<RoundOutcome, string> = {
   first: "第 1 次就寫對",
   second: "第 2 次寫對",
-  third: "第 3 次以上寫對",
+  third: "第 3 次寫對",
   revealed: "看了參考答案",
 };
 

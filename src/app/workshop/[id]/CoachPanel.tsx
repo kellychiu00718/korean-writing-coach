@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import type { RevealedFeedback } from "@/lib/coach";
 import { displayForm, getGrammar, STATE_LABEL, type Lesson, type ProgressState } from "@/lib/grammar";
 import { CoachWaiting } from "./CoachWaiting";
@@ -43,6 +43,12 @@ export function CoachPanel({ grammarId, prompts, openRounds, initialPrompt = 0, 
   const [promptIndex, setPromptIndex] = useState(initialPrompt);
   const [rounds, setRounds] = useState<Record<number, RoundEntry[]>>(openRounds);
   const [draft, setDraft] = useState(() => openDraft(openRounds[initialPrompt]));
+
+  // 瀏覽器存的草稿要等畫面載入後才讀得到（伺服器端沒有 localStorage）
+  useEffect(() => {
+    const saved = loadDraft(grammarId, initialPrompt);
+    if (saved) setDraft(saved);
+  }, [grammarId, initialPrompt]);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [promoted, setPromoted] = useState<{ grammarId: string; state: ProgressState }[]>([]);
@@ -62,7 +68,7 @@ export function CoachPanel({ grammarId, prompts, openRounds, initialPrompt = 0, 
 
   function switchPrompt(i: number) {
     setPromptIndex(i);
-    setDraft(openDraft(rounds[i]));
+    setDraft(loadDraft(grammarId, i) ?? openDraft(rounds[i]));
     setError(null);
     setPromoted([]);
     setCardNote(null);
@@ -150,6 +156,7 @@ export function CoachPanel({ grammarId, prompts, openRounds, initialPrompt = 0, 
       } else {
         setCardNote(null);
       }
+      saveDraft(grammarId, promptIndex, "");
       setDraft(data.feedback.level === 3 ? "" : sentence);
     } catch {
       setError("網路好像斷了，再試一次？");
@@ -265,7 +272,11 @@ export function CoachPanel({ grammarId, prompts, openRounds, initialPrompt = 0, 
             id="sentence"
             lang="ko"
             value={draft}
-            onChange={(e) => setDraft(e.target.value)}
+            onChange={(e) => {
+              setDraft(e.target.value);
+              // 跟上一次送出的句子一樣就不用另外存
+              saveDraft(grammarId, promptIndex, e.target.value === openDraft(round) ? "" : e.target.value);
+            }}
             maxLength={300}
             rows={3}
             placeholder="여기에 한국어로 써 보세요"
@@ -286,21 +297,21 @@ export function CoachPanel({ grammarId, prompts, openRounds, initialPrompt = 0, 
               <p>
                 今天的 AI 教練次數用完了，每天韓國時間 00:00（台灣時間 23:00）會恢復。
                 <br />
-                卡住的話，可以先看看這題的一種寫法；也可以把句子留著，明天再請教練看。
+                卡住的話，可以先看看這題的參考寫法；也可以把句子留著，明天再請教練看。
               </p>
               {fallback[promptIndex] ? (
                 <div className="rounded-2xl border-2 border-sage px-4 py-3">
-                  <p className="text-xs text-ink-soft">這題的一種寫法</p>
+                  <p className="text-xs text-ink-soft">參考寫法</p>
                   <p lang="ko" className="text-lg">
                     {fallback[promptIndex]}
                   </p>
                   <p className="mt-1 text-sm text-ink-soft">
-                    這是預先寫好的參考，不是根據你的句子修改的。明天可以再請教練看看你的版本哪裡要改。
+                    這只是參考寫法，明天還是可以請教練看看你寫的版本有哪些問題或是需要修改的地方。
                   </p>
                 </div>
               ) : (
                 <button type="button" className="btn btn-ghost btn-sm justify-self-start" onClick={showFallback} disabled={fallbackPending}>
-                  {fallbackPending ? "準備中…" : "看這題的一種寫法"}
+                  {fallbackPending ? "準備中…" : "參考寫法"}
                 </button>
               )}
             </div>
@@ -314,6 +325,24 @@ export function CoachPanel({ grammarId, prompts, openRounds, initialPrompt = 0, 
       )}
     </section>
   );
+}
+
+// 還沒送出的草稿存在這台裝置的瀏覽器裡，按了返回或重新整理再回來還在；送出後就清掉。
+const draftKey = (grammarId: string, promptIndex: number) => `draft:${grammarId}:${promptIndex}`;
+function loadDraft(grammarId: string, promptIndex: number) {
+  try {
+    return localStorage.getItem(draftKey(grammarId, promptIndex));
+  } catch {
+    return null;
+  }
+}
+function saveDraft(grammarId: string, promptIndex: number, text: string) {
+  try {
+    if (text) localStorage.setItem(draftKey(grammarId, promptIndex), text);
+    else localStorage.removeItem(draftKey(grammarId, promptIndex));
+  } catch {
+    // 無痕模式或封鎖網站資料時存不了，不影響練習
+  }
 }
 
 /** 這一輪還沒結束時，把上一句放回輸入框，方便直接修改。 */
