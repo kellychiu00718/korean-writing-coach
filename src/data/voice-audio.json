@@ -2,331 +2,397 @@
   "voice-g106-0": {
     "voice": "F1",
     "file": "/audio/voice/voice-g106-0.mp3",
-    "hash": "67cd431a22"
+    "hash": "67cd431a22",
+    "reason": "輪流"
   },
   "voice-g106-1": {
     "voice": "M1",
     "file": "/audio/voice/voice-g106-1.mp3",
-    "hash": "12abf0d1db"
+    "hash": "12abf0d1db",
+    "reason": "輪流"
   },
   "voice-g107-0": {
     "voice": "F1",
     "file": "/audio/voice/voice-g107-0.mp3",
-    "hash": "3572b353d9"
+    "hash": "3572b353d9",
+    "reason": "輪流"
   },
   "voice-g107-1": {
     "voice": "M1",
     "file": "/audio/voice/voice-g107-1.mp3",
-    "hash": "8c0c3744ff"
+    "hash": "8c0c3744ff",
+    "reason": "輪流"
   },
   "voice-g107-2": {
     "voice": "F1",
     "file": "/audio/voice/voice-g107-2.mp3",
-    "hash": "109e8fb5d3"
+    "hash": "109e8fb5d3",
+    "reason": "輪流"
   },
   "voice-g112-0": {
     "voice": "M1",
     "file": "/audio/voice/voice-g112-0.mp3",
-    "hash": "f08bbb481c"
+    "hash": "f08bbb481c",
+    "reason": "輪流"
   },
   "voice-g112-1": {
     "voice": "F1",
     "file": "/audio/voice/voice-g112-1.mp3",
-    "hash": "4a3e30242a"
+    "hash": "4a3e30242a",
+    "reason": "輪流"
   },
   "voice-g113-0": {
     "voice": "M1",
     "file": "/audio/voice/voice-g113-0.mp3",
-    "hash": "138ed0261b"
+    "hash": "138ed0261b",
+    "reason": "輪流"
   },
   "voice-g113-1": {
     "voice": "F1",
     "file": "/audio/voice/voice-g113-1.mp3",
-    "hash": "a79700af03"
+    "hash": "a79700af03",
+    "reason": "輪流"
   },
   "voice-g131-0": {
     "voice": "M1",
     "file": "/audio/voice/voice-g131-0.mp3",
-    "hash": "5b1e1c0031"
+    "hash": "5b1e1c0031",
+    "reason": "輪流"
   },
   "voice-g131-1": {
     "voice": "F1",
     "file": "/audio/voice/voice-g131-1.mp3",
-    "hash": "6da0e83c5d"
+    "hash": "6da0e83c5d",
+    "reason": "輪流"
   },
   "voice-g133-0": {
     "voice": "M1",
     "file": "/audio/voice/voice-g133-0.mp3",
-    "hash": "86ba3cf351"
+    "hash": "86ba3cf351",
+    "reason": "輪流"
   },
   "voice-g133-1": {
     "voice": "F1",
     "file": "/audio/voice/voice-g133-1.mp3",
-    "hash": "203eb1d977"
+    "hash": "203eb1d977",
+    "reason": "輪流"
   },
   "voice-g136-0": {
     "voice": "M1",
     "file": "/audio/voice/voice-g136-0.mp3",
-    "hash": "acb8a896d0"
+    "hash": "acb8a896d0",
+    "reason": "輪流"
   },
   "voice-g136-1": {
     "voice": "F1",
     "file": "/audio/voice/voice-g136-1.mp3",
-    "hash": "ccc06f2a7b"
+    "hash": "ccc06f2a7b",
+    "reason": "輪流"
   },
   "voice-g147-0": {
     "voice": "M1",
     "file": "/audio/voice/voice-g147-0.mp3",
-    "hash": "122478055a"
+    "hash": "122478055a",
+    "reason": "輪流"
   },
   "voice-g147-1": {
     "voice": "F1",
     "file": "/audio/voice/voice-g147-1.mp3",
-    "hash": "77ca6eea36"
+    "hash": "77ca6eea36",
+    "reason": "輪流"
   },
   "voice-g177-0": {
     "voice": "M1",
     "file": "/audio/voice/voice-g177-0.mp3",
-    "hash": "78eb085134"
+    "hash": "78eb085134",
+    "reason": "輪流"
   },
   "voice-g177-1": {
     "voice": "F1",
     "file": "/audio/voice/voice-g177-1.mp3",
-    "hash": "4a1b3e0a63"
+    "hash": "4a1b3e0a63",
+    "reason": "輪流"
   },
   "voice-g186-0": {
     "voice": "M1",
     "file": "/audio/voice/voice-g186-0.mp3",
-    "hash": "a2dbb9af3d"
+    "hash": "a2dbb9af3d",
+    "reason": "輪流"
   },
   "voice-g186-1": {
     "voice": "F1",
     "file": "/audio/voice/voice-g186-1.mp3",
-    "hash": "e4562934d5"
+    "hash": "e4562934d5",
+    "reason": "輪流"
   },
   "voice-g203-0": {
     "voice": "M1",
     "file": "/audio/voice/voice-g203-0.mp3",
-    "hash": "d6a205f1a5"
+    "hash": "d6a205f1a5",
+    "reason": "輪流"
   },
   "voice-g203-1": {
     "voice": "F1",
     "file": "/audio/voice/voice-g203-1.mp3",
-    "hash": "1a97743e28"
+    "hash": "1a97743e28",
+    "reason": "輪流"
   },
   "voice-g211-0": {
     "voice": "M1",
     "file": "/audio/voice/voice-g211-0.mp3",
-    "hash": "9c041e94d0"
+    "hash": "9c041e94d0",
+    "reason": "輪流"
   },
   "voice-g211-1": {
     "voice": "F1",
     "file": "/audio/voice/voice-g211-1.mp3",
-    "hash": "83989f7a58"
+    "hash": "83989f7a58",
+    "reason": "輪流"
   },
   "drama-goodpartner-1": {
     "voice": "M1",
     "file": "/audio/clips/drama-goodpartner-1.mp3",
-    "hash": "1ca667831e"
+    "hash": "1ca667831e",
+    "reason": "輪流"
   },
   "drama-goodpartner-2": {
     "voice": "F1",
     "file": "/audio/clips/drama-goodpartner-2.mp3",
-    "hash": "d0be397c0c"
+    "hash": "d0be397c0c",
+    "reason": "輪流"
   },
   "variety-eartharcade2-1": {
     "voice": "M1",
     "file": "/audio/clips/variety-eartharcade2-1.mp3",
-    "hash": "3901c78002"
+    "hash": "3901c78002",
+    "reason": "輪流"
   },
   "music-aoa-miniskirt-1": {
     "voice": "F1",
     "file": "/audio/clips/music-aoa-miniskirt-1.mp3",
-    "hash": "d9a2f51cdd"
+    "hash": "d9a2f51cdd",
+    "reason": "指定"
   },
   "news-kbs9-20261009-1": {
     "voice": "M1",
     "file": "/audio/clips/news-kbs9-20261009-1.mp3",
-    "hash": "d302833077"
+    "hash": "d302833077",
+    "reason": "輪流"
   },
   "news-kbs9-20260822-1": {
     "voice": "F1",
     "file": "/audio/clips/news-kbs9-20260822-1.mp3",
-    "hash": "080dab7ce9"
+    "hash": "080dab7ce9",
+    "reason": "輪流"
   },
   "news-kbs9-20260822-2": {
     "voice": "M1",
     "file": "/audio/clips/news-kbs9-20260822-2.mp3",
-    "hash": "9a11c7e9b6"
+    "hash": "9a11c7e9b6",
+    "reason": "輪流"
   },
   "news-kbs9-20260822-3": {
     "voice": "F1",
     "file": "/audio/clips/news-kbs9-20260822-3.mp3",
-    "hash": "6f118eb890"
+    "hash": "6f118eb890",
+    "reason": "輪流"
   },
   "variety-runningman-best1-1": {
     "voice": "M1",
     "file": "/audio/clips/variety-runningman-best1-1.mp3",
-    "hash": "30d76c968f"
+    "hash": "30d76c968f",
+    "reason": "輪流"
   },
   "variety-runningman-best1-2": {
-    "voice": "F1",
+    "voice": "M1",
     "file": "/audio/clips/variety-runningman-best1-2.mp3",
-    "hash": "ad05be5b8c"
+    "hash": "b3c00c93c7",
+    "reason": "稱呼"
   },
   "variety-runningman-best1-3": {
     "voice": "M1",
     "file": "/audio/clips/variety-runningman-best1-3.mp3",
-    "hash": "81b34f2b5c"
+    "hash": "81b34f2b5c",
+    "reason": "稱呼"
   },
   "music-iu-holssi-1": {
     "voice": "F1",
     "file": "/audio/clips/music-iu-holssi-1.mp3",
-    "hash": "0c9abd8219"
+    "hash": "0c9abd8219",
+    "reason": "指定"
   },
   "music-day6-welcome-1": {
     "voice": "M1",
     "file": "/audio/clips/music-day6-welcome-1.mp3",
-    "hash": "664c2b3f1d"
+    "hash": "664c2b3f1d",
+    "reason": "指定"
   },
   "music-iu-shopper-1": {
     "voice": "F1",
     "file": "/audio/clips/music-iu-shopper-1.mp3",
-    "hash": "0f5638769f"
+    "hash": "0f5638769f",
+    "reason": "指定"
   },
   "drama-signal-ep2-1": {
     "voice": "M1",
     "file": "/audio/clips/drama-signal-ep2-1.mp3",
-    "hash": "3e5d4b4ad9"
+    "hash": "3e5d4b4ad9",
+    "reason": "輪流"
   },
   "news-kbsweb-chile-1": {
     "voice": "F1",
     "file": "/audio/clips/news-kbsweb-chile-1.mp3",
-    "hash": "66980ac473"
+    "hash": "66980ac473",
+    "reason": "輪流"
   },
   "news-kbsweb-chile-2": {
     "voice": "M1",
     "file": "/audio/clips/news-kbsweb-chile-2.mp3",
-    "hash": "a228e50ef7"
+    "hash": "a228e50ef7",
+    "reason": "輪流"
   },
   "news-kbsweb-chile-3": {
     "voice": "F1",
     "file": "/audio/clips/news-kbsweb-chile-3.mp3",
-    "hash": "4649c706dd"
+    "hash": "4649c706dd",
+    "reason": "輪流"
   },
   "news-kbsweb-chile-4": {
     "voice": "M1",
     "file": "/audio/clips/news-kbsweb-chile-4.mp3",
-    "hash": "0978aede0b"
+    "hash": "0978aede0b",
+    "reason": "輪流"
   },
   "news-kbsweb-work-1": {
     "voice": "F1",
     "file": "/audio/clips/news-kbsweb-work-1.mp3",
-    "hash": "63e0f347da"
+    "hash": "63e0f347da",
+    "reason": "輪流"
   },
   "news-kbsweb-work-2": {
     "voice": "M1",
     "file": "/audio/clips/news-kbsweb-work-2.mp3",
-    "hash": "cd4480d945"
+    "hash": "cd4480d945",
+    "reason": "輪流"
   },
   "news-kbsweb-work-3": {
     "voice": "F1",
     "file": "/audio/clips/news-kbsweb-work-3.mp3",
-    "hash": "3439c2b468"
+    "hash": "3439c2b468",
+    "reason": "輪流"
   },
   "news-kbsweb-weather-1": {
     "voice": "M1",
     "file": "/audio/clips/news-kbsweb-weather-1.mp3",
-    "hash": "a825d9d482"
+    "hash": "a825d9d482",
+    "reason": "輪流"
   },
   "news-kbsweb-weather-2": {
     "voice": "F1",
     "file": "/audio/clips/news-kbsweb-weather-2.mp3",
-    "hash": "898c45b2a9"
+    "hash": "898c45b2a9",
+    "reason": "輪流"
   },
   "news-kbsweb-weather-3": {
     "voice": "M1",
     "file": "/audio/clips/news-kbsweb-weather-3.mp3",
-    "hash": "a808c4d5e1"
+    "hash": "a808c4d5e1",
+    "reason": "輪流"
   },
   "news-kbsweb-weather-4": {
     "voice": "F1",
     "file": "/audio/clips/news-kbsweb-weather-4.mp3",
-    "hash": "402689d874"
+    "hash": "402689d874",
+    "reason": "輪流"
   },
   "news-kbsweb-weather-5": {
     "voice": "M1",
     "file": "/audio/clips/news-kbsweb-weather-5.mp3",
-    "hash": "6cb299fa74"
+    "hash": "6cb299fa74",
+    "reason": "輪流"
   },
   "news-kbsweb-money-1": {
     "voice": "F1",
     "file": "/audio/clips/news-kbsweb-money-1.mp3",
-    "hash": "88dda56b55"
+    "hash": "88dda56b55",
+    "reason": "輪流"
   },
   "news-kbsweb-money-2": {
     "voice": "M1",
     "file": "/audio/clips/news-kbsweb-money-2.mp3",
-    "hash": "77d3edf6cf"
+    "hash": "77d3edf6cf",
+    "reason": "輪流"
   },
   "news-kbsweb-money-3": {
     "voice": "F1",
     "file": "/audio/clips/news-kbsweb-money-3.mp3",
-    "hash": "8d03b96453"
+    "hash": "8d03b96453",
+    "reason": "輪流"
   },
   "news-kbsweb-money-4": {
     "voice": "M1",
     "file": "/audio/clips/news-kbsweb-money-4.mp3",
-    "hash": "0a2ab388c9"
+    "hash": "0a2ab388c9",
+    "reason": "輪流"
   },
   "news-kbsweb-panama-1": {
     "voice": "F1",
     "file": "/audio/clips/news-kbsweb-panama-1.mp3",
-    "hash": "75bbc47270"
+    "hash": "75bbc47270",
+    "reason": "輪流"
   },
   "news-kbsweb-daegu-1": {
     "voice": "M1",
     "file": "/audio/clips/news-kbsweb-daegu-1.mp3",
-    "hash": "82ed36ed67"
+    "hash": "82ed36ed67",
+    "reason": "輪流"
   },
   "news-kbsweb-daegu-2": {
     "voice": "F1",
     "file": "/audio/clips/news-kbsweb-daegu-2.mp3",
-    "hash": "3cdfe4d168"
+    "hash": "3cdfe4d168",
+    "reason": "輪流"
   },
   "news-kbsweb-daegu-3": {
     "voice": "M1",
     "file": "/audio/clips/news-kbsweb-daegu-3.mp3",
-    "hash": "e5977bae27"
+    "hash": "e5977bae27",
+    "reason": "輪流"
   },
   "news-kbsweb-daegu-4": {
     "voice": "F1",
     "file": "/audio/clips/news-kbsweb-daegu-4.mp3",
-    "hash": "00d2ffe025"
+    "hash": "00d2ffe025",
+    "reason": "輪流"
   },
   "music-iu-holssi-2": {
-    "voice": "M1",
+    "voice": "F1",
     "file": "/audio/clips/music-iu-holssi-2.mp3",
-    "hash": "925991691f"
+    "hash": "29355ca55a",
+    "reason": "指定"
   },
   "music-day6-welcome-2": {
-    "voice": "F1",
+    "voice": "M1",
     "file": "/audio/clips/music-day6-welcome-2.mp3",
-    "hash": "8277ce1e8f"
+    "hash": "f5cd601cf1",
+    "reason": "指定"
   },
   "music-day6-welcome-3": {
     "voice": "M1",
     "file": "/audio/clips/music-day6-welcome-3.mp3",
-    "hash": "66d74a1d93"
+    "hash": "66d74a1d93",
+    "reason": "指定"
   },
   "music-iu-neverending-1": {
     "voice": "F1",
     "file": "/audio/clips/music-iu-neverending-1.mp3",
-    "hash": "95149e315d"
+    "hash": "95149e315d",
+    "reason": "指定"
   },
   "music-iu-neverending-2": {
-    "voice": "M1",
+    "voice": "F1",
     "file": "/audio/clips/music-iu-neverending-2.mp3",
-    "hash": "c77c7fcc20"
+    "hash": "e2e9719f7f",
+    "reason": "指定"
   }
 }

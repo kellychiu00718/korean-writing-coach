@@ -57,7 +57,8 @@
       "title": "AOA - 짧은 치마 (Miniskirt) M/V",
       "channel": "AOA",
       "url": "https://www.youtube.com/watch?v=q6f-LLM1H6U"
-    }
+    },
+    "speaker": "female"
   },
   {
     "id": "news-kbs9-20261009-1",
@@ -177,7 +178,8 @@
       "title": "IU '홀씨(Holssi)' MV",
       "channel": "이지금 [IU Official]",
       "url": "https://www.youtube.com/watch?v=mFbILexYSQg"
-    }
+    },
+    "speaker": "female"
   },
   {
     "id": "music-day6-welcome-1",
@@ -192,7 +194,8 @@
       "title": "DAY6(데이식스) \"Welcome to the Show\" M/V",
       "channel": "JYP Entertainment",
       "url": "https://www.youtube.com/watch?v=RowlrvmyFEk"
-    }
+    },
+    "speaker": "male"
   },
   {
     "id": "music-iu-shopper-1",
@@ -207,7 +210,8 @@
       "title": "IU 'Shopper' MV",
       "channel": "이지금 [IU Official]",
       "url": "https://www.youtube.com/watch?v=kHW-UVXOcLU"
-    }
+    },
+    "speaker": "female"
   },
   {
     "id": "drama-signal-ep2-1",
@@ -510,7 +514,8 @@
       "title": "IU '홀씨(Holssi)' MV",
       "channel": "이지금 [IU Official]",
       "url": "https://www.youtube.com/watch?v=mFbILexYSQg"
-    }
+    },
+    "speaker": "female"
   },
   {
     "id": "music-day6-welcome-2",
@@ -525,7 +530,8 @@
       "title": "DAY6(데이식스) \"Welcome to the Show\" M/V",
       "channel": "JYP Entertainment",
       "url": "https://www.youtube.com/watch?v=RowlrvmyFEk"
-    }
+    },
+    "speaker": "male"
   },
   {
     "id": "music-day6-welcome-3",
@@ -540,7 +546,8 @@
       "title": "DAY6(데이식스) \"Welcome to the Show\" M/V",
       "channel": "JYP Entertainment",
       "url": "https://www.youtube.com/watch?v=RowlrvmyFEk"
-    }
+    },
+    "speaker": "male"
   },
   {
     "id": "music-iu-neverending-1",
@@ -555,7 +562,8 @@
       "title": "IU 'Never Ending Story' MV",
       "channel": "이지금 [IU Official]",
       "url": "https://www.youtube.com/watch?v=6J9ixwhDYSM"
-    }
+    },
+    "speaker": "female"
   },
   {
     "id": "music-iu-neverending-2",
@@ -570,6 +578,7 @@
       "title": "IU 'Never Ending Story' MV",
       "channel": "이지금 [IU Official]",
       "url": "https://www.youtube.com/watch?v=6J9ixwhDYSM"
-    }
+    },
+    "speaker": "female"
   }
 ]
