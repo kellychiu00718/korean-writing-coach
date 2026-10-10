@@ -4,6 +4,7 @@ import { Logo } from "@/components/Logo";
 const NAV = [
   { href: "/workshop", label: "句子工坊" },
   { href: "/map", label: "文法地圖" },
+  { href: "/review", label: "複習字卡" },
   { href: "/me", label: "我的" },
 ];
 

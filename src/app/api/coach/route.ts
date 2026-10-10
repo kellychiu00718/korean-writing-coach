@@ -4,6 +4,7 @@ import { z } from "zod";
 import { CoachError, revealFeedback, reviewSentence, type RevealedFeedback } from "@/lib/coach";
 import { getGrammar, getLesson, type ProgressState } from "@/lib/grammar";
 import { promote } from "@/lib/progress";
+import { AUTO_ADD_FROM_ATTEMPT, saveReviewCard } from "@/lib/review";
 import { createClient } from "@/lib/supabase/server";
 
 const Body = z.object({
@@ -116,10 +117,18 @@ export async function POST(request: Request) {
     // 地圖沒更新不影響這次回饋，下次寫對會再補上。
   }
 
+  // 錯了兩次（第 3 次才結束這題）就自動加入複習字卡；失敗不影響這次回饋。
+  let reviewCard: "auto" | null = null;
+  if (revealed.level === 3 && attempt >= AUTO_ADD_FROM_ATTEMPT) {
+    const saved = await saveReviewCard(supabase, user.id, grammarId, promptIndex, "auto").catch(() => null);
+    if (saved?.ok) reviewCard = "auto";
+  }
+
   return NextResponse.json({
     attempt,
     feedback: revealed,
     promoted,
+    reviewCard,
     remaining: Math.max(0, DAILY_LIMIT - (count ?? 0) - 1),
   });
 }

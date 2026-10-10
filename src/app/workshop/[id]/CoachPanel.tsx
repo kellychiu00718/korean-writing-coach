@@ -11,6 +11,8 @@ type Props = {
   prompts: Lesson["prompts"];
   openRounds: Record<number, RoundEntry[]>;
   initialPrompt?: number;
+  /** 已經在複習字卡裡的情境 */
+  cardPrompts?: number[];
 };
 
 const SCENE_LABEL: Record<Lesson["prompts"][number]["scene"], string> = {
@@ -26,7 +28,7 @@ const STEPS = [
   { title: "對照參考答案", caption: "寫對之後或是修改兩次之後才出現" },
 ];
 
-export function CoachPanel({ grammarId, prompts, openRounds, initialPrompt = 0 }: Props) {
+export function CoachPanel({ grammarId, prompts, openRounds, initialPrompt = 0, cardPrompts = [] }: Props) {
   const [promptIndex, setPromptIndex] = useState(initialPrompt);
   const [rounds, setRounds] = useState<Record<number, RoundEntry[]>>(openRounds);
   const [draft, setDraft] = useState(() => openDraft(openRounds[initialPrompt]));
@@ -34,6 +36,9 @@ export function CoachPanel({ grammarId, prompts, openRounds, initialPrompt = 0 }
   const [error, setError] = useState<string | null>(null);
   const [promoted, setPromoted] = useState<{ grammarId: string; state: ProgressState }[]>([]);
   const [remaining, setRemaining] = useState<number | null>(null);
+  const [cards, setCards] = useState<Set<number>>(() => new Set(cardPrompts));
+  const [cardNote, setCardNote] = useState<string | null>(null);
+  const [cardPending, setCardPending] = useState(false);
 
   const round = rounds[promptIndex] ?? [];
   const latest = round.at(-1);
@@ -45,12 +50,37 @@ export function CoachPanel({ grammarId, prompts, openRounds, initialPrompt = 0 }
     setDraft(openDraft(rounds[i]));
     setError(null);
     setPromoted([]);
+    setCardNote(null);
   }
 
   function startOver() {
     setRounds((r) => ({ ...r, [promptIndex]: [] }));
     setDraft("");
     setPromoted([]);
+    setCardNote(null);
+  }
+
+  async function addCard() {
+    setCardPending(true);
+    setCardNote(null);
+    try {
+      const res = await fetch("/api/review", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ grammarId, promptIndex }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setCardNote(data.error ?? "加入失敗了，請稍後再試。");
+        return;
+      }
+      setCards((c) => new Set(c).add(promptIndex));
+      setCardNote("已加入複習字卡，可以在「複習字卡」頁面複習。");
+    } catch {
+      setCardNote("網路好像斷了，再試一次？");
+    } finally {
+      setCardPending(false);
+    }
   }
 
   async function submit(e: React.FormEvent) {
@@ -76,6 +106,12 @@ export function CoachPanel({ grammarId, prompts, openRounds, initialPrompt = 0 }
       });
       setPromoted(data.promoted);
       setRemaining(data.remaining);
+      if (data.reviewCard === "auto") {
+        setCards((c) => new Set(c).add(promptIndex));
+        setCardNote("這題修改了兩次以上，已自動加入複習字卡，之後可以再回來練。");
+      } else {
+        setCardNote(null);
+      }
       setDraft(data.feedback.level === 3 ? "" : sentence);
     } catch {
       setError("網路好像斷了，再試一次？");
@@ -145,6 +181,25 @@ export function CoachPanel({ grammarId, prompts, openRounds, initialPrompt = 0 }
               {STATE_LABEL[p.state]}
             </span>
           ))}
+        </p>
+      )}
+
+      {closed && (
+        <div className="mt-4 flex flex-wrap items-center gap-3">
+          {cards.has(promptIndex) ? (
+            <span className="inline-flex min-h-11 items-center rounded-full bg-sage-soft px-4 text-sm text-sage-ink">
+              <span aria-hidden="true">✓&nbsp;</span>已在複習字卡中
+            </span>
+          ) : (
+            <button type="button" className="btn btn-ghost btn-sm" onClick={addCard} disabled={cardPending}>
+              {cardPending ? "加入中…" : "加入複習字卡"}
+            </button>
+          )}
+        </div>
+      )}
+      {cardNote && (
+        <p role="status" className="mt-3 animate-pop text-sm text-sage-ink">
+          {cardNote}
         </p>
       )}
 

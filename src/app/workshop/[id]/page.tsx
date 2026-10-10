@@ -46,6 +46,13 @@ export default async function LessonPage({
     .eq("grammar_id", id)
     .order("created_at", { ascending: false })
     .limit(30);
+  const { data: cardRows } = await supabase
+    .from("review_cards")
+    .select("prompt_index")
+    .eq("user_id", user.id)
+    .eq("grammar_id", id);
+  const cardPrompts = (cardRows ?? []).map((r) => r.prompt_index as number);
+
   const openRounds: Record<number, RoundEntry[]> = {};
   for (let i = 0; i < lesson.prompts.length; i++) {
     const rows = (data ?? []).filter((r) => r.prompt_index === i);
@@ -115,7 +122,7 @@ export default async function LessonPage({
             </div>
           </section>
 
-          <CoachPanel grammarId={id} prompts={lesson.prompts} openRounds={openRounds} initialPrompt={initialPrompt} />
+          <CoachPanel grammarId={id} prompts={lesson.prompts} openRounds={openRounds} initialPrompt={initialPrompt} cardPrompts={cardPrompts} />
         </div>
       </main>
     </>
