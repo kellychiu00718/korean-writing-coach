@@ -1,0 +1,17 @@
+[
+  {
+    "id": "test-1",
+    "videoId": "gdZLi9oWNZg",
+    "start": 10,
+    "end": 15,
+    "text_ko": "테스트용 문장입니다",
+    "text_zh": "（測試用片段：只用來確認播放器能正常播放，台詞不是影片內容，上線前會換成 Kelly 挑的片段。）",
+    "level": 1,
+    "genre": "music",
+    "source": {
+      "title": "BTS (방탄소년단) 'Dynamite' Official MV",
+      "channel": "HYBE LABELS",
+      "url": "https://www.youtube.com/watch?v=gdZLi9oWNZg"
+    }
+  }
+]

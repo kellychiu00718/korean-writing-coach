@@ -1,0 +1,45 @@
+import Link from "next/link";
+import { notFound, redirect } from "next/navigation";
+import { AppHeader } from "@/components/AppHeader";
+import { clips, getClip, GENRE_LABEL } from "@/lib/dictation";
+import { createClient } from "@/lib/supabase/server";
+import { DictationPlayer } from "./DictationPlayer";
+
+export default async function DictationClipPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const clip = getClip(id);
+  if (!clip) notFound();
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) redirect(`/login?next=/dictation/${id}`);
+
+  const { data } = await supabase
+    .from("dictation_attempts")
+    .select("accuracy")
+    .eq("user_id", user.id)
+    .eq("clip_id", id)
+    .order("created_at", { ascending: false })
+    .limit(1);
+
+  const index = clips.findIndex((c) => c.id === id);
+  const next = clips.length > 1 ? clips[(index + 1) % clips.length].id : null;
+
+  return (
+    <>
+      <AppHeader current="/dictation" />
+      <main className="mx-auto max-w-3xl px-4 pb-20 sm:px-5">
+        <Link href="/dictation" className="text-sm text-ink-soft hover:underline">
+          ← 回到聽打練習
+        </Link>
+        <div className="mt-4 mb-4 flex flex-wrap items-center gap-2 text-sm">
+          <span className="rounded-full bg-peach px-2.5 py-0.5 font-medium">{GENRE_LABEL[clip.genre]}</span>
+          <span className="text-ink-soft">{clip.level}&nbsp;級</span>
+        </div>
+        <DictationPlayer clip={clip} userId={user.id} nextId={next} lastAccuracy={data?.[0]?.accuracy ?? null} />
+      </main>
+    </>
+  );
+}

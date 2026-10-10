@@ -10,7 +10,7 @@ export function SignOutButton() {
       <button
         type="button"
         onClick={() => ref.current?.showModal()}
-        className="inline-flex min-h-11 items-center shrink-0 rounded-full px-2 text-[13px] whitespace-nowrap text-ink-soft hover:bg-peach min-[380px]:px-2.5 min-[380px]:text-sm sm:px-3"
+        className="inline-flex min-h-11 items-center shrink-0 rounded-full px-[5px] text-xs min-[360px]:px-2 min-[360px]:text-[13px] whitespace-nowrap text-ink-soft hover:bg-peach min-[380px]:px-2.5 min-[380px]:text-sm sm:px-3"
       >
         登出
       </button>

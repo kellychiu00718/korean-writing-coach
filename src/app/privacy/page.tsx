@@ -17,6 +17,7 @@ const COLLECTED = [
     why: "提供寫作練習、記錄你的進步",
     keep: "到你刪除帳號為止；複習字卡可以隨時自己移除",
   },
+  { item: "聽打練習的紀錄（你打的句子、正確率、打字速度）", why: "顯示你上次的正確率、記錄你的進步", keep: "到你刪除帳號為止" },
   { item: "意見回報的內容與回覆用電子信箱（選填）", why: "回覆你、改善網站", keep: "收到後最多保存 1 年" },
   { item: "登入狀態（cookie）", why: "讓你不用每次都重新登入", keep: "登出或過期後失效" },
 ];
@@ -33,6 +34,12 @@ const PROCESSORS = [
     task: "AI 教練：產生句子回饋",
     where: "美國",
     data: "你送出的句子、題目情境與文法（不包含電子信箱和暱稱）",
+  },
+  {
+    name: "Google LLC（YouTube）",
+    task: "聽打練習：透過 YouTube 官方播放器播放影片片段",
+    where: "美國等地",
+    data: "瀏覽器載入與播放影片時會送出的 IP 位址、瀏覽器與裝置資訊（使用 YouTube 的「加強隱私模式」嵌入；YouTube 怎麼處理這些資料，依 Google 的隱私權政策）",
   },
   {
     name: "Google LLC（Google Fonts）",
