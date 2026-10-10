@@ -36,7 +36,7 @@ export default async function MePage() {
           </h2>
           <dl className="mb-5 grid gap-3 sm:grid-cols-3">
             {[
-              { label: "會用的文法", value: stats.useCount, unit: "項" },
+              { label: "自己寫對的文法", value: stats.useCount, unit: "項" },
               { label: "寫過的句子", value: stats.sentenceCount, unit: "句" },
               { label: "練習過的日子", value: stats.practiceDays, unit: "天" },
             ].map((s) => (
@@ -51,7 +51,7 @@ export default async function MePage() {
 
           <div className="grid gap-5 lg:grid-cols-2">
             <div className="card">
-              <h3 className="mb-3 font-bold">會用的文法，一天一天長出來</h3>
+              <h3 className="mb-3 font-bold">自己寫對的文法，一天一天長出來</h3>
               <GrowthChart points={stats.growth} />
               {stats.growth.length > 0 && (
                 <details className="mt-3 text-sm">
@@ -60,7 +60,7 @@ export default async function MePage() {
                     <thead>
                       <tr className="text-ink-soft">
                         <th className="font-normal">日期</th>
-                        <th className="font-normal">累積會用</th>
+                        <th className="font-normal">累積寫對</th>
                       </tr>
                     </thead>
                     <tbody className="tabular-nums">

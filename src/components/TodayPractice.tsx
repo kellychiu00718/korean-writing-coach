@@ -8,8 +8,8 @@ type Pick = { lesson: Lesson; reason: string; promptIndex: number };
 const LIMIT = 3;
 
 /**
- * 一進工坊就看到的練習：先幫「認得」「看過」的文法變成「會用」，
- * 再挑會用的文法換情境複習；新使用者就依興趣推薦。
+ * 一進工坊就看到的練習：先幫「大概知道」和看過但還沒寫的文法變成「自己寫出來且用對」，
+ * 再挑已經寫對的文法換情境複習；新使用者就依興趣推薦。
  */
 export function TodayPractice({ rows, interests }: { rows: Row[]; interests: Interest[] }) {
   const order = new Map(grammar.map((g, i) => [g.id, i]));
@@ -37,10 +37,10 @@ export function TodayPractice({ rows, interests }: { rows: Row[]; interests: Int
   const seen = withLesson("seen");
   const use = withLesson("use");
   know.slice(0, seen.length ? 1 : 2).forEach((r) => add(getLesson(r.grammarId)!, "差一點就會了"));
-  seen.slice(0, 1).forEach((r) => add(getLesson(r.grammarId)!, "看過了，試著寫寫看"));
+  seen.slice(0, 1).forEach((r) => add(getLesson(r.grammarId)!, "還沒寫過，試著寫寫看"));
   use.slice(0, 1).forEach((r) => add(getLesson(r.grammarId)!, "換個情境複習", true));
   know.forEach((r) => add(getLesson(r.grammarId)!, "差一點就會了"));
-  seen.forEach((r) => add(getLesson(r.grammarId)!, "看過了，試著寫寫看"));
+  seen.forEach((r) => add(getLesson(r.grammarId)!, "還沒寫過，試著寫寫看"));
   lessons
     .filter((l) => !stateOf.has(l.id))
     .sort((a, b) => {

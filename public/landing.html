@@ -238,7 +238,11 @@
 
   /* ---------- 搶先試用 ---------- */
   .join { background: var(--peach); }
-  .join .card { max-width: 640px; margin: 28px auto 0; padding: 32px; text-align: left; }
+  .join .card { max-width: 640px; margin: 0 auto; padding: 32px; text-align: left; }
+  .join-group { margin-top: 56px; }
+  .join-lead { margin: 0 auto 12px; }
+  /* 置中的句子結尾若是全形句號，字形只佔左半格，看起來會偏左；往右收半格做視覺置中 */
+  .center .punct { margin-right: -0.5em; }
   form { display: grid; gap: 26px; }
   .field { display: grid; gap: 8px; }
   .field > label, .field legend { font-weight: 500; line-height: 1.4; padding: 0; }
@@ -268,6 +272,7 @@
 
   footer { padding: 40px 0 60px; font-size: 13px; color: var(--ink-soft); }
   footer .wrap { display: grid; gap: 6px; text-align: center; }
+  footer a { text-decoration: underline; text-underline-offset: 3px; }
 
   /* ---------- RWD ---------- */
   @media (max-width: 900px) {
@@ -535,8 +540,8 @@
           <h2>看見自己學會了哪些文法。</h2>
         </div>
         <div class="legend" aria-label="圖例">
-          <span><i class="dot seen"></i>看過</span>
-          <span><i class="dot know"></i>認得</span>
+          <span><i class="dot seen"></i>尚未學習</span>
+          <span><i class="dot know"></i>大概知道</span>
           <span><i class="dot use"></i>自己寫出來且用對</span>
         </div>
       </div>
@@ -564,11 +569,12 @@
   <section class="join" id="join">
     <div class="wrap center">
       <span class="eyebrow">搶先試用</span>
-      <h2>一起來慢慢寫吧。</h2>
-      <p>第一版已經可以用了：句子工坊和文法地圖。用 email 登入就能開始。</p>
+      <h2>一起來慢慢寫吧<span class="punct">。</span></h2>
+      <p>第一版已經可以用了：句子工坊和文法地圖。用 email 登入就能開始<span class="punct">。</span></p>
       <p><a class="btn" href="/login">免費開始練習</a></p>
-      <p style="margin-top:28px">想收到之後的更新？也可以留下 email 和你的困擾。</p>
-      <div class="card">
+      <div class="join-group">
+        <p class="join-lead">想收到之後的更新？也可以留下 email 和你的困擾<span class="punct">。</span></p>
+        <div class="card">
         <form id="waitlist" novalidate>
           <div class="field">
             <label for="wl-email">Email</label>
@@ -596,6 +602,7 @@
           <div class="form-msg" id="form-msg" role="status"></div>
           <p class="privacy">只會用來通知上線消息和邀請你試用，不會轉給第三方。</p>
         </form>
+        </div>
       </div>
     </div>
   </section>
@@ -603,9 +610,9 @@
 </main>
 
 <footer>
-  <div class="wrap">
-    <div>慢慢寫 천천히 쓰기・Made in Daejeon with ♡</div>
-    <div>文法與詞彙分級參考：國立國語院〈국제 통용 한국어 표준 교육과정〉。</div>
+  <div class="wrap center">
+    <div>慢慢寫</div>
+    <div>本網站的文法、詞彙分級，使用國立國語院於 2017 年以<a href="https://www.kogl.or.kr/info/license.do" target="_blank" rel="noopener">公共누리 제1유형</a>開放的〈국제 통용 한국어 표준 교육과정 적용 연구(4단계)〉어휘・문법 등급 목록，原始資料可在<a href="https://www.korean.go.kr/front/reportData/reportDataView.do?mn_id=207&amp;report_seq=932" target="_blank" rel="noopener">國立國語院網站</a>免費下載<span class="punct">。</span></div>
   </div>
 </footer>
 
@@ -801,14 +808,14 @@
       ['-자마자', 'know'], ['-(으)ㄴ/는 편이다', 'seen'], ['-도록', 'seen']
     ];
     const order = ['seen', 'know', 'use'];
-    const names = { seen: '看過', know: '認得', use: '自己寫出來且用對' };
+    const names = { seen: '尚未學習', know: '大概知道', use: '自己寫出來且用對' };
     const wrap = document.getElementById('chips');
     const summary = document.getElementById('map-summary');
 
     function updateSummary() {
       const count = { seen: 0, know: 0, use: 0 };
       wrap.querySelectorAll('.chip').forEach(c => count[c.dataset.state]++);
-      summary.textContent = `這 ${items.length} 項文法裡，你自己寫出來且用對 ${count.use} 項、認得 ${count.know} 項、看過 ${count.seen} 項。`;
+      summary.textContent = `這 ${items.length} 項文法裡，你自己寫出來且用對 ${count.use} 項、大概知道 ${count.know} 項、尚未學習 ${count.seen} 項。`;
     }
     items.forEach(([text, state]) => {
       const b = document.createElement('button');

@@ -56,7 +56,7 @@ export default async function WorkshopPage() {
                       >
                         <span className="flex items-center justify-between gap-2 text-xs text-ink-soft">
                           {CATEGORY_LABEL[g.category] ?? g.category}
-                          {state && (
+                          {state && state !== "seen" && (
                             <span className="inline-flex items-center gap-1.5">
                               <StateDot state={state} />
                               {STATE_LABEL[state]}

@@ -2,13 +2,13 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { AppHeader } from "@/components/AppHeader";
 import { StateDot } from "@/components/StateDot";
-import { displayForm, getLesson, grammar, STATE_DEFINITION, STATE_LABEL, type ProgressState } from "@/lib/grammar";
+import { displayForm, getLesson, grammar, NONE_LABEL, STATE_DEFINITION, STATE_LABEL, type ProgressState } from "@/lib/grammar";
 import { AlmostThere } from "@/components/AlmostThere";
 import { getProgress } from "@/lib/progress";
 import { createClient } from "@/lib/supabase/server";
 
 const CHIP: Record<ProgressState | "none", string> = {
-  none: "border-line bg-white text-ink-soft",
+  none: "border-ink border-dashed bg-white",
   seen: "border-ink border-dashed bg-white",
   know: "border-ink bg-peach",
   use: "border-ink bg-sage",
@@ -69,13 +69,13 @@ export default async function MapPage() {
                   {level} 級
                 </h2>
                 <p className="text-sm text-ink-soft">
-                  {items.length} 項中，會用 {counts.use}・認得 {counts.know}・看過 {counts.seen}
+                  {items.length} 項文法中，自己寫出來且用對 {counts.use}・大概知道 {counts.know}・尚未學習 {items.length - counts.use - counts.know}
                 </p>
               </div>
               <ul lang="ko" className="flex flex-wrap gap-2">
                 {items.map((g) => {
                   const state = progress.get(g.id);
-                  const label = `${displayForm(g.form)}：${state ? STATE_LABEL[state] : "還沒遇到"}`;
+                  const label = `${displayForm(g.form)}：${state ? STATE_LABEL[state] : NONE_LABEL}`;
                   const cls = `inline-block rounded-full border-2 px-3.5 py-1.5 ${CHIP[state ?? "none"]}`;
                   return (
                     <li key={g.id}>
@@ -86,7 +86,7 @@ export default async function MapPage() {
                       ) : (
                         <span className={cls}>
                           {displayForm(g.form)}
-                          <span className="sr-only">：{state ? STATE_LABEL[state] : "還沒遇到"}</span>
+                          <span className="sr-only">：{state ? STATE_LABEL[state] : NONE_LABEL}</span>
                         </span>
                       )}
                     </li>
@@ -97,7 +97,20 @@ export default async function MapPage() {
           );
         })}
         <p className="text-xs text-ink-soft">
-          文法分級參考：國立國語院〈국제 통용 한국어 표준 교육과정 적용 연구(4단계)〉文法等級目錄（2017，2020 修訂）。
+          本網站的文法、詞彙分級，使用國立國語院於 2017 年以
+          <a href="https://www.kogl.or.kr/info/license.do" target="_blank" rel="noopener" className="underline underline-offset-2">
+            公共누리 제1유형
+          </a>
+          開放的〈국제 통용 한국어 표준 교육과정 적용 연구(4단계)〉어휘・문법 등급 목록（2020 修訂版），原始資料可在
+          <a
+            href="https://www.korean.go.kr/front/reportData/reportDataView.do?mn_id=207&report_seq=932"
+            target="_blank"
+            rel="noopener"
+            className="underline underline-offset-2"
+          >
+            國立國語院網站
+          </a>
+          免費下載。
         </p>
       </main>
     </>

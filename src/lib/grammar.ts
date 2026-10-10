@@ -24,11 +24,13 @@ export type Lesson = {
 export type ProgressState = "seen" | "know" | "use";
 
 export const STATE_RANK: Record<ProgressState, number> = { seen: 1, know: 2, use: 3 };
-export const STATE_LABEL: Record<ProgressState, string> = { seen: "看過", know: "認得", use: "會用" };
+// 畫面上只分三種：完全沒碰過和「打開過／在例句裡看過」都算「尚未學習」，資料庫仍分開記 seen。
+export const STATE_LABEL: Record<ProgressState, string> = { seen: "尚未學習", know: "大概知道", use: "自己寫出來且用對" };
+export const NONE_LABEL = "尚未學習";
 export const STATE_DEFINITION: Record<ProgressState, string> = {
-  seen: "打開過這個文法，或在例句裡看過",
+  seen: "還沒在句子工坊裡自己寫過（可能在例句裡看過）",
   know: "自己寫過，但還沒寫對",
-  use: "靠自己寫對了（照抄參考答案不算）",
+  use: "在句子工坊裡靠自己寫對了（照抄參考答案不算）",
 };
 
 export const CATEGORY_LABEL: Record<string, string> = {

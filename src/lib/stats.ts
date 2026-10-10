@@ -59,7 +59,7 @@ export async function getStats(supabase: SupabaseClient, userId: string) {
     .slice(0, 5)
     .map(([category, count]) => ({ category, count }));
 
-  // 「會用」只升不降，所以 updated_at 就是變成會用的時間，可以直接累加成成長曲線。
+  // 「自己寫出來且用對」只升不降，所以 updated_at 就是寫對的時間，可以直接累加成成長曲線。
   const useDates = (progressData ?? [])
     .filter((p) => p.state === "use")
     .map((p) => kstDate(p.updated_at as string))

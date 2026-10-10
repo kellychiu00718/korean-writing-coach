@@ -5,7 +5,7 @@ import { useState } from "react";
 // 圖表用的綠：比品牌 sage 飽和一點，在白底上才看得清楚（已通過對比與彩度檢查）。
 const CHART_GREEN = "#2F9A7F";
 
-/** 「會用」文法數的累積成長曲線，滑鼠移上去顯示當天數字。 */
+/** 「自己寫出來且用對」文法數的累積成長曲線，滑鼠移上去顯示當天數字。 */
 export function GrowthChart({ points }: { points: { date: string; total: number }[] }) {
   const [hover, setHover] = useState<number | null>(null);
   if (points.length === 0) {
@@ -30,7 +30,7 @@ export function GrowthChart({ points }: { points: { date: string; total: number 
         viewBox={`0 0 ${W} ${H}`}
         className="w-full touch-none"
         role="img"
-        aria-label={`會用的文法從 ${series[0].total} 項成長到 ${series[last].total} 項`}
+        aria-label={`自己寫對的文法從 ${series[0].total} 項成長到 ${series[last].total} 項`}
         onPointerMove={(e) => {
           const rect = e.currentTarget.getBoundingClientRect();
           const px = ((e.clientX - rect.left) / rect.width) * W;
@@ -58,7 +58,7 @@ export function GrowthChart({ points }: { points: { date: string; total: number 
         <circle cx={x(active)} cy={y(series[active].total)} r="5" fill={CHART_GREEN} stroke="#fff" strokeWidth="2" />
       </svg>
       <figcaption className="mt-1 text-sm tabular-nums text-ink-soft" aria-live="polite">
-        {series[active].date}：會用 <b className="text-ink">{series[active].total}</b> 項文法
+        {series[active].date}：自己寫對 <b className="text-ink">{series[active].total}</b> 項文法
       </figcaption>
     </figure>
   );

@@ -96,7 +96,7 @@ export async function POST(request: Request) {
   });
   if (insertError) return fail(500, "儲存時出了問題，請稍後再試。");
 
-  // 照抄已經看過的參考寫法，只算「認得」。
+  // 照抄已經看過的參考寫法，只算「大概知道」。
   const copied = shownReferences.some((r) => r.replace(/\s/g, "") === sentence.replace(/\s/g, ""));
   const changes: { grammarId: string; state: ProgressState; evidence?: string }[] = [];
   if (revealed.usesTarget && revealed.targetCorrect && !copied) {
