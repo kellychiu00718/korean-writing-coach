@@ -131,15 +131,15 @@ export function SentenceBook({ rounds }: { rounds: Round[] }) {
 
   const { today, weekStart, monthStart } = kstToday();
   // 只套用目前這個排列方式底下的篩選，畫面上看得到的條件就是全部的條件。
+  const inRange = (r: Round, id: DateRange) => {
+    if (id === "today") return r.date === today;
+    if (id === "week") return r.date >= weekStart;
+    if (id === "month") return r.date >= monthStart;
+    if (id === "custom") return (!from || r.date >= from) && (!to || r.date <= to);
+    return true;
+  };
   const filtered = rounds.filter((r) => {
-    if (sort === "date") {
-      if (range === "today") return r.date === today;
-      if (range === "week") return r.date >= weekStart;
-      if (range === "month") return r.date >= monthStart;
-      if (range === "custom")
-        return (!from || r.date >= from) && (!to || r.date <= to);
-      return true;
-    }
+    if (sort === "date") return inRange(r, range);
     if (sort === "level") return level === "all" || String(r.level) === level;
     return tries === "all" || r.outcome === tries;
   });
@@ -182,7 +182,10 @@ export function SentenceBook({ rounds }: { rounds: Round[] }) {
           <>
             <Chips
               label="日期範圍"
-              options={DATE_RANGES}
+              options={DATE_RANGES.map((d) => ({
+                ...d,
+                count: rounds.filter((r) => inRange(r, d.id)).length,
+              }))}
               value={range}
               onChange={setRange}
             />
