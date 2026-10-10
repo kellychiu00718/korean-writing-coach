@@ -1,4 +1,5 @@
 import clipData from "@/data/dictation.json";
+import voiceAudio from "@/data/voice-audio.json";
 import { displayForm, getGrammar } from "@/lib/grammar";
 import { lessons } from "@/lib/lessons";
 
@@ -36,6 +37,8 @@ export type VoiceItem = {
   level: number;
   /** 出自哪一課 */
   form: string;
+  /** 預先用 Supertonic 做好的音檔（scripts/generate_voice_audio.py）；沒有就用瀏覽器內建語音 */
+  audio: { file: string; voice: string } | null;
 };
 
 export type DictationItem = Clip | VoiceItem;
@@ -53,8 +56,14 @@ export const voiceItems: VoiceItem[] = lessons.flatMap((l) =>
     text_zh: ex.zh,
     level: getGrammar(l.id)?.level ?? 0,
     form: displayForm(getGrammar(l.id)?.form ?? l.id),
+    audio: audioFor(`voice-${l.id}-${i}`),
   })),
 );
+
+function audioFor(id: string) {
+  const a = (voiceAudio as Record<string, { file: string; voice: string }>)[id];
+  return a ? { file: a.file, voice: a.voice } : null;
+}
 
 export function getItem(id: string): DictationItem | undefined {
   return clips.find((c) => c.id === id) ?? voiceItems.find((v) => v.id === id);

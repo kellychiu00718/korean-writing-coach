@@ -42,3 +42,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 public/mascot-options.html
+
+# 產生語音檔用的 Python 環境
+.venv-tts/

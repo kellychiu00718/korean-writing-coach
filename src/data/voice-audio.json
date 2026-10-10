@@ -1,0 +1,127 @@
+{
+  "voice-g106-0": {
+    "voice": "F1",
+    "file": "/audio/voice/voice-g106-0.mp3",
+    "hash": "67cd431a22"
+  },
+  "voice-g106-1": {
+    "voice": "M1",
+    "file": "/audio/voice/voice-g106-1.mp3",
+    "hash": "12abf0d1db"
+  },
+  "voice-g107-0": {
+    "voice": "F1",
+    "file": "/audio/voice/voice-g107-0.mp3",
+    "hash": "3572b353d9"
+  },
+  "voice-g107-1": {
+    "voice": "M1",
+    "file": "/audio/voice/voice-g107-1.mp3",
+    "hash": "8c0c3744ff"
+  },
+  "voice-g107-2": {
+    "voice": "F1",
+    "file": "/audio/voice/voice-g107-2.mp3",
+    "hash": "109e8fb5d3"
+  },
+  "voice-g112-0": {
+    "voice": "M1",
+    "file": "/audio/voice/voice-g112-0.mp3",
+    "hash": "f08bbb481c"
+  },
+  "voice-g112-1": {
+    "voice": "F1",
+    "file": "/audio/voice/voice-g112-1.mp3",
+    "hash": "4a3e30242a"
+  },
+  "voice-g113-0": {
+    "voice": "M1",
+    "file": "/audio/voice/voice-g113-0.mp3",
+    "hash": "138ed0261b"
+  },
+  "voice-g113-1": {
+    "voice": "F1",
+    "file": "/audio/voice/voice-g113-1.mp3",
+    "hash": "a79700af03"
+  },
+  "voice-g131-0": {
+    "voice": "M1",
+    "file": "/audio/voice/voice-g131-0.mp3",
+    "hash": "5b1e1c0031"
+  },
+  "voice-g131-1": {
+    "voice": "F1",
+    "file": "/audio/voice/voice-g131-1.mp3",
+    "hash": "6da0e83c5d"
+  },
+  "voice-g133-0": {
+    "voice": "M1",
+    "file": "/audio/voice/voice-g133-0.mp3",
+    "hash": "86ba3cf351"
+  },
+  "voice-g133-1": {
+    "voice": "F1",
+    "file": "/audio/voice/voice-g133-1.mp3",
+    "hash": "203eb1d977"
+  },
+  "voice-g136-0": {
+    "voice": "M1",
+    "file": "/audio/voice/voice-g136-0.mp3",
+    "hash": "acb8a896d0"
+  },
+  "voice-g136-1": {
+    "voice": "F1",
+    "file": "/audio/voice/voice-g136-1.mp3",
+    "hash": "ccc06f2a7b"
+  },
+  "voice-g147-0": {
+    "voice": "M1",
+    "file": "/audio/voice/voice-g147-0.mp3",
+    "hash": "122478055a"
+  },
+  "voice-g147-1": {
+    "voice": "F1",
+    "file": "/audio/voice/voice-g147-1.mp3",
+    "hash": "77ca6eea36"
+  },
+  "voice-g177-0": {
+    "voice": "M1",
+    "file": "/audio/voice/voice-g177-0.mp3",
+    "hash": "78eb085134"
+  },
+  "voice-g177-1": {
+    "voice": "F1",
+    "file": "/audio/voice/voice-g177-1.mp3",
+    "hash": "4a1b3e0a63"
+  },
+  "voice-g186-0": {
+    "voice": "M1",
+    "file": "/audio/voice/voice-g186-0.mp3",
+    "hash": "a2dbb9af3d"
+  },
+  "voice-g186-1": {
+    "voice": "F1",
+    "file": "/audio/voice/voice-g186-1.mp3",
+    "hash": "e4562934d5"
+  },
+  "voice-g203-0": {
+    "voice": "M1",
+    "file": "/audio/voice/voice-g203-0.mp3",
+    "hash": "d6a205f1a5"
+  },
+  "voice-g203-1": {
+    "voice": "F1",
+    "file": "/audio/voice/voice-g203-1.mp3",
+    "hash": "1a97743e28"
+  },
+  "voice-g211-0": {
+    "voice": "M1",
+    "file": "/audio/voice/voice-g211-0.mp3",
+    "hash": "9c041e94d0"
+  },
+  "voice-g211-1": {
+    "voice": "F1",
+    "file": "/audio/voice/voice-g211-1.mp3",
+    "hash": "83989f7a58"
+  }
+}

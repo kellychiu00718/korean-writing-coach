@@ -269,7 +269,11 @@ function SourceCard({ item }: { item: DictationItem }) {
       <section className="rounded-3xl border-2 border-line bg-white px-5 py-4 text-sm" aria-label="句子來源">
         <p className="mb-1 text-xs text-ink-soft">來源</p>
         <p>句子：慢慢寫自編的課程例句</p>
-        <p className="text-ink-soft">聲音：這台裝置的瀏覽器內建韓文語音，不同裝置聽起來會不太一樣。</p>
+        <p className="text-ink-soft">
+          {item.audio
+            ? `聲音：Supertone 的 Supertonic 語音合成（${item.audio.voice === "M1" ? "男聲" : "女聲"}）`
+            : "聲音：這台裝置的瀏覽器內建韓文語音，不同裝置聽起來會不太一樣。"}
+        </p>
       </section>
     );
   }
@@ -426,6 +430,22 @@ function useKoreanVoice() {
 function VoiceListener({ item }: { item: VoiceItem }) {
   const { supported, voice, checked } = useKoreanVoice();
   const [playing, setPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
+  // 音檔載入失敗時，改用瀏覽器內建語音
+  const [audioFailed, setAudioFailed] = useState(false);
+  const useFile = Boolean(item.audio) && !audioFailed;
+
+  function play(rate: number) {
+    const a = audioRef.current;
+    if (useFile && a) {
+      a.pause();
+      a.currentTime = 0;
+      a.playbackRate = rate;
+      a.play().catch(() => setAudioFailed(true));
+      return;
+    }
+    speak(rate);
+  }
 
   function speak(rate: number) {
     speechSynthesis.cancel();
@@ -444,24 +464,35 @@ function VoiceListener({ item }: { item: VoiceItem }) {
       <h1 id="listen-title" className="text-xl font-bold">
         聽聽看這一句
       </h1>
+      {item.audio && (
+        <audio
+          ref={audioRef}
+          src={item.audio.file}
+          preload="auto"
+          onPlay={() => setPlaying(true)}
+          onPause={() => setPlaying(false)}
+          onEnded={() => setPlaying(false)}
+          onError={() => setAudioFailed(true)}
+        />
+      )}
       <div className="flex items-center justify-center rounded-2xl bg-cream py-8" aria-hidden="true">
         <span className={`text-5xl ${playing ? "motion-safe:animate-pulse" : ""}`}>🔊</span>
       </div>
-      {!supported ? (
+      {!useFile && !supported ? (
         <p role="alert" className="rounded-2xl bg-hint px-4 py-3">
           這個瀏覽器不支援語音朗讀，換成 Chrome、Safari 或 Edge 試試看。
         </p>
       ) : (
         <>
           <div className="flex flex-wrap gap-2">
-            <button type="button" className="btn btn-sm" onClick={() => speak(1)}>
+            <button type="button" className="btn btn-sm" onClick={() => play(1)}>
               {playing ? "朗讀中…" : "播放這一句"}
             </button>
-            <button type="button" className="btn btn-ghost btn-sm" onClick={() => speak(0.75)}>
+            <button type="button" className="btn btn-ghost btn-sm" onClick={() => play(0.75)}>
               放慢再聽（0.75 倍）
             </button>
           </div>
-          {checked && !voice && (
+          {!useFile && checked && !voice && (
             <p className="rounded-2xl bg-hint px-4 py-3 text-sm">
               這台裝置好像沒有韓文語音，唸出來可能不是韓文。可以在系統設定裡加入韓文語音，或換一個瀏覽器試試看。
             </p>
