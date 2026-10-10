@@ -1,5 +1,6 @@
 import clipData from "@/data/dictation.json";
-import { displayForm, getGrammar, lessons } from "@/lib/grammar";
+import { displayForm, getGrammar } from "@/lib/grammar";
+import { lessons } from "@/lib/lessons";
 
 export type Genre = "news" | "drama" | "movie" | "music" | "variety";
 

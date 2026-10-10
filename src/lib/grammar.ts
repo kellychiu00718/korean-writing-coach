@@ -1,5 +1,4 @@
 import grammarData from "@/data/grammar.json";
-import lessonData from "@/data/lessons.json";
 
 export type GrammarItem = {
   id: string;
@@ -48,17 +47,11 @@ export const CATEGORY_LABEL: Record<string, string> = {
 };
 
 export const grammar = grammarData as GrammarItem[];
-export const lessons = lessonData as Lesson[];
 
 const grammarById = new Map(grammar.map((g) => [g.id, g]));
-const lessonById = new Map(lessons.map((l) => [l.id, l]));
 
 export function getGrammar(id: string) {
   return grammarById.get(id);
-}
-
-export function getLesson(id: string) {
-  return lessonById.get(id);
 }
 
 /** 原始資料用數字區分同形異義（-거든1、-다가1(2)），畫面上拿掉。 */

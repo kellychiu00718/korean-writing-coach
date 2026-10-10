@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { getLesson } from "@/lib/grammar";
+import { getLesson } from "@/lib/lessons";
 import { DAILY_LIMIT, usedToday } from "@/lib/limits";
 import { createClient } from "@/lib/supabase/server";
 

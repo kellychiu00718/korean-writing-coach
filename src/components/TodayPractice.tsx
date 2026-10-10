@@ -1,12 +1,5 @@
-import {
-  displayForm,
-  getGrammar,
-  getLesson,
-  grammar,
-  lessons,
-  type Lesson,
-  type ProgressState,
-} from "@/lib/grammar";
+import { displayForm, getGrammar, grammar, type Lesson, type ProgressState } from "@/lib/grammar";
+import { getLesson, lessons } from "@/lib/lessons";
 import { INTERESTS, type Interest } from "@/lib/profile";
 import { RecommendedPractice, type Candidate } from "./RecommendedPractice";
 

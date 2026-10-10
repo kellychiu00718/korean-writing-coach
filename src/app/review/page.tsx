@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { AppHeader } from "@/components/AppHeader";
-import { displayForm, getGrammar, getLesson } from "@/lib/grammar";
+import { displayForm, getGrammar } from "@/lib/grammar";
+import { getLesson } from "@/lib/lessons";
 import { createClient } from "@/lib/supabase/server";
 import { ReviewDeck, type Card } from "./ReviewDeck";
 

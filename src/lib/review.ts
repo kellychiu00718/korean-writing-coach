@@ -1,6 +1,6 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { RevealedFeedback } from "@/lib/coach";
-import { getLesson } from "@/lib/grammar";
+import { getLesson } from "@/lib/lessons";
 
 /** 錯了兩次（走到第 3 次才結束）就自動加入複習字卡。 */
 export const AUTO_ADD_FROM_ATTEMPT = 3;

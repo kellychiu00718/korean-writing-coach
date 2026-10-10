@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { displayForm, getLesson, grammar, type ProgressState } from "@/lib/grammar";
+import { displayForm, grammar, type ProgressState } from "@/lib/grammar";
+import { getLesson } from "@/lib/lessons";
 
 /** 「大概知道」的文法：寫過但還沒寫對。溫和地邀請回來再試，不催促。 */
 export function AlmostThere({ progress }: { progress: Map<string, ProgressState> }) {
