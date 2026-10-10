@@ -8,8 +8,15 @@ import { promote } from "@/lib/progress";
 import { createClient } from "@/lib/supabase/server";
 import { CoachPanel, type RoundEntry } from "./CoachPanel";
 
-export default async function LessonPage({ params }: { params: Promise<{ id: string }> }) {
+export default async function LessonPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ p?: string }>;
+}) {
   const { id } = await params;
+  const { p } = await searchParams;
   const item = getGrammar(id);
   const lesson = getLesson(id);
   if (!item || !lesson) notFound();
@@ -24,7 +31,12 @@ export default async function LessonPage({ params }: { params: Promise<{ id: str
   const exampleIds = [...new Set(lesson.examples.flatMap((ex) => ex.grammar ?? []))];
   await promote(supabase, user.id, [id, ...exampleIds].map((g) => ({ grammarId: g, state: "seen" as const }))).catch(() => []);
   const { interests } = getProfile(user);
-  const initialPrompt = Math.max(0, lesson.prompts.findIndex((p) => interests.includes(p.scene)));
+  // 從「今天的練習」點進來會帶 ?p= 指定情境；否則優先選符合興趣的情境
+  const requested = Number(p);
+  const initialPrompt =
+    Number.isInteger(requested) && requested >= 0 && requested < lesson.prompts.length
+      ? requested
+      : Math.max(0, lesson.prompts.findIndex((pr) => interests.includes(pr.scene)));
 
   // 每個情境還沒結束的那一輪，重新整理頁面也能接著寫。
   const { data } = await supabase

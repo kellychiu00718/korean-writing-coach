@@ -69,7 +69,6 @@
   .logo { display: inline-flex; align-items: flex-end; gap: 6px; font-family: var(--font-display); font-size: 22px; line-height: 1; text-decoration: none; }
   /* 文字底部對齊烏龜的腳：36px 圖下方留白 4.68px，減去 22px 字形底部到行框約 2.57px */
   .logo-text { padding-bottom: 2.1px; }
-  .logo small { align-self: center; margin-left: 4px; }
   .logo small { font-family: var(--font-zh); font-size: 12px; color: var(--ink-soft); background: var(--peach); padding: 2px 8px; border-radius: var(--radius-pill); }
 
   /* ---------- buttons ---------- */
@@ -102,10 +101,6 @@
   .hero .lead { font-size: 19px; color: var(--ink-soft); max-width: 32em; }
   .hero .cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
   .hero-art { position: relative; }
-  .blob {
-    position: absolute; inset: -20px -10px auto auto; width: 260px; height: 260px;
-    background: var(--peach); border-radius: 46% 54% 60% 40% / 50% 42% 58% 50%; z-index: -1;
-  }
 
   /* 範例卡片 */
   .card {
@@ -223,7 +218,6 @@
     body { font-size: 16px; }
     .wrap { padding: 0 16px; }
     .who { grid-template-columns: 1fr; }
-    .blob { width: 180px; height: 180px; }
     .nav-cta { display: none; }
     .join .card { padding: 22px; }
   }
@@ -267,9 +261,9 @@
   <ellipse cx="161" cy="109" rx="6.5" ry="4" fill="#E78895"/>
   <path d="M173 111 q5 4.5 10 1" fill="none" stroke="#4A3036" stroke-width="3" stroke-linecap="round"/>
 </svg>
-      <span class="logo-text">慢慢寫</span><small>暫名</small>
+      <span class="logo-text">慢慢寫</span>
     </a>
-    <a class="btn small nav-cta" href="/login">開始練習</a>
+    <a class="btn small nav-cta" href="/login">免費開始練習</a>
   </div>
 </nav>
 
@@ -279,21 +273,20 @@
   <section class="hero">
     <div class="wrap">
       <div>
-        <span class="eyebrow">韓文寫作練習・繁體中文</span>
-        <h1>先<mark>自己想</mark>，<br>再讓 AI 陪你改。</h1>
-        <p class="lead">寫給想把韓文寫得像自己，而不是像 AI 的你。從一句話開始，到 TOPIK IBT 作文、粉絲信、韓國求職信，一步一步自己寫出來。</p>
+        <span class="eyebrow">專屬繁體中文使用者的韓文寫作練習</span>
+        <h1>先<mark>自己想</mark>，<br>再讓 AI 教練陪你改。</h1>
+        <p class="lead">給所有想靠自己一步步慢慢寫出韓文句子再到文章的你。<br>從簡短句子，到 TOPIK IBT 作文、粉絲信，再到韓國履歷和求職信，慢慢寫陪著你一起慢慢練。</p>
         <div class="cta">
           <a class="btn" href="/login">免費開始練習</a>
-          <a class="btn ghost" href="#ladder">看看怎麼練</a>
+          <a class="btn ghost" href="#ladder">先看看怎麼練習</a>
         </div>
       </div>
       <div class="hero-art">
-        <div class="blob" aria-hidden="true"></div>
         <div class="card" aria-label="範例：自己寫出的句子與提示">
           <div class="label">今天的文法：-(으)ㄹ 줄 알다</div>
           <p class="sentence" lang="ko">저는 김치찌개를 <span class="fixed">만들 줄 알아요</span>.</p>
-          <div class="bubble good" style="animation:none"><span aria-hidden="true">✓ </span>這句用對了！「-(으)ㄹ 줄 알다」已經放進你的文法地圖。</div>
-          <div class="label">你的文法地圖：3 級 <b>12 / 67</b> 項會用了</div>
+          <div class="bubble good" style="animation:none"><span aria-hidden="true">✓ </span>這句文法用對了！「-(으)ㄹ 줄 알다」已經放進你的文法地圖。</div>
+          <div class="label">你的文法地圖：3 級文法中 <b>12 / 67</b> 項文法已經會用了</div>
         </div>
       </div>
     </div>
@@ -304,11 +297,12 @@
     <div class="wrap ladder">
       <div>
         <span class="eyebrow">AI 教練不直接給答案</span>
-        <h2>錯了也沒關係，<br>先給你線索。</h2>
-        <p>一般的 AI 批改會直接把整篇改好，看起來很快，但下次你還是不會。這裡的 AI 只會一層一層給提示，要等你自己改過才看得到參考寫法。</p>
+        <h2>錯了也沒關係，<br>依照線索一步步練習寫。</h2>
+        <p>一般的 AI 工具通常會直接幫你把句子或文章改好，雖然看似完美又有效率，但少了靠自己絞盡腦汁的過程，下次遇到同樣的問題，還是不會。</p>
+        <p>這裡的 AI 教練只會一層一層給提示，必須自己真正經過思考練習寫出來之後，才看得到參考答案。</p>
         <ol class="steps" id="steps">
-          <li class="on"><span class="num">1</span><span><strong>圈出要改的地方</strong>標出哪個字、哪一類要改</span></li>
-          <li><span class="num">2</span><span><strong>給你提示</strong>選項、初聲或要用的文法</span></li>
+          <li class="on"><span class="num">1</span><span><strong>標示出要改的地方</strong>標出句子中的哪個部分需要修改</span></li>
+          <li><span class="num">2</span><span><strong>提示</strong>提供選項、單字的初聲或文法</span></li>
           <li><span class="num">3</span><span><strong>對照參考答案</strong>寫對或改兩次後才出現</span></li>
         </ol>
       </div>
@@ -482,7 +476,7 @@
 
 <footer>
   <div class="wrap">
-    <div>慢慢寫 천천히 쓰기（暫名）・Made in Daejeon with ♡</div>
+    <div>慢慢寫 천천히 쓰기・Made in Daejeon with ♡</div>
     <div>文法與詞彙分級參考：國立國語院〈국제 통용 한국어 표준 교육과정〉。</div>
   </div>
 </footer>

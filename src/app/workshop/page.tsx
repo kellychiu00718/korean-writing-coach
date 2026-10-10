@@ -1,12 +1,11 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { AppHeader } from "@/components/AppHeader";
-import { AlmostThere } from "@/components/AlmostThere";
-import { Recommended } from "@/components/Recommended";
+import { TodayPractice } from "@/components/TodayPractice";
 import { StateDot } from "@/components/StateDot";
 import { CATEGORY_LABEL, displayForm, getLesson, grammar, STATE_LABEL } from "@/lib/grammar";
 import { getProfile } from "@/lib/profile";
-import { getProgress } from "@/lib/progress";
+import { getProgressRows } from "@/lib/progress";
 import { createClient } from "@/lib/supabase/server";
 
 const LEVELS = [3, 4];
@@ -19,7 +18,8 @@ export default async function WorkshopPage() {
   if (!user) redirect("/login?next=/workshop");
   const profile = getProfile(user);
   if (!profile.onboarded) redirect("/welcome");
-  const progress = await getProgress(supabase, user.id);
+  const rows = await getProgressRows(supabase, user.id);
+  const progress = new Map(rows.map((r) => [r.grammarId, r.state]));
 
   return (
     <>
@@ -33,8 +33,7 @@ export default async function WorkshopPage() {
           </p>
         </section>
 
-        <AlmostThere progress={progress} />
-        <Recommended progress={progress} interests={profile.interests} />
+        <TodayPractice rows={rows} interests={profile.interests} />
 
         {LEVELS.map((level) => {
           const items = grammar.filter((g) => g.level === level);

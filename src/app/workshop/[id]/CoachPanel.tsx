@@ -21,8 +21,8 @@ const SCENE_LABEL: Record<Lesson["prompts"][number]["scene"], string> = {
 };
 
 const STEPS = [
-  { title: "圈出要改的地方", caption: "標出哪個字、哪一類要改" },
-  { title: "給你提示", caption: "選項、初聲或要用的文法" },
+  { title: "標示出要改的地方", caption: "標出句子中的哪個部分需要修改" },
+  { title: "提示", caption: "提供選項、單字的初聲或文法" },
   { title: "對照參考答案", caption: "寫對或改兩次後出現" },
 ];
 

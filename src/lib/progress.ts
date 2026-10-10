@@ -10,6 +10,19 @@ export async function getProgress(supabase: SupabaseClient, userId: string) {
   return new Map((data ?? []).map((r) => [r.grammar_id as string, r.state as ProgressState]));
 }
 
+export async function getProgressRows(supabase: SupabaseClient, userId: string) {
+  const { data, error } = await supabase
+    .from("grammar_progress")
+    .select("grammar_id, state, updated_at")
+    .eq("user_id", userId);
+  if (error) throw error;
+  return (data ?? []).map((r) => ({
+    grammarId: r.grammar_id as string,
+    state: r.state as ProgressState,
+    updatedAt: r.updated_at as string,
+  }));
+}
+
 /** 只升不降：已經是「會用」的文法，不會因為之後寫錯或只是打開頁面而降回去。 */
 export async function promote(
   supabase: SupabaseClient,
