@@ -36,12 +36,6 @@ const PROCESSORS = [
     data: "你送出的句子、題目情境與文法（不包含電子信箱和暱稱）",
   },
   {
-    name: "Google LLC（YouTube）",
-    task: "聽打練習：透過 YouTube 官方播放器播放影片片段",
-    where: "美國等地",
-    data: "瀏覽器載入與播放影片時會送出的 IP 位址、瀏覽器與裝置資訊（使用 YouTube 的「加強隱私模式」嵌入；YouTube 怎麼處理這些資料，依 Google 的隱私權政策）",
-  },
-  {
     name: "Google LLC（Google Fonts）",
     task: "提供網站字型",
     where: "美國等地",

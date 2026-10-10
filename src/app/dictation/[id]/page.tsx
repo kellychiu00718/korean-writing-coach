@@ -35,7 +35,7 @@ export default async function DictationClipPage({ params }: { params: Promise<{ 
         </Link>
         <div className="mt-4 mb-4 flex flex-wrap items-center gap-2 text-sm">
           <span className="rounded-full bg-peach px-2.5 py-0.5 font-medium">
-            {item.kind === "video" ? GENRE_LABEL[item.genre] : "語音朗讀"}
+            {item.kind === "clip" ? GENRE_LABEL[item.genre] : "語音朗讀"}
           </span>
           <span className="text-ink-soft">{item.level}&nbsp;級</span>
         </div>

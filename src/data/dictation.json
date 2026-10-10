@@ -73,5 +73,165 @@
       "channel": "KBS News",
       "url": "https://www.youtube.com/watch?v=a3R8dxLgVeM"
     }
+  },
+  {
+    "id": "news-kbs9-20260822-1",
+    "videoId": "ctDQRDOteYQ",
+    "start": 610,
+    "end": 618,
+    "text_ko": "이런 인공지능 로봇들을 더 가까이 체험해 볼 수 있는 공간도 있습니다.",
+    "text_zh": "也有可以更近距離體驗這些人工智慧機器人的空間。",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "[풀영상] 뉴스9 : 연합연습 축소한 미, 무기 판매는 승인…미 정치권 ‘북미 회담’ 비판 – 2026년 8월 22일(토) / KBS",
+      "channel": "KBS News",
+      "url": "https://www.youtube.com/watch?v=ctDQRDOteYQ"
+    },
+    "pending": true
+  },
+  {
+    "id": "news-kbs9-20260822-2",
+    "videoId": "ctDQRDOteYQ",
+    "start": 912,
+    "end": 920,
+    "text_ko": "하지만 운전면허를 반납하는 고령자 비율은 2% 정도에 머물고 있습니다.",
+    "text_zh": "但是主動繳回駕照的高齡者比例，只停留在 2% 左右。",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "[풀영상] 뉴스9 : 연합연습 축소한 미, 무기 판매는 승인…미 정치권 ‘북미 회담’ 비판 – 2026년 8월 22일(토) / KBS",
+      "channel": "KBS News",
+      "url": "https://www.youtube.com/watch?v=ctDQRDOteYQ"
+    },
+    "pending": true
+  },
+  {
+    "id": "news-kbs9-20260822-3",
+    "videoId": "ctDQRDOteYQ",
+    "start": 504,
+    "end": 513,
+    "text_ko": "당시 30대 남성은 한 달 전쯤 잃어버린 반려동물이라고 주장했습니다.",
+    "text_zh": "當時一名 30 多歲的男子聲稱，那是他大約一個月前走失的寵物。",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "[풀영상] 뉴스9 : 연합연습 축소한 미, 무기 판매는 승인…미 정치권 ‘북미 회담’ 비판 – 2026년 8월 22일(토) / KBS",
+      "channel": "KBS News",
+      "url": "https://www.youtube.com/watch?v=ctDQRDOteYQ"
+    },
+    "pending": true
+  },
+  {
+    "id": "variety-runningman-best1-1",
+    "videoId": "zAR5FyCadcA",
+    "start": 0,
+    "end": 2,
+    "text_ko": "저희 그동안 좋은 소식이 좀 있었는데요.",
+    "text_zh": "我們這段時間有一些好消息。",
+    "level": 0,
+    "genre": "variety",
+    "source": {
+      "title": "2020년 예능 베스트 클립 1 #런닝맨 #SBSBEST",
+      "channel": "스브스베스트",
+      "url": "https://www.youtube.com/watch?v=zAR5FyCadcA"
+    },
+    "pending": true
+  },
+  {
+    "id": "variety-runningman-best1-2",
+    "videoId": "zAR5FyCadcA",
+    "start": 32,
+    "end": 36,
+    "text_ko": "형이 당분간 핸드폰 하지 말라고.",
+    "text_zh": "哥叫我這陣子先不要碰手機。",
+    "level": 0,
+    "genre": "variety",
+    "source": {
+      "title": "2020년 예능 베스트 클립 1 #런닝맨 #SBSBEST",
+      "channel": "스브스베스트",
+      "url": "https://www.youtube.com/watch?v=zAR5FyCadcA"
+    },
+    "pending": true
+  },
+  {
+    "id": "variety-runningman-best1-3",
+    "videoId": "zAR5FyCadcA",
+    "start": 282,
+    "end": 286,
+    "text_ko": "근데 아플 때는 지효 누나가 제일 잘 챙겨줘요.",
+    "text_zh": "不過生病的時候，最會照顧我的是智孝姊。",
+    "level": 0,
+    "genre": "variety",
+    "source": {
+      "title": "2020년 예능 베스트 클립 1 #런닝맨 #SBSBEST",
+      "channel": "스브스베스트",
+      "url": "https://www.youtube.com/watch?v=zAR5FyCadcA"
+    },
+    "pending": true
+  },
+  {
+    "id": "music-iu-holssi-1",
+    "videoId": "mFbILexYSQg",
+    "start": 59,
+    "end": 68,
+    "text_ko": "혹시 나의 안부를 묻는 누군가 있거든 전해줘",
+    "text_zh": "如果有誰問起我過得好不好，就幫我轉告一聲。",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "IU '홀씨(Holssi)' MV",
+      "channel": "이지금 [IU Official]",
+      "url": "https://www.youtube.com/watch?v=mFbILexYSQg"
+    },
+    "pending": true
+  },
+  {
+    "id": "music-day6-welcome-1",
+    "videoId": "RowlrvmyFEk",
+    "start": 26,
+    "end": 34,
+    "text_ko": "끝없는 가능성 중에 날 골라줘서 고마워",
+    "text_zh": "謝謝你在無數的可能之中選擇了我。",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "DAY6(데이식스) \"Welcome to the Show\" M/V",
+      "channel": "JYP Entertainment",
+      "url": "https://www.youtube.com/watch?v=RowlrvmyFEk"
+    },
+    "pending": true
+  },
+  {
+    "id": "music-iu-shopper-1",
+    "videoId": "kHW-UVXOcLU",
+    "start": 217,
+    "end": 224,
+    "text_ko": "나 이제껏 모르던 세상을 욕심 내볼래",
+    "text_zh": "我想對過去從不知道的世界貪心一次。",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "IU 'Shopper' MV",
+      "channel": "이지금 [IU Official]",
+      "url": "https://www.youtube.com/watch?v=kHW-UVXOcLU"
+    },
+    "pending": true
+  },
+  {
+    "id": "drama-signal-ep2-1",
+    "videoId": "C5c3Z7RDVbQ",
+    "start": 29,
+    "end": 41,
+    "text_ko": "이 사건은 우리 경찰의 명예뿐 아니라 전 국민이 관심을 가지는 사건이다.",
+    "text_zh": "這個案子不只關係到我們警察的名譽，也是全國民眾都在關注的案子。",
+    "level": 0,
+    "genre": "drama",
+    "source": {
+      "title": "[#시그널] EP2-04 프로파일러 이제훈? 장기미제 전담팀은 싸우는 것도 귀엽다.",
+      "channel": "tvN DRAMA",
+      "url": "https://www.youtube.com/watch?v=C5c3Z7RDVbQ"
+    },
+    "pending": true
   }
 ]

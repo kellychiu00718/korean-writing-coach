@@ -123,5 +123,80 @@
     "voice": "F1",
     "file": "/audio/voice/voice-g211-1.mp3",
     "hash": "83989f7a58"
+  },
+  "drama-goodpartner-1": {
+    "voice": "M1",
+    "file": "/audio/clips/drama-goodpartner-1.mp3",
+    "hash": "1ca667831e"
+  },
+  "drama-goodpartner-2": {
+    "voice": "F1",
+    "file": "/audio/clips/drama-goodpartner-2.mp3",
+    "hash": "d0be397c0c"
+  },
+  "variety-eartharcade2-1": {
+    "voice": "M1",
+    "file": "/audio/clips/variety-eartharcade2-1.mp3",
+    "hash": "3901c78002"
+  },
+  "music-aoa-miniskirt-1": {
+    "voice": "F1",
+    "file": "/audio/clips/music-aoa-miniskirt-1.mp3",
+    "hash": "d9a2f51cdd"
+  },
+  "news-kbs9-20261009-1": {
+    "voice": "M1",
+    "file": "/audio/clips/news-kbs9-20261009-1.mp3",
+    "hash": "d302833077"
+  },
+  "news-kbs9-20260822-1": {
+    "voice": "F1",
+    "file": "/audio/clips/news-kbs9-20260822-1.mp3",
+    "hash": "080dab7ce9"
+  },
+  "news-kbs9-20260822-2": {
+    "voice": "M1",
+    "file": "/audio/clips/news-kbs9-20260822-2.mp3",
+    "hash": "9a11c7e9b6"
+  },
+  "news-kbs9-20260822-3": {
+    "voice": "F1",
+    "file": "/audio/clips/news-kbs9-20260822-3.mp3",
+    "hash": "6f118eb890"
+  },
+  "variety-runningman-best1-1": {
+    "voice": "M1",
+    "file": "/audio/clips/variety-runningman-best1-1.mp3",
+    "hash": "30d76c968f"
+  },
+  "variety-runningman-best1-2": {
+    "voice": "F1",
+    "file": "/audio/clips/variety-runningman-best1-2.mp3",
+    "hash": "ad05be5b8c"
+  },
+  "variety-runningman-best1-3": {
+    "voice": "M1",
+    "file": "/audio/clips/variety-runningman-best1-3.mp3",
+    "hash": "81b34f2b5c"
+  },
+  "music-iu-holssi-1": {
+    "voice": "F1",
+    "file": "/audio/clips/music-iu-holssi-1.mp3",
+    "hash": "0c9abd8219"
+  },
+  "music-day6-welcome-1": {
+    "voice": "M1",
+    "file": "/audio/clips/music-day6-welcome-1.mp3",
+    "hash": "664c2b3f1d"
+  },
+  "music-iu-shopper-1": {
+    "voice": "F1",
+    "file": "/audio/clips/music-iu-shopper-1.mp3",
+    "hash": "0f5638769f"
+  },
+  "drama-signal-ep2-1": {
+    "voice": "M1",
+    "file": "/audio/clips/drama-signal-ep2-1.mp3",
+    "hash": "3e5d4b4ad9"
   }
 }

@@ -81,8 +81,13 @@ def pattern_for(form: str, category: str):
 # 這時取最低的級數，避免一個常見助詞就把句子判成高級。
 _by_pattern: dict[tuple, tuple[int, str]] = {}
 for g in json.loads((DATA / "grammar.json").read_text()):
+    main = pattern_for(g["form"], g["category"])
     for f in [g["form"], *g.get("variants", [])]:
         p = pattern_for(f, g["category"])
+        # 變體斷出來比本形短很多，通常是斷詞失敗（只剩一個常見語尾），不採用
+        size = lambda pat: sum(len(x[0]) for x in pat)
+        if p and main and f != g["form"] and (len(p) < len(main) or size(p) < size(main) - 1):
+            continue
         if p and (p not in _by_pattern or g["level"] < _by_pattern[p][0]):
             _by_pattern[p] = (g["level"], clean(g["form"]))
 grammar_patterns: list[tuple[tuple, int, str]] = [(p, lv, name) for p, (lv, name) in _by_pattern.items()]

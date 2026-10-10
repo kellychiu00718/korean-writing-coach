@@ -1,0 +1,576 @@
+{
+  "drama-goodpartner-1": {
+    "level": 2,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "사실",
+        "level": 2
+      },
+      {
+        "type": "單字",
+        "text": "엄마",
+        "level": 2
+      }
+    ],
+    "unknown": []
+  },
+  "drama-goodpartner-2": {
+    "level": 3,
+    "hardest": [
+      {
+        "type": "文法",
+        "text": "-으려면",
+        "level": 3
+      },
+      {
+        "type": "文法",
+        "text": "-어 가다",
+        "level": 3
+      }
+    ],
+    "unknown": [
+      "싶다"
+    ]
+  },
+  "variety-eartharcade2-1": {
+    "level": 3,
+    "hardest": [
+      {
+        "type": "文法",
+        "text": "-는다고",
+        "level": 3
+      }
+    ],
+    "unknown": []
+  },
+  "music-aoa-miniskirt-1": {
+    "level": 5,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "예전",
+        "level": 5
+      },
+      {
+        "type": "文法",
+        "text": "-는걸",
+        "level": 5
+      }
+    ],
+    "unknown": []
+  },
+  "news-kbs9-20261009-1": {
+    "level": 6,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "떠넘기다",
+        "level": 6
+      }
+    ],
+    "unknown": [
+      "적반하장"
+    ]
+  },
+  "news-kbs9-20260822-1": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "인공",
+        "level": 4
+      },
+      {
+        "type": "單字",
+        "text": "지능",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
+  "news-kbs9-20260822-2": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "면허",
+        "level": 4
+      },
+      {
+        "type": "單字",
+        "text": "비율",
+        "level": 4
+      },
+      {
+        "type": "單字",
+        "text": "머물다",
+        "level": 4
+      }
+    ],
+    "unknown": [
+      "고령자"
+    ]
+  },
+  "news-kbs9-20260822-3": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "당시",
+        "level": 4
+      },
+      {
+        "type": "單字",
+        "text": "주장",
+        "level": 4
+      }
+    ],
+    "unknown": [
+      "반려동물"
+    ]
+  },
+  "variety-runningman-best1-1": {
+    "level": 2,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "저희",
+        "level": 2
+      },
+      {
+        "type": "單字",
+        "text": "소식",
+        "level": 2
+      },
+      {
+        "type": "文法",
+        "text": "-는",
+        "level": 2
+      }
+    ],
+    "unknown": []
+  },
+  "variety-runningman-best1-2": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "당분간",
+        "level": 4
+      }
+    ],
+    "unknown": [
+      "핸드폰"
+    ]
+  },
+  "variety-runningman-best1-3": {
+    "level": 3,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "근데",
+        "level": 3
+      },
+      {
+        "type": "單字",
+        "text": "챙기다",
+        "level": 3
+      }
+    ],
+    "unknown": []
+  },
+  "music-iu-holssi-1": {
+    "level": 3,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "안부",
+        "level": 3
+      }
+    ],
+    "unknown": []
+  },
+  "music-day6-welcome-1": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "끝없다",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
+  "music-iu-shopper-1": {
+    "level": 6,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "이제껏",
+        "level": 6
+      }
+    ],
+    "unknown": []
+  },
+  "drama-signal-ep2-1": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "명예",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
+  "voice-g106-0": {
+    "level": 3,
+    "hardest": [
+      {
+        "type": "文法",
+        "text": "-느라고",
+        "level": 3
+      }
+    ],
+    "unknown": []
+  },
+  "voice-g106-1": {
+    "level": 3,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "놓치다",
+        "level": 3
+      },
+      {
+        "type": "文法",
+        "text": "-느라고",
+        "level": 3
+      }
+    ],
+    "unknown": []
+  },
+  "voice-g107-0": {
+    "level": 3,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "않다",
+        "level": 3
+      },
+      {
+        "type": "文法",
+        "text": "-도록",
+        "level": 3
+      }
+    ],
+    "unknown": []
+  },
+  "voice-g107-1": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "팬",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
+  "voice-g107-2": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "밤새다",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
+  "voice-g112-0": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "文法",
+        "text": "-더니",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
+  "voice-g112-1": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "팬",
+        "level": 4
+      },
+      {
+        "type": "文法",
+        "text": "-더니",
+        "level": 4
+      }
+    ],
+    "unknown": [
+      "레터"
+    ]
+  },
+  "voice-g113-0": {
+    "level": 3,
+    "hardest": [
+      {
+        "type": "文法",
+        "text": "-자마자",
+        "level": 3
+      }
+    ],
+    "unknown": []
+  },
+  "voice-g113-1": {
+    "level": 3,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "매진",
+        "level": 3
+      },
+      {
+        "type": "文法",
+        "text": "-자마자",
+        "level": 3
+      }
+    ],
+    "unknown": [
+      "티켓",
+      "오픈"
+    ]
+  },
+  "voice-g131-0": {
+    "level": 3,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "대신",
+        "level": 3
+      },
+      {
+        "type": "單字",
+        "text": "야근",
+        "level": 3
+      },
+      {
+        "type": "文法",
+        "text": "-는 대신에",
+        "level": 3
+      }
+    ],
+    "unknown": []
+  },
+  "voice-g131-1": {
+    "level": 3,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "대신",
+        "level": 3
+      },
+      {
+        "type": "文法",
+        "text": "-는 대신에",
+        "level": 3
+      }
+    ],
+    "unknown": []
+  },
+  "voice-g133-0": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "온라인",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
+  "voice-g133-1": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "비율",
+        "level": 4
+      },
+      {
+        "type": "單字",
+        "text": "감소",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
+  "voice-g136-0": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "취업",
+        "level": 4
+      }
+    ],
+    "unknown": [
+      "토픽"
+    ]
+  },
+  "voice-g136-1": {
+    "level": 3,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "위하다",
+        "level": 3
+      }
+    ],
+    "unknown": []
+  },
+  "voice-g147-0": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "환경",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
+  "voice-g147-1": {
+    "level": 3,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "대하다",
+        "level": 3
+      },
+      {
+        "type": "單字",
+        "text": "의견",
+        "level": 3
+      },
+      {
+        "type": "文法",
+        "text": "에 대하여",
+        "level": 3
+      }
+    ],
+    "unknown": []
+  },
+  "voice-g177-0": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "文法",
+        "text": "-더라도",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
+  "voice-g177-1": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "文法",
+        "text": "-더라도",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
+  "voice-g186-0": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "文法",
+        "text": "-을수록",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
+  "voice-g186-1": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "줄어들다",
+        "level": 4
+      },
+      {
+        "type": "文法",
+        "text": "-을수록",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
+  "voice-g203-0": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "文法",
+        "text": "-는 김에",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
+  "voice-g203-1": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "文法",
+        "text": "-는 김에",
+        "level": 4
+      }
+    ],
+    "unknown": [
+      "팝업",
+      "스토어"
+    ]
+  },
+  "voice-g211-0": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "文法",
+        "text": "-는 바람에",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
+  "voice-g211-1": {
+    "level": 2,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "실패",
+        "level": 2
+      },
+      {
+        "type": "文法",
+        "text": "-는",
+        "level": 2
+      }
+    ],
+    "unknown": [
+      "서버",
+      "다운",
+      "티켓팅"
+    ]
+  }
+}

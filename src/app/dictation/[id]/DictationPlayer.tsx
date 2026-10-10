@@ -3,60 +3,9 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 // 只匯入型別（打包時會被拿掉）；比對函式放在不含課程資料的檔案
-import type { Clip, DictationItem, VoiceItem } from "@/lib/dictation";
+import type { DictationItem, Hardest } from "@/lib/dictation";
 import { compareDictation, formatTime, keystrokes, normalizeForCompare } from "@/lib/dictation-compare";
 import { createClient } from "@/lib/supabase/client";
-
-// YouTube IFrame Player API 只用到這幾個功能，自己寫型別就好，不用另外裝套件
-type YTPlayer = {
-  seekTo(seconds: number, allowSeekAhead: boolean): void;
-  playVideo(): void;
-  pauseVideo(): void;
-  getCurrentTime(): number;
-  setPlaybackRate(rate: number): void;
-  destroy(): void;
-};
-type YTNamespace = {
-  Player: new (
-    el: HTMLElement,
-    opts: {
-      host: string;
-      videoId: string;
-      width: string;
-      height: string;
-      playerVars: Record<string, string | number>;
-      events: {
-        onReady?: () => void;
-        onError?: (e: { data: number }) => void;
-        onStateChange?: (e: { data: number }) => void;
-      };
-    },
-  ) => YTPlayer;
-};
-declare global {
-  interface Window {
-    YT?: YTNamespace;
-    onYouTubeIframeAPIReady?: () => void;
-  }
-}
-
-/** 載入 YouTube 官方播放器程式，整個網站只載一次。 */
-let apiPromise: Promise<YTNamespace> | null = null;
-function loadYouTubeApi() {
-  apiPromise ??= new Promise((resolve) => {
-    if (window.YT?.Player) return resolve(window.YT);
-    const prev = window.onYouTubeIframeAPIReady;
-    window.onYouTubeIframeAPIReady = () => {
-      prev?.();
-      resolve(window.YT!);
-    };
-    const s = document.createElement("script");
-    s.src = "https://www.youtube.com/iframe_api";
-    s.async = true;
-    document.head.appendChild(s);
-  });
-  return apiPromise;
-}
 
 // 沒送出的字存在這台裝置的瀏覽器裡，跟句子工坊一樣
 const draftKey = (id: string) => `draft:dictation:${id}`;
@@ -126,7 +75,7 @@ export function DictationPlayer({
 
   return (
     <div className="grid gap-5">
-      {item.kind === "video" ? <VideoListener clip={item} nextId={nextId} /> : <VoiceListener item={item} />}
+      <Listener item={item} />
 
       <section className="card grid gap-3" aria-labelledby="type-title">
         <h2 id="type-title" className="text-xl font-bold">
@@ -178,7 +127,7 @@ export function DictationPlayer({
         )}
       </section>
 
-      <SourceCard item={item} />
+      <SourceCard item={item} revealed={Boolean(result)} />
     </div>
   );
 }
@@ -220,6 +169,7 @@ function ResultView({ item, result }: { item: DictationItem; result: Result }) {
           )}
         </p>
         <p className="mt-1 text-sm text-ink-soft">{item.text_zh}</p>
+        {item.hardest.length > 0 && <HardestLine hardest={item.hardest} />}
       </div>
 
       <div className="rounded-2xl border-2 border-dashed border-line px-4 py-3">
@@ -252,6 +202,25 @@ function ResultView({ item, result }: { item: DictationItem; result: Result }) {
   );
 }
 
+/** 這句裡級數最高的單字或文法（依國立國語院分級表推估） */
+function HardestLine({ hardest }: { hardest: Hardest[] }) {
+  return (
+    <p className="mt-2 flex flex-wrap items-center gap-1.5 text-sm">
+      <span className="text-ink-soft">這句最難的：</span>
+      {hardest.map((h) => (
+        <span key={`${h.type}${h.text}`} className="rounded-full bg-peach px-2 py-0.5">
+          <span lang="ko" className="ko-inline">
+            {h.text}
+          </span>
+          <span className="text-ink-soft">
+            （{h.level}&nbsp;級{h.type}）
+          </span>
+        </span>
+      ))}
+    </p>
+  );
+}
+
 /** 比對時不看空格；顯示答案時把原本的空格放回去。 */
 function withSpaces(answer: string, marks: Result["answerMarks"]) {
   const out: (Result["answerMarks"][number] | " ")[] = [];
@@ -263,128 +232,41 @@ function withSpaces(answer: string, marks: Result["answerMarks"]) {
   return out;
 }
 
-function SourceCard({ item }: { item: DictationItem }) {
+function SourceCard({ item, revealed }: { item: DictationItem; revealed: boolean }) {
+  const voice = item.audio
+    ? `Supertone 的 Supertonic 語音合成（${item.audio.voice === "M1" ? "男聲" : "女聲"}）`
+    : "這台裝置的瀏覽器內建韓文語音，不同裝置聽起來會不太一樣";
   if (item.kind === "voice") {
     return (
       <section className="rounded-3xl border-2 border-line bg-white px-5 py-4 text-sm" aria-label="句子來源">
         <p className="mb-1 text-xs text-ink-soft">來源</p>
         <p>句子：慢慢寫自編的課程例句</p>
-        <p className="text-ink-soft">
-          {item.audio
-            ? `聲音：Supertone 的 Supertonic 語音合成（${item.audio.voice === "M1" ? "男聲" : "女聲"}）`
-            : "聲音：這台裝置的瀏覽器內建韓文語音，不同裝置聽起來會不太一樣。"}
-        </p>
+        <p className="text-ink-soft">聲音：{voice}</p>
       </section>
     );
   }
   const clip = item;
   return (
-    <section className="rounded-3xl border-2 border-line bg-white px-5 py-4 text-sm" aria-label="片段來源">
-      <p className="mb-1 text-xs text-ink-soft">來源</p>
+    <section className="rounded-3xl border-2 border-line bg-white px-5 py-4 text-sm" aria-label="台詞來源">
+      <p className="mb-1 text-xs text-ink-soft">台詞來源</p>
       <p className="font-medium">{clip.source.title}</p>
       <p className="text-ink-soft">
-        {clip.source.channel}・片段 {formatTime(clip.start)}–{formatTime(clip.end)}
+        {clip.source.channel}・{formatTime(clip.start)}–{formatTime(clip.end)}
       </p>
-      {clip.source.note && <p className="mt-1 text-ink-soft">{clip.source.note}</p>}
-      <a
-        href={`${clip.source.url}${clip.source.url.includes("?") ? "&" : "?"}t=${clip.start}s`}
-        target="_blank"
-        rel="noopener"
-        className="mt-1 inline-flex min-h-11 items-center underline underline-offset-4"
-      >
-        到 YouTube 看完整影片
-      </a>
-      <p className="text-xs text-ink-soft">影片版權屬於原作者，本站只透過 YouTube 官方播放器播放，不下載、不儲存影片。</p>
-    </section>
-  );
-}
-
-/** 影片片段：YouTube 官方播放器，只播這一句 */
-function VideoListener({ clip, nextId }: { clip: Clip; nextId: string | null }) {
-  const holder = useRef<HTMLDivElement>(null);
-  const player = useRef<YTPlayer | null>(null);
-  const stopTimer = useRef<ReturnType<typeof setInterval> | null>(null);
-  const [ready, setReady] = useState(false);
-  const [broken, setBroken] = useState(false);
-  const [playing, setPlaying] = useState(false);
-
-  useEffect(() => {
-    let cancelled = false;
-    loadYouTubeApi().then((YT) => {
-      if (cancelled || !holder.current) return;
-      player.current = new YT.Player(holder.current, {
-        // YouTube 的「加強隱私模式」
-        host: "https://www.youtube-nocookie.com",
-        videoId: clip.videoId,
-        width: "100%",
-        height: "100%",
-        playerVars: { start: clip.start, end: clip.end, rel: 0, playsinline: 1, controls: 1 },
-        events: {
-          onReady: () => !cancelled && setReady(true),
-          // 2：影片編號錯誤、100：影片不存在、101／150：作者不允許嵌入
-          onError: () => !cancelled && setBroken(true),
-          onStateChange: (e) => {
-            // 1＝播放中；其他（暫停、結束、緩衝）都當作沒在播
-            if (!cancelled) setPlaying(e.data === 1);
-          },
-        },
-      });
-    });
-    return () => {
-      cancelled = true;
-      if (stopTimer.current) clearInterval(stopTimer.current);
-      player.current?.destroy();
-      player.current = null;
-    };
-  }, [clip.videoId, clip.start, clip.end]);
-
-  /** 從這一句的開頭播到結尾就停；rate 1＝原速、0.75＝放慢。 */
-  function playSegment(rate: number) {
-    const p = player.current;
-    if (!p) return;
-    p.setPlaybackRate(rate);
-    p.seekTo(clip.start, true);
-    p.playVideo();
-    if (stopTimer.current) clearInterval(stopTimer.current);
-    stopTimer.current = setInterval(() => {
-      if (p.getCurrentTime() >= clip.end) {
-        p.pauseVideo();
-        if (stopTimer.current) clearInterval(stopTimer.current);
-      }
-    }, 100);
-  }
-
-  return (
-    <section className="card grid gap-4" aria-labelledby="listen-title">
-      <h1 id="listen-title" className="text-xl font-bold">
-        聽聽看這一句
-      </h1>
-      {/* YouTube 規定播放器至少 200×200，上面不能蓋任何東西 */}
-      <div className="aspect-video min-h-[200px] w-full overflow-hidden rounded-2xl bg-ink/5">
-        <div ref={holder} className="h-full w-full" />
-      </div>
-      {broken ? (
-        <div role="alert" className="grid gap-3 rounded-2xl bg-hint px-4 py-3">
-          <p>這段影片目前無法播放，可能是影片被移除，或作者不開放在其他網站播放。</p>
-          {nextId && (
-            <Link href={`/dictation/${nextId}`} className="btn btn-sm justify-self-start">
-              換下一題
-            </Link>
-          )}
-        </div>
+      <p className="mt-1 text-ink-soft">聲音：{voice}，不是影片原音。</p>
+      {revealed ? (
+        <a
+          href={`${clip.source.url}${clip.source.url.includes("?") ? "&" : "?"}t=${clip.start}s`}
+          target="_blank"
+          rel="noopener"
+          className="btn btn-ghost btn-sm mt-3"
+        >
+          去原影片聽韓國人怎麼說（{formatTime(clip.start)}）
+        </a>
       ) : (
-        <div className="flex flex-wrap gap-2">
-          <button type="button" className="btn btn-sm" disabled={!ready} onClick={() => playSegment(1)}>
-            {ready ? (playing ? "播放中…" : "播放這一句") : "載入中…"}
-          </button>
-          <button type="button" className="btn btn-ghost btn-sm" disabled={!ready} onClick={() => playSegment(0.75)}>
-            放慢再聽（0.75 倍）
-          </button>
-        </div>
+        <p className="mt-2 text-xs text-ink-soft">對完答案後，可以去原影片聽聽看實際的發音和語氣。</p>
       )}
-      <p className="text-xs text-ink-soft">
-        片段 {formatTime(clip.start)}–{formatTime(clip.end)}，可以重聽很多次，不限次數。
-      </p>
+      <p className="mt-2 text-xs text-ink-soft">影片版權屬於原作者，本站只引用一句台詞並附上出處，不下載、不儲存影片。</p>
     </section>
   );
 }
@@ -426,12 +308,11 @@ function useKoreanVoice() {
   return state;
 }
 
-/** 語音朗讀：只有聲音，由瀏覽器內建的韓文語音唸 */
-function VoiceListener({ item }: { item: VoiceItem }) {
+/** 聽的區塊：播預先做好的音檔；音檔載入失敗才改用瀏覽器內建語音 */
+function Listener({ item }: { item: DictationItem }) {
   const { supported, voice, checked } = useKoreanVoice();
   const [playing, setPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
-  // 音檔載入失敗時，改用瀏覽器內建語音
   const [audioFailed, setAudioFailed] = useState(false);
   const useFile = Boolean(item.audio) && !audioFailed;
 
@@ -486,7 +367,7 @@ function VoiceListener({ item }: { item: VoiceItem }) {
         <>
           <div className="flex flex-wrap gap-2">
             <button type="button" className="btn btn-sm" onClick={() => play(1)}>
-              {playing ? "朗讀中…" : "播放這一句"}
+              {playing ? "播放中…" : "播放這一句"}
             </button>
             <button type="button" className="btn btn-ghost btn-sm" onClick={() => play(0.75)}>
               放慢再聽（0.75 倍）

@@ -29,14 +29,16 @@ export default async function DictationPage() {
           <span className="eyebrow mb-3">聽打練習</span>
           <h1 className="text-3xl font-bold sm:text-4xl">聽一句，打一句</h1>
           <p className="mt-2 max-w-2xl text-ink-soft">
-            從新聞、戲劇、音樂、綜藝的片段，或是語音朗讀的例句裡挑一句，聽完把它打出來。
+            從戲劇、音樂、新聞、綜藝的台詞，或是課程例句裡挑一句，聽完把它打出來。
             <br />
             可以重聽、放慢，打完再對答案，看看自己聽到了多少。
           </p>
         </section>
 
-        <h2 className="mb-1 text-xl font-bold">影片片段</h2>
-        <p className="mb-4 text-sm text-ink-soft">新聞、戲劇、音樂、綜藝的原音，每一題都有標注出處。</p>
+        <h2 className="mb-1 text-xl font-bold">戲劇・音樂・新聞・綜藝的台詞</h2>
+        <p className="mb-4 text-sm text-ink-soft">
+          台詞出自 YouTube 上的影片，用合成語音唸給你聽；對完答案可以去原影片聽韓國人實際怎麼說。
+        </p>
         <ul className="mb-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {clips.map((c) => {
             const acc = last.get(c.id);
@@ -44,16 +46,8 @@ export default async function DictationPage() {
               <li key={c.id}>
                 <Link
                   href={`/dictation/${c.id}`}
-                  className="flex h-full flex-col gap-3 rounded-3xl border-2 border-ink bg-white p-4 transition-transform hover:-translate-y-0.5"
+                  className="flex h-full flex-col gap-2 rounded-3xl border-2 border-ink bg-white p-4 transition-transform hover:-translate-y-0.5"
                 >
-                  {/* YouTube 規定縮圖至少 120×70；這裡是 16:9、寬度撐滿卡片 */}
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={`https://i.ytimg.com/vi/${c.videoId}/hqdefault.jpg`}
-                    alt=""
-                    loading="lazy"
-                    className="aspect-video w-full min-w-[120px] rounded-2xl object-cover outline outline-1 -outline-offset-1 outline-black/10"
-                  />
                   <span className="flex flex-wrap items-center gap-1.5 text-xs">
                     <span className="rounded-full bg-peach px-2 py-0.5 font-medium">{GENRE_LABEL[c.genre]}</span>
                     <span className="text-ink-soft">
@@ -65,17 +59,15 @@ export default async function DictationPage() {
                       </span>
                     )}
                   </span>
-                  <span className="line-clamp-2 text-sm text-ink-soft">{c.source.title}</span>
+                  <span className="line-clamp-2 text-sm">{c.source.title}</span>
                 </Link>
               </li>
             );
           })}
         </ul>
 
-        <h2 className="mb-1 text-xl font-bold">語音朗讀（只有聲音）</h2>
-        <p className="mb-4 text-sm text-ink-soft">
-          課程裡的例句，用這台裝置的韓文語音唸出來，沒有畫面可以偷看。
-        </p>
+        <h2 className="mb-1 text-xl font-bold">課程例句</h2>
+        <p className="mb-4 text-sm text-ink-soft">句子工坊裡的例句，用合成語音唸給你聽。</p>
         <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {voiceItems.map((v, i) => {
             const acc = last.get(v.id);

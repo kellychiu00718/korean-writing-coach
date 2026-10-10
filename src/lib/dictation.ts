@@ -1,13 +1,19 @@
 import clipData from "@/data/dictation.json";
+import levelData from "@/data/dictation-levels.json";
 import voiceAudio from "@/data/voice-audio.json";
 import { displayForm, getGrammar } from "@/lib/grammar";
 import { lessons } from "@/lib/lessons";
 
 export type Genre = "news" | "drama" | "movie" | "music" | "variety";
 
-/** YouTube 影片片段 */
+/** 依國立國語院分級表推估的級數，以及拉高級數的單字或文法（scripts/estimate_levels.py） */
+export type Hardest = { type: "單字" | "文法"; text: string; level: number };
+
+type Audio = { file: string; voice: string } | null;
+
+/** 影片台詞：用 Supertonic 重唸，附上原影片的連結和時間 */
 export type Clip = {
-  kind: "video";
+  kind: "clip";
   id: string;
   videoId: string;
   /** 這一句在影片裡的開始與結束秒數 */
@@ -18,6 +24,10 @@ export type Clip = {
   level: number;
   genre: Genre;
   source: { title: string; channel: string; url: string; note?: string };
+  /** 還沒經過 Kelly 確認的候選，不會出現在網站上 */
+  pending?: boolean;
+  audio: Audio;
+  hardest: Hardest[];
 };
 
 export const GENRE_LABEL: Record<Genre, string> = {
@@ -38,15 +48,24 @@ export type VoiceItem = {
   /** 出自哪一課 */
   form: string;
   /** 預先用 Supertonic 做好的音檔（scripts/generate_voice_audio.py）；沒有就用瀏覽器內建語音 */
-  audio: { file: string; voice: string } | null;
+  audio: Audio;
+  hardest: Hardest[];
 };
 
 export type DictationItem = Clip | VoiceItem;
 
-/** 台詞還沒填好的片段先不顯示（text_ko 是空字串）。 */
-export const clips: Clip[] = (clipData as Omit<Clip, "kind">[])
-  .filter((c) => c.text_ko.trim())
-  .map((c) => ({ ...c, kind: "video" }));
+const levels = levelData as Record<string, { level: number; hardest: Hardest[] }>;
+
+/** 台詞還沒填好、或還沒確認的候選片段先不顯示。 */
+export const clips: Clip[] = (clipData as Omit<Clip, "kind" | "audio" | "hardest">[])
+  .filter((c) => c.text_ko.trim() && !c.pending)
+  .map((c) => ({
+    ...c,
+    kind: "clip",
+    level: levels[c.id]?.level ?? c.level,
+    audio: audioFor(c.id),
+    hardest: levels[c.id]?.hardest ?? [],
+  }));
 
 export const voiceItems: VoiceItem[] = lessons.flatMap((l) =>
   l.examples.map((ex, i) => ({
@@ -54,13 +73,14 @@ export const voiceItems: VoiceItem[] = lessons.flatMap((l) =>
     id: `voice-${l.id}-${i}`,
     text_ko: ex.ko,
     text_zh: ex.zh,
-    level: getGrammar(l.id)?.level ?? 0,
+    level: levels[`voice-${l.id}-${i}`]?.level ?? getGrammar(l.id)?.level ?? 0,
     form: displayForm(getGrammar(l.id)?.form ?? l.id),
     audio: audioFor(`voice-${l.id}-${i}`),
+    hardest: levels[`voice-${l.id}-${i}`]?.hardest ?? [],
   })),
 );
 
-function audioFor(id: string) {
+function audioFor(id: string): Audio {
   const a = (voiceAudio as Record<string, { file: string; voice: string }>)[id];
   return a ? { file: a.file, voice: a.voice } : null;
 }
@@ -71,7 +91,7 @@ export function getItem(id: string): DictationItem | undefined {
 
 /** 同一種題型裡的下一題 */
 export function nextItemId(item: DictationItem) {
-  const list: DictationItem[] = item.kind === "video" ? clips : voiceItems;
+  const list: DictationItem[] = item.kind === "clip" ? clips : voiceItems;
   if (list.length < 2) return null;
   return list[(list.findIndex((x) => x.id === item.id) + 1) % list.length].id;
 }
