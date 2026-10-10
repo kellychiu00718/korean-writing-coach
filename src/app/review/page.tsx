@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { AppHeader } from "@/components/AppHeader";
-import { displayForm, getGrammar } from "@/lib/grammar";
+import { displayForm, getGrammar, getLesson } from "@/lib/grammar";
 import { createClient } from "@/lib/supabase/server";
 import { ReviewDeck, type Card } from "./ReviewDeck";
 
@@ -12,11 +12,22 @@ export default async function ReviewPage() {
   } = await supabase.auth.getUser();
   if (!user) redirect("/login?next=/review");
 
-  const { data, error } = await supabase
-    .from("review_cards")
-    .select("id, grammar_id, prompt_index, situation_zh, my_sentence, reference_ko, note_zh, source, created_at")
-    .eq("user_id", user.id)
-    .order("created_at", { ascending: false });
+  // 兩個查詢同時送出，不用一個等一個
+  const [{ data, error }, { data: attempts }] = await Promise.all([
+    supabase
+      .from("review_cards")
+      .select("id, grammar_id, prompt_index, situation_zh, my_sentence, reference_ko, note_zh, source, created_at")
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false }),
+    supabase.from("attempts").select("grammar_id, prompt_index").eq("user_id", user.id),
+  ]);
+
+  // 每一題總共寫了幾次；修改次數＝寫的次數減掉第一次
+  const writes = new Map<string, number>();
+  for (const a of attempts ?? []) {
+    const key = `${a.grammar_id}:${a.prompt_index}`;
+    writes.set(key, (writes.get(key) ?? 0) + 1);
+  }
 
   const cards: Card[] = (data ?? []).map((r) => {
     const g = getGrammar(r.grammar_id);
@@ -26,11 +37,13 @@ export default async function ReviewPage() {
       promptIndex: r.prompt_index,
       form: g ? displayForm(g.form) : r.grammar_id,
       level: g?.level ?? 0,
-      situation: r.situation_zh,
+      // 題目文字改過的話用最新版，找不到才用加入時存下的那份
+      situation: getLesson(r.grammar_id)?.prompts[r.prompt_index]?.situation_zh ?? r.situation_zh,
       mine: r.my_sentence,
       reference: r.reference_ko,
       note: r.note_zh,
       source: r.source,
+      revisions: Math.max(0, (writes.get(`${r.grammar_id}:${r.prompt_index}`) ?? 1) - 1),
     };
   });
 

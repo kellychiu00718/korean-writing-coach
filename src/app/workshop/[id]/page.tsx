@@ -29,7 +29,6 @@ export default async function LessonPage({
 
   // 打開這課＝看過本題文法；例句裡出現的其他文法也算看過。
   const exampleIds = [...new Set(lesson.examples.flatMap((ex) => ex.grammar ?? []))];
-  await promote(supabase, user.id, [id, ...exampleIds].map((g) => ({ grammarId: g, state: "seen" as const }))).catch(() => []);
   const { interests } = getProfile(user);
   // 從「今天的練習」點進來會帶 ?p= 指定情境；否則優先選符合興趣的情境
   const requested = Number(p);
@@ -38,19 +37,18 @@ export default async function LessonPage({
       ? requested
       : Math.max(0, lesson.prompts.findIndex((pr) => interests.includes(pr.scene)));
 
-  // 每個情境還沒結束的那一輪，重新整理頁面也能接著寫。
-  const { data } = await supabase
-    .from("attempts")
-    .select("prompt_index, sentence, attempt, feedback")
-    .eq("user_id", user.id)
-    .eq("grammar_id", id)
-    .order("created_at", { ascending: false })
-    .limit(30);
-  const { data: cardRows } = await supabase
-    .from("review_cards")
-    .select("prompt_index")
-    .eq("user_id", user.id)
-    .eq("grammar_id", id);
+  // 三件事互不相關，同時送出：標記看過、讀還沒結束的那一輪（重新整理也能接著寫）、讀這課的字卡。
+  const [, { data }, { data: cardRows }] = await Promise.all([
+    promote(supabase, user.id, [id, ...exampleIds].map((g) => ({ grammarId: g, state: "seen" as const }))).catch(() => []),
+    supabase
+      .from("attempts")
+      .select("prompt_index, sentence, attempt, feedback")
+      .eq("user_id", user.id)
+      .eq("grammar_id", id)
+      .order("created_at", { ascending: false })
+      .limit(30),
+    supabase.from("review_cards").select("prompt_index").eq("user_id", user.id).eq("grammar_id", id),
+  ]);
   const cardPrompts = (cardRows ?? []).map((r) => r.prompt_index as number);
 
   const openRounds: Record<number, RoundEntry[]> = {};

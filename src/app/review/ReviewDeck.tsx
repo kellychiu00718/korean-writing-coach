@@ -15,12 +15,25 @@ export type Card = {
   reference: string;
   note: string | null;
   source: "auto" | "manual";
+  /** 這一題寫了幾次減掉第一次 */
+  revisions: number;
 };
+
+type Filter = "all" | "manual" | "two" | "three";
+
+const FILTERS: { id: Filter; label: string; match: (c: Card) => boolean }[] = [
+  { id: "all", label: "全部", match: () => true },
+  { id: "manual", label: "自己加入", match: (c) => c.source === "manual" },
+  { id: "two", label: "修改兩次的題目", match: (c) => c.revisions === 2 },
+  { id: "three", label: "修改三次以上", match: (c) => c.revisions >= 3 },
+];
 
 export function ReviewDeck({ cards: initial }: { cards: Card[] }) {
   const [cards, setCards] = useState(initial);
   const [flipped, setFlipped] = useState<Set<number>>(new Set());
   const [error, setError] = useState<string | null>(null);
+  const [filter, setFilter] = useState<Filter>("all");
+  const shown = cards.filter(FILTERS.find((f) => f.id === filter)!.match);
 
   function toggle(id: number) {
     setFlipped((f) => {
@@ -48,8 +61,29 @@ export function ReviewDeck({ cards: initial }: { cards: Card[] }) {
           {error}
         </p>
       )}
+      <div role="group" aria-label="篩選字卡" className="mb-4 flex flex-wrap gap-2">
+        {FILTERS.map((f) => (
+          <button
+            key={f.id}
+            type="button"
+            aria-pressed={filter === f.id}
+            onClick={() => setFilter(f.id)}
+            className={`min-h-9 rounded-full border-2 px-3 text-sm transition-colors ${
+              filter === f.id
+                ? "border-sage-ink bg-sage-soft font-medium text-sage-ink"
+                : "border-line bg-white text-ink-soft hover:bg-cream"
+            }`}
+          >
+            {f.label}
+            <span className="ml-1 tabular-nums opacity-70">{cards.filter(f.match).length}</span>
+          </button>
+        ))}
+      </div>
+      {!shown.length && (
+        <p className="card py-10 text-center text-ink-soft">這個分類目前沒有字卡。</p>
+      )}
       <ul className="grid gap-4 md:grid-cols-2">
-        {cards.map((c) => {
+        {shown.map((c) => {
           const open = flipped.has(c.id);
           return (
             <li key={c.id} className="card flex flex-col gap-3">
@@ -58,7 +92,9 @@ export function ReviewDeck({ cards: initial }: { cards: Card[] }) {
                   {c.form}
                 </span>
                 <span className="text-ink-soft">
-                  {c.level} 級・{c.source === "auto" ? "修改兩次以上" : "自己加入"}
+                  {c.level} 級
+                  {c.source === "manual" && "・自己加入"}
+                  {c.revisions > 0 && `・修改 ${c.revisions} 次`}
                 </span>
               </div>
               <p className="text-lg">{c.situation}</p>
@@ -87,7 +123,7 @@ export function ReviewDeck({ cards: initial }: { cards: Card[] }) {
                   aria-controls={`card-back-${c.id}`}
                   onClick={() => toggle(c.id)}
                 >
-                  {open ? "蓋起來" : "翻面對照"}
+                  {open ? "收起答案" : "看答案"}
                 </button>
                 <Link href={`/workshop/${c.grammarId}?p=${c.promptIndex}`} className="btn btn-ghost btn-sm">
                   再寫一次
