@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { AppHeader } from "@/components/AppHeader";
-import { clips, GENRE_LABEL } from "@/lib/dictation";
+import { clips, GENRE_LABEL, voiceItems } from "@/lib/dictation";
 import { createClient } from "@/lib/supabase/server";
 
 export default async function DictationPage() {
@@ -29,13 +29,15 @@ export default async function DictationPage() {
           <span className="eyebrow mb-3">聽打練習</span>
           <h1 className="text-3xl font-bold sm:text-4xl">聽一句，打一句</h1>
           <p className="mt-2 max-w-2xl text-ink-soft">
-            從新聞、戲劇、音樂和綜藝裡挑出一句，聽完把它打出來。
+            從新聞、戲劇、音樂、綜藝的片段，或是語音朗讀的例句裡挑一句，聽完把它打出來。
             <br />
             可以重聽、放慢，打完再對答案，看看自己聽到了多少。
           </p>
         </section>
 
-        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <h2 className="mb-1 text-xl font-bold">影片片段</h2>
+        <p className="mb-4 text-sm text-ink-soft">新聞、戲劇、音樂、綜藝的原音，每一題都有標注出處。</p>
+        <ul className="mb-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {clips.map((c) => {
             const acc = last.get(c.id);
             return (
@@ -64,6 +66,33 @@ export default async function DictationPage() {
                     )}
                   </span>
                   <span className="line-clamp-2 text-sm text-ink-soft">{c.source.title}</span>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+
+        <h2 className="mb-1 text-xl font-bold">語音朗讀（只有聲音）</h2>
+        <p className="mb-4 text-sm text-ink-soft">
+          課程裡的例句，用這台裝置的韓文語音唸出來，沒有畫面可以偷看。
+        </p>
+        <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {voiceItems.map((v, i) => {
+            const acc = last.get(v.id);
+            return (
+              <li key={v.id}>
+                <Link
+                  href={`/dictation/${v.id}`}
+                  className="flex min-h-14 items-center gap-2 rounded-2xl border-2 border-ink bg-white px-4 py-2 text-sm transition-transform hover:-translate-y-0.5"
+                >
+                  <span aria-hidden="true">🔊</span>
+                  <span className="font-medium">第&nbsp;{i + 1}&nbsp;句</span>
+                  <span className="text-ink-soft">{v.level}&nbsp;級</span>
+                  {acc !== undefined && (
+                    <span className="ml-auto rounded-full bg-sage-soft px-2 py-0.5 tabular-nums text-sage-ink">
+                      上次 {acc}%
+                    </span>
+                  )}
                 </Link>
               </li>
             );

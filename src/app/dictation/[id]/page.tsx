@@ -1,14 +1,14 @@
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { AppHeader } from "@/components/AppHeader";
-import { clips, getClip, GENRE_LABEL } from "@/lib/dictation";
+import { GENRE_LABEL, getItem, nextItemId } from "@/lib/dictation";
 import { createClient } from "@/lib/supabase/server";
 import { DictationPlayer } from "./DictationPlayer";
 
 export default async function DictationClipPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const clip = getClip(id);
-  if (!clip) notFound();
+  const item = getItem(id);
+  if (!item) notFound();
 
   const supabase = await createClient();
   const {
@@ -24,8 +24,7 @@ export default async function DictationClipPage({ params }: { params: Promise<{ 
     .order("created_at", { ascending: false })
     .limit(1);
 
-  const index = clips.findIndex((c) => c.id === id);
-  const next = clips.length > 1 ? clips[(index + 1) % clips.length].id : null;
+  const next = nextItemId(item);
 
   return (
     <>
@@ -35,10 +34,12 @@ export default async function DictationClipPage({ params }: { params: Promise<{ 
           ← 回到聽打練習
         </Link>
         <div className="mt-4 mb-4 flex flex-wrap items-center gap-2 text-sm">
-          <span className="rounded-full bg-peach px-2.5 py-0.5 font-medium">{GENRE_LABEL[clip.genre]}</span>
-          <span className="text-ink-soft">{clip.level}&nbsp;級</span>
+          <span className="rounded-full bg-peach px-2.5 py-0.5 font-medium">
+            {item.kind === "video" ? GENRE_LABEL[item.genre] : "語音朗讀"}
+          </span>
+          <span className="text-ink-soft">{item.level}&nbsp;級</span>
         </div>
-        <DictationPlayer clip={clip} userId={user.id} nextId={next} lastAccuracy={data?.[0]?.accuracy ?? null} />
+        <DictationPlayer item={item} userId={user.id} nextId={next} lastAccuracy={data?.[0]?.accuracy ?? null} />
       </main>
     </>
   );
