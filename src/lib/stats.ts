@@ -13,12 +13,6 @@ type AttemptRow = {
 
 export type RoundOutcome = "first" | "second" | "third" | "revealed";
 
-export const OUTCOME_LABEL: Record<RoundOutcome, string> = {
-  first: "第 1 次就寫對",
-  second: "第 2 次寫對",
-  third: "第 3 次以上寫對",
-  revealed: "看了參考答案",
-};
 
 const KST = 9 * 3600_000;
 
@@ -194,13 +188,13 @@ export async function getStats(supabase: SupabaseClient, userId: string) {
     useCount: learned.length,
     practiceUseCount: learned.filter((l) => l.source === "practice").length,
     sentenceCount: attempts.length,
-    /** 第一次沒寫對，看了提示後自己改到對（沒有看參考答案）。 */
-    selfFixedCount: closed.filter((r) => r.outcome === "second" || r.outcome === "third").length,
     roundCount: closed.length,
     outcomes,
     outcomeItems,
     topCategories,
     learned,
+    /** 沒看參考答案、靠自己寫對的題目（新→舊）。 */
+    solvedRounds: closed.filter((r) => r.outcome !== "revealed").reverse(),
     rounds: rounds.slice(-60).reverse(),
   };
 }

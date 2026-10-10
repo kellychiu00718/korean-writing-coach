@@ -8,94 +8,60 @@ const CHART_GREEN = "#2F9A7F";
 
 export type GrowthEvent = { date: string; stamp: string; form: string };
 
-type Point = { label: string; caption: string; total: number };
+type Bucket = { label: string; title: string; forms: string[]; total: number };
 
 /**
- * 「自己寫出來且用對」文法數的累積曲線。
- * 依時間：每寫對一項文法就往上一階，標出幾點幾分；依日期：每天結算一次。
+ * 每個時段新寫對了幾項文法的長條圖。
+ * 依時間：以「小時」為一格；依日期：以「天」為一格。只列出有練習的時段，不畫空白的日子。
  */
 export function GrowthChart({ events }: { events: GrowthEvent[] }) {
   const [mode, setMode] = useState<"time" | "day">("time");
-  const [hover, setHover] = useState<number | null>(null);
+  const [active, setActive] = useState<number | null>(null);
   // 依實際寬度畫圖，手機上文字才不會跟著縮到看不清楚。
   const boxRef = useRef<HTMLDivElement>(null);
   const [W, setW] = useState(560);
   useEffect(() => {
     const el = boxRef.current;
     if (!el) return;
-    const ro = new ResizeObserver(([entry]) =>
-      setW(Math.max(280, Math.round(entry.contentRect.width))),
-    );
+    const ro = new ResizeObserver(([entry]) => setW(Math.max(280, Math.round(entry.contentRect.width))));
     ro.observe(el);
     return () => ro.disconnect();
   }, [events.length]);
   if (events.length === 0) {
-    return (
-      <p className="rounded-2xl bg-cream px-4 py-6 text-center text-ink-soft">
-        寫對第一句之後，這裡就會開始長出曲線。
-      </p>
-    );
+    return <p className="rounded-2xl bg-cream px-4 py-6 text-center text-ink-soft">寫對第一句之後，這裡就會開始長出長條。</p>;
   }
 
-  let points: Point[];
-  if (mode === "time") {
-    points = [
-      { label: "開始", caption: "還沒開始", total: 0 },
-      ...events.map((e, i) => ({
-        label: e.stamp,
-        caption: `${e.stamp}　寫對 ${e.form}`,
-        total: i + 1,
-      })),
-    ];
-  } else {
-    const byDay: Point[] = [];
-    events.forEach((e, i) => {
-      const last = byDay.at(-1);
-      if (last?.label === e.date.slice(5)) {
-        last.total = i + 1;
-        last.caption = `${e.date}　這天結束時`;
-      } else
-        byDay.push({
-          label: e.date.slice(5),
-          caption: `${e.date}　這天結束時`,
-          total: i + 1,
-        });
-    });
-    points =
-      byDay.length === 1
-        ? [{ label: "開始", caption: "還沒開始", total: 0 }, ...byDay]
-        : byDay;
-  }
+  const buckets: Bucket[] = [];
+  events.forEach((e, i) => {
+    // stamp 是「MM-DD HH:mm」（韓國時間）
+    const hour = e.stamp.slice(6, 8);
+    const key = mode === "time" ? `${e.stamp.slice(0, 5)} ${hour}:00` : e.date.slice(5);
+    const title = mode === "time" ? `${e.date} ${hour}:00–${hour}:59` : e.date;
+    const last = buckets.at(-1);
+    if (last?.label === key) {
+      last.forms.push(e.form);
+      last.total = i + 1;
+    } else buckets.push({ label: key, title, forms: [e.form], total: i + 1 });
+  });
 
   const H = W < 420 ? 190 : 210;
-  const pad = { l: 36, r: 20, t: 16, b: 30 };
-  const max = Math.max(...points.map((p) => p.total));
-  const yMax = Math.max(4, Math.ceil(max / 4) * 4);
-  const last = points.length - 1;
-  const x = (i: number) => pad.l + (i / last) * (W - pad.l - pad.r);
+  const pad = { l: 28, r: 8, t: 12, b: 30 };
+  const max = Math.max(...buckets.map((b) => b.forms.length));
+  const yMax = Math.max(2, max);
+  const ticks = yMax <= 4 ? Array.from({ length: yMax + 1 }, (_, i) => i) : [0, Math.round(yMax / 2), yMax];
+  const plotW = W - pad.l - pad.r;
+  const slot = plotW / buckets.length;
+  const barW = Math.min(48, Math.max(6, slot - 8));
+  const x = (i: number) => pad.l + slot * i + (slot - barW) / 2;
   const y = (v: number) => pad.t + (1 - v / yMax) * (H - pad.t - pad.b);
-  // 依時間用階梯線（每一階就是寫對一項），依日期用折線。
-  const path =
-    mode === "time"
-      ? points
-          .map((p, i) =>
-            i ? `H${x(i)} V${y(p.total)}` : `M${x(0)},${y(p.total)}`,
-          )
-          .join(" ")
-      : points.map((p, i) => `${i ? "L" : "M"}${x(i)},${y(p.total)}`).join(" ");
-  const active = Math.min(hover ?? last, last);
-  // x 軸只標頭、尾，點太多時中間再標一個，避免字疊在一起。
-  const ticks = [
-    ...new Set([0, last > 3 ? Math.round(last / 2) : -1, last]),
-  ].filter((i) => i >= 0);
+  const base = y(0);
+  // 標籤太多時跳著標，避免疊字。
+  const every = Math.ceil(buckets.length / Math.max(1, Math.floor(plotW / 84)));
+  const tip = active !== null ? buckets[active] : null;
 
   return (
     <figure>
-      <div
-        role="group"
-        aria-label="時間單位"
-        className="mb-3 inline-flex rounded-full border-2 border-line bg-cream p-1 text-sm"
-      >
+      <div role="group" aria-label="時間單位" className="mb-3 inline-flex rounded-full border-2 border-line bg-cream p-1 text-sm">
         {(
           [
             ["time", "依時間"],
@@ -108,7 +74,7 @@ export function GrowthChart({ events }: { events: GrowthEvent[] }) {
             aria-pressed={mode === id}
             onClick={() => {
               setMode(id);
-              setHover(null);
+              setActive(null);
             }}
             className={`min-h-9 rounded-full px-4 transition-colors ${mode === id ? "bg-white font-medium text-ink shadow-sm" : "text-ink-soft"}`}
           >
@@ -116,96 +82,80 @@ export function GrowthChart({ events }: { events: GrowthEvent[] }) {
           </button>
         ))}
       </div>
-      <div ref={boxRef}>
+      <div ref={boxRef} className="relative">
         <svg
           viewBox={`0 0 ${W} ${H}`}
-          className="w-full touch-none"
+          className="w-full"
           role="img"
-          aria-label={`自己寫對的文法從 0 項累積到 ${max} 項`}
-          onPointerMove={(e) => {
-            const rect = e.currentTarget.getBoundingClientRect();
-            const px = ((e.clientX - rect.left) / rect.width) * W;
-            const i = Math.round(((px - pad.l) / (W - pad.l - pad.r)) * last);
-            setHover(Math.min(last, Math.max(0, i)));
-          }}
-          onPointerLeave={() => setHover(null)}
+          aria-label={`每個${mode === "time" ? "小時" : "日子"}新寫對的文法數，目前累積 ${events.length} 項`}
+          onPointerLeave={() => setActive(null)}
         >
-          {[0, yMax / 2, yMax].map((v) => (
+          {ticks.map((v) => (
             <g key={v}>
-              <line
-                x1={pad.l}
-                x2={W - pad.r}
-                y1={y(v)}
-                y2={y(v)}
-                stroke="#F0D9C6"
-              />
-              <text
-                x={pad.l - 8}
-                y={y(v) + 4}
-                textAnchor="end"
-                fontSize="11"
-                fill="#6E5157"
-              >
+              <line x1={pad.l} x2={W - pad.r} y1={y(v)} y2={y(v)} stroke="#F0D9C6" />
+              <text x={pad.l - 8} y={y(v) + 4} textAnchor="end" fontSize="11" fill="#6E5157">
                 {v}
               </text>
             </g>
           ))}
-          {ticks.map((i) => (
-            <text
-              key={i}
-              x={x(i)}
-              y={H - 8}
-              textAnchor={i === 0 ? "start" : i === last ? "end" : "middle"}
-              fontSize="11"
-              fill="#6E5157"
-            >
-              {points[i].label}
-            </text>
-          ))}
-          <path
-            d={path}
-            fill="none"
-            stroke={CHART_GREEN}
-            strokeWidth="2"
-            strokeLinejoin="round"
-            strokeLinecap="round"
-          />
-          {mode === "time" &&
-            points
-              .slice(1)
-              .map((p, i) => (
-                <circle
-                  key={i}
-                  cx={x(i + 1)}
-                  cy={y(p.total)}
-                  r="3"
+          {buckets.map((b, i) => {
+            const top = y(b.forms.length);
+            const r = Math.min(4, barW / 2);
+            return (
+              <g
+                key={b.label}
+                tabIndex={0}
+                role="button"
+                aria-label={`${b.title}：新寫對 ${b.forms.length} 項（${b.forms.join("、")}），累積 ${b.total} 項`}
+                onPointerEnter={() => setActive(i)}
+                onFocus={() => setActive(i)}
+                onBlur={() => setActive(null)}
+                onClick={() => setActive(i)}
+                className="cursor-pointer outline-none"
+              >
+                {/* 比長條大的透明感應區 */}
+                <rect x={pad.l + slot * i} y={pad.t} width={slot} height={base - pad.t} fill="transparent" />
+                <path
+                  d={`M${x(i)},${base} V${top + r} q0,${-r} ${r},${-r} H${x(i) + barW - r} q${r},0 ${r},${r} V${base} Z`}
                   fill={CHART_GREEN}
+                  opacity={active === null || active === i ? 1 : 0.45}
                 />
-              ))}
-          <line
-            x1={x(active)}
-            x2={x(active)}
-            y1={pad.t}
-            y2={H - pad.b}
-            stroke="#4A3036"
-            strokeOpacity="0.2"
-          />
-          <circle
-            cx={x(active)}
-            cy={y(points[active].total)}
-            r="5"
-            fill={CHART_GREEN}
-            stroke="#fff"
-            strokeWidth="2"
-          />
+                {i % every === 0 && (
+                  <text x={x(i) + barW / 2} y={H - 10} textAnchor="middle" fontSize="11" fill="#6E5157">
+                    {b.label}
+                  </text>
+                )}
+              </g>
+            );
+          })}
+          <line x1={pad.l} x2={W - pad.r} y1={base} y2={base} stroke="#4A3036" strokeOpacity="0.35" />
         </svg>
+        {tip && active !== null && (
+          <div
+            role="status"
+            className="pointer-events-none absolute z-10 w-max max-w-[15rem] -translate-x-1/2 -translate-y-full rounded-2xl border-2 border-ink bg-white px-3 py-2 text-sm shadow-md"
+            style={{
+              left: `${Math.min(Math.max(((x(active) + barW / 2) / W) * 100, 18), 82)}%`,
+              top: `${(y(tip.forms.length) / H) * 100}%`,
+              marginTop: -8,
+            }}
+          >
+            <p className="text-xs tabular-nums text-ink-soft">{tip.title}</p>
+            <p>
+              新寫對 <b className="tabular-nums">{tip.forms.length}</b> 項：
+              {tip.forms.map((f, i) => (
+                <span key={i} lang="ko" className="whitespace-nowrap">
+                  {i ? "、" : ""}
+                  {f}
+                </span>
+              ))}
+            </p>
+            <p className="text-xs tabular-nums text-ink-soft">累積 {tip.total} 項</p>
+          </div>
+        )}
       </div>
-      <figcaption
-        className="mt-1 text-sm tabular-nums text-ink-soft"
-        aria-live="polite"
-      >
-        <span>{points[active].caption}</span>，累積{" "}
-        <b className="text-ink">{points[active].total}</b> 項文法
+      <figcaption className="mt-1 text-sm text-ink-soft">
+        每一條是那{mode === "time" ? "一小時" : "一天"}新寫對的文法數，滑鼠移到長條上（或點一下）可以看是哪些文法。
       </figcaption>
     </figure>
   );
