@@ -135,7 +135,8 @@ export function SentenceBook({ rounds }: { rounds: Round[] }) {
     if (id === "today") return r.date === today;
     if (id === "week") return r.date >= weekStart;
     if (id === "month") return r.date >= monthStart;
-    if (id === "custom") return (!from || r.date >= from) && (!to || r.date <= to);
+    // 自訂：還沒選任何日期時不算任何一題，選了才依起訖日期篩
+    if (id === "custom") return Boolean(from || to) && (!from || r.date >= from) && (!to || r.date <= to);
     return true;
   };
   const filtered = rounds.filter((r) => {
