@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { CoachError, revealFeedback, reviewSentence, type PreviousVersion, type RevealedFeedback } from "@/lib/coach";
 import { getGrammar, getLesson, type ProgressState } from "@/lib/grammar";
-import { DAILY_LIMIT, usedToday } from "@/lib/limits";
+import { consumeQuota, DAILY_LIMIT, refundQuota } from "@/lib/limits";
 import { promote } from "@/lib/progress";
 import { AUTO_ADD_FROM_ATTEMPT, saveReviewCard } from "@/lib/review";
 import { createClient } from "@/lib/supabase/server";
@@ -34,15 +34,6 @@ export async function POST(request: Request) {
   } = await supabase.auth.getUser();
   if (!user) return fail(401, "請先登入。");
 
-  const count = await usedToday(supabase, user.id);
-  if (count === null) return fail(500, "讀取紀錄時出了問題，請稍後再試。");
-  if (count >= DAILY_LIMIT) {
-    return NextResponse.json(
-      { error: `今天的 AI 回饋次數（${DAILY_LIMIT} 次）用完了，明天會恢復。`, limitReached: true },
-      { status: 429 },
-    );
-  }
-
   // 第幾次送出由伺服器判斷，避免直接跳到第 3 層拿答案。上一輪已經揭曉參考寫法，就開新的一輪。
   const { data: history, error: historyError } = await supabase
     .from("attempts")
@@ -70,6 +61,17 @@ export async function POST(request: Request) {
     : [];
   const shownReferences = rows.map((r) => r.feedback.reference).filter((r): r is string => Boolean(r));
 
+  // 先在資料庫扣一次，扣成功才呼叫 AI；同時送出很多次也不會超過上限
+  const quota = await consumeQuota(supabase);
+  if (!quota.ok) {
+    if (quota.reason === "error") return fail(500, "讀取紀錄時出了問題，請稍後再試。");
+    if (quota.reason === "global") return fail(503, "今天使用的人太多了，AI 教練先休息一下，明天再繼續吧。");
+    return NextResponse.json(
+      { error: `今天的 AI 回饋次數（${DAILY_LIMIT}\u00a0次）用完了，明天會恢復。`, limitReached: true },
+      { status: 429 },
+    );
+  }
+
   let revealed: RevealedFeedback;
   let otherIds: string[];
   try {
@@ -77,6 +79,8 @@ export async function POST(request: Request) {
     revealed = revealFeedback(fb, attempt, sentence, grammarId);
     otherIds = fb.other_grammar_ids;
   } catch (error) {
+    // AI 沒有成功回覆，這次不算
+    await refundQuota(supabase, quota.usageId).catch(() => {});
     if (error instanceof Anthropic.AuthenticationError) return fail(500, "AI 金鑰還沒設定好。");
     if (error instanceof Anthropic.RateLimitError) return fail(503, "現在使用的人有點多，過幾秒再試一次。");
     if (error instanceof Anthropic.APIError) return fail(502, "AI 暫時沒有回應，請稍後再試。");
@@ -132,6 +136,6 @@ export async function POST(request: Request) {
     feedback: revealed,
     promoted,
     reviewCard,
-    remaining: Math.max(0, DAILY_LIMIT - count - 1),
+    remaining: quota.remaining,
   });
 }

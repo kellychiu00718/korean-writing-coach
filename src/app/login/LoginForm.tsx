@@ -2,6 +2,7 @@
 
 import type { AuthError } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
+import { safePath } from "@/lib/safe-path";
 import { createClient } from "@/lib/supabase/client";
 
 /** Supabase 規定同一個信箱 60 秒內只能再寄一次。 */
@@ -88,7 +89,7 @@ export function LoginForm({ next }: { next?: string }) {
       setCodeError("驗證碼不對或已經過期了。請確認是最新一封信裡的數字，或重新寄一次。");
       return;
     }
-    const safeNext = next && next.startsWith("/") && !next.startsWith("//") ? next : "/workshop";
+    const safeNext = safePath(next);
     window.location.href = safeNext;
   }
 
