@@ -13,7 +13,7 @@ export function AppHeader({ current }: { current?: string }) {
   return (
     <header className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-5">
       <Logo href="/workshop" />
-      <nav className="flex w-full items-center justify-between overflow-x-auto py-1 sm:w-auto sm:justify-start sm:gap-2" aria-label="主要選單">
+      <nav className="flex w-full items-center justify-between overflow-x-auto p-1 sm:w-auto sm:justify-start sm:gap-2" aria-label="主要選單">
         {NAV.map((n) => (
           <Link
             key={n.href}

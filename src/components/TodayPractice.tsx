@@ -1,17 +1,29 @@
-import Link from "next/link";
-import { displayForm, getGrammar, getLesson, grammar, lessons, type Lesson, type ProgressState } from "@/lib/grammar";
+import {
+  displayForm,
+  getGrammar,
+  getLesson,
+  grammar,
+  lessons,
+  type Lesson,
+  type ProgressState,
+} from "@/lib/grammar";
 import { INTERESTS, type Interest } from "@/lib/profile";
+import { RecommendedPractice, type Candidate } from "./RecommendedPractice";
 
 type Row = { grammarId: string; state: ProgressState; updatedAt: string };
 type Pick = { lesson: Lesson; reason: string; promptIndex: number };
-
-const LIMIT = 3;
 
 /**
  * 一進工坊就看到的練習：先幫「大概知道」和看過但還沒寫的文法變成「自己寫出來且用對」，
  * 再挑已經寫對的文法換情境複習；新使用者就依興趣推薦。
  */
-export function TodayPractice({ rows, interests }: { rows: Row[]; interests: Interest[] }) {
+export function TodayPractice({
+  rows,
+  interests,
+}: {
+  rows: Row[];
+  interests: Interest[];
+}) {
   const order = new Map(grammar.map((g, i) => [g.id, i]));
   const stateOf = new Map(rows.map((r) => [r.grammarId, r.state]));
   const withLesson = (state: ProgressState) =>
@@ -23,22 +35,34 @@ export function TodayPractice({ rows, interests }: { rows: Row[]; interests: Int
   const promptFor = (lesson: Lesson, avoidFirst = false) => {
     const idx = lesson.prompts.findIndex((p) => interests.includes(p.scene));
     const preferred = idx >= 0 ? idx : 0;
-    return avoidFirst && lesson.prompts.length > 1 ? (preferred + 1) % lesson.prompts.length : preferred;
+    return avoidFirst && lesson.prompts.length > 1
+      ? (preferred + 1) % lesson.prompts.length
+      : preferred;
   };
 
   const picks: Pick[] = [];
   const add = (lesson: Lesson, reason: string, avoidFirst = false) => {
-    if (picks.length < LIMIT && !picks.some((p) => p.lesson.id === lesson.id)) {
-      picks.push({ lesson, reason, promptIndex: promptFor(lesson, avoidFirst) });
+    if (!picks.some((p) => p.lesson.id === lesson.id)) {
+      picks.push({
+        lesson,
+        reason,
+        promptIndex: promptFor(lesson, avoidFirst),
+      });
     }
   };
 
   const know = withLesson("know");
   const seen = withLesson("seen");
   const use = withLesson("use");
-  know.slice(0, seen.length ? 1 : 2).forEach((r) => add(getLesson(r.grammarId)!, "差一點就會了"));
-  seen.slice(0, 1).forEach((r) => add(getLesson(r.grammarId)!, "還沒寫過，試著寫寫看"));
-  use.slice(0, 1).forEach((r) => add(getLesson(r.grammarId)!, "換個情境複習", true));
+  know
+    .slice(0, seen.length ? 1 : 2)
+    .forEach((r) => add(getLesson(r.grammarId)!, "差一點就會了"));
+  seen
+    .slice(0, 1)
+    .forEach((r) => add(getLesson(r.grammarId)!, "還沒寫過，試著寫寫看"));
+  use
+    .slice(0, 1)
+    .forEach((r) => add(getLesson(r.grammarId)!, "換個情境複習", true));
   know.forEach((r) => add(getLesson(r.grammarId)!, "差一點就會了"));
   seen.forEach((r) => add(getLesson(r.grammarId)!, "還沒寫過，試著寫寫看"));
   lessons
@@ -49,41 +73,24 @@ export function TodayPractice({ rows, interests }: { rows: Row[]; interests: Int
       return ma - mb || order.get(a.id)! - order.get(b.id)!;
     })
     .forEach((l) => add(l, "新的文法"));
+  use.forEach((r) => add(getLesson(r.grammarId)!, "換個情境複習", true));
 
   if (!picks.length) return null;
 
-  return (
-    <section className="mb-10" aria-labelledby="today">
-      <h2 id="today" className="mb-1 text-xl font-bold">
-        今天的練習
-      </h2>
-      <p className="mb-4 text-sm text-ink-soft">依你寫過的句子挑的。想練別的也可以，往下挑就好。</p>
-      <ul className="grid gap-3 md:grid-cols-3">
-        {picks.map(({ lesson, reason, promptIndex }) => {
-          const g = getGrammar(lesson.id)!;
-          const prompt = lesson.prompts[promptIndex];
-          const scene = INTERESTS.find((i) => i.id === prompt.scene)?.label;
-          return (
-            <li key={lesson.id}>
-              <Link
-                href={`/workshop/${lesson.id}?p=${promptIndex}`}
-                className="flex h-full flex-col gap-1 rounded-3xl border-2 border-ink bg-white p-5 transition-transform hover:-translate-y-0.5"
-              >
-                <span className="flex flex-wrap items-center gap-1.5 text-xs">
-                  <span className="rounded-full bg-peach px-2 py-0.5 font-medium">{reason}</span>
-                  <span className="text-ink-soft">
-                    {g.level} 級{scene && `・${scene}`}
-                  </span>
-                </span>
-                <span lang="ko" className="text-xl">
-                  {displayForm(g.form)}
-                </span>
-                <span className="text-sm text-ink-soft">{prompt.situation_zh}</span>
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-    </section>
-  );
+  // 全部候選都交給畫面；先顯示排在最前面的 3 題，按「換一批」再從候選裡重抽。
+  const pool: Candidate[] = picks.map(({ lesson, reason, promptIndex }) => {
+    const g = getGrammar(lesson.id)!;
+    return {
+      id: lesson.id,
+      form: displayForm(g.form),
+      level: g.level,
+      reason,
+      promptIndex,
+      prompts: lesson.prompts.map((p) => ({
+        scene: INTERESTS.find((i) => i.id === p.scene)?.label ?? "",
+        situation: p.situation_zh,
+      })),
+    };
+  });
+  return <RecommendedPractice pool={pool} />;
 }

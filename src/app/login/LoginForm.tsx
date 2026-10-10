@@ -101,7 +101,7 @@ export function LoginForm({ next }: { next?: string }) {
           <p>
             登入信已寄到 <b className="break-all">{sentTo}</b>，去信箱看看吧 ♡
           </p>
-          <p className="mt-1 text-sm">用這個瀏覽器點信裡的連結就能登入；換手機或換瀏覽器的話，請輸入信裡的驗證碼。</p>
+          <p className="mt-1 text-sm">用這個瀏覽器點信裡的連結就能登入；換手機或換瀏覽器登入的話，請輸入信裡的驗證碼。</p>
         </div>
 
         <form onSubmit={verify} className="grid gap-2" noValidate>

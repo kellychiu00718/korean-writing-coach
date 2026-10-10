@@ -28,16 +28,39 @@ type Tab = "grammar" | "sentences" | "solved";
 export function ProgressDashboard(p: Props) {
   const [tab, setTab] = useState<Tab | null>("grammar");
   const bonus = p.learned.length - p.practiceUseCount;
-  const tiles: { id: Tab; label: string; value: number; unit: string; note: string }[] = [
+  const tiles: {
+    id: Tab;
+    label: string;
+    value: number;
+    unit: string;
+    note: React.ReactNode;
+  }[] = [
     {
       id: "grammar",
       label: "目前為止應用正確的文法",
       value: p.learned.length,
       unit: "項",
-      note: `練習題寫對 ${p.practiceUseCount} 項文法，寫出的句子中另外正確應用了 ${bonus} 項文法`,
+      note: (
+        <>
+          練習題<Keep>{`寫對 ${p.practiceUseCount} 項文法，`}</Keep>
+          寫出的句子中另外正確<Keep>{`應用了 ${bonus} 項文法`}</Keep>
+        </>
+      ),
     },
-    { id: "sentences", label: "目前為止寫過的句子", value: p.sentenceCount, unit: "句", note: "每送出一次算一句，改寫也算" },
-    { id: "solved", label: "目前為止寫對的題目", value: p.solvedRounds.length, unit: "題", note: "沒有看參考答案，靠自己寫對的題目" },
+    {
+      id: "sentences",
+      label: "目前為止寫過的句子",
+      value: p.sentenceCount,
+      unit: "句",
+      note: "每送出一次算一句，改寫也算",
+    },
+    {
+      id: "solved",
+      label: "目前為止寫對的題目",
+      value: p.solvedRounds.length,
+      unit: "題",
+      note: "沒有看參考答案，靠自己寫對的題目",
+    },
   ];
 
   return (
@@ -63,13 +86,25 @@ export function ProgressDashboard(p: Props) {
                     aria-hidden="true"
                     className={`h-4 w-4 shrink-0 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
                   >
-                    <path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <path
+                      d="M4 6l4 4 4-4"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
                   </svg>
                 </span>
                 <span className="font-display text-3xl tabular-nums">
-                  {t.value} <span className="font-sans text-base">{t.unit}</span>
+                  <span className="whitespace-nowrap">
+                    {t.value}{" "}
+                    <span className="font-sans text-base">{t.unit}</span>
+                  </span>
                 </span>
-                <span className="mt-1 text-xs leading-5 text-ink-soft">{t.note}</span>
+                <span className="mt-1 text-xs leading-5 text-ink-soft">
+                  {t.note}
+                </span>
               </button>
             </li>
           );
@@ -78,34 +113,56 @@ export function ProgressDashboard(p: Props) {
 
       {tab === "grammar" && (
         <div id="panel-grammar" className="card animate-pop">
-          <GrowthChart events={p.learned.map((l) => ({ date: l.date, stamp: l.stamp, form: l.form }))} />
+          <GrowthChart
+            events={p.learned.map((l) => ({
+              date: l.date,
+              stamp: l.stamp,
+              form: l.form,
+            }))}
+          />
           {p.learned.length > 0 && <LearnedList learned={p.learned} />}
         </div>
       )}
 
       {tab === "sentences" && (
-        <div id="panel-sentences" className="animate-pop grid gap-5 lg:grid-cols-2">
+        <div
+          id="panel-sentences"
+          className="animate-pop grid gap-5 lg:grid-cols-2"
+        >
           <div className="card">
             <h3 className="mb-1 font-bold">每一題是第幾次寫對的</h3>
             <p className="mb-3 text-sm text-ink-soft">
-              {p.roundCount ? `一共完成 ${p.roundCount} 題，點一下長條可以看是哪些題目。` : "完成第一題後就會出現。"}
+              {p.roundCount
+                ? `一共完成 ${p.roundCount} 題，點一下長條可以看是哪些題目。`
+                : "完成第一題後就會出現。"}
             </p>
             {p.roundCount > 0 && (
               <BarList
                 unit="題"
-                rows={(Object.keys(OUTCOME_LABEL) as RoundOutcome[]).map((k) => ({
-                  label: OUTCOME_LABEL[k],
-                  value: p.outcomes[k],
-                  items: p.outcomeItems[k],
-                }))}
+                rows={(Object.keys(OUTCOME_LABEL) as RoundOutcome[]).map(
+                  (k) => ({
+                    label: OUTCOME_LABEL[k],
+                    value: p.outcomes[k],
+                    items: p.outcomeItems[k],
+                  }),
+                )}
               />
             )}
           </div>
           <div className="card">
             <h3 className="mb-1 font-bold">最常需要提示的地方</h3>
-            <p className="mb-3 text-sm text-ink-soft">知道自己常在哪裡卡住，下次寫的時候就可以多留意。</p>
+            <p className="mb-3 text-sm text-ink-soft">
+              知道自己常在哪裡卡住，下次寫的時候就可以多留意。
+            </p>
             {p.topCategories.length ? (
-              <BarList unit="次" rows={p.topCategories.map((c) => ({ label: c.category, value: c.count, items: c.items }))} />
+              <BarList
+                unit="次"
+                rows={p.topCategories.map((c) => ({
+                  label: c.category,
+                  value: c.count,
+                  items: c.items,
+                }))}
+              />
             ) : (
               <p className="text-sm text-ink-soft">目前還沒有紀錄。</p>
             )}
@@ -121,14 +178,27 @@ export function ProgressDashboard(p: Props) {
               {p.solvedRounds.map((r) => {
                 const last = r.steps.at(-1)!;
                 return (
-                  <li key={r.key} className="rounded-2xl border-2 border-line bg-white px-4 py-3">
+                  <li
+                    key={r.key}
+                    className="rounded-2xl border-2 border-line bg-white px-4 py-3"
+                  >
                     <div className="mb-1 flex flex-wrap items-center gap-2">
-                      <Link href={`/workshop/${r.grammarId}`} lang="ko" className="font-medium underline underline-offset-4">
+                      <Link
+                        href={`/workshop/${r.grammarId}`}
+                        lang="ko"
+                        className="font-medium underline underline-offset-4"
+                      >
                         {r.form}
                       </Link>
-                      <span className="rounded-full border-2 border-line px-2 text-xs leading-5">{r.level} 級</span>
-                      <span className="rounded-full bg-sage-soft px-2 text-xs leading-5 text-sage-ink">第 {last.attempt} 次寫對</span>
-                      <span className="ml-auto text-xs tabular-nums text-ink-soft">{r.stamp}</span>
+                      <span className="rounded-full border-2 border-line px-2 text-xs leading-5">
+                        {r.level} 級
+                      </span>
+                      <span className="rounded-full bg-sage-soft px-2 text-xs leading-5 text-sage-ink">
+                        第 {last.attempt} 次寫對
+                      </span>
+                      <span className="ml-auto text-xs tabular-nums text-ink-soft">
+                        {r.stamp}
+                      </span>
                     </div>
                     <p lang="ko" className="text-lg">
                       {last.sentence}
@@ -138,7 +208,9 @@ export function ProgressDashboard(p: Props) {
               })}
             </ul>
           ) : (
-            <p className="text-sm text-ink-soft">還沒有靠自己寫對的題目，慢慢來就好。</p>
+            <p className="text-sm text-ink-soft">
+              還沒有靠自己寫對的題目，慢慢來就好。
+            </p>
           )}
         </div>
       )}
@@ -146,34 +218,71 @@ export function ProgressDashboard(p: Props) {
   );
 }
 
+/** 數字、單位和後面的標點黏在一起，不會被拆到兩行。 */
+function Keep({ children }: { children: React.ReactNode }) {
+  return <span className="whitespace-nowrap">{children}</span>;
+}
+
 function LearnedList({ learned }: { learned: LearnedGrammar[] }) {
   return (
     <details className="group mt-4 text-sm">
       <summary className="flex min-h-11 cursor-pointer list-none items-center gap-1.5 font-medium [&::-webkit-details-marker]:hidden">
-        <svg viewBox="0 0 16 16" aria-hidden="true" className="h-4 w-4 transition-transform duration-200 group-open:rotate-90">
-          <path d="M6 4l4 4-4 4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <svg
+          viewBox="0 0 16 16"
+          aria-hidden="true"
+          className="h-4 w-4 transition-transform duration-200 group-open:rotate-90"
+        >
+          <path
+            d="M6 4l4 4-4 4"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
         詳細
       </summary>
       <ul className="mt-2 grid gap-2 sm:grid-cols-2">
         {[...learned].reverse().map((l) => (
-          <li key={l.grammarId} className="rounded-2xl border-2 border-line bg-white px-3.5 py-2.5">
+          <li
+            key={l.grammarId}
+            className="rounded-2xl border-2 border-line bg-white px-3.5 py-2.5"
+          >
             <div className="mb-1 flex flex-wrap items-center gap-2">
-              <Link href={`/workshop/${l.grammarId}`} lang="ko" className="font-medium underline underline-offset-4">
+              <Link
+                href={`/workshop/${l.grammarId}`}
+                lang="ko"
+                className="font-medium underline underline-offset-4"
+              >
                 {l.form}
               </Link>
-              <span className="rounded-full border-2 border-line px-2 text-xs leading-5">{l.level} 級</span>
-              <span className={`rounded-full px-2 text-xs leading-5 ${l.source === "practice" ? "bg-sage-soft text-sage-ink" : "bg-peach"}`}>
+              <span className="rounded-full border-2 border-line px-2 text-xs leading-5">
+                {l.level} 級
+              </span>
+              <span
+                className={`rounded-full px-2 text-xs leading-5 ${l.source === "practice" ? "bg-sage-soft text-sage-ink" : "bg-peach"}`}
+              >
                 {l.source === "practice" ? "練習題寫對" : "句子中另外用對"}
               </span>
-              <span className="ml-auto text-xs tabular-nums text-ink-soft">{l.stamp}</span>
+              <span className="ml-auto text-xs tabular-nums text-ink-soft">
+                {l.stamp}
+              </span>
             </div>
             {l.source === "practice" ? (
               <>
-                <p className="text-xs text-ink-soft">練習這個文法時寫過的句子：</p>
+                <p className="text-xs text-ink-soft">
+                  練習這個文法時寫過的句子：
+                </p>
                 <ul className="mt-0.5 grid gap-0.5">
                   {l.sentences.map((s) => (
-                    <li key={s} lang="ko" className={s === l.evidence ? "font-medium text-sage-ink" : ""}>
+                    <li
+                      key={s}
+                      lang="ko"
+                      className={
+                        s === l.evidence ? "font-medium text-sage-ink" : ""
+                      }
+                    >
                       {s === l.evidence ? "✓ " : "・"}
                       {s}
                     </li>

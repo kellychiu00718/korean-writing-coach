@@ -19,10 +19,10 @@ const OUTCOME_BADGE: Record<
   second: { text: "第 2 次寫對", className: "bg-sage-soft text-sage-ink" },
   third: { text: "第 3 次以上寫對", className: "bg-sage-soft text-sage-ink" },
   revealed: { text: "看了參考答案", className: "bg-peach text-ink" },
-  open: { text: "還在改", className: "bg-hint text-ink" },
+  open: { text: "還在練習中", className: "bg-hint text-ink" },
 };
 
-// 「第幾次寫對」排序：寫對的照次數，看了答案和還在改的排在最後。
+// 「第幾次寫對」排序：寫對的照次數，看了答案和還在練習中的排在最後。
 const triesRank = (r: Round) =>
   r.outcome === "revealed" || r.outcome === "open" ? 99 : r.steps.length;
 
@@ -64,12 +64,12 @@ const DATE_RANGES = [
 type DateRange = (typeof DATE_RANGES)[number]["id"];
 
 const TRIES = [
-  { id: "all", label: "總覽" },
+  { id: "all", label: "全部" },
   { id: "first", label: "第 1 次" },
   { id: "second", label: "第 2 次" },
   { id: "third", label: "第 3 次以上" },
   { id: "revealed", label: "看了參考答案" },
-  { id: "open", label: "還在改" },
+  { id: "open", label: "還在練習中" },
 ] as const;
 type Tries = (typeof TRIES)[number]["id"];
 
@@ -150,7 +150,8 @@ export function SentenceBook({ rounds }: { rounds: Round[] }) {
       return triesRank(a) - triesRank(b) || b.endedAt.localeCompare(a.endedAt);
     return b.endedAt.localeCompare(a.endedAt);
   });
-  const levels = [...new Set(rounds.map((r) => r.level))].sort();
+  // 1～6 級都列出來，還沒練過的級數顯示 0
+  const levels = [1, 2, 3, 4, 5, 6];
 
   return (
     <>

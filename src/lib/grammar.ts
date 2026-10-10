@@ -28,9 +28,9 @@ export const STATE_RANK: Record<ProgressState, number> = { seen: 1, know: 2, use
 export const STATE_LABEL: Record<ProgressState, string> = { seen: "尚未學習", know: "大概知道", use: "自己寫出來且用對" };
 export const NONE_LABEL = "尚未學習";
 export const STATE_DEFINITION: Record<ProgressState, string> = {
-  seen: "還沒在句子工坊裡自己寫過（可能在例句裡看過）",
-  know: "自己寫過，但還沒寫對",
-  use: "在句子工坊裡靠自己寫對了（照抄參考答案不算）",
+  seen: "還沒在句子工坊裡自己練習寫過",
+  know: "有練習寫過，但目前還沒有正確應用到句子中",
+  use: "在句子工坊裡靠自己將文法正確應用到句子中",
 };
 
 export const CATEGORY_LABEL: Record<string, string> = {
