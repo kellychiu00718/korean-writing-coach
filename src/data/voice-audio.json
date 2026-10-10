@@ -198,5 +198,135 @@
     "voice": "M1",
     "file": "/audio/clips/drama-signal-ep2-1.mp3",
     "hash": "3e5d4b4ad9"
+  },
+  "news-kbsweb-chile-1": {
+    "voice": "F1",
+    "file": "/audio/clips/news-kbsweb-chile-1.mp3",
+    "hash": "66980ac473"
+  },
+  "news-kbsweb-chile-2": {
+    "voice": "M1",
+    "file": "/audio/clips/news-kbsweb-chile-2.mp3",
+    "hash": "a228e50ef7"
+  },
+  "news-kbsweb-chile-3": {
+    "voice": "F1",
+    "file": "/audio/clips/news-kbsweb-chile-3.mp3",
+    "hash": "4649c706dd"
+  },
+  "news-kbsweb-chile-4": {
+    "voice": "M1",
+    "file": "/audio/clips/news-kbsweb-chile-4.mp3",
+    "hash": "0978aede0b"
+  },
+  "news-kbsweb-work-1": {
+    "voice": "F1",
+    "file": "/audio/clips/news-kbsweb-work-1.mp3",
+    "hash": "63e0f347da"
+  },
+  "news-kbsweb-work-2": {
+    "voice": "M1",
+    "file": "/audio/clips/news-kbsweb-work-2.mp3",
+    "hash": "cd4480d945"
+  },
+  "news-kbsweb-work-3": {
+    "voice": "F1",
+    "file": "/audio/clips/news-kbsweb-work-3.mp3",
+    "hash": "3439c2b468"
+  },
+  "news-kbsweb-weather-1": {
+    "voice": "M1",
+    "file": "/audio/clips/news-kbsweb-weather-1.mp3",
+    "hash": "a825d9d482"
+  },
+  "news-kbsweb-weather-2": {
+    "voice": "F1",
+    "file": "/audio/clips/news-kbsweb-weather-2.mp3",
+    "hash": "898c45b2a9"
+  },
+  "news-kbsweb-weather-3": {
+    "voice": "M1",
+    "file": "/audio/clips/news-kbsweb-weather-3.mp3",
+    "hash": "a808c4d5e1"
+  },
+  "news-kbsweb-weather-4": {
+    "voice": "F1",
+    "file": "/audio/clips/news-kbsweb-weather-4.mp3",
+    "hash": "402689d874"
+  },
+  "news-kbsweb-weather-5": {
+    "voice": "M1",
+    "file": "/audio/clips/news-kbsweb-weather-5.mp3",
+    "hash": "6cb299fa74"
+  },
+  "news-kbsweb-money-1": {
+    "voice": "F1",
+    "file": "/audio/clips/news-kbsweb-money-1.mp3",
+    "hash": "88dda56b55"
+  },
+  "news-kbsweb-money-2": {
+    "voice": "M1",
+    "file": "/audio/clips/news-kbsweb-money-2.mp3",
+    "hash": "77d3edf6cf"
+  },
+  "news-kbsweb-money-3": {
+    "voice": "F1",
+    "file": "/audio/clips/news-kbsweb-money-3.mp3",
+    "hash": "8d03b96453"
+  },
+  "news-kbsweb-money-4": {
+    "voice": "M1",
+    "file": "/audio/clips/news-kbsweb-money-4.mp3",
+    "hash": "0a2ab388c9"
+  },
+  "news-kbsweb-panama-1": {
+    "voice": "F1",
+    "file": "/audio/clips/news-kbsweb-panama-1.mp3",
+    "hash": "75bbc47270"
+  },
+  "news-kbsweb-daegu-1": {
+    "voice": "M1",
+    "file": "/audio/clips/news-kbsweb-daegu-1.mp3",
+    "hash": "82ed36ed67"
+  },
+  "news-kbsweb-daegu-2": {
+    "voice": "F1",
+    "file": "/audio/clips/news-kbsweb-daegu-2.mp3",
+    "hash": "3cdfe4d168"
+  },
+  "news-kbsweb-daegu-3": {
+    "voice": "M1",
+    "file": "/audio/clips/news-kbsweb-daegu-3.mp3",
+    "hash": "e5977bae27"
+  },
+  "news-kbsweb-daegu-4": {
+    "voice": "F1",
+    "file": "/audio/clips/news-kbsweb-daegu-4.mp3",
+    "hash": "00d2ffe025"
+  },
+  "music-iu-holssi-2": {
+    "voice": "M1",
+    "file": "/audio/clips/music-iu-holssi-2.mp3",
+    "hash": "925991691f"
+  },
+  "music-day6-welcome-2": {
+    "voice": "F1",
+    "file": "/audio/clips/music-day6-welcome-2.mp3",
+    "hash": "8277ce1e8f"
+  },
+  "music-day6-welcome-3": {
+    "voice": "M1",
+    "file": "/audio/clips/music-day6-welcome-3.mp3",
+    "hash": "66d74a1d93"
+  },
+  "music-iu-neverending-1": {
+    "voice": "F1",
+    "file": "/audio/clips/music-iu-neverending-1.mp3",
+    "hash": "95149e315d"
+  },
+  "music-iu-neverending-2": {
+    "voice": "M1",
+    "file": "/audio/clips/music-iu-neverending-2.mp3",
+    "hash": "c77c7fcc20"
   }
 }

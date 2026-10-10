@@ -42,12 +42,12 @@ export default function PendingClipsPage() {
                   <div className="mt-2 flex flex-wrap items-center gap-3 text-sm">
                     {c.audio && <audio controls preload="none" src={c.audio.file} className="h-9 max-w-full" />}
                     <a
-                      href={`${c.source.url}${c.source.url.includes("?") ? "&" : "?"}t=${c.start}s`}
+                      href={c.start !== undefined ? `${c.source.url}${c.source.url.includes("?") ? "&" : "?"}t=${c.start}s` : c.source.url}
                       target="_blank"
                       rel="noopener"
                       className="underline underline-offset-4"
                     >
-                      原影片 {formatTime(c.start)}
+                      {c.start !== undefined ? `原影片 ${formatTime(c.start)}` : "原新聞"}
                     </a>
                     <span className="text-xs text-ink-soft">
                       {c.source.channel}・{c.source.title}

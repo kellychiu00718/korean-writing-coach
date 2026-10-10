@@ -233,5 +233,379 @@
       "url": "https://www.youtube.com/watch?v=C5c3Z7RDVbQ"
     },
     "pending": true
+  },
+  {
+    "id": "news-kbsweb-chile-1",
+    "text_ko": "갑자기 불어난 물에 버스에 갇힌 승객들은 공포에 비명을 지릅니다.",
+    "text_zh": "突然暴漲的大水把乘客困在公車裡，大家嚇得放聲尖叫。",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "10월 평균 강수량의 9배 쏟아졌다…기습 폭우에 칠레 ‘아비규환’（뉴스광장 1부, 2026-10-10）",
+      "channel": "KBS 뉴스",
+      "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8682171",
+      "note": "台詞取自 KBS 新聞網站上的報導原稿，頁面裡有原新聞影片。"
+    },
+    "pending": true
+  },
+  {
+    "id": "news-kbsweb-chile-2",
+    "text_ko": "거리는 순식간에 뻘밭이 됐고 버스와 승용차들 여기저기 처박혔습니다.",
+    "text_zh": "街道瞬間變成一片泥沼，公車和轎車被沖得到處都是。",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "10월 평균 강수량의 9배 쏟아졌다…기습 폭우에 칠레 ‘아비규환’（뉴스광장 1부, 2026-10-10）",
+      "channel": "KBS 뉴스",
+      "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8682171",
+      "note": "台詞取自 KBS 新聞網站上的報導原稿，頁面裡有原新聞影片。"
+    },
+    "pending": true
+  },
+  {
+    "id": "news-kbsweb-chile-3",
+    "text_ko": "하지만 고립된 사람들이 많아 아직 정확한 인명 피해는 집계되지 않고 있습니다.",
+    "text_zh": "但是受困的人很多，目前還無法統計確切的傷亡人數。",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "10월 평균 강수량의 9배 쏟아졌다…기습 폭우에 칠레 ‘아비규환’（뉴스광장 1부, 2026-10-10）",
+      "channel": "KBS 뉴스",
+      "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8682171",
+      "note": "台詞取自 KBS 新聞網站上的報導原稿，頁面裡有原新聞影片。"
+    },
+    "pending": true
+  },
+  {
+    "id": "news-kbsweb-chile-4",
+    "text_ko": "전문가들은 이번 폭우의 원인으로 태평양의 수온이 상승하는 '엘니뇨' 현상을 지목했습니다.",
+    "text_zh": "專家指出，這次豪雨的原因是太平洋水溫上升的「聖嬰現象」。",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "10월 평균 강수량의 9배 쏟아졌다…기습 폭우에 칠레 ‘아비규환’（뉴스광장 1부, 2026-10-10）",
+      "channel": "KBS 뉴스",
+      "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8682171",
+      "note": "台詞取自 KBS 新聞網站上的報導原稿，頁面裡有原新聞影片。"
+    },
+    "pending": true
+  },
+  {
+    "id": "news-kbsweb-work-1",
+    "text_ko": "잠을 설친다는 직장인들도 적지 않습니다.",
+    "text_zh": "說自己睡不好的上班族也不少。",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "직장인 4명 중 1명, 퇴근 뒤 업무 카톡…“수면장애 위험 2배 높인다” [의학:너머]",
+      "channel": "KBS 뉴스",
+      "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8682362",
+      "note": "台詞取自 KBS 新聞網站上的報導原稿，頁面裡有原新聞影片。"
+    },
+    "pending": true
+  },
+  {
+    "id": "news-kbsweb-work-2",
+    "text_ko": "외부인들과 업무가 많은 이 직장인은 밤 9시가 넘어서도 메신저로 일을 이어갑니다.",
+    "text_zh": "這位常和外部人士往來的上班族，過了晚上 9 點還在用通訊軟體處理工作。",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "직장인 4명 중 1명, 퇴근 뒤 업무 카톡…“수면장애 위험 2배 높인다” [의학:너머]",
+      "channel": "KBS 뉴스",
+      "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8682362",
+      "note": "台詞取自 KBS 新聞網站上的報導原稿，頁面裡有原新聞影片。"
+    },
+    "pending": true
+  },
+  {
+    "id": "news-kbsweb-work-3",
+    "text_ko": "수면 장애는 우울, 불안에 취약해질 수 있고 치료가 필요한 불면증으로 이어질 수 있습니다.",
+    "text_zh": "睡眠障礙可能讓人更容易憂鬱、焦慮，也可能演變成需要治療的失眠症。",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "직장인 4명 중 1명, 퇴근 뒤 업무 카톡…“수면장애 위험 2배 높인다” [의학:너머]",
+      "channel": "KBS 뉴스",
+      "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8682362",
+      "note": "台詞取自 KBS 新聞網站上的報導原稿，頁面裡有原新聞影片。"
+    },
+    "pending": true
+  },
+  {
+    "id": "news-kbsweb-weather-1",
+    "text_ko": "오늘도 큰 일교차를 염두에 두셔야겠습니다.",
+    "text_zh": "今天也要留意早晚溫差很大。",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "[주말 날씨] 한글날 연휴, 큰 일교차…남부·제주 비（뉴스광장 1부, 2026-10-10）",
+      "channel": "KBS 뉴스",
+      "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8682170",
+      "note": "台詞取自 KBS 新聞網站上的報導原稿，頁面裡有原新聞影片。"
+    },
+    "pending": true
+  },
+  {
+    "id": "news-kbsweb-weather-2",
+    "text_ko": "아침까지 내륙 곳곳에 안개가 짙게 나타나는 곳이 있겠습니다.",
+    "text_zh": "到早上為止，內陸各地會有濃霧。",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "[주말 날씨] 한글날 연휴, 큰 일교차…남부·제주 비（뉴스광장 1부, 2026-10-10）",
+      "channel": "KBS 뉴스",
+      "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8682170",
+      "note": "台詞取自 KBS 新聞網站上的報導原稿，頁面裡有原新聞影片。"
+    },
+    "pending": true
+  },
+  {
+    "id": "news-kbsweb-weather-3",
+    "text_ko": "이 비가 지나고 나면 서울의 아침 기온이 한 자릿수까지 뚝 떨어지겠습니다.",
+    "text_zh": "這場雨過後，首爾的早晨氣溫會驟降到個位數。",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "[주말 날씨] 한글날 연휴, 큰 일교차…남부·제주 비（뉴스광장 1부, 2026-10-10）",
+      "channel": "KBS 뉴스",
+      "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8682170",
+      "note": "台詞取自 KBS 新聞網站上的報導原稿，頁面裡有原新聞影片。"
+    },
+    "pending": true
+  },
+  {
+    "id": "news-kbsweb-weather-4",
+    "text_ko": "월요일과 화요일에는 전국에 비가 내리겠습니다.",
+    "text_zh": "星期一和星期二全國都會下雨。",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "[주말 날씨] 한글날 연휴, 큰 일교차…남부·제주 비（뉴스광장 1부, 2026-10-10）",
+      "channel": "KBS 뉴스",
+      "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8682170",
+      "note": "台詞取自 KBS 新聞網站上的報導原稿，頁面裡有原新聞影片。"
+    },
+    "pending": true
+  },
+  {
+    "id": "news-kbsweb-weather-5",
+    "text_ko": "한글날 연휴 둘째 날인 오늘, 중부지방은 야외에서 가을의 정취를 즐기기 좋겠습니다.",
+    "text_zh": "今天是韓文節連假第二天，中部地區很適合到戶外享受秋天的氣氛。",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "[주말 날씨] 한글날 연휴, 큰 일교차…남부·제주 비（뉴스광장 1부, 2026-10-10）",
+      "channel": "KBS 뉴스",
+      "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8682170",
+      "note": "台詞取自 KBS 新聞網站上的報導原稿，頁面裡有原新聞影片。"
+    },
+    "pending": true
+  },
+  {
+    "id": "news-kbsweb-money-1",
+    "text_ko": "아이 통장에 돈을 넣어주는 것도 다 세금 대상인가요?",
+    "text_zh": "把錢存進孩子的戶頭，也全都要課稅嗎？",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "“엄마가 1억 넣었어”…자녀 통장, 모르면 증여세 폭탄? [잇슈 머니]（뉴스광장 1부）",
+      "channel": "KBS 뉴스",
+      "url": "https://news.kbs.co.kr/news/view.do?ncd=8681601",
+      "note": "台詞取自 KBS 新聞網站上的報導原稿，頁面裡有原新聞影片。"
+    },
+    "pending": true
+  },
+  {
+    "id": "news-kbsweb-money-2",
+    "text_ko": "핵심은 '바로 쓰는 돈'이냐는 겁니다.",
+    "text_zh": "重點在於那是不是「馬上要花的錢」。",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "“엄마가 1억 넣었어”…자녀 통장, 모르면 증여세 폭탄? [잇슈 머니]（뉴스광장 1부）",
+      "channel": "KBS 뉴스",
+      "url": "https://news.kbs.co.kr/news/view.do?ncd=8681601",
+      "note": "台詞取自 KBS 新聞網站上的報導原稿，頁面裡有原新聞影片。"
+    },
+    "pending": true
+  },
+  {
+    "id": "news-kbsweb-money-3",
+    "text_ko": "지금 통장에 남아 있는 잔액이 아니라 실제 증여받은 금액과 시점이 중요합니다.",
+    "text_zh": "重要的不是現在戶頭裡的餘額，而是實際受贈的金額和時間點。",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "“엄마가 1억 넣었어”…자녀 통장, 모르면 증여세 폭탄? [잇슈 머니]（뉴스광장 1부）",
+      "channel": "KBS 뉴스",
+      "url": "https://news.kbs.co.kr/news/view.do?ncd=8681601",
+      "note": "台詞取自 KBS 新聞網站上的報導原稿，頁面裡有原新聞影片。"
+    },
+    "pending": true
+  },
+  {
+    "id": "news-kbsweb-money-4",
+    "text_ko": "증여 시기를 잘 활용하는 방법도 있습니다.",
+    "text_zh": "也有善用贈與時機的方法。",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "“엄마가 1억 넣었어”…자녀 통장, 모르면 증여세 폭탄? [잇슈 머니]（뉴스광장 1부）",
+      "channel": "KBS 뉴스",
+      "url": "https://news.kbs.co.kr/news/view.do?ncd=8681601",
+      "note": "台詞取自 KBS 新聞網站上的報導原稿，頁面裡有原新聞影片。"
+    },
+    "pending": true
+  },
+  {
+    "id": "news-kbsweb-panama-1",
+    "text_ko": "지진이 발생하자 교육부는 오후 수업을 중단했습니다.",
+    "text_zh": "地震一發生，教育部就停止了下午的課程。",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "파나마 남서부 규모 7.7 강진…“쓰나미 가능성” 한때 경고 [지금뉴스]",
+      "channel": "KBS 뉴스",
+      "url": "https://news.kbs.co.kr/news/view.do?ncd=8682254",
+      "note": "台詞取自 KBS 新聞網站上的報導原稿，頁面裡有原新聞影片。"
+    },
+    "pending": true
+  },
+  {
+    "id": "news-kbsweb-daegu-1",
+    "text_ko": "주말 아침 대구의 한 건물에서 천장이 내려앉는 사고가 났습니다.",
+    "text_zh": "週末早上，大邱一棟建築物發生天花板坍塌的事故。",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "순식간에 ‘우르르’…상가건물 천장 무너져 30여 명 다쳐（2026-10-10）",
+      "channel": "KBS 뉴스",
+      "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8682360",
+      "note": "台詞取自 KBS 新聞網站上的報導原稿，頁面裡有原新聞影片。"
+    },
+    "pending": true
+  },
+  {
+    "id": "news-kbsweb-daegu-2",
+    "text_ko": "천장에서 떨어진 마감재가 바닥을 뒤덮었습니다.",
+    "text_zh": "從天花板掉下來的裝潢材料蓋滿了地面。",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "순식간에 ‘우르르’…상가건물 천장 무너져 30여 명 다쳐（2026-10-10）",
+      "channel": "KBS 뉴스",
+      "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8682360",
+      "note": "台詞取自 KBS 新聞網站上的報導原稿，頁面裡有原新聞影片。"
+    },
+    "pending": true
+  },
+  {
+    "id": "news-kbsweb-daegu-3",
+    "text_ko": "철제 틀도 휘어진 채 뒤엉켜 있고 전선도 곳곳에 늘어져 있습니다.",
+    "text_zh": "鐵製框架也彎曲纏成一團，電線到處垂落。",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "순식간에 ‘우르르’…상가건물 천장 무너져 30여 명 다쳐（2026-10-10）",
+      "channel": "KBS 뉴스",
+      "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8682360",
+      "note": "台詞取自 KBS 新聞網站上的報導原稿，頁面裡有原新聞影片。"
+    },
+    "pending": true
+  },
+  {
+    "id": "news-kbsweb-daegu-4",
+    "text_ko": "소방 당국이 세 차례 인명수색을 한 결과, 추가 피해는 없었습니다.",
+    "text_zh": "消防單位進行了三次搜救，確認沒有其他傷亡。",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "순식간에 ‘우르르’…상가건물 천장 무너져 30여 명 다쳐（2026-10-10）",
+      "channel": "KBS 뉴스",
+      "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8682360",
+      "note": "台詞取自 KBS 新聞網站上的報導原稿，頁面裡有原新聞影片。"
+    },
+    "pending": true
+  },
+  {
+    "id": "music-iu-holssi-2",
+    "videoId": "mFbILexYSQg",
+    "start": 25,
+    "end": 30,
+    "text_ko": "내가 누울 자린 아마도 한참 더 위로",
+    "text_zh": "我要躺下的地方，大概還要再往上好一大段。",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "IU '홀씨(Holssi)' MV",
+      "channel": "이지금 [IU Official]",
+      "url": "https://www.youtube.com/watch?v=mFbILexYSQg"
+    },
+    "pending": true
+  },
+  {
+    "id": "music-day6-welcome-2",
+    "videoId": "RowlrvmyFEk",
+    "start": 19,
+    "end": 23,
+    "text_ko": "이젠 혼자가 아닐 무대",
+    "text_zh": "從此不再是一個人的舞台",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "DAY6(데이식스) \"Welcome to the Show\" M/V",
+      "channel": "JYP Entertainment",
+      "url": "https://www.youtube.com/watch?v=RowlrvmyFEk"
+    },
+    "pending": true
+  },
+  {
+    "id": "music-day6-welcome-3",
+    "videoId": "RowlrvmyFEk",
+    "start": 80,
+    "end": 84,
+    "text_ko": "내 전부를 다 바칠게",
+    "text_zh": "我會把我的一切都獻給你。",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "DAY6(데이식스) \"Welcome to the Show\" M/V",
+      "channel": "JYP Entertainment",
+      "url": "https://www.youtube.com/watch?v=RowlrvmyFEk"
+    },
+    "pending": true
+  },
+  {
+    "id": "music-iu-neverending-1",
+    "videoId": "6J9ixwhDYSM",
+    "start": 89,
+    "end": 98,
+    "text_ko": "어느 영화와 같은 일들이 이뤄져 가기를",
+    "text_zh": "願那些像電影一樣的事，一件件成真。",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "IU 'Never Ending Story' MV",
+      "channel": "이지금 [IU Official]",
+      "url": "https://www.youtube.com/watch?v=6J9ixwhDYSM"
+    },
+    "pending": true
+  },
+  {
+    "id": "music-iu-neverending-2",
+    "videoId": "6J9ixwhDYSM",
+    "start": 30,
+    "end": 36,
+    "text_ko": "손 닿을 수 없는 저기 어딘가",
+    "text_zh": "在手碰不到的遠方某處",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "IU 'Never Ending Story' MV",
+      "channel": "이지금 [IU Official]",
+      "url": "https://www.youtube.com/watch?v=6J9ixwhDYSM"
+    },
+    "pending": true
   }
 ]

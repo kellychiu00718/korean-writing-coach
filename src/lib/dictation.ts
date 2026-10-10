@@ -15,10 +15,11 @@ type Audio = { file: string; voice: string } | null;
 export type Clip = {
   kind: "clip";
   id: string;
-  videoId: string;
-  /** 這一句在影片裡的開始與結束秒數 */
-  start: number;
-  end: number;
+  /** YouTube 影片編號；來源是新聞網站等其他頁面時沒有 */
+  videoId?: string;
+  /** 這一句在原影片裡的開始與結束秒數；沒有時間資訊的來源（例如 KBS 新聞網站）就沒有 */
+  start?: number;
+  end?: number;
   text_ko: string;
   text_zh: string;
   level: number;

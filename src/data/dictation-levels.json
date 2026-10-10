@@ -224,6 +224,382 @@
     ],
     "unknown": []
   },
+  "news-kbsweb-chile-1": {
+    "level": 5,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "불어나다",
+        "level": 5
+      }
+    ],
+    "unknown": []
+  },
+  "news-kbsweb-chile-2": {
+    "level": 5,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "밭",
+        "level": 5
+      }
+    ],
+    "unknown": [
+      "뻘",
+      "처박히다"
+    ]
+  },
+  "news-kbsweb-chile-3": {
+    "level": 6,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "고립",
+        "level": 6
+      }
+    ],
+    "unknown": [
+      "집계"
+    ]
+  },
+  "news-kbsweb-chile-4": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "폭우",
+        "level": 4
+      },
+      {
+        "type": "單字",
+        "text": "상승",
+        "level": 4
+      },
+      {
+        "type": "單字",
+        "text": "현상",
+        "level": 4
+      }
+    ],
+    "unknown": [
+      "수온",
+      "엘니뇨",
+      "지목"
+    ]
+  },
+  "news-kbsweb-work-1": {
+    "level": 5,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "설치다",
+        "level": 5
+      }
+    ],
+    "unknown": []
+  },
+  "news-kbsweb-work-2": {
+    "level": 3,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "업무",
+        "level": 3
+      },
+      {
+        "type": "單字",
+        "text": "직장인",
+        "level": 3
+      },
+      {
+        "type": "文法",
+        "text": "-어 가다",
+        "level": 3
+      }
+    ],
+    "unknown": [
+      "외부인",
+      "메신저"
+    ]
+  },
+  "news-kbsweb-work-3": {
+    "level": 6,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "취약",
+        "level": 6
+      }
+    ],
+    "unknown": []
+  },
+  "news-kbsweb-weather-1": {
+    "level": 6,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "염두",
+        "level": 6
+      }
+    ],
+    "unknown": []
+  },
+  "news-kbsweb-weather-2": {
+    "level": 6,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "내륙",
+        "level": 6
+      }
+    ],
+    "unknown": []
+  },
+  "news-kbsweb-weather-3": {
+    "level": 5,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "뚝",
+        "level": 5
+      }
+    ],
+    "unknown": [
+      "자릿수"
+    ]
+  },
+  "news-kbsweb-weather-4": {
+    "level": 3,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "전국",
+        "level": 3
+      }
+    ],
+    "unknown": []
+  },
+  "news-kbsweb-weather-5": {
+    "level": 3,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "중부",
+        "level": 3
+      },
+      {
+        "type": "單字",
+        "text": "야외",
+        "level": 3
+      }
+    ],
+    "unknown": [
+      "한글날",
+      "정취"
+    ]
+  },
+  "news-kbsweb-money-1": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "세금",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
+  "news-kbsweb-money-2": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "핵심",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
+  "news-kbsweb-money-3": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "실제",
+        "level": 4
+      },
+      {
+        "type": "單字",
+        "text": "시점",
+        "level": 4
+      }
+    ],
+    "unknown": [
+      "잔액",
+      "증여"
+    ]
+  },
+  "news-kbsweb-money-4": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "활용",
+        "level": 4
+      }
+    ],
+    "unknown": [
+      "증여"
+    ]
+  },
+  "news-kbsweb-panama-1": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "지진",
+        "level": 4
+      },
+      {
+        "type": "單字",
+        "text": "발생",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
+  "news-kbsweb-daegu-1": {
+    "level": 3,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "천장",
+        "level": 3
+      }
+    ],
+    "unknown": []
+  },
+  "news-kbsweb-daegu-2": {
+    "level": 5,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "뒤덮다",
+        "level": 5
+      }
+    ],
+    "unknown": [
+      "마감재"
+    ]
+  },
+  "news-kbsweb-daegu-3": {
+    "level": 6,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "틀",
+        "level": 6
+      },
+      {
+        "type": "單字",
+        "text": "뒤엉키다",
+        "level": 6
+      }
+    ],
+    "unknown": [
+      "철제",
+      "휘어지다",
+      "전선"
+    ]
+  },
+  "news-kbsweb-daegu-4": {
+    "level": 6,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "수색",
+        "level": 6
+      }
+    ],
+    "unknown": [
+      "소방"
+    ]
+  },
+  "music-iu-holssi-2": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "아마도",
+        "level": 4
+      },
+      {
+        "type": "單字",
+        "text": "위로",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
+  "music-day6-welcome-2": {
+    "level": 2,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "이제",
+        "level": 2
+      },
+      {
+        "type": "文法",
+        "text": "-을",
+        "level": 2
+      }
+    ],
+    "unknown": []
+  },
+  "music-day6-welcome-3": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "바치다",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
+  "music-iu-neverending-1": {
+    "level": 3,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "이루다",
+        "level": 3
+      },
+      {
+        "type": "文法",
+        "text": "-어 가다",
+        "level": 3
+      },
+      {
+        "type": "文法",
+        "text": "-어지다",
+        "level": 3
+      }
+    ],
+    "unknown": []
+  },
+  "music-iu-neverending-2": {
+    "level": 3,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "닿다",
+        "level": 3
+      }
+    ],
+    "unknown": []
+  },
   "voice-g106-0": {
     "level": 3,
     "hardest": [

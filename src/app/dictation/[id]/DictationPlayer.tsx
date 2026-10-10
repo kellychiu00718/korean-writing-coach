@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 // 只匯入型別（打包時會被拿掉）；比對函式放在不含課程資料的檔案
-import type { DictationItem, Hardest } from "@/lib/dictation";
+import type { Clip, DictationItem, Hardest } from "@/lib/dictation";
 import { compareDictation, formatTime, keystrokes, normalizeForCompare } from "@/lib/dictation-compare";
 import { createClient } from "@/lib/supabase/client";
 
@@ -251,17 +251,16 @@ function SourceCard({ item, revealed }: { item: DictationItem; revealed: boolean
       <p className="mb-1 text-xs text-ink-soft">台詞來源</p>
       <p className="font-medium">{clip.source.title}</p>
       <p className="text-ink-soft">
-        {clip.source.channel}・{formatTime(clip.start)}–{formatTime(clip.end)}
+        {clip.source.channel}
+        {clip.start !== undefined && clip.end !== undefined && `・${formatTime(clip.start)}–${formatTime(clip.end)}`}
       </p>
+      {clip.source.note && <p className="mt-1 text-ink-soft">{clip.source.note}</p>}
       <p className="mt-1 text-ink-soft">聲音：{voice}，不是影片原音。</p>
       {revealed ? (
-        <a
-          href={`${clip.source.url}${clip.source.url.includes("?") ? "&" : "?"}t=${clip.start}s`}
-          target="_blank"
-          rel="noopener"
-          className="btn btn-ghost btn-sm mt-3"
-        >
-          去原影片聽韓國人怎麼說（{formatTime(clip.start)}）
+        <a href={sourceLink(clip)} target="_blank" rel="noopener" className="btn btn-ghost btn-sm mt-3">
+          {clip.start !== undefined
+            ? `去原影片聽韓國人怎麼說（${formatTime(clip.start)}）`
+            : "去原新聞聽韓國人怎麼說"}
         </a>
       ) : (
         <p className="mt-2 text-xs text-ink-soft">對完答案後，可以去原影片聽聽看實際的發音和語氣。</p>
@@ -269,6 +268,12 @@ function SourceCard({ item, revealed }: { item: DictationItem; revealed: boolean
       <p className="mt-2 text-xs text-ink-soft">影片版權屬於原作者，本站只引用一句台詞並附上出處，不下載、不儲存影片。</p>
     </section>
   );
+}
+
+/** 原影片連結：YouTube 帶上時間點，其他網站直接連過去 */
+function sourceLink(clip: Clip) {
+  if (clip.start === undefined || !clip.videoId) return clip.source.url;
+  return `${clip.source.url}${clip.source.url.includes("?") ? "&" : "?"}t=${clip.start}s`;
 }
 
 /** 挑一個韓文語音；有些瀏覽器要等 voiceschanged 之後才拿得到語音清單 */
