@@ -65,68 +65,45 @@
   }
   .center { text-align: center; }
 
-  /* ---------- 開場動畫 ---------- */
+  /* ---------- 開場動畫（時間軸由下方 script 控制） ---------- */
   .intro {
     position: fixed; inset: 0; z-index: 50;
     background: var(--cream);
     display: grid; place-items: center; overflow: hidden;
-    transition: opacity .35s var(--ease-out), transform .35s var(--ease-out);
+    transition: opacity .45s var(--ease-out), transform .45s var(--ease-out);
   }
   .intro.is-out { opacity: 0; transform: translateY(-12px); pointer-events: none; }
-  .intro-stage { position: relative; width: min(760px, 92vw); height: min(520px, 80vh); }
-  .intro-line {
-    position: absolute; left: 0; right: 0; top: 50%; margin: 0;
-    transform: translateY(-50%);
-    text-align: center; font-weight: 700; line-height: 1.35;
-    font-size: clamp(28px, 6vw, 56px);
-    opacity: 0;
-  }
+  .intro-stage { position: relative; width: min(820px, 92vw); height: min(520px, 80vh); }
+  .intro-scene { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; }
+  .intro-line { margin: 0; font-weight: 700; line-height: 1.35; font-size: clamp(28px, 6vw, 56px); opacity: 0; }
   .intro-line .q { color: var(--ink-soft); }
-  .intro-1 { animation: intro-in-out 1.5s var(--ease-out) .2s both; }
-  .intro-2 { animation: intro-in-out 1.5s var(--ease-out) 1.7s both; }
-  .intro-final { top: 58%; opacity: 1; }
-  .intro-final span { display: block; opacity: 0; animation: intro-in 0.6s var(--ease-out) both; }
-  .intro-final span:nth-child(1) { animation-delay: 3.75s; }
-  .intro-final span:nth-child(2) { animation-delay: 3.9s; font-size: .62em; color: var(--ink-soft); font-weight: 500; }
-  .intro-turtle {
-    position: absolute; left: 50%; top: 18%; width: 132px; margin-left: -66px;
-    opacity: 0;
-    animation: intro-walk 1.1s var(--ease-in-out) 3.1s both;
-  }
-  .intro-turtle svg { animation: intro-bob .28s ease-in-out 3.1s 4 alternate both; }
   .shape {
     position: absolute; font-family: var(--font-display); font-weight: 400;
     font-size: clamp(30px, 5vw, 48px); line-height: 1; opacity: 0;
   }
-  .shape.math { animation: intro-shape 1.6s var(--ease-out) both; }
-  .shape.jamo { animation: intro-shape 1.6s var(--ease-out) both; font-family: var(--font-ko); }
+  .shape.jamo { font-family: var(--font-ko); }
+  .trail-line {
+    position: absolute; left: 0; right: 0; top: 30%; margin: 0;
+    display: flex; justify-content: center; flex-wrap: nowrap;
+    font-weight: 700; line-height: 1; white-space: nowrap;
+  }
+  .trail-line span { display: inline-block; opacity: 0; }
+  .trail-line span.soft { color: var(--ink-soft); }
+  .footprint {
+    position: absolute; width: 14px; height: 10px; margin-left: -7px; opacity: 0;
+    background:
+      radial-gradient(circle at 3px 5px, var(--sage) 2.6px, transparent 3px),
+      radial-gradient(circle at 11px 5px, var(--sage) 2.6px, transparent 3px);
+  }
+  .intro-turtle { position: absolute; left: 0; opacity: 0; }
+  .intro-turtle svg > path:first-child { display: none; } /* 足跡改由地上的 footprint 畫，不用圖上的虛線 */
   .skip {
-    position: absolute; top: 16px; right: 16px;
+    position: absolute; top: 16px; right: 16px; z-index: 1;
     font: 500 14px/1 var(--font-zh); color: var(--ink-soft);
     background: #fff; border: 2px solid var(--line); border-radius: var(--radius-pill);
     min-height: 44px; padding: 0 18px; cursor: pointer;
   }
   .skip:hover { border-color: var(--ink); color: var(--ink); }
-  @keyframes intro-in-out {
-    0% { opacity: 0; transform: translateY(calc(-50% + 14px)); filter: blur(6px); }
-    20%, 80% { opacity: 1; transform: translateY(-50%); filter: blur(0); }
-    100% { opacity: 0; transform: translateY(calc(-50% - 10px)); filter: blur(6px); }
-  }
-  @keyframes intro-in {
-    from { opacity: 0; transform: translateY(10px) scale(.96); filter: blur(4px); }
-    to { opacity: 1; transform: none; filter: blur(0); }
-  }
-  @keyframes intro-shape {
-    0% { opacity: 0; transform: translateY(16px) rotate(-12deg) scale(.9); filter: blur(4px); }
-    25%, 75% { opacity: 1; transform: none; filter: blur(0); }
-    100% { opacity: 0; transform: translateY(-12px) rotate(10deg) scale(.95); filter: blur(4px); }
-  }
-  @keyframes intro-walk {
-    from { opacity: 0; transform: translateX(-46vw); }
-    15% { opacity: 1; }
-    to { opacity: 1; transform: none; }
-  }
-  @keyframes intro-bob { from { transform: translateY(0) rotate(-2deg); } to { transform: translateY(-4px) rotate(2deg); } }
 
   /* ---------- nav ---------- */
   nav { padding: 18px 0; }
@@ -311,9 +288,6 @@
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
     html { scroll-behavior: auto; }
-    /* 開場只留最後一句，不做位移 */
-    .intro-1, .intro-2, .shape { display: none; }
-    .intro-turtle, .intro-final span { opacity: 1; }
   }
 </style>
 </head>
@@ -322,22 +296,26 @@
 <!-- 開場動畫：每次開啟分頁只播一次，可略過 -->
 <div class="intro" id="intro" role="dialog" aria-label="開場動畫">
   <button class="skip" id="intro-skip" type="button">略過</button>
-  <div class="intro-stage">
-    <span class="shape math" aria-hidden="true" style="left:6%;top:14%;color:var(--rose);animation-delay:.25s">+</span>
-    <span class="shape math" aria-hidden="true" style="left:84%;top:10%;color:var(--sage);animation-delay:.35s">×</span>
-    <span class="shape math" aria-hidden="true" style="left:12%;top:74%;color:var(--sage);animation-delay:.45s">÷</span>
-    <span class="shape math" aria-hidden="true" style="left:80%;top:72%;color:var(--rose);animation-delay:.3s">=</span>
-    <span class="shape math" aria-hidden="true" style="left:46%;top:6%;color:#D9A86C;animation-delay:.4s">−</span>
-    <span class="shape jamo" aria-hidden="true" style="left:6%;top:14%;color:var(--sage);animation-delay:1.75s">ㄱ</span>
-    <span class="shape jamo" aria-hidden="true" style="left:84%;top:10%;color:var(--rose);animation-delay:1.85s">ㅎ</span>
-    <span class="shape jamo" aria-hidden="true" style="left:12%;top:74%;color:var(--rose);animation-delay:1.95s">ㅏ</span>
-    <span class="shape jamo" aria-hidden="true" style="left:80%;top:72%;color:var(--sage);animation-delay:1.8s">ㄴ</span>
-    <span class="shape jamo" aria-hidden="true" style="left:46%;top:6%;color:#D9A86C;animation-delay:1.9s">ㅗ</span>
-
-    <p class="intro-line intro-1">「數學不會就是不會！」</p>
-    <p class="intro-line intro-2"><span class="q">但</span>韓文寫作不會呢？</p>
-    <div class="intro-turtle" aria-hidden="true">
-      <svg width="132" height="132" viewBox="0 0 200 200" aria-hidden="true">
+  <div class="intro-stage" id="intro-stage">
+    <div class="intro-scene" data-scene="1">
+      <p class="intro-line">「數學不會就是不會！」</p>
+      <span class="shape" aria-hidden="true" style="left:6%;top:14%;color:var(--rose)">+</span>
+      <span class="shape" aria-hidden="true" style="left:86%;top:12%;color:var(--sage)">×</span>
+      <span class="shape" aria-hidden="true" style="left:14%;top:76%;color:var(--sage)">÷</span>
+      <span class="shape" aria-hidden="true" style="left:80%;top:74%;color:var(--rose)">=</span>
+      <span class="shape" aria-hidden="true" style="left:47%;top:8%;color:#D9A86C">−</span>
+    </div>
+    <div class="intro-scene" data-scene="2">
+      <p class="intro-line"><span class="q">但</span>韓文寫作不會呢？</p>
+      <span class="shape jamo" aria-hidden="true" style="left:6%;top:14%;color:var(--sage)">ㄱ</span>
+      <span class="shape jamo" aria-hidden="true" style="left:86%;top:12%;color:var(--rose)">ㅎ</span>
+      <span class="shape jamo" aria-hidden="true" style="left:14%;top:76%;color:var(--rose)">ㅏ</span>
+      <span class="shape jamo" aria-hidden="true" style="left:80%;top:74%;color:var(--sage)">ㄴ</span>
+      <span class="shape jamo" aria-hidden="true" style="left:47%;top:8%;color:#D9A86C">ㅗ</span>
+    </div>
+    <p class="trail-line" id="trail-line" aria-label="沒關係！慢慢寫在這裡陪你。"></p>
+    <div class="intro-turtle" id="intro-turtle" aria-hidden="true">
+      <svg width="120" height="120" viewBox="0 0 200 200" aria-hidden="true">
   <path d="M16 186 q12 -6 24 0 t24 0 t24 0 t24 0" fill="none" stroke="#89B9AD" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 9"/>
   <g stroke="#4A3036" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
     <path d="M26 136 L8 144 L28 150 Z" fill="#FFEAD5"/>
@@ -367,7 +345,6 @@
   <path d="M173 111 q5 4.5 10 1" fill="none" stroke="#4A3036" stroke-width="3" stroke-linecap="round"/>
 </svg>
     </div>
-    <p class="intro-line intro-final"><span>沒關係！</span><span>慢慢寫在這裡陪你。</span></p>
   </div>
 </div>
 
@@ -633,7 +610,9 @@
 </footer>
 
 <script>
-  /* ---------- 開場動畫 ---------- */
+  /* ---------- 開場動畫 ----------
+     第一、二幕：文字先出現，符號再一個個冒出來。
+     第三幕：烏龜從左邊走進來，每經過一個字的位置就留下一個足跡，那個字跟著出現。 */
   (function () {
     const intro = document.getElementById('intro');
     const page = document.querySelectorAll('nav, main, footer');
@@ -643,21 +622,136 @@
     if (seen || location.hash) { intro.remove(); return; }
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const EASE_OUT = 'cubic-bezier(0.23, 1, 0.32, 1)';
+    const T = {
+      line1: 300, shapes1: 1100, out1: 3000,
+      line2: 3500, shapes2: 4300, out2: 6200,
+      walk: 6700, walkDur: 3900, hold: 1400,
+    };
+    const stage = document.getElementById('intro-stage');
+    const trail = document.getElementById('trail-line');
+    const turtle = document.getElementById('intro-turtle');
+    const scenes = stage.querySelectorAll('.intro-scene');
+    const TEXT = [...'沒關係！慢慢寫在這裡陪你。'];
+    const SOFT_FROM = 4; // 「慢慢寫在這裡陪你。」用淺一點的顏色
+
     page.forEach((el) => { el.inert = true; });
     let done = false;
+    let endTimer;
+
+    function enter(el, delay, from = 'translateY(14px)') {
+      return el.animate(
+        [{ opacity: 0, transform: from, filter: 'blur(6px)' }, { opacity: 1, transform: 'none', filter: 'blur(0)' }],
+        { duration: 700, delay, easing: EASE_OUT, fill: 'both' }
+      );
+    }
+    function leave(el, delay) {
+      return el.animate(
+        [{ opacity: 1, transform: 'none', filter: 'blur(0)' }, { opacity: 0, transform: 'translateY(-10px)', filter: 'blur(6px)' }],
+        { duration: 400, delay, easing: EASE_OUT, fill: 'forwards' }
+      );
+    }
+
+    function build() {
+      // 字的大小依舞台寬度決定，一行放得下 13 個字
+      const fontSize = Math.min(56, Math.floor(stage.clientWidth / (TEXT.length + 1)));
+      trail.style.fontSize = fontSize + 'px';
+      TEXT.forEach((ch, i) => {
+        const span = document.createElement('span');
+        span.textContent = ch;
+        span.setAttribute('aria-hidden', 'true');
+        if (i >= SOFT_FROM) span.className = 'soft';
+        trail.appendChild(span);
+      });
+
+      const stageBox = stage.getBoundingClientRect();
+      const chars = [...trail.children].map((el) => {
+        const r = el.getBoundingClientRect();
+        return { el, x: r.left + r.width / 2 - stageBox.left, bottom: r.bottom - stageBox.top };
+      });
+      const size = Math.max(72, Math.min(120, fontSize * 2.1)); // 烏龜大小
+      const svg = turtle.querySelector('svg');
+      svg.setAttribute('width', size);
+      svg.setAttribute('height', size);
+      // 烏龜走在文字下面一排，不擋到字；足跡留在牠的腳底（腳底在圖的 87% 高度）
+      const turtleTop = chars[0].bottom + fontSize * 0.3;
+      turtle.style.top = turtleTop + 'px';
+      const groundY = turtleTop + size * 0.87;
+
+      const front = size * 0.62;                                // 前腳在圖中的位置
+      const startX = -stageBox.left - size;                     // 從畫面左邊外面走進來
+      // 走到最後一個字再多一點點，但整隻烏龜要留在畫面內（手機上舞台比較窄）
+      const maxX = document.documentElement.clientWidth - stageBox.left - size - 8;
+      const endX = Math.min(chars[chars.length - 1].x - front + fontSize * 0.9, maxX);
+      return { chars, groundY, size, front, startX, endX };
+    }
+
+    function play() {
+      const g = build();
+      if (reduced) {
+        // 減少動態效果：不移動，直接顯示最後一句和烏龜
+        scenes.forEach((s) => s.remove());
+        g.chars.forEach((c) => { c.el.style.opacity = 1; });
+        turtle.style.opacity = 1;
+        turtle.style.transform = `translateX(${g.endX}px)`;
+        endTimer = setTimeout(end, 2600);
+        return;
+      }
+
+      // 第一、二幕
+      [[scenes[0], T.line1, T.shapes1, T.out1], [scenes[1], T.line2, T.shapes2, T.out2]].forEach(([scene, lineAt, shapesAt, outAt]) => {
+        const line = scene.querySelector('.intro-line');
+        enter(line, lineAt);
+        leave(line, outAt);
+        scene.querySelectorAll('.shape').forEach((el, i) => {
+          enter(el, shapesAt + i * 140, 'translateY(16px) rotate(-12deg) scale(.9)');
+          leave(el, outAt + i * 40);
+        });
+      });
+
+      // 第三幕：等速走路（持續的移動用 linear），每 .3 秒輕輕晃一下
+      turtle.animate(
+        [{ opacity: 0, transform: `translateX(${g.startX}px)` }, { opacity: 1, offset: 0.06 }, { opacity: 1, transform: `translateX(${g.endX}px)` }],
+        { duration: T.walkDur, delay: T.walk, easing: 'linear', fill: 'both' }
+      );
+      turtle.querySelector('svg').animate(
+        [{ transform: 'translateY(0) rotate(-2deg)' }, { transform: 'translateY(-4px) rotate(2deg)' }],
+        { duration: 300, delay: T.walk, iterations: Math.round(T.walkDur / 300), direction: 'alternate', easing: 'ease-in-out', fill: 'both' }
+      );
+      g.chars.forEach((c) => {
+        // 前腳走到這個字下方的時間
+        const progress = (c.x - g.front - g.startX) / (g.endX - g.startX);
+        const at = T.walk + Math.min(1, Math.max(0, progress)) * T.walkDur;
+        const foot = document.createElement('span');
+        foot.className = 'footprint';
+        foot.style.left = c.x + 'px';
+        foot.style.top = (g.groundY - 8) + 'px';
+        stage.appendChild(foot);
+        foot.animate([{ opacity: 0, transform: 'scale(.6)' }, { opacity: 1, transform: 'none' }], { duration: 250, delay: at, easing: EASE_OUT, fill: 'both' });
+        c.el.animate(
+          [{ opacity: 0, transform: 'translateY(10px) scale(.96)', filter: 'blur(4px)' }, { opacity: 1, transform: 'none', filter: 'blur(0)' }],
+          { duration: 500, delay: at + 60, easing: EASE_OUT, fill: 'both' }
+        );
+      });
+
+      endTimer = setTimeout(end, T.walk + T.walkDur + T.hold);
+    }
+
     function end() {
       if (done) return;
       done = true;
+      clearTimeout(endTimer);
       try { sessionStorage.setItem('mmw-intro-seen', '1'); } catch {}
       page.forEach((el) => { el.inert = false; });
       intro.classList.add('is-out');
       document.removeEventListener('keydown', onKey);
-      setTimeout(() => intro.remove(), reduced ? 0 : 400);
+      setTimeout(() => intro.remove(), reduced ? 0 : 500);
     }
     function onKey(e) { if (e.key === 'Escape') end(); }
     document.getElementById('intro-skip').addEventListener('click', end);
     document.addEventListener('keydown', onKey);
-    setTimeout(end, reduced ? 1800 : 5600);
+    // 等字型載入後再量字的位置，避免足跡和字對不上
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(play);
   })();
 
   /* ---------- 提示階梯 demo：按下按鈕才開始一步一步出現 ---------- */
