@@ -394,5 +394,83 @@
     "file": "/audio/clips/music-iu-neverending-2.mp3",
     "hash": "e2e9719f7f",
     "reason": "指定"
+  },
+  "news-kbsweb-hangul-1": {
+    "voice": "F1",
+    "file": "/audio/clips/news-kbsweb-hangul-1.mp3",
+    "hash": "c5ef0cf2d3",
+    "reason": "輪流"
+  },
+  "news-kbsweb-hangul-2": {
+    "voice": "M1",
+    "file": "/audio/clips/news-kbsweb-hangul-2.mp3",
+    "hash": "0b2b525b50",
+    "reason": "輪流"
+  },
+  "news-kbsweb-hangul-3": {
+    "voice": "F1",
+    "file": "/audio/clips/news-kbsweb-hangul-3.mp3",
+    "hash": "598575851e",
+    "reason": "輪流"
+  },
+  "news-kbsweb-hangul-4": {
+    "voice": "M1",
+    "file": "/audio/clips/news-kbsweb-hangul-4.mp3",
+    "hash": "cdf11f6917",
+    "reason": "輪流"
+  },
+  "news-kbsweb-conv-1": {
+    "voice": "F1",
+    "file": "/audio/clips/news-kbsweb-conv-1.mp3",
+    "hash": "9fd7c95ba2",
+    "reason": "輪流"
+  },
+  "news-kbsweb-conv-2": {
+    "voice": "M1",
+    "file": "/audio/clips/news-kbsweb-conv-2.mp3",
+    "hash": "0fa11f633c",
+    "reason": "輪流"
+  },
+  "news-kbsweb-milk-1": {
+    "voice": "F1",
+    "file": "/audio/clips/news-kbsweb-milk-1.mp3",
+    "hash": "90d614226f",
+    "reason": "輪流"
+  },
+  "news-kbsweb-milk-2": {
+    "voice": "M1",
+    "file": "/audio/clips/news-kbsweb-milk-2.mp3",
+    "hash": "ac055b76f5",
+    "reason": "輪流"
+  },
+  "news-kbsweb-elisabeth-1": {
+    "voice": "F1",
+    "file": "/audio/clips/news-kbsweb-elisabeth-1.mp3",
+    "hash": "b32b7ac7f6",
+    "reason": "輪流"
+  },
+  "news-kbsweb-elisabeth-2": {
+    "voice": "M1",
+    "file": "/audio/clips/news-kbsweb-elisabeth-2.mp3",
+    "hash": "9d6b80e027",
+    "reason": "輪流"
+  },
+  "news-kbsweb-elisabeth-3": {
+    "voice": "F1",
+    "file": "/audio/clips/news-kbsweb-elisabeth-3.mp3",
+    "hash": "b8a5f1a571",
+    "reason": "輪流"
+  },
+  "news-kbsweb-kjfest-1": {
+    "voice": "M1",
+    "file": "/audio/clips/news-kbsweb-kjfest-1.mp3",
+    "hash": "295e3aabbc",
+    "reason": "輪流"
+  },
+  "news-kbsweb-coupang-1": {
+    "voice": "F1",
+    "file": "/audio/clips/news-kbsweb-coupang-1.mp3",
+    "hash": "b89b3b929a",
+    "reason": "輪流"
   }
 }

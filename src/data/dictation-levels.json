@@ -600,6 +600,193 @@
     ],
     "unknown": []
   },
+  "news-kbsweb-hangul-1": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "떼다",
+        "level": 4
+      },
+      {
+        "type": "單字",
+        "text": "드러내다",
+        "level": 4
+      }
+    ],
+    "unknown": [
+      "붓끝",
+      "반듯"
+    ]
+  },
+  "news-kbsweb-hangul-2": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "정성",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
+  "news-kbsweb-hangul-3": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "만점",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
+  "news-kbsweb-hangul-4": {
+    "level": 5,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "특별",
+        "level": 5
+      }
+    ],
+    "unknown": []
+  },
+  "news-kbsweb-conv-1": {
+    "level": 2,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "다양",
+        "level": 2
+      },
+      {
+        "type": "單字",
+        "text": "자리",
+        "level": 2
+      },
+      {
+        "type": "文法",
+        "text": "-는",
+        "level": 2
+      }
+    ],
+    "unknown": [
+      "매대"
+    ]
+  },
+  "news-kbsweb-conv-2": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "갖추다",
+        "level": 4
+      }
+    ],
+    "unknown": [
+      "빼곡",
+      "냉동고"
+    ]
+  },
+  "news-kbsweb-milk-1": {
+    "level": 5,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "급식",
+        "level": 5
+      }
+    ],
+    "unknown": [
+      "팩"
+    ]
+  },
+  "news-kbsweb-milk-2": {
+    "level": 6,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "역대",
+        "level": 6
+      }
+    ],
+    "unknown": []
+  },
+  "news-kbsweb-elisabeth-1": {
+    "level": 6,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "파란만장",
+        "level": 6
+      }
+    ],
+    "unknown": [
+      "황후"
+    ]
+  },
+  "news-kbsweb-elisabeth-2": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "작품",
+        "level": 4
+      },
+      {
+        "type": "單字",
+        "text": "의상",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
+  "news-kbsweb-elisabeth-3": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "등장",
+        "level": 4
+      },
+      {
+        "type": "單字",
+        "text": "인물",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
+  "news-kbsweb-kjfest-1": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "의상",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
+  "news-kbsweb-coupang-1": {
+    "level": 5,
+    "hardest": [
+      {
+        "type": "文法",
+        "text": "-었던",
+        "level": 5
+      },
+      {
+        "type": "文法",
+        "text": "-는 이상",
+        "level": 5
+      }
+    ],
+    "unknown": [
+      "징후"
+    ]
+  },
   "voice-g106-0": {
     "level": 3,
     "hardest": [

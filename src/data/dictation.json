@@ -585,5 +585,187 @@
       "url": "https://www.youtube.com/watch?v=6J9ixwhDYSM"
     },
     "speaker": "female"
+  },
+  {
+    "id": "news-kbsweb-hangul-1",
+    "text_ko": "붓끝을 조심스럽게 누르고 떼자 반듯한 한글이 모습을 드러냅니다.",
+    "text_zh": "筆尖小心地按下再提起，一個個端正的韓文字就出現了。",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "외국인도 한글 붓글씨…광장에 펼쳐진 한글날 100돌 축제（뉴스광장 1부, 2026-10-10）",
+      "channel": "KBS 뉴스",
+      "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8682183",
+      "note": "台詞取自 KBS 新聞網站上的報導原稿，頁面裡有原新聞影片。"
+    },
+    "pending": true
+  },
+  {
+    "id": "news-kbsweb-hangul-2",
+    "text_ko": "한복을 차려입은 외국인도 정성을 다해 한글을 적어 내려갑니다.",
+    "text_zh": "穿上韓服的外國人也用心地一筆一筆寫下韓文。",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "외국인도 한글 붓글씨…광장에 펼쳐진 한글날 100돌 축제（뉴스광장 1부, 2026-10-10）",
+      "channel": "KBS 뉴스",
+      "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8682183",
+      "note": "台詞取自 KBS 新聞網站上的報導原稿，頁面裡有原新聞影片。"
+    },
+    "pending": true
+  },
+  {
+    "id": "news-kbsweb-hangul-3",
+    "text_ko": "가족이 함께 즐기는 행사도 인기 만점입니다.",
+    "text_zh": "全家一起同樂的活動也很受歡迎。",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "외국인도 한글 붓글씨…광장에 펼쳐진 한글날 100돌 축제（뉴스광장 1부, 2026-10-10）",
+      "channel": "KBS 뉴스",
+      "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8682183",
+      "note": "台詞取自 KBS 新聞網站上的報導原稿，頁面裡有原新聞影片。"
+    },
+    "pending": true
+  },
+  {
+    "id": "news-kbsweb-hangul-4",
+    "text_ko": "아이들은 함께 사진도 찍으며 특별한 추억을 남깁니다.",
+    "text_zh": "孩子們也一起拍照，留下特別的回憶。",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "외국인도 한글 붓글씨…광장에 펼쳐진 한글날 100돌 축제（뉴스광장 1부, 2026-10-10）",
+      "channel": "KBS 뉴스",
+      "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8682183",
+      "note": "台詞取自 KBS 新聞網站上的報導原稿，頁面裡有原新聞影片。"
+    },
+    "pending": true
+  },
+  {
+    "id": "news-kbsweb-conv-1",
+    "text_ko": "편의점 문을 열고 들어가자, 다양한 과일이 자리 잡은 매대가 먼저 눈에 들어옵니다.",
+    "text_zh": "一打開便利商店的門，最先映入眼簾的是擺滿各種水果的貨架。",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "‘장 보는’ 편의점 1,000개 돌파…틈새 시장 노린다（뉴스광장, 2026-10-09）",
+      "channel": "KBS 뉴스",
+      "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8681619",
+      "note": "台詞取自 KBS 新聞網站上的報導原稿，頁面裡有原新聞影片。"
+    },
+    "pending": true
+  },
+  {
+    "id": "news-kbsweb-conv-2",
+    "text_ko": "고추와 마늘, 양파 당근까지 채소도 빼곡하고 냉동고엔 생선과 돼지고기도 갖춰 놨습니다.",
+    "text_zh": "辣椒、大蒜、洋蔥、紅蘿蔔，蔬菜擺得滿滿的，冷凍櫃裡也備有魚和豬肉。",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "‘장 보는’ 편의점 1,000개 돌파…틈새 시장 노린다（뉴스광장, 2026-10-09）",
+      "channel": "KBS 뉴스",
+      "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8681619",
+      "note": "台詞取自 KBS 新聞網站上的報導原稿，頁面裡有原新聞影片。"
+    },
+    "pending": true
+  },
+  {
+    "id": "news-kbsweb-milk-1",
+    "text_ko": "어릴 적 학교 급식으로 매일 마시고, 집 냉장고에도 꼭 한두 팩씩은 있던 흰 우유!",
+    "text_zh": "小時候學校營養午餐每天都會喝，家裡冰箱也一定會放個一兩盒的白牛奶！",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "[크랩] 40년 만에 ‘역대 최저’라는 우리나라 흰 우유 소비 근황（2026-10-11）",
+      "channel": "KBS 뉴스",
+      "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8682500",
+      "note": "台詞取自 KBS 新聞網站上的報導原稿，頁面裡有原新聞影片。"
+    },
+    "pending": true
+  },
+  {
+    "id": "news-kbsweb-milk-2",
+    "text_ko": "그런데 요즘 국산 흰 우유가 역대급 위기라고 합니다.",
+    "text_zh": "不過聽說最近國產白牛奶正面臨前所未有的危機。",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "[크랩] 40년 만에 ‘역대 최저’라는 우리나라 흰 우유 소비 근황（2026-10-11）",
+      "channel": "KBS 뉴스",
+      "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8682500",
+      "note": "台詞取自 KBS 新聞網站上的報導原稿，頁面裡有原新聞影片。"
+    },
+    "pending": true
+  },
+  {
+    "id": "news-kbsweb-elisabeth-1",
+    "text_ko": "오스트리아 황후의 파란만장한 삶을 그린 뮤지컬 엘리자벳이 막을 올렸습니다.",
+    "text_zh": "描寫奧地利皇后波瀾萬丈一生的音樂劇《伊莉莎白》開演了。",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "“천 벌의 의상, 12초의 변신”…16번 옷 갈아입는 ‘엘리자벳’（2026-10-10）",
+      "channel": "KBS 뉴스",
+      "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8682375",
+      "note": "台詞取自 KBS 新聞網站上的報導原稿，頁面裡有原新聞影片。"
+    },
+    "pending": true
+  },
+  {
+    "id": "news-kbsweb-elisabeth-2",
+    "text_ko": "이 작품을 오래 기억하게 하는 힘은 무엇보다 의상입니다.",
+    "text_zh": "讓人對這部作品念念不忘的，最主要就是服裝。",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "“천 벌의 의상, 12초의 변신”…16번 옷 갈아입는 ‘엘리자벳’（2026-10-10）",
+      "channel": "KBS 뉴스",
+      "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8682375",
+      "note": "台詞取自 KBS 新聞網站上的報導原稿，頁面裡有原新聞影片。"
+    },
+    "pending": true
+  },
+  {
+    "id": "news-kbsweb-elisabeth-3",
+    "text_ko": "의상은 등장인물의 성격도 말해줍니다.",
+    "text_zh": "服裝也透露出角色的個性。",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "“천 벌의 의상, 12초의 변신”…16번 옷 갈아입는 ‘엘리자벳’（2026-10-10）",
+      "channel": "KBS 뉴스",
+      "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8682375",
+      "note": "台詞取自 KBS 新聞網站上的報導原稿，頁面裡有原新聞影片。"
+    },
+    "pending": true
+  },
+  {
+    "id": "news-kbsweb-kjfest-1",
+    "text_ko": "축제한마당을 찾은 시민들은 두 나라의 전통 의상을 입어보거나 전통 놀이를 하는 등 다양한 체험을 즐겼습니다.",
+    "text_zh": "來到慶典的民眾試穿兩國的傳統服裝、玩傳統遊戲，體驗了各式各樣的活動。",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "한일 최대 민간 교류 축제 ‘한일축제한마당’（뉴스 7, 2026-10-10）",
+      "channel": "KBS 뉴스",
+      "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8682312",
+      "note": "台詞取自 KBS 新聞網站上的報導原稿，頁面裡有原新聞影片。"
+    },
+    "pending": true
+  },
+  {
+    "id": "news-kbsweb-coupang-1",
+    "text_ko": "다만 현재까지 보안과 관련한 이상 징후는 없었던 것으로 전해졌습니다.",
+    "text_zh": "不過據了解，到目前為止沒有發現跟資安有關的異常跡象。",
+    "level": 0,
+    "genre": "news",
+    "source": {
+      "title": "‘한밤의 접속 장애’ 쿠팡 “업그레이드 때문, 고객엔 보상”（뉴스광장 1부, 2026-10-10）",
+      "channel": "KBS 뉴스",
+      "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8682169",
+      "note": "台詞取自 KBS 新聞網站上的報導原稿，頁面裡有原新聞影片。"
+    },
+    "pending": true
   }
 ]
