@@ -472,5 +472,47 @@
     "file": "/audio/clips/news-kbsweb-coupang-1.mp3",
     "hash": "b89b3b929a",
     "reason": "輪流"
+  },
+  "variety-youquiz-kimdonghyun-1": {
+    "voice": "M1",
+    "file": "/audio/clips/variety-youquiz-kimdonghyun-1.mp3",
+    "hash": "0dd25d21ff",
+    "reason": "輪流"
+  },
+  "variety-daemyung-1": {
+    "voice": "F1",
+    "file": "/audio/clips/variety-daemyung-1.mp3",
+    "hash": "d09c92016e",
+    "reason": "輪流"
+  },
+  "drama-doctorx-ep2-1": {
+    "voice": "M1",
+    "file": "/audio/clips/drama-doctorx-ep2-1.mp3",
+    "hash": "f1b1ead315",
+    "reason": "輪流"
+  },
+  "drama-guilty-teaser-1": {
+    "voice": "F1",
+    "file": "/audio/clips/drama-guilty-teaser-1.mp3",
+    "hash": "9ef270e65b",
+    "reason": "輪流"
+  },
+  "drama-lotto-ep10-1": {
+    "voice": "M1",
+    "file": "/audio/clips/drama-lotto-ep10-1.mp3",
+    "hash": "2b9b7ad72d",
+    "reason": "輪流"
+  },
+  "drama-lotto-ep10-2": {
+    "voice": "F1",
+    "file": "/audio/clips/drama-lotto-ep10-2.mp3",
+    "hash": "cfe70d781b",
+    "reason": "輪流"
+  },
+  "variety-biseojin-leeseojin-1": {
+    "voice": "M1",
+    "file": "/audio/clips/variety-biseojin-leeseojin-1.mp3",
+    "hash": "2d2f67311c",
+    "reason": "輪流"
   }
 }

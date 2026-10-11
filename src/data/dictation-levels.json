@@ -787,6 +787,107 @@
       "징후"
     ]
   },
+  "variety-youquiz-kimdonghyun-1": {
+    "level": 3,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "않다",
+        "level": 3
+      },
+      {
+        "type": "文法",
+        "text": "-어야",
+        "level": 3
+      },
+      {
+        "type": "文法",
+        "text": "-는다",
+        "level": 3
+      }
+    ],
+    "unknown": [
+      "때문"
+    ]
+  },
+  "variety-daemyung-1": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "장사",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
+  "drama-doctorx-ep2-1": {
+    "level": 5,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "병명",
+        "level": 5
+      },
+      {
+        "type": "文法",
+        "text": "-더라고",
+        "level": 5
+      }
+    ],
+    "unknown": []
+  },
+  "drama-guilty-teaser-1": {
+    "level": 6,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "우선순위",
+        "level": 6
+      }
+    ],
+    "unknown": [
+      "불문"
+    ]
+  },
+  "drama-lotto-ep10-1": {
+    "level": 5,
+    "hardest": [
+      {
+        "type": "文法",
+        "text": "-었던",
+        "level": 5
+      }
+    ],
+    "unknown": []
+  },
+  "drama-lotto-ep10-2": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "망하다",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
+  "variety-biseojin-leeseojin-1": {
+    "level": 2,
+    "hardest": [
+      {
+        "type": "文法",
+        "text": "-으면",
+        "level": 2
+      },
+      {
+        "type": "文法",
+        "text": "-는",
+        "level": 2
+      }
+    ],
+    "unknown": []
+  },
   "voice-g106-0": {
     "level": 3,
     "hardest": [
