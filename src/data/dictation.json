@@ -758,25 +758,21 @@
   {
     "id": "variety-youquiz-kimdonghyun-1",
     "videoId": "r2_tlOLRPcM",
-    "start": 250,
-    "end": 258,
-    "text_ko": "세상은 날 기다리고 있다. 내가 이기지 않으면 이상하지. 그렇기 때문에 난 반드시 이겨야 한다.",
-    "text_zh": "世界在等著我。我不贏才奇怪。所以我一定要贏。",
+    "text_ko": "고등학교 때 그냥 강해지는 것에 꽂혀 있었어요.",
+    "text_zh": "高中的時候，我就一心只想變強。",
     "level": 0,
     "genre": "variety",
     "source": {
       "title": "[#유퀴즈온더블럭] 🚨유재석 진행 불가🚨 김동현 격투기 노트 읽고 눈물 흘리는 유재석 ㅋㅋ",
       "channel": "유 퀴즈 온 더 블럭",
       "url": "https://www.youtube.com/watch?v=r2_tlOLRPcM",
-      "note": "台詞取自 NotebookLM 的逐字稿，時間點是大約位置。"
+      "note": "台詞取自 NotebookLM 的逐字稿，時間點待確認。"
     },
     "pending": true
   },
   {
     "id": "variety-daemyung-1",
     "videoId": "RdXnIcz95gs",
-    "start": 5,
-    "end": 13,
     "text_ko": "이런 땐 장사하는 게 아니라 이야기를 모으는 상점 같아, 그치?",
     "text_zh": "這種時候感覺不像在做生意，比較像一間收集故事的小店，對吧？",
     "level": 0,
@@ -785,15 +781,15 @@
       "title": "[2차 티저] 걷다 지친 마음에 필요한 건, 결국 맛있는 한 끼 🌅🍚 | 맛따라 길따라 대명이따라",
       "channel": "tvN",
       "url": "https://www.youtube.com/watch?v=RdXnIcz95gs",
-      "note": "台詞取自 NotebookLM 的逐字稿，時間點是大約位置。"
+      "note": "台詞取自 NotebookLM 的逐字稿，時間點待確認。"
     },
     "pending": true
   },
   {
     "id": "drama-doctorx-ep2-1",
     "videoId": "AX-cgcoLSdY",
-    "start": 40,
-    "end": 48,
+    "start": 93,
+    "end": 96,
     "text_ko": "이렇게 명확하게 병명이 떨어지는 건 처음이래. 감사하다고 우시더라고.",
     "text_zh": "說是第一次這麼明確地知道病名，還哭著跟我道謝呢。",
     "level": 0,
@@ -801,16 +797,15 @@
     "source": {
       "title": "[2회 선공개] \"소문대로 싸가지가 없구나\" 시비 거는 의사들 실력으로 말문 막히게 한 김지원💥 | 닥터X : 하얀 마피아의 시대",
       "channel": "SBS",
-      "url": "https://www.youtube.com/watch?v=AX-cgcoLSdY",
-      "note": "台詞取自 NotebookLM 的逐字稿，時間點是大約位置。"
+      "url": "https://www.youtube.com/watch?v=AX-cgcoLSdY"
     },
     "pending": true
   },
   {
     "id": "drama-guilty-teaser-1",
     "videoId": "CoS1Km445TI",
-    "start": 20,
-    "end": 28,
+    "start": 14,
+    "end": 17,
     "text_ko": "내 수행 기사는 성별 불문, 날 제일 우선순위로 둬야 해.",
     "text_zh": "我的隨行司機不分男女，都要把我放在第一順位。",
     "level": 0,
@@ -818,16 +813,15 @@
     "source": {
       "title": "[강재희 티저] 수상하리만큼 잘생쁜🫣 재벌 3세 왕자님을 구하러 온 백마 탄 공주 강재희 출동💘 #나의유죄인간 EP.0",
       "channel": "tvN",
-      "url": "https://www.youtube.com/watch?v=CoS1Km445TI",
-      "note": "台詞取自 NotebookLM 的逐字稿，時間點是大約位置。"
+      "url": "https://www.youtube.com/watch?v=CoS1Km445TI"
     },
     "pending": true
   },
   {
     "id": "drama-lotto-ep10-1",
     "videoId": "n63Ks2ykq-E",
-    "start": 15,
-    "end": 23,
+    "start": 64,
+    "end": 68,
     "text_ko": "기분 나쁘셨던 거 충분히 이해합니다. 화 푸셨으면 좋겠습니다.",
     "text_zh": "您當時不高興，我完全能理解。希望您能消消氣。",
     "level": 0,
@@ -835,16 +829,15 @@
     "source": {
       "title": "[로또 1등도 출근합니다] 영원한 갑은 없다고 했을 텐데? | 10화 클립 | TVING",
       "channel": "TVING",
-      "url": "https://www.youtube.com/watch?v=n63Ks2ykq-E",
-      "note": "台詞取自 NotebookLM 的逐字稿，時間點是大約位置。"
+      "url": "https://www.youtube.com/watch?v=n63Ks2ykq-E"
     },
     "pending": true
   },
   {
     "id": "drama-lotto-ep10-2",
     "videoId": "n63Ks2ykq-E",
-    "start": 60,
-    "end": 68,
+    "start": 138,
+    "end": 141,
     "text_ko": "회사 그렇게 잘 안 망해요. 내가 알아요.",
     "text_zh": "公司沒那麼容易倒啦，我很清楚。",
     "level": 0,
@@ -852,16 +845,13 @@
     "source": {
       "title": "[로또 1등도 출근합니다] 영원한 갑은 없다고 했을 텐데? | 10화 클립 | TVING",
       "channel": "TVING",
-      "url": "https://www.youtube.com/watch?v=n63Ks2ykq-E",
-      "note": "台詞取自 NotebookLM 的逐字稿，時間點是大約位置。"
+      "url": "https://www.youtube.com/watch?v=n63Ks2ykq-E"
     },
     "pending": true
   },
   {
     "id": "variety-biseojin-leeseojin-1",
     "videoId": "OtdJJtghknk",
-    "start": 25,
-    "end": 33,
     "text_ko": "또 새로운 사람 만나면 되지, 뭐.",
     "text_zh": "再認識新的人就好了嘛。",
     "level": 0,
@@ -870,7 +860,7 @@
       "title": "“새로운 사람 만나면 되지~” 이서진, 연애 중인 이광수 앞에서 마라맛 토크♨",
       "channel": "SBS",
       "url": "https://www.youtube.com/watch?v=OtdJJtghknk",
-      "note": "台詞取自 NotebookLM 的逐字稿，時間點是大約位置。"
+      "note": "台詞取自 NotebookLM 的逐字稿，時間點待確認。"
     },
     "pending": true
   }

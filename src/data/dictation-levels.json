@@ -788,27 +788,15 @@
     ]
   },
   "variety-youquiz-kimdonghyun-1": {
-    "level": 3,
+    "level": 4,
     "hardest": [
       {
         "type": "單字",
-        "text": "않다",
-        "level": 3
-      },
-      {
-        "type": "文法",
-        "text": "-어야",
-        "level": 3
-      },
-      {
-        "type": "文法",
-        "text": "-는다",
-        "level": 3
+        "text": "꽂히다",
+        "level": 4
       }
     ],
-    "unknown": [
-      "때문"
-    ]
+    "unknown": []
   },
   "variety-daemyung-1": {
     "level": 4,
