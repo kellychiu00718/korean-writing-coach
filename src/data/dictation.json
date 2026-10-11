@@ -758,6 +758,8 @@
   {
     "id": "variety-youquiz-kimdonghyun-1",
     "videoId": "r2_tlOLRPcM",
+    "start": 435,
+    "end": 441,
     "text_ko": "고등학교 때 그냥 강해지는 것에 꽂혀 있었어요.",
     "text_zh": "高中的時候，我就一心只想變強。",
     "level": 0,
@@ -765,14 +767,15 @@
     "source": {
       "title": "[#유퀴즈온더블럭] 🚨유재석 진행 불가🚨 김동현 격투기 노트 읽고 눈물 흘리는 유재석 ㅋㅋ",
       "channel": "유 퀴즈 온 더 블럭",
-      "url": "https://www.youtube.com/watch?v=r2_tlOLRPcM",
-      "note": "台詞取自 NotebookLM 的逐字稿，時間點待確認。"
+      "url": "https://www.youtube.com/watch?v=r2_tlOLRPcM"
     },
     "pending": true
   },
   {
     "id": "variety-daemyung-1",
     "videoId": "RdXnIcz95gs",
+    "start": 3,
+    "end": 7,
     "text_ko": "이런 땐 장사하는 게 아니라 이야기를 모으는 상점 같아, 그치?",
     "text_zh": "這種時候感覺不像在做生意，比較像一間收集故事的小店，對吧？",
     "level": 0,
@@ -780,8 +783,7 @@
     "source": {
       "title": "[2차 티저] 걷다 지친 마음에 필요한 건, 결국 맛있는 한 끼 🌅🍚 | 맛따라 길따라 대명이따라",
       "channel": "tvN",
-      "url": "https://www.youtube.com/watch?v=RdXnIcz95gs",
-      "note": "台詞取自 NotebookLM 的逐字稿，時間點待確認。"
+      "url": "https://www.youtube.com/watch?v=RdXnIcz95gs"
     },
     "pending": true
   },
@@ -852,6 +854,8 @@
   {
     "id": "variety-biseojin-leeseojin-1",
     "videoId": "OtdJJtghknk",
+    "start": 42,
+    "end": 45,
     "text_ko": "또 새로운 사람 만나면 되지, 뭐.",
     "text_zh": "再認識新的人就好了嘛。",
     "level": 0,
@@ -859,8 +863,7 @@
     "source": {
       "title": "“새로운 사람 만나면 되지~” 이서진, 연애 중인 이광수 앞에서 마라맛 토크♨",
       "channel": "SBS",
-      "url": "https://www.youtube.com/watch?v=OtdJJtghknk",
-      "note": "台詞取自 NotebookLM 的逐字稿，時間點待確認。"
+      "url": "https://www.youtube.com/watch?v=OtdJJtghknk"
     },
     "pending": true
   }
