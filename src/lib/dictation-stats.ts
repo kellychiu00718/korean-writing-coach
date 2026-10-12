@@ -6,7 +6,17 @@ import { kstDate, kstStamp } from "@/lib/stats";
 type Row = { clip_id: string; accuracy: number; kpm: number; mode: string; created_at: string };
 
 export type DayAccuracy = { date: string; count: number; avg: number };
-export type LevelRow = { level: number; practiced: number; understood: number; words: number; grammar: number };
+/** total：題庫裡這一級有幾句；wordsTotal／grammarTotal：題庫所有句子裡出現過幾個這一級的單字／文法 */
+export type LevelRow = {
+  level: number;
+  total: number;
+  practiced: number;
+  understood: number;
+  words: number;
+  wordsTotal: number;
+  grammar: number;
+  grammarTotal: number;
+};
 export type SpeedPoint = { stamp: string; kpm: number };
 /** 練過的一句：最好和最近一次的正確率、練了幾次 */
 export type PracticedClip = {
@@ -73,8 +83,15 @@ export async function getDictationStats(supabase: SupabaseClient, userId: string
   for (const id of understood)
     for (const it of levelItems(id)) heard.set(`${it.type}:${it.text}`, { type: it.type, level: it.level });
 
+  // 題庫裡所有句子出現過的單字和文法（分母）
+  const bank = new Map<string, { type: string; level: number }>();
+  for (const c of clips) for (const it of levelItems(c.id)) bank.set(`${it.type}:${it.text}`, { type: it.type, level: it.level });
+
   const levels: LevelRow[] = [1, 2, 3, 4, 5, 6].map((level) => ({
     level,
+    total: clips.filter((c) => c.level === level).length,
+    wordsTotal: [...bank.values()].filter((h) => h.level === level && h.type === "單字").length,
+    grammarTotal: [...bank.values()].filter((h) => h.level === level && h.type === "文法").length,
     practiced: [...best.keys()].filter((id) => levelOf.get(id) === level).length,
     understood: understood.filter((id) => levelOf.get(id) === level).length,
     words: [...heard.values()].filter((h) => h.level === level && h.type === "單字").length,

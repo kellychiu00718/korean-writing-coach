@@ -117,7 +117,7 @@ export function DictationProgress({ s }: { s: DictationStats }) {
         <div id="dpanel-level" className="card animate-pop">
           <h3 className="mb-1 font-bold">聽懂的級數</h3>
           <p className="mb-3 text-sm text-ink-soft">
-            長條是各級的句子練過幾句（淺綠）、聽懂（{UNDERSTOOD}% 以上）幾句（深綠）；下面另外算你聽懂的句子裡，出現過哪一級的單字和文法。級數依國立國語院的分級。
+            整條長條是題庫裡這一級的全部句子，淺綠是你練過的、深綠是其中聽懂（{UNDERSTOOD}% 以上）的。下面另外算你聽懂的句子裡，出現過幾個這一級的單字和文法（分母是題庫所有句子裡出現過的）。級數依國立國語院的分級。
           </p>
           {s.practiced ? <LevelRows s={s} /> : <Empty>練過的句子會依級數排在這裡。</Empty>}
         </div>
@@ -174,21 +174,24 @@ function PracticedList({ list }: { list: DictationStats["practicedList"] }) {
 }
 
 function LevelRows({ s }: { s: DictationStats }) {
-  const max = Math.max(1, ...s.levels.map((x) => x.practiced));
   return (
     <ul className="grid gap-3">
       {s.levels.map((l) => (
         <li key={l.level} className="grid grid-cols-[3rem_1fr] items-center gap-x-3 gap-y-1 text-sm">
           <span className="font-medium">{l.level}&nbsp;級</span>
           {/* 淺色是練過的句子，綠色是其中聽懂的 */}
-          <span className="relative h-3 rounded-full bg-cream" role="img" aria-label={`${l.level} 級：練過 ${l.practiced} 句，聽懂 ${l.understood} 句`}>
-            <span className="absolute inset-y-0 left-0 rounded-full bg-sage-soft" style={{ width: `${(l.practiced / max) * 100}%` }} />
-            <span className="absolute inset-y-0 left-0 rounded-full bg-sage" style={{ width: `${(l.understood / max) * 100}%` }} />
+          <span
+            className="relative h-3 rounded-full bg-cream"
+            role="img"
+            aria-label={`${l.level} 級：題庫 ${l.total} 句，練過 ${l.practiced} 句，聽懂 ${l.understood} 句`}
+          >
+            <span className="absolute inset-y-0 left-0 rounded-full bg-sage-soft" style={{ width: `${(l.practiced / Math.max(1, l.total)) * 100}%` }} />
+            <span className="absolute inset-y-0 left-0 rounded-full bg-sage" style={{ width: `${(l.understood / Math.max(1, l.total)) * 100}%` }} />
           </span>
           <span className="col-start-2 text-xs text-ink-soft tabular-nums">
-            {l.level}&nbsp;級的句子：聽懂 {l.understood}／練過 {l.practiced}
+            {l.level}&nbsp;級的句子：題庫 {l.total} 句，練過 {l.practiced}、聽懂 {l.understood}
             <br />
-            聽懂過的 {l.level}&nbsp;級單字 {l.words} 個、文法 {l.grammar} 個
+            聽懂過的 {l.level}&nbsp;級單字 {l.words}／{l.wordsTotal} 個、文法 {l.grammar}／{l.grammarTotal} 個
           </span>
         </li>
       ))}
