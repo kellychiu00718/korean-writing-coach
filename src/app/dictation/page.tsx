@@ -5,7 +5,7 @@ import { type Clip, clips, GENRE_LABEL, type Genre } from "@/lib/dictation";
 import { getProfile, type Interest } from "@/lib/profile";
 import { ClipCard } from "./ClipCard";
 import { DictationPicks, type PickCandidate } from "./DictationPicks";
-import { FilterMenu } from "./FilterMenu";
+import { FilterMenu } from "@/components/FilterMenu";
 import { createClient } from "@/lib/supabase/server";
 
 const GENRES: Genre[] = ["drama", "music", "news", "variety"];

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { FilterMenu } from "@/components/FilterMenu";
 import type { Round, RoundStep } from "@/lib/stats";
 
 const SORTS = [
@@ -86,41 +87,6 @@ function kstToday() {
   };
 }
 
-function Chips<T extends string>({
-  label,
-  options,
-  value,
-  onChange,
-}: {
-  label: string;
-  options: readonly { id: T; label: string; count?: number }[];
-  value: T;
-  onChange: (v: T) => void;
-}) {
-  return (
-    <div role="group" aria-label={label} className="flex flex-wrap gap-2">
-      {options.map((o) => (
-        <button
-          key={o.id}
-          type="button"
-          aria-pressed={value === o.id}
-          onClick={() => onChange(o.id)}
-          className={`min-h-9 rounded-full border-2 px-3 text-sm transition-colors ${
-            value === o.id
-              ? "border-sage-ink bg-sage-soft font-medium text-sage-ink"
-              : "border-line bg-white text-ink-soft hover:bg-cream"
-          }`}
-        >
-          {o.label}
-          {o.count !== undefined && (
-            <span className="ml-1 tabular-nums opacity-70">{o.count}</span>
-          )}
-        </button>
-      ))}
-    </div>
-  );
-}
-
 export function SentenceBook({ rounds }: { rounds: Round[] }) {
   const [sort, setSort] = useState<Sort>("date");
   const [range, setRange] = useState<DateRange>("all");
@@ -130,20 +96,20 @@ export function SentenceBook({ rounds }: { rounds: Round[] }) {
   const [tries, setTries] = useState<Tries>("all");
 
   const { today, weekStart, monthStart } = kstToday();
-  // 只套用目前這個排列方式底下的篩選，畫面上看得到的條件就是全部的條件。
   const inRange = (r: Round, id: DateRange) => {
     if (id === "today") return r.date === today;
     if (id === "week") return r.date >= weekStart;
     if (id === "month") return r.date >= monthStart;
-    // 自訂：還沒選任何日期時不算任何一題，選了才依起訖日期篩
-    if (id === "custom") return Boolean(from || to) && (!from || r.date >= from) && (!to || r.date <= to);
+    // 自訂：還沒選任何日期時不篩，選了才依起訖日期篩
+    if (id === "custom") return (!from || r.date >= from) && (!to || r.date <= to);
     return true;
   };
-  const filtered = rounds.filter((r) => {
-    if (sort === "date") return inRange(r, range);
-    if (sort === "level") return level === "all" || String(r.level) === level;
-    return tries === "all" || r.outcome === tries;
-  });
+  // 三種篩選可以疊加；每個選項旁的數字是「套用其他兩種篩選後」會剩幾題
+  const pass = (r: Round, skip?: "range" | "level" | "tries") =>
+    (skip === "range" || inRange(r, range)) &&
+    (skip === "level" || level === "all" || String(r.level) === level) &&
+    (skip === "tries" || tries === "all" || r.outcome === tries);
+  const filtered = rounds.filter((r) => pass(r));
   const sorted = [...filtered].sort((a, b) => {
     if (sort === "level")
       return a.level - b.level || b.endedAt.localeCompare(a.endedAt);
@@ -153,100 +119,95 @@ export function SentenceBook({ rounds }: { rounds: Round[] }) {
   });
   // 1～6 級都列出來，還沒練過的級數顯示 0
   const levels = [1, 2, 3, 4, 5, 6];
+  const anyFilter = range !== "all" || level !== "all" || tries !== "all";
+  function clear() {
+    setRange("all");
+    setLevel("all");
+    setTries("all");
+    setFrom("");
+    setTo("");
+  }
 
   return (
     <>
-      <div className="mb-4 grid gap-3 rounded-3xl border-2 border-line bg-white p-4">
-        <div
-          role="group"
-          aria-label="排列方式"
-          className="flex flex-wrap items-center gap-2 text-sm"
-        >
-          <span className="text-ink-soft">排列方式</span>
-          {SORTS.map((s) => (
-            <button
-              key={s.id}
-              type="button"
-              aria-pressed={sort === s.id}
-              onClick={() => setSort(s.id)}
-              className={`min-h-11 rounded-full border-2 px-4 transition-colors ${
-                sort === s.id
-                  ? "border-ink bg-sage-soft font-medium"
-                  : "border-line bg-white"
-              }`}
-            >
-              {s.label}
-            </button>
-          ))}
-        </div>
-        {sort === "date" && (
-          <>
-            <Chips
-              label="日期範圍"
-              options={DATE_RANGES.map((d) => ({
-                ...d,
-                count: rounds.filter((r) => inRange(r, d.id)).length,
-              }))}
-              value={range}
-              onChange={setRange}
-            />
-            {range === "custom" && (
-              <div className="flex flex-wrap items-center gap-2 text-sm">
-                <label className="flex items-center gap-2">
-                  從
-                  <input
-                    type="date"
-                    value={from}
-                    max={to || undefined}
-                    onChange={(e) => setFrom(e.target.value)}
-                    className="field min-h-10 w-auto py-1"
-                  />
-                </label>
-                <label className="flex items-center gap-2">
-                  到
-                  <input
-                    type="date"
-                    value={to}
-                    min={from || undefined}
-                    onChange={(e) => setTo(e.target.value)}
-                    className="field min-h-10 w-auto py-1"
-                  />
-                </label>
-              </div>
-            )}
-          </>
-        )}
-        {sort === "level" && (
-          <Chips
+      <div className="mb-4 grid gap-3">
+        {/* 跟聽打練習一樣：滑鼠移上去就展開，手機用點的 */}
+        <div className="flex flex-wrap items-center gap-2">
+          <FilterMenu
+            label="日期"
+            options={DATE_RANGES.map((d) => ({
+              key: d.id,
+              label: d.label,
+              count: d.id === "custom" ? undefined : rounds.filter((r) => inRange(r, d.id) && pass(r, "range")).length,
+              on: range === d.id,
+              onSelect: () => setRange(d.id),
+            }))}
+          />
+          <FilterMenu
             label="級數"
             options={[
-              { id: "all", label: "全部", count: rounds.length },
+              { key: "all", label: "全部", count: rounds.filter((r) => pass(r, "level")).length, on: level === "all", onSelect: () => setLevel("all") },
               ...levels.map((l) => ({
-                id: String(l),
-                label: `${l} 級`,
-                count: rounds.filter((r) => r.level === l).length,
+                key: String(l),
+                label: `${l} 級`,
+                count: rounds.filter((r) => r.level === l && pass(r, "level")).length,
+                on: level === String(l),
+                onSelect: () => setLevel(String(l)),
               })),
             ]}
-            value={level}
-            onChange={setLevel}
           />
-        )}
-        {sort === "tries" && (
-          <Chips
+          <FilterMenu
             label="第幾次寫對"
             options={TRIES.map((t) => ({
-              ...t,
-              count:
-                t.id === "all"
-                  ? rounds.length
-                  : rounds.filter((r) => r.outcome === t.id).length,
+              key: t.id,
+              label: t.label,
+              count: rounds.filter((r) => (t.id === "all" || r.outcome === t.id) && pass(r, "tries")).length,
+              on: tries === t.id,
+              onSelect: () => setTries(t.id),
             }))}
-            value={tries}
-            onChange={setTries}
           />
+          <FilterMenu
+            label="排列"
+            neutral
+            options={SORTS.map((o) => ({
+              key: o.id,
+              label: o.id === "date" ? "最新的在前" : o.id === "level" ? "級數低到高" : "第幾次寫對",
+              on: sort === o.id,
+              onSelect: () => setSort(o.id),
+            }))}
+          />
+          {anyFilter && (
+            <button type="button" onClick={clear} className="inline-flex min-h-11 items-center px-2 text-sm text-ink-soft underline">
+              清除篩選
+            </button>
+          )}
+        </div>
+        {range === "custom" && (
+          <div className="flex flex-wrap items-center gap-2 text-sm">
+            <label className="flex items-center gap-2">
+              從
+              <input
+                type="date"
+                value={from}
+                max={to || undefined}
+                onChange={(e) => setFrom(e.target.value)}
+                className="field min-h-10 w-auto py-1"
+              />
+            </label>
+            <label className="flex items-center gap-2">
+              到
+              <input
+                type="date"
+                value={to}
+                min={from || undefined}
+                onChange={(e) => setTo(e.target.value)}
+                className="field min-h-10 w-auto py-1"
+              />
+            </label>
+          </div>
         )}
         <p className="text-xs text-ink-soft" aria-live="polite">
-          共 {sorted.length} 題
+          共 {sorted.length} 題
         </p>
       </div>
       {sorted.length === 0 && (
