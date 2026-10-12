@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { BarList, GrowthChart, type BarDetail } from "@/components/charts";
+import { Pager, usePaged } from "@/components/Pager";
 import type { LearnedGrammar, Round, RoundOutcome } from "@/lib/stats";
 
 const OUTCOME_LABEL: Record<RoundOutcome, string> = {
@@ -174,8 +175,25 @@ export function ProgressDashboard(p: Props) {
         <div id="panel-solved" className="card animate-pop">
           <h3 className="mb-3 font-bold">靠自己寫對的題目</h3>
           {p.solvedRounds.length ? (
+            <SolvedList rounds={p.solvedRounds} />
+          ) : (
+            <p className="text-sm text-ink-soft">
+              還沒有靠自己寫對的題目，慢慢來就好。
+            </p>
+          )}
+        </div>
+      )}
+    </>
+  );
+}
+
+/** 靠自己寫對的題目，每頁 10 題 */
+function SolvedList({ rounds }: { rounds: Round[] }) {
+  const paged = usePaged(rounds, 10);
+  return (
+    <>
             <ul className="grid gap-2 sm:grid-cols-2">
-              {p.solvedRounds.map((r) => {
+              {paged.items.map((r) => {
                 const last = r.steps.at(-1)!;
                 return (
                   <li
@@ -207,13 +225,7 @@ export function ProgressDashboard(p: Props) {
                 );
               })}
             </ul>
-          ) : (
-            <p className="text-sm text-ink-soft">
-              還沒有靠自己寫對的題目，慢慢來就好。
-            </p>
-          )}
-        </div>
-      )}
+      <Pager page={paged.page} pages={paged.pages} onChange={paged.setPage} label="寫對的題目分頁" />
     </>
   );
 }
@@ -224,6 +236,8 @@ function Keep({ children }: { children: React.ReactNode }) {
 }
 
 function LearnedList({ learned }: { learned: LearnedGrammar[] }) {
+  // 新寫對的在前，每頁 10 項
+  const paged = usePaged([...learned].reverse(), 10);
   return (
     <details className="group mt-4 text-sm">
       <summary className="flex min-h-11 cursor-pointer list-none items-center gap-1.5 font-medium [&::-webkit-details-marker]:hidden">
@@ -244,7 +258,7 @@ function LearnedList({ learned }: { learned: LearnedGrammar[] }) {
         詳細
       </summary>
       <ul className="mt-2 grid gap-2 sm:grid-cols-2">
-        {[...learned].reverse().map((l) => (
+        {paged.items.map((l) => (
           <li
             key={l.grammarId}
             className="rounded-2xl border-2 border-line bg-white px-3.5 py-2.5"
@@ -300,6 +314,7 @@ function LearnedList({ learned }: { learned: LearnedGrammar[] }) {
           </li>
         ))}
       </ul>
+      <Pager page={paged.page} pages={paged.pages} onChange={paged.setPage} label="文法清單分頁" />
     </details>
   );
 }

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { FilterMenu } from "@/components/FilterMenu";
+import { Pager, usePaged } from "@/components/Pager";
 import type { Round, RoundStep } from "@/lib/stats";
 
 const SORTS = [
@@ -117,10 +118,14 @@ export function SentenceBook({ rounds }: { rounds: Round[] }) {
       return triesRank(a) - triesRank(b) || b.endedAt.localeCompare(a.endedAt);
     return b.endedAt.localeCompare(a.endedAt);
   });
+  // 每頁 10 題；篩選或排列改變時回到第 1 頁
+  const paged = usePaged(sorted, 10);
+  const resetPage = () => paged.setPage(1);
   // 1～6 級都列出來，還沒練過的級數顯示 0
   const levels = [1, 2, 3, 4, 5, 6];
   const anyFilter = range !== "all" || level !== "all" || tries !== "all";
   function clear() {
+    resetPage();
     setRange("all");
     setLevel("all");
     setTries("all");
@@ -140,19 +145,19 @@ export function SentenceBook({ rounds }: { rounds: Round[] }) {
               label: d.label,
               count: d.id === "custom" ? undefined : rounds.filter((r) => inRange(r, d.id) && pass(r, "range")).length,
               on: range === d.id,
-              onSelect: () => setRange(d.id),
+              onSelect: () => (resetPage(), setRange(d.id)),
             }))}
           />
           <FilterMenu
             label="級數"
             options={[
-              { key: "all", label: "全部", count: rounds.filter((r) => pass(r, "level")).length, on: level === "all", onSelect: () => setLevel("all") },
+              { key: "all", label: "全部", count: rounds.filter((r) => pass(r, "level")).length, on: level === "all", onSelect: () => (resetPage(), setLevel("all")) },
               ...levels.map((l) => ({
                 key: String(l),
                 label: `${l} 級`,
                 count: rounds.filter((r) => r.level === l && pass(r, "level")).length,
                 on: level === String(l),
-                onSelect: () => setLevel(String(l)),
+                onSelect: () => (resetPage(), setLevel(String(l))),
               })),
             ]}
           />
@@ -163,7 +168,7 @@ export function SentenceBook({ rounds }: { rounds: Round[] }) {
               label: t.label,
               count: rounds.filter((r) => (t.id === "all" || r.outcome === t.id) && pass(r, "tries")).length,
               on: tries === t.id,
-              onSelect: () => setTries(t.id),
+              onSelect: () => (resetPage(), setTries(t.id)),
             }))}
           />
           <FilterMenu
@@ -173,7 +178,7 @@ export function SentenceBook({ rounds }: { rounds: Round[] }) {
               key: o.id,
               label: o.id === "date" ? "最新的在前" : o.id === "level" ? "級數低到高" : "第幾次寫對",
               on: sort === o.id,
-              onSelect: () => setSort(o.id),
+              onSelect: () => (resetPage(), setSort(o.id)),
             }))}
           />
           {anyFilter && (
@@ -190,7 +195,7 @@ export function SentenceBook({ rounds }: { rounds: Round[] }) {
                 type="date"
                 value={from}
                 max={to || undefined}
-                onChange={(e) => setFrom(e.target.value)}
+                onChange={(e) => (resetPage(), setFrom(e.target.value))}
                 className="field min-h-10 w-auto py-1"
               />
             </label>
@@ -200,7 +205,7 @@ export function SentenceBook({ rounds }: { rounds: Round[] }) {
                 type="date"
                 value={to}
                 min={from || undefined}
-                onChange={(e) => setTo(e.target.value)}
+                onChange={(e) => (resetPage(), setTo(e.target.value))}
                 className="field min-h-10 w-auto py-1"
               />
             </label>
@@ -216,7 +221,7 @@ export function SentenceBook({ rounds }: { rounds: Round[] }) {
         </p>
       )}
       <ul className="grid gap-4 md:grid-cols-2">
-        {sorted.map((r) => {
+        {paged.items.map((r) => {
           const badge = OUTCOME_BADGE[r.outcome];
           return (
             <li
@@ -309,6 +314,7 @@ export function SentenceBook({ rounds }: { rounds: Round[] }) {
           );
         })}
       </ul>
+      <Pager page={paged.page} pages={paged.pages} onChange={paged.setPage} label="句子本分頁" />
     </>
   );
 }

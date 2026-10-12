@@ -11,36 +11,56 @@ export type GrowthEvent = { date: string; stamp: string; form: string };
 
 type Bucket = { label: string; title: string; forms: string[]; total: number };
 
+/** 圖表一次畫幾個點；資料更多時用「較早／較新」往回翻，長條不會越擠越細 */
+const WINDOW = 30;
+
+/** 從最新的一段開始，每次往回翻 WINDOW 個點 */
+function useWindow(total: number) {
+  // back：從最新往回翻了幾段
+  const [back, setBack] = useState(0);
+  const end = Math.max(0, total - back * WINDOW);
+  const start = Math.max(0, end - WINDOW);
+  return {
+    start,
+    end,
+    hasOlder: start > 0,
+    hasNewer: back > 0,
+    older: () => setBack((b) => b + 1),
+    newer: () => setBack((b) => Math.max(0, b - 1)),
+  };
+}
+
+function WindowNav({ w, total, unit }: { w: ReturnType<typeof useWindow>; total: number; unit: string }) {
+  if (total <= WINDOW) return null;
+  const btn =
+    "inline-flex min-h-9 items-center rounded-full border-2 border-line bg-white px-3 text-sm hover:bg-cream disabled:opacity-40 disabled:hover:bg-white";
+  return (
+    <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+      <button type="button" onClick={w.older} disabled={!w.hasOlder} className={btn}>
+        ← 較早
+      </button>
+      <span className="text-xs tabular-nums text-ink-soft">
+        第 {w.start + 1}–{w.end} {unit}，共 {total} {unit}
+      </span>
+      <button type="button" onClick={w.newer} disabled={!w.hasNewer} className={btn}>
+        較新 →
+      </button>
+    </div>
+  );
+}
+
 /**
  * 每個時段新寫對了幾項文法的長條圖。
  * 依時間：同一分鐘寫對的算一格；依日期：以「天」為一格。只列出有練習的時段，不畫空白的日子。
+ * 一次畫最近 30 格，更早的用「較早」往回翻。
  */
 export function GrowthChart({ events }: { events: GrowthEvent[] }) {
   const [mode, setMode] = useState<"time" | "day">("time");
-  const [active, setActive] = useState<number | null>(null);
-  // 依實際寬度畫圖，手機上文字才不會跟著縮到看不清楚。
-  const boxRef = useRef<HTMLDivElement>(null);
-  const [W, setW] = useState(560);
-  // 量提示框的高度：上方放不下時改放到長條下方，不會衝出卡片
-  const tipRef = useRef<HTMLDivElement>(null);
-  const [tipH, setTipH] = useState(0);
-  useLayoutEffect(() => {
-    if (tipRef.current) setTipH(tipRef.current.offsetHeight);
-  }, [active, mode]);
-  useEffect(() => {
-    const el = boxRef.current;
-    if (!el) return;
-    const ro = new ResizeObserver(([entry]) => setW(Math.max(160, Math.round(entry.contentRect.width))));
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, [events.length]);
   if (events.length === 0) {
     return <p className="rounded-2xl bg-cream px-4 py-6 text-center text-ink-soft">寫對第一句之後，這裡就會開始長出長條。</p>;
   }
-
   const buckets: Bucket[] = [];
   events.forEach((e, i) => {
-    // stamp 是「MM-DD HH:mm」（韓國時間）
     // stamp 是「MM-DD HH:mm」（韓國時間），同一分鐘寫對的算一格
     const key = mode === "time" ? e.stamp : e.date.slice(5);
     const title = mode === "time" ? `${e.date} ${e.stamp.slice(6)}` : e.date;
@@ -50,6 +70,26 @@ export function GrowthChart({ events }: { events: GrowthEvent[] }) {
       last.total = i + 1;
     } else buckets.push({ label: key, title, forms: [e.form], total: i + 1 });
   });
+  // 換模式時整張圖重來（回到最新的一段、清掉提示框）
+  return <GrowthBars key={mode} all={buckets} mode={mode} setMode={setMode} total={events.length} />;
+}
+
+function GrowthBars({
+  all,
+  mode,
+  setMode,
+  total,
+}: {
+  all: Bucket[];
+  mode: "time" | "day";
+  setMode: (m: "time" | "day") => void;
+  total: number;
+}) {
+  const [active, setActive] = useState<number | null>(null);
+  const [boxRef, W] = useWidth(all.length);
+  const [tipRef, tipH] = useTipHeight(active);
+  const win = useWindow(all.length);
+  const buckets = all.slice(win.start, win.end);
 
   const H = W < 420 ? 190 : 210;
   const pad = { l: 28, r: 8, t: 12, b: mode === "time" ? 42 : 30 };
@@ -79,22 +119,24 @@ export function GrowthChart({ events }: { events: GrowthEvent[] }) {
             key={id}
             type="button"
             aria-pressed={mode === id}
-            onClick={() => {
-              setMode(id);
-              setActive(null);
-            }}
+            onClick={() => setMode(id)}
             className={`min-h-9 rounded-full px-4 transition-colors ${mode === id ? "bg-white font-medium text-ink shadow-sm" : "text-ink-soft"}`}
           >
             {label}
           </button>
         ))}
       </div>
+      <WindowNav
+        w={{ ...win, older: () => (setActive(null), win.older()), newer: () => (setActive(null), win.newer()) }}
+        total={all.length}
+        unit={mode === "time" ? "個時段" : "天"}
+      />
       <div ref={boxRef} className="relative">
         <svg
           viewBox={`0 0 ${W} ${H}`}
           className="w-full"
           role="img"
-          aria-label={`每個${mode === "time" ? "時間點" : "日子"}新寫對的文法數，目前累積 ${events.length} 項`}
+          aria-label={`每個${mode === "time" ? "時間點" : "日子"}新寫對的文法數，目前累積 ${total} 項`}
           onPointerLeave={() => setActive(null)}
         >
           {ticks.map((v) => (
@@ -215,6 +257,8 @@ export function BarList({
   unit: string;
 }) {
   const [open, setOpen] = useState<string | null>(null);
+  // 點開的細項先列 6 筆，其餘按「顯示更多」
+  const [showAll, setShowAll] = useState(false);
   const baseId = useId();
   const max = Math.max(1, ...rows.map((r) => r.value));
   return (
@@ -266,7 +310,10 @@ export function BarList({
                 type="button"
                 aria-expanded={isOpen}
                 aria-controls={panelId}
-                onClick={() => setOpen(isOpen ? null : r.label)}
+                onClick={() => {
+                  setOpen(isOpen ? null : r.label);
+                  setShowAll(false);
+                }}
                 className={`${rowClass} cursor-pointer hover:bg-cream`}
               >
                 {bar}
@@ -279,7 +326,7 @@ export function BarList({
                 id={panelId}
                 className="animate-pop mt-1 mb-2 grid gap-2 sm:grid-cols-2"
               >
-                {r.items!.map((it, i) => (
+                {(showAll ? r.items! : r.items!.slice(0, 6)).map((it, i) => (
                   <li
                     key={i}
                     className="rounded-2xl border-2 border-line bg-white px-3.5 py-2.5 text-sm"
@@ -307,6 +354,15 @@ export function BarList({
                   </li>
                 ))}
               </ul>
+            )}
+            {expandable && isOpen && !showAll && r.items!.length > 6 && (
+              <button
+                type="button"
+                onClick={() => setShowAll(true)}
+                className="mb-2 ml-2 min-h-9 text-sm text-ink-soft underline underline-offset-4"
+              >
+                顯示更多（還有 {r.items!.length - 6} 筆）
+              </button>
             )}
           </li>
         );
@@ -343,9 +399,11 @@ function useTipHeight(dep: unknown) {
  * 聽力模式每天的平均正確率（0–100%）。虛線是「聽懂」的標準。
  * 只列出有練習的日子。
  */
-export function AccuracyChart({ days, goal }: { days: { date: string; count: number; avg: number }[]; goal: number }) {
+export function AccuracyChart({ days: allDays, goal }: { days: { date: string; count: number; avg: number }[]; goal: number }) {
   const [active, setActive] = useState<number | null>(null);
-  const [boxRef, W] = useWidth(days.length);
+  const [boxRef, W] = useWidth(allDays.length);
+  const win = useWindow(allDays.length);
+  const days = allDays.slice(win.start, win.end);
   const [tipRef, tipH] = useTipHeight(active);
   const H = W < 420 ? 190 : 210;
   const pad = { l: 36, r: 8, t: 12, b: 30 };
@@ -360,12 +418,17 @@ export function AccuracyChart({ days, goal }: { days: { date: string; count: num
 
   return (
     <figure>
+      <WindowNav
+        w={{ ...win, older: () => (setActive(null), win.older()), newer: () => (setActive(null), win.newer()) }}
+        total={allDays.length}
+        unit="天"
+      />
       <div ref={boxRef} className="relative">
         <svg
           viewBox={`0 0 ${W} ${H}`}
           className="w-full"
           role="img"
-          aria-label={`聽力模式每天的平均正確率，共 ${days.length} 天`}
+          aria-label={`聽力模式每天的平均正確率，共 ${allDays.length} 天`}
           onPointerLeave={() => setActive(null)}
         >
           {[0, 50, 100].map((v) => (
@@ -434,9 +497,17 @@ export function AccuracyChart({ days, goal }: { days: { date: string; count: num
  * 打字模式每一次的淨速度（只算打對的字，타／分鐘）。
  * 虛線是大韓商工會議所過去打字技能檢定的 3／2／1 級標準。
  */
-export function SpeedChart({ points, grades }: { points: { stamp: string; kpm: number }[]; grades: readonly { grade: string; min: number }[] }) {
+export function SpeedChart({
+  points: allPoints,
+  grades,
+}: {
+  points: { stamp: string; kpm: number }[];
+  grades: readonly { grade: string; min: number }[];
+}) {
   const [active, setActive] = useState<number | null>(null);
-  const [boxRef, W] = useWidth(points.length);
+  const [boxRef, W] = useWidth(allPoints.length);
+  const win = useWindow(allPoints.length);
+  const points = allPoints.slice(win.start, win.end);
   const [tipRef, tipH] = useTipHeight(active);
   const H = W < 420 ? 200 : 220;
   const pad = { l: 36, r: 40, t: 14, b: 30 };
@@ -452,12 +523,17 @@ export function SpeedChart({ points, grades }: { points: { stamp: string; kpm: n
 
   return (
     <figure>
+      <WindowNav
+        w={{ ...win, older: () => (setActive(null), win.older()), newer: () => (setActive(null), win.newer()) }}
+        total={allPoints.length}
+        unit="次"
+      />
       <div ref={boxRef} className="relative">
         <svg
           viewBox={`0 0 ${W} ${H}`}
           className="w-full"
           role="img"
-          aria-label={`打字模式每一次的速度，共 ${points.length} 次`}
+          aria-label={`打字模式每一次的速度，共 ${allPoints.length} 次`}
           onPointerLeave={() => setActive(null)}
         >
           {[0, top / 2, top].map((v) => (
