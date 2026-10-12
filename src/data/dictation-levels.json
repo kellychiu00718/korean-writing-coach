@@ -600,6 +600,196 @@
     ],
     "unknown": []
   },
+  "music-akmu-howcan-1": {
+    "level": 2,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "별",
+        "level": 2
+      },
+      {
+        "type": "單字",
+        "text": "거",
+        "level": 2
+      },
+      {
+        "type": "文法",
+        "text": "-게",
+        "level": 2
+      },
+      {
+        "type": "文法",
+        "text": "-는",
+        "level": 2
+      },
+      {
+        "type": "文法",
+        "text": "-지",
+        "level": 2
+      }
+    ],
+    "unknown": []
+  },
+  "music-akmu-howcan-2": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "비추다",
+        "level": 4
+      },
+      {
+        "type": "文法",
+        "text": "-으며",
+        "level": 4
+      }
+    ],
+    "unknown": [
+      "주마등"
+    ]
+  },
+  "music-bignaughty-hopeless-1": {
+    "level": 5,
+    "hardest": [
+      {
+        "type": "文法",
+        "text": "-었던",
+        "level": 5
+      }
+    ],
+    "unknown": [
+      "뿐"
+    ]
+  },
+  "music-bignaughty-hopeless-2": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "불행",
+        "level": 4
+      }
+    ],
+    "unknown": [
+      "지피다"
+    ]
+  },
+  "music-day6-iloved-1": {
+    "level": 2,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "잃어버리다",
+        "level": 2
+      },
+      {
+        "type": "單字",
+        "text": "모든",
+        "level": 2
+      },
+      {
+        "type": "單字",
+        "text": "의미",
+        "level": 2
+      },
+      {
+        "type": "文法",
+        "text": "-는",
+        "level": 2
+      }
+    ],
+    "unknown": []
+  },
+  "music-day6-iloved-2": {
+    "level": 3,
+    "hardest": [
+      {
+        "type": "文法",
+        "text": "아",
+        "level": 3
+      },
+      {
+        "type": "文法",
+        "text": "-어도",
+        "level": 3
+      }
+    ],
+    "unknown": [
+      "싶다"
+    ]
+  },
+  "music-day6-youmakeme-1": {
+    "level": 5,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "채",
+        "level": 5
+      },
+      {
+        "type": "文法",
+        "text": "-은 채로",
+        "level": 5
+      }
+    ],
+    "unknown": [
+      "벼랑"
+    ]
+  },
+  "music-day6-youmakeme-2": {
+    "level": 2,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "변하다",
+        "level": 2
+      },
+      {
+        "type": "單字",
+        "text": "거",
+        "level": 2
+      },
+      {
+        "type": "單字",
+        "text": "바라다",
+        "level": 2
+      },
+      {
+        "type": "單字",
+        "text": "그대로",
+        "level": 2
+      },
+      {
+        "type": "文法",
+        "text": "-을",
+        "level": 2
+      }
+    ],
+    "unknown": []
+  },
+  "music-iu-soulmate-1": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "평생",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
+  "music-iu-lovewinsall-1": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "상상력",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
   "news-kbsweb-hangul-1": {
     "level": 4,
     "hardest": [

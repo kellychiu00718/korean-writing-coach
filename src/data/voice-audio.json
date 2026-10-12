@@ -395,6 +395,66 @@
     "hash": "e2e9719f7f",
     "reason": "指定"
   },
+  "music-akmu-howcan-1": {
+    "voice": "F1",
+    "file": "/audio/clips/music-akmu-howcan-1.mp3",
+    "hash": "8186b2da4a",
+    "reason": "輪流"
+  },
+  "music-akmu-howcan-2": {
+    "voice": "M1",
+    "file": "/audio/clips/music-akmu-howcan-2.mp3",
+    "hash": "6f403ca8a9",
+    "reason": "輪流"
+  },
+  "music-bignaughty-hopeless-1": {
+    "voice": "F1",
+    "file": "/audio/clips/music-bignaughty-hopeless-1.mp3",
+    "hash": "e6563d5724",
+    "reason": "輪流"
+  },
+  "music-bignaughty-hopeless-2": {
+    "voice": "M1",
+    "file": "/audio/clips/music-bignaughty-hopeless-2.mp3",
+    "hash": "ce99049b36",
+    "reason": "輪流"
+  },
+  "music-day6-iloved-1": {
+    "voice": "M1",
+    "file": "/audio/clips/music-day6-iloved-1.mp3",
+    "hash": "ea293f00de",
+    "reason": "指定"
+  },
+  "music-day6-iloved-2": {
+    "voice": "M1",
+    "file": "/audio/clips/music-day6-iloved-2.mp3",
+    "hash": "9c456e8264",
+    "reason": "指定"
+  },
+  "music-day6-youmakeme-1": {
+    "voice": "M1",
+    "file": "/audio/clips/music-day6-youmakeme-1.mp3",
+    "hash": "c83c6afc86",
+    "reason": "指定"
+  },
+  "music-day6-youmakeme-2": {
+    "voice": "M1",
+    "file": "/audio/clips/music-day6-youmakeme-2.mp3",
+    "hash": "8e85c96a01",
+    "reason": "指定"
+  },
+  "music-iu-soulmate-1": {
+    "voice": "F1",
+    "file": "/audio/clips/music-iu-soulmate-1.mp3",
+    "hash": "4be1f9eee6",
+    "reason": "指定"
+  },
+  "music-iu-lovewinsall-1": {
+    "voice": "F1",
+    "file": "/audio/clips/music-iu-lovewinsall-1.mp3",
+    "hash": "bb46f4b7df",
+    "reason": "指定"
+  },
   "news-kbsweb-hangul-1": {
     "voice": "F1",
     "file": "/audio/clips/news-kbsweb-hangul-1.mp3",
