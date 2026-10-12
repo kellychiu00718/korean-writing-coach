@@ -31,13 +31,22 @@ export async function POST(request: Request) {
   if (!user) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   if (!adminConfigured()) return NextResponse.json({ error: "not configured" }, { status: 500 });
 
+  const admin = createAdminClient();
+  // 每人每分鐘最多記 20 次：正常練習一分鐘頂多幾句，超過的多半是程式在灌資料（資料庫空間和統計會被灌爆）
+  const { count } = await admin
+    .from("dictation_attempts")
+    .select("id", { count: "exact", head: true })
+    .eq("user_id", user.id)
+    .gte("created_at", new Date(Date.now() - 60_000).toISOString());
+  if ((count ?? 0) >= 20) return NextResponse.json({ error: "too many" }, { status: 429 });
+
   const r = compareDictation(item.text_ko, typed);
   const minutes = ms / 60000;
   // 不到 3 秒算出來的速度不準，記 0（跟畫面上的規則一樣）
   const keys = mode === "type" ? netKeystrokes(r.answerMarks) : keystrokes(typed);
   const kpm = minutes >= 0.05 ? Math.min(3000, Math.round(keys / minutes)) : 0;
 
-  const { error } = await createAdminClient().from("dictation_attempts").insert({
+  const { error } = await admin.from("dictation_attempts").insert({
     user_id: user.id,
     clip_id: clipId,
     typed,
