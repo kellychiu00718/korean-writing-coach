@@ -9,9 +9,11 @@ import { DeleteAccount } from "./DeleteAccount";
 import { DictationProgress } from "./DictationProgress";
 import { ProfileForm } from "./ProfileForm";
 import { ProgressDashboard } from "./ProgressDashboard";
+import { ProgressTabs } from "./ProgressTabs";
 import { SentenceBook } from "./SentenceBook";
 
-export default async function MePage() {
+export default async function MePage({ searchParams }: { searchParams: Promise<{ progress?: string }> }) {
+  const initialTab = (await searchParams).progress === "dictation" ? "dictation" : "workshop";
   const supabase = await createClient();
   const {
     data: { user },
@@ -35,23 +37,22 @@ export default async function MePage() {
           <h2 id="growth" className="mb-4 text-xl font-bold">
             我的進步
           </h2>
-          <ProgressDashboard
-            learned={stats.learned}
-            practiceUseCount={stats.practiceUseCount}
-            sentenceCount={stats.sentenceCount}
-            roundCount={stats.roundCount}
-            outcomes={stats.outcomes}
-            outcomeItems={stats.outcomeItems}
-            topCategories={stats.topCategories}
-            solvedRounds={stats.solvedRounds}
+          <ProgressTabs
+            initial={initialTab}
+            workshop={
+              <ProgressDashboard
+                learned={stats.learned}
+                practiceUseCount={stats.practiceUseCount}
+                sentenceCount={stats.sentenceCount}
+                roundCount={stats.roundCount}
+                outcomes={stats.outcomes}
+                outcomeItems={stats.outcomeItems}
+                topCategories={stats.topCategories}
+                solvedRounds={stats.solvedRounds}
+              />
+            }
+            dictation={<DictationProgress s={dictation} />}
           />
-        </section>
-
-        <section aria-labelledby="dictation-growth" className="mb-10">
-          <h2 id="dictation-growth" className="mb-4 text-xl font-bold">
-            聽打練習的進步
-          </h2>
-          <DictationProgress s={dictation} />
         </section>
 
         <section aria-labelledby="sentences" className="mb-10">
