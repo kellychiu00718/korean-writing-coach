@@ -130,3 +130,6 @@ export function typingGrade(netKpm: number) {
 export function netKeystrokes(marks: CharMark[]) {
   return marks.filter((m) => m.state === "ok").reduce((n, m) => n + keystrokes(m.ch), 0);
 }
+
+/** 聽力模式正確率達到這個標準，才算「聽懂」這一句（我的頁面的統計用） */
+export const UNDERSTOOD = 90;

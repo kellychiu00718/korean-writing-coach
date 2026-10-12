@@ -1,16 +1,24 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { clips, levelItems } from "@/lib/dictation";
-import { typingGrade } from "@/lib/dictation-compare";
+import { clips, GENRE_LABEL, levelItems } from "@/lib/dictation";
+import { typingGrade, UNDERSTOOD } from "@/lib/dictation-compare";
 import { kstDate, kstStamp } from "@/lib/stats";
-
-/** 正確率達到這個標準，才算「聽懂」這一句 */
-export const UNDERSTOOD = 90;
 
 type Row = { clip_id: string; accuracy: number; kpm: number; mode: string; created_at: string };
 
 export type DayAccuracy = { date: string; count: number; avg: number };
 export type LevelRow = { level: number; practiced: number; understood: number; words: number; grammar: number };
 export type SpeedPoint = { stamp: string; kpm: number };
+/** 練過的一句：最好和最近一次的正確率、練了幾次 */
+export type PracticedClip = {
+  id: string;
+  text: string;
+  genre: string;
+  level: number;
+  best: number;
+  last: number;
+  tries: number;
+  stamp: string;
+};
 
 export type DictationStats = {
   practiced: number;
@@ -23,6 +31,8 @@ export type DictationStats = {
   days: DayAccuracy[];
   levels: LevelRow[];
   speeds: SpeedPoint[];
+  /** 練過的句子，最近練的在前 */
+  practicedList: PracticedClip[];
   /** 最近 5 次打字模式的平均淨速度 */
   speedAvg: number | null;
   speedGrade: string | null;
@@ -71,6 +81,29 @@ export async function getDictationStats(supabase: SupabaseClient, userId: string
     grammar: [...heard.values()].filter((h) => h.level === level && h.type === "文法").length,
   }));
 
+  const clipById = new Map(clips.map((c) => [c.id, c]));
+  const lastRow = new Map<string, Row>();
+  const tries = new Map<string, number>();
+  for (const r of listen) {
+    lastRow.set(r.clip_id, r);
+    tries.set(r.clip_id, (tries.get(r.clip_id) ?? 0) + 1);
+  }
+  const practicedList: PracticedClip[] = [...lastRow.values()]
+    .sort((a, b) => b.created_at.localeCompare(a.created_at))
+    .map((r) => {
+      const c = clipById.get(r.clip_id)!;
+      return {
+        id: c.id,
+        text: c.text_ko,
+        genre: GENRE_LABEL[c.genre],
+        level: c.level,
+        best: best.get(c.id) ?? r.accuracy,
+        last: r.accuracy,
+        tries: tries.get(c.id) ?? 1,
+        stamp: kstStamp(r.created_at),
+      };
+    });
+
   const speedAvg = avg(typing.slice(-5).map((r) => r.kpm));
   return {
     practiced: best.size,
@@ -81,6 +114,7 @@ export async function getDictationStats(supabase: SupabaseClient, userId: string
     days: [...byDay].map(([date, xs]) => ({ date, count: xs.length, avg: avg(xs)! })),
     levels,
     speeds: typing.map((r) => ({ stamp: kstStamp(r.created_at), kpm: r.kpm })),
+    practicedList,
     speedAvg,
     speedGrade: speedAvg !== null ? typingGrade(speedAvg) : null,
   };
