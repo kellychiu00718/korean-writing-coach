@@ -220,7 +220,7 @@ function Pagination({ f, page, pages }: { f: Filters; page: number; pages: numbe
   const list = [...nums].sort((a, b) => a - b);
   const btn = "inline-flex min-h-10 min-w-10 items-center justify-center rounded-full border-2 px-3 text-sm tabular-nums";
   return (
-    <nav aria-label="分頁" className="mt-12 flex flex-wrap items-center justify-center gap-2">
+    <nav aria-label="分頁" className="mt-8 flex flex-wrap items-center justify-center gap-2">
       {page > 1 && (
         <Link href={hrefFor(f, { page: page - 1 })} className={`${btn} border-line bg-white hover:bg-cream`}>
           上一頁
