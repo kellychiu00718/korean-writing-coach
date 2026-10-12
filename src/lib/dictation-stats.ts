@@ -18,7 +18,7 @@ export type LevelRow = {
   grammarTotal: number;
 };
 export type SpeedPoint = { stamp: string; kpm: number };
-/** 練過的一句：最好和最近一次的正確率、練了幾次 */
+/** 練過的一句：最高和最近一次的正確率、練了幾次 */
 export type PracticedClip = {
   id: string;
   text: string;

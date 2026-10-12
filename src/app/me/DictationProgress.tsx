@@ -150,7 +150,7 @@ function PracticedList({ list }: { list: DictationStats["practicedList"] }) {
               <span
                 className={`rounded-full px-2 leading-5 tabular-nums ${c.best >= UNDERSTOOD ? "bg-sage-soft text-sage-ink" : "bg-hint"}`}
               >
-                最好 {c.best}%
+                最高 {c.best}%
               </span>
               <span className="ml-auto tabular-nums text-ink-soft">{c.stamp}</span>
             </div>
