@@ -4,7 +4,16 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 // 只匯入型別（打包時會被拿掉）；比對函式放在不含課程資料的檔案
 import type { Clip, DictationItem, Hardest } from "@/lib/dictation";
-import { compareDictation, formatTime, keystrokes, normalizeForCompare } from "@/lib/dictation-compare";
+import type { CharMark } from "@/lib/dictation-compare";
+import {
+  compareDictation,
+  formatTime,
+  keystrokes,
+  netKeystrokes,
+  normalizeForCompare,
+  TYPING_GRADES,
+  typingGrade,
+} from "@/lib/dictation-compare";
 import { createClient } from "@/lib/supabase/client";
 
 // 沒送出的字存在這台裝置的瀏覽器裡，跟句子工坊一樣
@@ -25,27 +34,35 @@ function saveDraft(id: string, text: string) {
   }
 }
 
-type Result = ReturnType<typeof compareDictation> & { kpm: number; typed: string };
+/** listen：聽打（練習模式）；type：看著句子打（打字模式，測打字速度） */
+export type Mode = "listen" | "type";
+
+type Result = ReturnType<typeof compareDictation> & { kpm: number; netKpm: number; typed: string };
 
 export function DictationPlayer({
   item,
   userId,
   nextId,
   lastAccuracy,
+  mode,
 }: {
   item: DictationItem;
   userId: string;
   nextId: string | null;
   lastAccuracy: number | null;
+  mode: Mode;
 }) {
+  // 打字模式的草稿分開存，切換模式時不會互相蓋掉
+  const key = mode === "type" ? `${item.id}:type` : item.id;
   const [typed, setTyped] = useState("");
   const [result, setResult] = useState<Result | null>(null);
   const startedAt = useRef<number | null>(null);
 
   useEffect(() => {
-    const saved = loadDraft(item.id);
-    if (saved) setTyped(saved);
-  }, [item.id]);
+    setResult(null);
+    setTyped(loadDraft(key));
+    startedAt.current = null;
+  }, [key]);
 
   async function check(e: React.FormEvent) {
     e.preventDefault();
@@ -55,8 +72,11 @@ export function DictationPlayer({
     const minutes = startedAt.current ? (Date.now() - startedAt.current) / 60000 : 0;
     // 打太快（不到 3 秒）時算出來的速度不準，就不顯示
     const kpm = minutes >= 0.05 ? Math.round(keystrokes(text) / minutes) : 0;
-    setResult({ ...r, kpm, typed: text });
-    saveDraft(item.id, "");
+    const netKpm = minutes >= 0.05 ? Math.round(netKeystrokes(r.answerMarks) / minutes) : 0;
+    setResult({ ...r, kpm, netKpm, typed: text });
+    saveDraft(key, "");
+    // 打字模式看得到句子，正確率不代表聽力，不寫進聽打紀錄
+    if (mode === "type") return;
     // 紀錄失敗不影響畫面
     await createClient()
       .from("dictation_attempts")
@@ -75,14 +95,14 @@ export function DictationPlayer({
 
   return (
     <div className="grid gap-5">
-      <Listener item={item} />
+      {mode === "listen" ? <Listener item={item} /> : <TypeTarget item={item} />}
 
       <section className="card grid gap-3" aria-labelledby="type-title">
         <h2 id="type-title" className="text-xl font-bold">
-          把聽到的打出來
+          {mode === "listen" ? "把聽到的打出來" : "照著上面的句子打"}
         </h2>
         {result ? (
-          <ResultView item={item} result={result} />
+          <ResultView item={item} result={result} mode={mode} />
         ) : (
           <form onSubmit={check} className="grid gap-3">
             <label htmlFor="typed" className="sr-only">
@@ -95,17 +115,21 @@ export function DictationPlayer({
               onChange={(e) => {
                 if (!startedAt.current && e.target.value) startedAt.current = Date.now();
                 setTyped(e.target.value);
-                saveDraft(item.id, e.target.value);
+                saveDraft(key, e.target.value);
               }}
               maxLength={300}
               autoComplete="off"
               spellCheck={false}
-              placeholder="들은 문장을 써 보세요"
+              placeholder={mode === "listen" ? "들은 문장을 써 보세요" : "위 문장을 그대로 써 보세요"}
               className="field text-lg"
             />
             <div className="flex flex-wrap items-center justify-between gap-3">
               <span className="text-xs text-ink-soft">
-                {lastAccuracy !== null ? `上次正確率 ${lastAccuracy}%` : "標點符號不用打，空格錯了也只會提醒、不扣分。"}
+                {mode === "type"
+                  ? "從打下第一個字開始計時，按「對答案」停止。"
+                  : lastAccuracy !== null
+                    ? `上次正確率 ${lastAccuracy}%`
+                    : "標點符號不用打，空格錯了也只會提醒、不扣分。"}
               </span>
               <button type="submit" className="btn" disabled={!typed.trim()}>
                 對答案
@@ -119,7 +143,7 @@ export function DictationPlayer({
               再試一次
             </button>
             {nextId && (
-              <Link href={`/dictation/${nextId}`} className="btn btn-ghost">
+              <Link href={`/dictation/${nextId}${mode === "type" ? "?mode=type" : ""}`} className="btn btn-ghost">
                 下一題
               </Link>
             )}
@@ -132,41 +156,54 @@ export function DictationPlayer({
   );
 }
 
-function ResultView({ item, result }: { item: DictationItem; result: Result }) {
-  const wrong = result.answerMarks.filter((m) => m.state !== "ok").length;
+function ResultView({ item, result, mode }: { item: DictationItem; result: Result; mode: Mode }) {
+  const allOk = result.answerMarks.every((m) => m.state === "ok") && result.extras.length === 0;
+  const grade = typingGrade(result.netKpm);
   return (
     <div className="animate-pop grid gap-3" role="status">
-      <div className="flex flex-wrap items-baseline gap-x-5 gap-y-1">
-        <p className="font-display text-3xl tabular-nums">
-          {result.accuracy}
-          <span className="font-sans text-base">%</span>
-          <span className="ml-1.5 font-sans text-sm text-ink-soft">正確率</span>
-        </p>
-        {result.kpm > 0 && (
-          <p className="text-sm text-ink-soft tabular-nums">每分鐘大約 {result.kpm}&nbsp;타（按鍵數）</p>
-        )}
-      </div>
+      {mode === "type" ? (
+        <div className="grid gap-1">
+          <p className="font-display text-3xl tabular-nums">
+            {result.netKpm > 0 ? result.netKpm : "—"}
+            <span className="ml-1.5 font-sans text-sm text-ink-soft">타／分鐘（只算打對的字）</span>
+          </p>
+          {result.netKpm > 0 ? (
+            <p className="text-sm">
+              {grade ? (
+                <>
+                  大約是 <b>{grade}</b> 的速度
+                </>
+              ) : (
+                <>還沒到 3 級（每分鐘 {TYPING_GRADES[2].min} 타）</>
+              )}
+              <span className="text-ink-soft">
+                ・正確率 <span className="tabular-nums">{result.accuracy}</span>%
+              </span>
+            </p>
+          ) : (
+            <p className="text-sm text-ink-soft">打得太快了，不到 3 秒算不出速度。</p>
+          )}
+          <p className="text-xs text-ink-soft">
+            分級參考大韓商工會議所過去的打字技能檢定：每分鐘 3 級 150 타、2 級 200 타、1 級 250 타（扣掉錯字）。
+          </p>
+        </div>
+      ) : (
+        <div className="flex flex-wrap items-baseline gap-x-5 gap-y-1">
+          <p className="font-display text-3xl tabular-nums">
+            {result.accuracy}
+            <span className="font-sans text-base">%</span>
+            <span className="ml-1.5 font-sans text-sm text-ink-soft">正確率</span>
+          </p>
+          {result.kpm > 0 && (
+            <p className="text-sm text-ink-soft tabular-nums">每分鐘大約 {result.kpm}&nbsp;타（按鍵數）</p>
+          )}
+        </div>
+      )}
 
       <div className="rounded-2xl border-2 border-sage px-4 py-3">
         <p className="text-xs text-ink-soft">答案</p>
         <p lang="ko" className="text-xl leading-10">
-          {withSpaces(item.text_ko, result.answerMarks).map((m, i) =>
-            m === " " ? (
-              <span key={i}> </span>
-            ) : m.state === "ok" ? (
-              <span key={i}>{m.ch}</span>
-            ) : (
-              <mark
-                key={i}
-                title={m.state === "wrong" ? `你打成「${m.typedAs}」` : "漏打了"}
-                className={`rounded px-0.5 text-ink underline decoration-2 underline-offset-4 ${
-                  m.state === "wrong" ? "bg-hint decoration-hint-line" : "bg-rose/30 decoration-rose"
-                }`}
-              >
-                {m.ch}
-              </mark>
-            ),
-          )}
+          <Marked text={item.text_ko} marks={result.answerMarks} />
         </p>
         <p className="mt-1 text-sm text-ink-soft">{item.text_zh}</p>
         {item.hardest.length > 0 && <HardestLine hardest={item.hardest} />}
@@ -174,31 +211,65 @@ function ResultView({ item, result }: { item: DictationItem; result: Result }) {
 
       <div className="rounded-2xl border-2 border-dashed border-line px-4 py-3">
         <p className="text-xs text-ink-soft">你打的</p>
-        <p lang="ko" className="text-lg">
-          {result.typed}
+        <p lang="ko" className="text-lg leading-9">
+          <Marked text={result.typed} marks={result.typedMarks} />
         </p>
       </div>
 
-      <ul className="grid gap-1 text-sm">
-        {wrong === 0 && result.extras.length === 0 ? (
-          <li className="text-sage-ink">每個字都聽對了！</li>
-        ) : (
-          <>
-            {wrong > 0 && (
-              <li>
-                <mark className="rounded bg-hint px-1">黃色</mark> 是打錯的字、<mark className="rounded bg-rose/30 px-1">粉色</mark> 是漏打的字，共 {wrong}&nbsp;個。
-              </li>
-            )}
-            {result.extras.length > 0 && (
-              <li>
-                多打了：<span lang="ko">{result.extras.join("")}</span>
-              </li>
-            )}
-          </>
-        )}
-        {result.spacingDiff > 0 && <li className="text-ink-soft">有 {result.spacingDiff}&nbsp;個地方的空格跟答案不一樣，可以對照看看。</li>}
-      </ul>
+      {allOk && <p className="text-sm text-sage-ink">{mode === "listen" ? "每個字都聽對了！" : "每個字都打對了！"}</p>}
+      {result.spacingDiff > 0 && (
+        <p className="text-sm text-ink-soft">有 {result.spacingDiff}&nbsp;個地方的空格跟答案不一樣，可以對照看看。</p>
+      )}
     </div>
+  );
+}
+
+/**
+ * 把標示套回原句（比對時不看空格和標點，顯示時放回空格）：
+ * 漏打的字用玫瑰紅圈起來；打錯和多打的字用跟句子工坊一樣的黃色螢光＋點點底線。
+ */
+function Marked({ text, marks }: { text: string; marks: CharMark[] }) {
+  return (
+    <>
+      {withSpaces(text, marks).map((m, i) =>
+        m === " " ? (
+          <span key={i}> </span>
+        ) : m.state === "ok" ? (
+          <span key={i}>{m.ch}</span>
+        ) : m.state === "missing" ? (
+          <mark
+            key={i}
+            className="mx-px inline-block rounded-full bg-transparent px-1 leading-tight text-ink ring-2 ring-rose"
+          >
+            {m.ch}
+            <span className="sr-only">（漏打）</span>
+          </mark>
+        ) : (
+          <mark
+            key={i}
+            className="rounded bg-hint px-0.5 text-ink underline decoration-hint-line decoration-dotted decoration-2 underline-offset-4"
+          >
+            {m.ch}
+            <span className="sr-only">{m.state === "extra" ? "（多打）" : "（打錯）"}</span>
+          </mark>
+        ),
+      )}
+    </>
+  );
+}
+
+/** 打字模式：把要打的句子直接顯示出來 */
+function TypeTarget({ item }: { item: DictationItem }) {
+  return (
+    <section className="card grid gap-2" aria-labelledby="target-title">
+      <h1 id="target-title" className="text-xl font-bold">
+        看著句子打打看
+      </h1>
+      <p lang="ko" className="rounded-2xl bg-cream px-4 py-5 text-xl leading-10">
+        {item.text_ko}
+      </p>
+      <p className="text-xs text-ink-soft">測的是打字速度和正確度；想練聽力請切回練習模式。</p>
+    </section>
   );
 }
 
@@ -221,11 +292,11 @@ function HardestLine({ hardest }: { hardest: Hardest[] }) {
   );
 }
 
-/** 比對時不看空格；顯示答案時把原本的空格放回去。 */
-function withSpaces(answer: string, marks: Result["answerMarks"]) {
-  const out: (Result["answerMarks"][number] | " ")[] = [];
+/** 比對時不看空格；顯示時把原本的空格放回去。 */
+function withSpaces(text: string, marks: CharMark[]) {
+  const out: (CharMark | " ")[] = [];
   let k = 0;
-  for (const ch of normalizeForCompare(answer)) {
+  for (const ch of normalizeForCompare(text)) {
     if (ch === " ") out.push(" ");
     else if (marks[k]) out.push(marks[k++]);
   }
@@ -246,6 +317,16 @@ function SourceCard({ item, revealed }: { item: DictationItem; revealed: boolean
     );
   }
   const clip = item;
+  // 影片標題可能透露台詞內容，對完答案才顯示
+  if (!revealed) {
+    return (
+      <section className="rounded-3xl border-2 border-line bg-white px-5 py-4 text-sm" aria-label="台詞來源">
+        <p className="mb-1 text-xs text-ink-soft">台詞來源</p>
+        <p className="text-ink-soft">對完答案後會顯示出處，也可以去原影片聽聽看實際的發音和語氣。</p>
+        <p className="mt-1 text-ink-soft">聲音：{voice}，不是影片原音。</p>
+      </section>
+    );
+  }
   return (
     <section className="rounded-3xl border-2 border-line bg-white px-5 py-4 text-sm" aria-label="台詞來源">
       <p className="mb-1 text-xs text-ink-soft">台詞來源</p>
@@ -256,15 +337,9 @@ function SourceCard({ item, revealed }: { item: DictationItem; revealed: boolean
       </p>
       {clip.source.note && <p className="mt-1 text-ink-soft">{clip.source.note}</p>}
       <p className="mt-1 text-ink-soft">聲音：{voice}，不是影片原音。</p>
-      {revealed ? (
-        <a href={sourceLink(clip)} target="_blank" rel="noopener" className="btn btn-ghost btn-sm mt-3">
-          {clip.start !== undefined
-            ? `去原影片聽韓國人怎麼說（${formatTime(clip.start)}）`
-            : "去原新聞聽韓國人怎麼說"}
-        </a>
-      ) : (
-        <p className="mt-2 text-xs text-ink-soft">對完答案後，可以去原影片聽聽看實際的發音和語氣。</p>
-      )}
+      <a href={sourceLink(clip)} target="_blank" rel="noopener" className="btn btn-ghost btn-sm mt-3">
+        {clip.start !== undefined ? `去原影片聽韓國人怎麼說（${formatTime(clip.start)}）` : "去原新聞聽韓國人怎麼說"}
+      </a>
       <p className="mt-2 text-xs text-ink-soft">影片版權屬於原作者，本站只引用一句台詞並附上出處，不下載、不儲存影片。</p>
     </section>
   );
@@ -375,7 +450,10 @@ function Listener({ item }: { item: DictationItem }) {
               {playing ? "播放中…" : "播放這一句"}
             </button>
             <button type="button" className="btn btn-ghost btn-sm" onClick={() => play(0.75)}>
-              放慢再聽（0.75 倍）
+              放慢（0.75 倍）
+            </button>
+            <button type="button" className="btn btn-ghost btn-sm" onClick={() => play(0.5)}>
+              再慢一點（0.5 倍）
             </button>
           </div>
           {!useFile && checked && !voice && (

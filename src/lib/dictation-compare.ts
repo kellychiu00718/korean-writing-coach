@@ -54,30 +54,39 @@ export function compareDictation(answer: string, typed: string) {
   ops.reverse();
 
   // 相鄰的「漏打＋多打」視為打錯：答案那一格顯示 wrong，使用者打的字放在 typedAs
+  // typedMarks：使用者打的每個字（不含空格）對到答案的狀態，用來在「你打的」那一行標出打錯和多打的字
   const answerMarks: (CharMark & { typedAs?: string })[] = [];
+  const typedMarks: CharMark[] = [];
   const extras: string[] = [];
   for (let k = 0; k < ops.length; k++) {
     const op = ops[k];
-    if (op.kind === "ok") answerMarks.push({ ch: op.a!, state: "ok" });
-    else if (op.kind === "del") {
+    if (op.kind === "ok") {
+      answerMarks.push({ ch: op.a!, state: "ok" });
+      typedMarks.push({ ch: op.a!, state: "ok" });
+    } else if (op.kind === "del") {
       const next = ops[k + 1];
       if (next?.kind === "ins") {
         answerMarks.push({ ch: op.a!, state: "wrong", typedAs: next.b });
+        typedMarks.push({ ch: next.b!, state: "wrong" });
         k++;
       } else answerMarks.push({ ch: op.a!, state: "missing" });
     } else {
       const next = ops[k + 1];
       if (next?.kind === "del") {
         answerMarks.push({ ch: next.a!, state: "wrong", typedAs: op.b });
+        typedMarks.push({ ch: op.b!, state: "wrong" });
         k++;
-      } else extras.push(op.b!);
+      } else {
+        extras.push(op.b!);
+        typedMarks.push({ ch: op.b!, state: "extra" });
+      }
     }
   }
 
   const correct = answerMarks.filter((m) => m.state === "ok").length;
   // 分母取答案和輸入比較長的那個，多打的字也會扣分
   const accuracy = a.length ? Math.round((correct / Math.max(a.length, b.length)) * 100) : 0;
-  return { answerMarks, extras, accuracy, spacingDiff: spacingDifferences(answer, typed) };
+  return { answerMarks, typedMarks, extras, accuracy, spacingDiff: spacingDifferences(answer, typed) };
 }
 
 /** 字都打對的前提下，比較兩句在哪幾個位置空格不一樣（只看字和字之間有沒有空格）。 */
@@ -100,4 +109,24 @@ function spacingDifferences(answer: string, typed: string) {
 /** 大約的按鍵數：韓文字拆成字母（ㄱ、ㅏ…）來數，跟韓國打字練習常用的「타수」接近。 */
 export function keystrokes(text: string) {
   return [...text.normalize("NFD")].length;
+}
+
+/**
+ * 打字速度的分級，參考大韓商工會議所過去的打字技能檢定（《韓國民族文化大百科事典》「타자수」條目）：
+ * 扣掉錯字後，10 分鐘 3 級 1,500 타、2 級 2,000 타、1 級 2,500 타，也就是每分鐘 150／200／250 타。
+ * 那是打字機時代的制度，這裡只當作參考。
+ */
+export const TYPING_GRADES = [
+  { grade: "1 級", min: 250 },
+  { grade: "2 級", min: 200 },
+  { grade: "3 級", min: 150 },
+] as const;
+
+export function typingGrade(netKpm: number) {
+  return TYPING_GRADES.find((g) => netKpm >= g.min)?.grade ?? null;
+}
+
+/** 只算打對的字的按鍵數（淨타수） */
+export function netKeystrokes(marks: CharMark[]) {
+  return marks.filter((m) => m.state === "ok").reduce((n, m) => n + keystrokes(m.ch), 0);
 }
