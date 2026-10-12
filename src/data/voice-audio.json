@@ -479,136 +479,208 @@
     "hash": "9cc2e47a63",
     "reason": "指定"
   },
-  "news-kbsweb-hangul-1": {
+  "music-bol4-bloom-1": {
     "voice": "F1",
+    "file": "/audio/clips/music-bol4-bloom-1.mp3",
+    "hash": "68339a988f",
+    "reason": "指定"
+  },
+  "music-hanroro-landing-1": {
+    "voice": "F1",
+    "file": "/audio/clips/music-hanroro-landing-1.mp3",
+    "hash": "a22ca580c1",
+    "reason": "指定"
+  },
+  "music-hanroro-landing-2": {
+    "voice": "F1",
+    "file": "/audio/clips/music-hanroro-landing-2.mp3",
+    "hash": "48a1f6c082",
+    "reason": "指定"
+  },
+  "music-hanroro-landing-3": {
+    "voice": "F1",
+    "file": "/audio/clips/music-hanroro-landing-3.mp3",
+    "hash": "75f3f5a829",
+    "reason": "指定"
+  },
+  "music-jannabi-hesitate-1": {
+    "voice": "M1",
+    "file": "/audio/clips/music-jannabi-hesitate-1.mp3",
+    "hash": "4e3d89bf9b",
+    "reason": "指定"
+  },
+  "music-jannabi-hesitate-2": {
+    "voice": "M1",
+    "file": "/audio/clips/music-jannabi-hesitate-2.mp3",
+    "hash": "044cbbcb65",
+    "reason": "指定"
+  },
+  "music-jannabi-hesitate-3": {
+    "voice": "M1",
+    "file": "/audio/clips/music-jannabi-hesitate-3.mp3",
+    "hash": "b6bcecbbe3",
+    "reason": "指定"
+  },
+  "news-kbsweb-hangul-1": {
+    "voice": "M1",
     "file": "/audio/clips/news-kbsweb-hangul-1.mp3",
-    "hash": "c5ef0cf2d3",
+    "hash": "1df2e1195a",
     "reason": "輪流"
   },
   "news-kbsweb-hangul-2": {
-    "voice": "M1",
+    "voice": "F1",
     "file": "/audio/clips/news-kbsweb-hangul-2.mp3",
-    "hash": "0b2b525b50",
+    "hash": "418fa7547a",
     "reason": "輪流"
   },
   "news-kbsweb-hangul-3": {
-    "voice": "F1",
+    "voice": "M1",
     "file": "/audio/clips/news-kbsweb-hangul-3.mp3",
-    "hash": "598575851e",
+    "hash": "1165523328",
     "reason": "輪流"
   },
   "news-kbsweb-hangul-4": {
-    "voice": "M1",
+    "voice": "F1",
     "file": "/audio/clips/news-kbsweb-hangul-4.mp3",
-    "hash": "cdf11f6917",
+    "hash": "b1fffe11e8",
     "reason": "輪流"
   },
   "news-kbsweb-conv-1": {
-    "voice": "F1",
+    "voice": "M1",
     "file": "/audio/clips/news-kbsweb-conv-1.mp3",
-    "hash": "9fd7c95ba2",
+    "hash": "319e7ebc95",
     "reason": "輪流"
   },
   "news-kbsweb-conv-2": {
-    "voice": "M1",
+    "voice": "F1",
     "file": "/audio/clips/news-kbsweb-conv-2.mp3",
-    "hash": "0fa11f633c",
+    "hash": "94c6d67b89",
     "reason": "輪流"
   },
   "news-kbsweb-milk-1": {
-    "voice": "F1",
+    "voice": "M1",
     "file": "/audio/clips/news-kbsweb-milk-1.mp3",
-    "hash": "90d614226f",
+    "hash": "c921ca8ad8",
     "reason": "輪流"
   },
   "news-kbsweb-milk-2": {
-    "voice": "M1",
+    "voice": "F1",
     "file": "/audio/clips/news-kbsweb-milk-2.mp3",
-    "hash": "ac055b76f5",
+    "hash": "9accb619c3",
     "reason": "輪流"
   },
   "news-kbsweb-elisabeth-1": {
-    "voice": "F1",
+    "voice": "M1",
     "file": "/audio/clips/news-kbsweb-elisabeth-1.mp3",
-    "hash": "b32b7ac7f6",
+    "hash": "c31fc2b5b0",
     "reason": "輪流"
   },
   "news-kbsweb-elisabeth-2": {
-    "voice": "M1",
+    "voice": "F1",
     "file": "/audio/clips/news-kbsweb-elisabeth-2.mp3",
-    "hash": "9d6b80e027",
+    "hash": "7f9d0e19dc",
     "reason": "輪流"
   },
   "news-kbsweb-elisabeth-3": {
-    "voice": "F1",
+    "voice": "M1",
     "file": "/audio/clips/news-kbsweb-elisabeth-3.mp3",
-    "hash": "b8a5f1a571",
+    "hash": "55ff129513",
     "reason": "輪流"
   },
   "news-kbsweb-kjfest-1": {
-    "voice": "M1",
+    "voice": "F1",
     "file": "/audio/clips/news-kbsweb-kjfest-1.mp3",
-    "hash": "295e3aabbc",
+    "hash": "fc0f6d19ed",
     "reason": "輪流"
   },
   "news-kbsweb-coupang-1": {
-    "voice": "F1",
+    "voice": "M1",
     "file": "/audio/clips/news-kbsweb-coupang-1.mp3",
-    "hash": "b89b3b929a",
+    "hash": "7c16724a09",
     "reason": "輪流"
   },
   "variety-youquiz-kimdonghyun-1": {
-    "voice": "M1",
+    "voice": "F1",
     "file": "/audio/clips/variety-youquiz-kimdonghyun-1.mp3",
-    "hash": "81be44187d",
+    "hash": "070824b431",
     "reason": "輪流"
   },
   "variety-daemyung-teaser1-1": {
-    "voice": "F1",
+    "voice": "M1",
     "file": "/audio/clips/variety-daemyung-teaser1-1.mp3",
-    "hash": "e2198db67f",
+    "hash": "9f487cc19c",
     "reason": "輪流"
   },
   "variety-daemyung-teaser1-2": {
-    "voice": "M1",
+    "voice": "F1",
     "file": "/audio/clips/variety-daemyung-teaser1-2.mp3",
-    "hash": "ade859f364",
+    "hash": "fe2616fb43",
     "reason": "輪流"
   },
   "variety-daemyung-1": {
-    "voice": "F1",
+    "voice": "M1",
     "file": "/audio/clips/variety-daemyung-1.mp3",
-    "hash": "d09c92016e",
+    "hash": "fcb73f2c02",
     "reason": "輪流"
   },
   "drama-doctorx-ep2-1": {
-    "voice": "M1",
+    "voice": "F1",
     "file": "/audio/clips/drama-doctorx-ep2-1.mp3",
-    "hash": "f1b1ead315",
+    "hash": "77e58c0d4f",
     "reason": "輪流"
   },
   "drama-guilty-teaser-1": {
-    "voice": "F1",
+    "voice": "M1",
     "file": "/audio/clips/drama-guilty-teaser-1.mp3",
-    "hash": "9ef270e65b",
+    "hash": "60fd88a478",
     "reason": "輪流"
   },
   "drama-lotto-ep10-1": {
-    "voice": "M1",
+    "voice": "F1",
     "file": "/audio/clips/drama-lotto-ep10-1.mp3",
-    "hash": "2b9b7ad72d",
+    "hash": "f228467a6d",
     "reason": "輪流"
   },
   "drama-lotto-ep10-2": {
-    "voice": "F1",
+    "voice": "M1",
     "file": "/audio/clips/drama-lotto-ep10-2.mp3",
-    "hash": "cfe70d781b",
+    "hash": "70aca88a28",
     "reason": "輪流"
   },
   "drama-hospital-ep1-1": {
-    "voice": "M1",
+    "voice": "F1",
     "file": "/audio/clips/drama-hospital-ep1-1.mp3",
-    "hash": "35a35b9fc4",
+    "hash": "02d4325e26",
+    "reason": "輪流"
+  },
+  "drama-100days-ep2-1": {
+    "voice": "M1",
+    "file": "/audio/clips/drama-100days-ep2-1.mp3",
+    "hash": "8e3e981fe7",
+    "reason": "輪流"
+  },
+  "drama-100days-ep2-2": {
+    "voice": "M1",
+    "file": "/audio/clips/drama-100days-ep2-2.mp3",
+    "hash": "f129f59337",
+    "reason": "指定"
+  },
+  "drama-100days-ep2-3": {
+    "voice": "F1",
+    "file": "/audio/clips/drama-100days-ep2-3.mp3",
+    "hash": "f255278a7f",
+    "reason": "指定"
+  },
+  "drama-goblin-pick-1": {
+    "voice": "F1",
+    "file": "/audio/clips/drama-goblin-pick-1.mp3",
+    "hash": "301655cf82",
+    "reason": "輪流"
+  },
+  "drama-doctorx-norok-1": {
+    "voice": "M1",
+    "file": "/audio/clips/drama-doctorx-norok-1.mp3",
+    "hash": "f3f9372a41",
     "reason": "輪流"
   },
   "variety-biseojin-leeseojin-1": {
@@ -633,6 +705,18 @@
     "voice": "M1",
     "file": "/audio/clips/variety-biseojin-preview1002-1.mp3",
     "hash": "277ff45aa7",
+    "reason": "輪流"
+  },
+  "variety-exchange4-ep18-1": {
+    "voice": "F1",
+    "file": "/audio/clips/variety-exchange4-ep18-1.mp3",
+    "hash": "0625960df2",
+    "reason": "輪流"
+  },
+  "variety-runningman-heo-1": {
+    "voice": "M1",
+    "file": "/audio/clips/variety-runningman-heo-1.mp3",
+    "hash": "14c4078cd0",
     "reason": "輪流"
   }
 }

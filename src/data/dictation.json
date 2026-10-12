@@ -807,6 +807,118 @@
     "speaker": "male"
   },
   {
+    "id": "music-bol4-bloom-1",
+    "videoId": "1uFEEzQN9dc",
+    "start": 105,
+    "end": 112,
+    "text_ko": "별들 사이에 헤엄쳐 닿는 화려하게 피어나는 꽃",
+    "text_zh": "在星星之間游過去、華麗綻放的花",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "[MV] BOL4(볼빨간사춘기) - Bloom",
+      "channel": "SUPER SOUND Bugs!",
+      "url": "https://www.youtube.com/watch?v=1uFEEzQN9dc"
+    },
+    "speaker": "female"
+  },
+  {
+    "id": "music-hanroro-landing-1",
+    "videoId": "h0KIWaUEIgQ",
+    "start": 3,
+    "end": 12,
+    "text_ko": "영원을 꿈꾸던 널 떠나보내고 슬퍼하던 날까지도 떠나보냈네",
+    "text_zh": "送走了夢想著永遠的你，連悲傷的那些日子也一起送走了",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "[MV] 한로로 (HANRORO) - 사랑하게 될 거야 (Landing in Love)",
+      "channel": "한로로 HANRORO",
+      "url": "https://www.youtube.com/watch?v=h0KIWaUEIgQ"
+    },
+    "speaker": "female"
+  },
+  {
+    "id": "music-hanroro-landing-2",
+    "videoId": "h0KIWaUEIgQ",
+    "start": 44,
+    "end": 53,
+    "text_ko": "아, 뭐가 그리 샘이 났길래 그토록 휘몰아쳤던가?",
+    "text_zh": "啊，到底是在嫉妒什麼，才會那樣狂風暴雨般席捲而來？",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "[MV] 한로로 (HANRORO) - 사랑하게 될 거야 (Landing in Love)",
+      "channel": "한로로 HANRORO",
+      "url": "https://www.youtube.com/watch?v=h0KIWaUEIgQ"
+    },
+    "speaker": "female"
+  },
+  {
+    "id": "music-hanroro-landing-3",
+    "videoId": "h0KIWaUEIgQ",
+    "start": 96,
+    "end": 104,
+    "text_ko": "깨진 조각 틈 새어 나온 눈물 터뜨려 보네",
+    "text_zh": "從碎片縫隙裡滲出來的眼淚，我試著讓它潰堤",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "[MV] 한로로 (HANRORO) - 사랑하게 될 거야 (Landing in Love)",
+      "channel": "한로로 HANRORO",
+      "url": "https://www.youtube.com/watch?v=h0KIWaUEIgQ"
+    },
+    "speaker": "female"
+  },
+  {
+    "id": "music-jannabi-hesitate-1",
+    "videoId": "t8P-zdkoeJA",
+    "start": 7,
+    "end": 20,
+    "text_ko": "나는 읽기 쉬운 마음이야. 당신도 스윽 훑고 가셔요",
+    "text_zh": "我是一顆很好讀懂的心，你也輕輕掃過一眼再走吧",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "for lovers who hesitate (주저하는 연인들을 위해)",
+      "channel": "Jannabi - Topic",
+      "url": "https://www.youtube.com/watch?v=t8P-zdkoeJA"
+    },
+    "speaker": "male"
+  },
+  {
+    "id": "music-jannabi-hesitate-2",
+    "videoId": "t8P-zdkoeJA",
+    "start": 58,
+    "end": 70,
+    "text_ko": "그러다 밤이 찾아오면 우리 둘만의 비밀을 새겨요",
+    "text_zh": "然後當夜晚來臨，我們就刻下只屬於兩個人的祕密",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "for lovers who hesitate (주저하는 연인들을 위해)",
+      "channel": "Jannabi - Topic",
+      "url": "https://www.youtube.com/watch?v=t8P-zdkoeJA"
+    },
+    "speaker": "male"
+  },
+  {
+    "id": "music-jannabi-hesitate-3",
+    "videoId": "t8P-zdkoeJA",
+    "start": 72,
+    "end": 84,
+    "text_ko": "추억할 그 밤 위에 갈피를 꽂고선 남몰래 펼쳐 보아요",
+    "text_zh": "在值得回憶的那一夜夾上書籤，再偷偷翻開來看",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "for lovers who hesitate (주저하는 연인들을 위해)",
+      "channel": "Jannabi - Topic",
+      "url": "https://www.youtube.com/watch?v=t8P-zdkoeJA"
+    },
+    "speaker": "male"
+  },
+  {
     "id": "news-kbsweb-hangul-1",
     "text_ko": "붓끝을 조심스럽게 누르고 떼자 반듯한 한글이 모습을 드러냅니다.",
     "text_zh": "筆尖小心地按下再提起，一個個端正的韓文字就出現了。",
@@ -1024,9 +1136,9 @@
     "id": "variety-daemyung-1",
     "videoId": "RdXnIcz95gs",
     "start": 3,
-    "end": 7,
-    "text_ko": "이런 땐 장사하는 게 아니라 이야기를 모으는 상점 같아, 그치?",
-    "text_zh": "這種時候感覺不像在做生意，比較像一間收集故事的小店，對吧？",
+    "end": 6,
+    "text_ko": "이런 땐 장사하는 게 아니라 이야기를 모으는 상점 같아.",
+    "text_zh": "這種時候感覺不像在做生意，比較像一間收集故事的小店。",
     "level": 0,
     "genre": "variety",
     "source": {
@@ -1111,6 +1223,82 @@
     }
   },
   {
+    "id": "drama-100days-ep2-1",
+    "videoId": "pn4_DQ8t6bg",
+    "start": 10,
+    "end": 13,
+    "text_ko": "내 지갑 안에 든 것만 돌려줘요. 그럼 모두 없었던 일로 하겠습니다.",
+    "text_zh": "只要把我皮夾裡的東西還給我，那就當作一切都沒發生過。",
+    "level": 0,
+    "genre": "drama",
+    "source": {
+      "title": "[2화 예고] 정무총감 암살 작전에 휘말린 김유정💥하나둘씩 드러나는 비밀들",
+      "channel": "tvN DRAMA",
+      "url": "https://www.youtube.com/watch?v=pn4_DQ8t6bg"
+    }
+  },
+  {
+    "id": "drama-100days-ep2-2",
+    "videoId": "pn4_DQ8t6bg",
+    "start": 24,
+    "end": 27,
+    "text_ko": "이것도 인연이라고 해야 하나?",
+    "text_zh": "這也該算是一種緣分嗎？",
+    "level": 0,
+    "genre": "drama",
+    "source": {
+      "title": "[2화 예고] 정무총감 암살 작전에 휘말린 김유정💥하나둘씩 드러나는 비밀들",
+      "channel": "tvN DRAMA",
+      "url": "https://www.youtube.com/watch?v=pn4_DQ8t6bg"
+    },
+    "speaker": "male"
+  },
+  {
+    "id": "drama-100days-ep2-3",
+    "videoId": "pn4_DQ8t6bg",
+    "start": 27,
+    "end": 30,
+    "text_ko": "우리가 다시 만날 일은 절대로 없을 거예요.",
+    "text_zh": "我們絕對不會再見面了。",
+    "level": 0,
+    "genre": "drama",
+    "source": {
+      "title": "[2화 예고] 정무총감 암살 작전에 휘말린 김유정💥하나둘씩 드러나는 비밀들",
+      "channel": "tvN DRAMA",
+      "url": "https://www.youtube.com/watch?v=pn4_DQ8t6bg"
+    },
+    "speaker": "female"
+  },
+  {
+    "id": "drama-goblin-pick-1",
+    "videoId": "iC1GghHs9R8",
+    "start": 124,
+    "text_ko": "엄만 제가 귀신 보는 게 목에 있는 점 때문이라고 생각해서 이것만 가리면 귀신 못 보겠지 하고 되게 어릴 때부터 둘둘 둘러 주셨는데 아무 소용 없었거든요.",
+    "text_zh": "我媽以為我看得到鬼是因為脖子上的痣，想說只要遮住它就看不到了，所以從我很小的時候就幫我一圈一圈圍起來，可是一點用也沒有。",
+    "level": 0,
+    "genre": "drama",
+    "source": {
+      "title": "[조물주픽/도깨비] 안이루어졌잖아요 남!친! ٩( ′ㅂ`)و ̑̑",
+      "channel": "tvN D ENT",
+      "url": "https://www.youtube.com/watch?v=iC1GghHs9R8"
+    }
+  },
+  {
+    "id": "drama-doctorx-norok-1",
+    "videoId": "yu4nIbbR868",
+    "start": 71,
+    "end": 75,
+    "text_ko": "그러니까 고루한 옛날 이론들로 그럴듯하게 갖다 붙이시는 거 아닙니까?",
+    "text_zh": "所以您不就是拿那些老掉牙的舊理論，說得頭頭是道地硬套上去嗎？",
+    "level": 0,
+    "genre": "drama",
+    "source": {
+      "title": "“노욕이 지나치다” 김지원, 백만 년 만의 수술에 신난 ‘병원장’ 김종구에게 사이다 직구♨",
+      "channel": "SBS 스브스 Drama",
+      "url": "https://www.youtube.com/watch?v=yu4nIbbR868"
+    }
+  },
+  {
     "id": "variety-biseojin-leeseojin-1",
     "videoId": "OtdJJtghknk",
     "start": 42,
@@ -1168,6 +1356,36 @@
       "title": "[10월 2일 예고] 이서진×김광규, 세대 차이로 고통받는 ‘my스타’ 리센느 수발에 진땀↘",
       "channel": "SBS Entertainment",
       "url": "https://www.youtube.com/watch?v=IrH_XlT5B4A"
+    }
+  },
+  {
+    "id": "variety-exchange4-ep18-1",
+    "videoId": "jn3KztGtJ8Y",
+    "start": 365,
+    "end": 368,
+    "text_ko": "얼마나 큰 잘못을 했길래 그러면은 그렇게 다른 사람한테 마음을 쉽게 줘?",
+    "text_zh": "我到底犯了多大的錯，你才會那麼輕易就把心交給別人？",
+    "level": 0,
+    "genre": "variety",
+    "source": {
+      "title": "[환승연애4] 풀리지 않고 계속 엉켜만 가는 매듭 | 18화 클립ㅣTVINGㅣEXchange 4",
+      "channel": "TVING 티빙",
+      "url": "https://www.youtube.com/watch?v=jn3KztGtJ8Y"
+    }
+  },
+  {
+    "id": "variety-runningman-heo-1",
+    "videoId": "gUG3Els3X7I",
+    "start": 38,
+    "end": 41,
+    "text_ko": "휴대폰을 충전을 했는데 충전이 안 됐나 봐.",
+    "text_zh": "我明明有幫手機充電，看來是沒充進去。",
+    "level": 0,
+    "genre": "variety",
+    "source": {
+      "title": "“나 몹시 피곤한 상태야” 허경환, 새벽 출발에 매니저 노쇼로 한껏 예민↗",
+      "channel": "런닝맨 - 스브스 공식 채널",
+      "url": "https://www.youtube.com/watch?v=gUG3Els3X7I"
     }
   }
 ]

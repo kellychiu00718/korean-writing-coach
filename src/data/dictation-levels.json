@@ -839,6 +839,104 @@
     ],
     "unknown": []
   },
+  "music-bol4-bloom-1": {
+    "level": 5,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "피어나다",
+        "level": 5
+      }
+    ],
+    "unknown": []
+  },
+  "music-hanroro-landing-1": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "영원",
+        "level": 4
+      },
+      {
+        "type": "單字",
+        "text": "꿈꾸다",
+        "level": 4
+      }
+    ],
+    "unknown": [
+      "떠나보내다"
+    ]
+  },
+  "music-hanroro-landing-2": {
+    "level": 6,
+    "hardest": [
+      {
+        "type": "文法",
+        "text": "-던가",
+        "level": 6
+      }
+    ],
+    "unknown": [
+      "휘몰아치다"
+    ]
+  },
+  "music-hanroro-landing-3": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "조각",
+        "level": 4
+      },
+      {
+        "type": "單字",
+        "text": "틈",
+        "level": 4
+      },
+      {
+        "type": "單字",
+        "text": "새다",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
+  "music-jannabi-hesitate-1": {
+    "level": 6,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "훑다",
+        "level": 6
+      }
+    ],
+    "unknown": [
+      "스윽"
+    ]
+  },
+  "music-jannabi-hesitate-2": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "새기다",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
+  "music-jannabi-hesitate-3": {
+    "level": 6,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "갈피",
+        "level": 6
+      }
+    ],
+    "unknown": []
+  },
   "news-kbsweb-hangul-1": {
     "level": 4,
     "hardest": [
@@ -1139,6 +1237,81 @@
     ],
     "unknown": []
   },
+  "drama-100days-ep2-1": {
+    "level": 5,
+    "hardest": [
+      {
+        "type": "文法",
+        "text": "-었던",
+        "level": 5
+      }
+    ],
+    "unknown": []
+  },
+  "drama-100days-ep2-2": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "인연",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
+  "drama-100days-ep2-3": {
+    "level": 3,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "절대로",
+        "level": 3
+      }
+    ],
+    "unknown": []
+  },
+  "drama-goblin-pick-1": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "귀신",
+        "level": 4
+      },
+      {
+        "type": "單字",
+        "text": "되게",
+        "level": 4
+      },
+      {
+        "type": "單字",
+        "text": "두르다",
+        "level": 4
+      },
+      {
+        "type": "單字",
+        "text": "소용",
+        "level": 4
+      }
+    ],
+    "unknown": [
+      "때문",
+      "둘둘"
+    ]
+  },
+  "drama-doctorx-norok-1": {
+    "level": 6,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "고루",
+        "level": 6
+      }
+    ],
+    "unknown": [
+      "그럴듯하다"
+    ]
+  },
   "variety-biseojin-leeseojin-1": {
     "level": 2,
     "hardest": [
@@ -1211,6 +1384,28 @@
         "type": "文法",
         "text": "-어 있다",
         "level": 2
+      }
+    ],
+    "unknown": []
+  },
+  "variety-exchange4-ep18-1": {
+    "level": 5,
+    "hardest": [
+      {
+        "type": "文法",
+        "text": "-길래",
+        "level": 5
+      }
+    ],
+    "unknown": []
+  },
+  "variety-runningman-heo-1": {
+    "level": 5,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "충전",
+        "level": 5
       }
     ],
     "unknown": []
