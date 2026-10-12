@@ -455,6 +455,30 @@
     "hash": "bb46f4b7df",
     "reason": "指定"
   },
+  "music-rescene-runaway-1": {
+    "voice": "F1",
+    "file": "/audio/clips/music-rescene-runaway-1.mp3",
+    "hash": "91d235d122",
+    "reason": "指定"
+  },
+  "music-rescene-loveattack-1": {
+    "voice": "F1",
+    "file": "/audio/clips/music-rescene-loveattack-1.mp3",
+    "hash": "72d3629400",
+    "reason": "指定"
+  },
+  "music-woodz-drowning-1": {
+    "voice": "M1",
+    "file": "/audio/clips/music-woodz-drowning-1.mp3",
+    "hash": "144584bc61",
+    "reason": "指定"
+  },
+  "music-woodz-drowning-2": {
+    "voice": "M1",
+    "file": "/audio/clips/music-woodz-drowning-2.mp3",
+    "hash": "9cc2e47a63",
+    "reason": "指定"
+  },
   "news-kbsweb-hangul-1": {
     "voice": "F1",
     "file": "/audio/clips/news-kbsweb-hangul-1.mp3",
@@ -591,6 +615,24 @@
     "voice": "F1",
     "file": "/audio/clips/variety-biseojin-leeseojin-1.mp3",
     "hash": "a130c056df",
+    "reason": "輪流"
+  },
+  "variety-youquiz-adhd-1": {
+    "voice": "M1",
+    "file": "/audio/clips/variety-youquiz-adhd-1.mp3",
+    "hash": "562ebb1e54",
+    "reason": "輪流"
+  },
+  "variety-youquiz-taewoo-1": {
+    "voice": "F1",
+    "file": "/audio/clips/variety-youquiz-taewoo-1.mp3",
+    "hash": "52c1b93316",
+    "reason": "輪流"
+  },
+  "variety-biseojin-preview1002-1": {
+    "voice": "M1",
+    "file": "/audio/clips/variety-biseojin-preview1002-1.mp3",
+    "hash": "277ff45aa7",
     "reason": "輪流"
   }
 }

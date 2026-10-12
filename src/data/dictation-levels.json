@@ -790,6 +790,55 @@
     ],
     "unknown": []
   },
+  "music-rescene-runaway-1": {
+    "level": 6,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "맴돌다",
+        "level": 6
+      }
+    ],
+    "unknown": []
+  },
+  "music-rescene-loveattack-1": {
+    "level": 6,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "미지",
+        "level": 6
+      },
+      {
+        "type": "單字",
+        "text": "물들이다",
+        "level": 6
+      }
+    ],
+    "unknown": []
+  },
+  "music-woodz-drowning-1": {
+    "level": 5,
+    "hardest": [
+      {
+        "type": "文法",
+        "text": "-었던",
+        "level": 5
+      }
+    ],
+    "unknown": []
+  },
+  "music-woodz-drowning-2": {
+    "level": 5,
+    "hardest": [
+      {
+        "type": "文法",
+        "text": "-었던",
+        "level": 5
+      }
+    ],
+    "unknown": []
+  },
   "news-kbsweb-hangul-1": {
     "level": 4,
     "hardest": [
@@ -1101,6 +1150,66 @@
       {
         "type": "文法",
         "text": "-는",
+        "level": 2
+      }
+    ],
+    "unknown": []
+  },
+  "variety-youquiz-adhd-1": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "文法",
+        "text": "-든지",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
+  "variety-youquiz-taewoo-1": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "박스",
+        "level": 4
+      }
+    ],
+    "unknown": [
+      "비트"
+    ]
+  },
+  "variety-biseojin-preview1002-1": {
+    "level": 2,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "벌다",
+        "level": 2
+      },
+      {
+        "type": "單字",
+        "text": "행복",
+        "level": 2
+      },
+      {
+        "type": "文法",
+        "text": "-으면",
+        "level": 2
+      },
+      {
+        "type": "文法",
+        "text": "-게",
+        "level": 2
+      },
+      {
+        "type": "文法",
+        "text": "-게 되다",
+        "level": 2
+      },
+      {
+        "type": "文法",
+        "text": "-어 있다",
         "level": 2
       }
     ],
