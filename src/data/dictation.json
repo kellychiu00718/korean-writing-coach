@@ -786,6 +786,21 @@
     }
   },
   {
+    "id": "variety-daemyung-teaser1-2",
+    "videoId": "YgMrWpyEqPA",
+    "start": 28,
+    "end": 33,
+    "text_ko": "저쯤 어딘가에 우리가 이렇게 커피를 탁 내려 주고 이러면 너무 좋겠다.",
+    "text_zh": "要是在那邊某個地方，我們像這樣幫大家沖杯咖啡，那就太好了。",
+    "level": 0,
+    "genre": "variety",
+    "source": {
+      "title": "[1차 티저] 이번엔 길따라 갑니다 | 🌅🍚맛따라 길따라 대명이따라",
+      "channel": "tvN",
+      "url": "https://www.youtube.com/watch?v=YgMrWpyEqPA"
+    }
+  },
+  {
     "id": "variety-daemyung-1",
     "videoId": "RdXnIcz95gs",
     "start": 3,
