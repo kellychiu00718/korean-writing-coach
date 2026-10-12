@@ -28,6 +28,7 @@ export default async function DictationClipPage({
     .select("accuracy")
     .eq("user_id", user.id)
     .eq("clip_id", id)
+    .eq("mode", "listen")
     .order("created_at", { ascending: false })
     .limit(1);
 
@@ -50,7 +51,7 @@ export default async function DictationClipPage({
         <nav aria-label="練習模式" className="mb-4 inline-flex rounded-full border-2 border-ink bg-white p-1 text-sm">
           {(
             [
-              ["listen", "練習模式"],
+              ["listen", "聽力模式"],
               ["type", "打字模式"],
             ] as const
           ).map(([m, label]) => (
