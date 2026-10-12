@@ -979,7 +979,8 @@
       "title": "소연 (SOYEON) '퇴사할게여 (Narr. 기안84)' Official Music Video",
       "channel": "i-dle (아이들)",
       "url": "https://www.youtube.com/watch?v=7mDDM0eBWR0"
-    }
+    },
+    "speaker": "female"
   },
   {
     "id": "music-soyeon-quit-2",
@@ -994,7 +995,8 @@
       "title": "소연 (SOYEON) '퇴사할게여 (Narr. 기안84)' Official Music Video",
       "channel": "i-dle (아이들)",
       "url": "https://www.youtube.com/watch?v=7mDDM0eBWR0"
-    }
+    },
+    "speaker": "female"
   },
   {
     "id": "music-hwasa-goodgoodbye-1",
@@ -1112,9 +1114,25 @@
     "id": "music-day6-beautiful-2",
     "videoId": "BS7tz2rAOSA",
     "start": 79,
+    "end": 96,
+    "text_ko": "예뻤어, 더 바랄 게 없는 듯한 느낌. 오직 너만이 주던 순간들",
+    "text_zh": "你好美，那種再也別無所求的感覺，只有你給得了的那些瞬間",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "DAY6 \"You Were Beautiful(예뻤어)\" M/V",
+      "channel": "JYP Entertainment",
+      "url": "https://www.youtube.com/watch?v=BS7tz2rAOSA"
+    },
+    "speaker": "male"
+  },
+  {
+    "id": "music-day6-beautiful-3",
+    "videoId": "BS7tz2rAOSA",
+    "start": 96,
     "end": 103,
-    "text_ko": "예뻤어, 더 바랄 게 없는 듯한 느낌. 오직 너만이 주던 순간들. 다 지났지만, 넌 너무 예뻤어",
-    "text_zh": "你好美，那種再也別無所求的感覺，只有你給得了的那些瞬間。雖然都過去了，但你真的好美",
+    "text_ko": "다 지났지만, 넌 너무 예뻤어",
+    "text_zh": "雖然都過去了，但你真的好美",
     "level": 0,
     "genre": "music",
     "source": {
@@ -1176,9 +1194,25 @@
     "id": "music-melomance-gift-4",
     "videoId": "vVRg-bsSTIg",
     "start": 95,
+    "end": 108,
+    "text_ko": "별생각 없이 지나치던 것들이 이제는 오 마냥 내겐 예뻐 보이고",
+    "text_zh": "以前沒多想就錯過的東西，現在在我眼裡都好美",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "Gift (선물)",
+      "channel": "MeloMance - Topic",
+      "url": "https://www.youtube.com/watch?v=vVRg-bsSTIg"
+    },
+    "speaker": "male"
+  },
+  {
+    "id": "music-melomance-gift-5",
+    "videoId": "vVRg-bsSTIg",
+    "start": 108,
     "end": 115,
-    "text_ko": "별생각 없이 지나치던 것들이 이제는 오 마냥 내겐 예뻐 보이고 내 맘을 설레게 해",
-    "text_zh": "以前沒多想就錯過的東西，現在在我眼裡都好美，讓我心動",
+    "text_ko": "내 맘을 설레게 해",
+    "text_zh": "讓我的心怦怦跳",
     "level": 0,
     "genre": "music",
     "source": {

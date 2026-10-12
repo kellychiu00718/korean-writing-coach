@@ -543,13 +543,13 @@
     "voice": "F1",
     "file": "/audio/clips/music-soyeon-quit-1.mp3",
     "hash": "7e45c61fa1",
-    "reason": "輪流"
+    "reason": "指定"
   },
   "music-soyeon-quit-2": {
-    "voice": "M1",
+    "voice": "F1",
     "file": "/audio/clips/music-soyeon-quit-2.mp3",
-    "hash": "264a27e3a2",
-    "reason": "輪流"
+    "hash": "d4b6d68580",
+    "reason": "指定"
   },
   "music-hwasa-goodgoodbye-1": {
     "voice": "F1",
@@ -596,7 +596,13 @@
   "music-day6-beautiful-2": {
     "voice": "M1",
     "file": "/audio/clips/music-day6-beautiful-2.mp3",
-    "hash": "9e6388cc3e",
+    "hash": "6796c3c73b",
+    "reason": "指定"
+  },
+  "music-day6-beautiful-3": {
+    "voice": "M1",
+    "file": "/audio/clips/music-day6-beautiful-3.mp3",
+    "hash": "e1d9a74fd7",
     "reason": "指定"
   },
   "music-melomance-gift-1": {
@@ -620,7 +626,13 @@
   "music-melomance-gift-4": {
     "voice": "M1",
     "file": "/audio/clips/music-melomance-gift-4.mp3",
-    "hash": "26f0ed448a",
+    "hash": "1e6807c7d3",
+    "reason": "指定"
+  },
+  "music-melomance-gift-5": {
+    "voice": "M1",
+    "file": "/audio/clips/music-melomance-gift-5.mp3",
+    "hash": "1093ee7e50",
     "reason": "指定"
   },
   "music-psy-whatwould-1": {

@@ -1131,6 +1131,11 @@
       "듯"
     ]
   },
+  "music-day6-beautiful-3": {
+    "level": 1,
+    "hardest": [],
+    "unknown": []
+  },
   "music-melomance-gift-1": {
     "level": 3,
     "hardest": [
@@ -1173,7 +1178,13 @@
         "type": "單字",
         "text": "마냥",
         "level": 4
-      },
+      }
+    ],
+    "unknown": []
+  },
+  "music-melomance-gift-5": {
+    "level": 4,
+    "hardest": [
       {
         "type": "單字",
         "text": "맘",
