@@ -12,14 +12,10 @@ export function startOfTodayKst() {
   return new Date(kst.getTime() - 9 * 3600_000).toISOString();
 }
 
-/** 今天已經用了幾次；讀取失敗回傳 null。 */
-export async function usedToday(supabase: SupabaseClient, userId: string) {
-  const { count, error } = await supabase
-    .from("ai_usage")
-    .select("id", { count: "exact", head: true })
-    .eq("user_id", userId)
-    .gte("created_at", startOfTodayKst());
-  return error ? null : (count ?? 0);
+/** 今天已經用了幾次；讀取失敗回傳 null。使用者看不到 ai_usage 的內容，只能透過資料庫函式查次數。 */
+export async function usedToday(supabase: SupabaseClient) {
+  const { data, error } = await supabase.rpc("ai_used_today");
+  return error ? null : Number(data ?? 0);
 }
 
 type Quota = { ok: true; remaining: number; usageId: string } | { ok: false; reason: "user" | "global" | "error" };
@@ -35,7 +31,7 @@ export async function consumeQuota(supabase: SupabaseClient): Promise<Quota> {
   return { ok: true, remaining: data.remaining, usageId: data.usage_id! };
 }
 
-/** AI 沒有成功回覆時，把剛扣的那一次還回去。 */
-export async function refundQuota(supabase: SupabaseClient, usageId: string) {
-  await supabase.rpc("refund_ai_quota", { usage: usageId });
+/** AI 沒有成功回覆時，把剛扣的那一次還回去。只有伺服器（service role）能退還，使用者自己呼叫不到。 */
+export async function refundQuota(admin: SupabaseClient, usageId: string, userId: string) {
+  await admin.rpc("refund_ai_quota_for", { usage: usageId, uid: userId });
 }

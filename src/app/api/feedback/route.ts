@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { adminConfigured, createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 
 const Body = z.object({
@@ -23,7 +24,9 @@ export async function POST(request: Request) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  const { error } = await supabase.from("feedback").insert({
+  if (!adminConfigured()) return NextResponse.json({ error: "送出失敗了，請稍後再試。" }, { status: 500 });
+  // 意見回報只能經過這裡（有格式檢查和防機器人欄位）由伺服器寫入，不能直接寫資料庫
+  const { error } = await createAdminClient().from("feedback").insert({
     user_id: user?.id ?? null,
     kind,
     message,

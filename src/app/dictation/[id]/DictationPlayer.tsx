@@ -14,7 +14,6 @@ import {
   TYPING_GRADES,
   typingGrade,
 } from "@/lib/dictation-compare";
-import { createClient } from "@/lib/supabase/client";
 
 // 沒送出的字存在這台裝置的瀏覽器裡，跟句子工坊一樣
 const draftKey = (id: string) => `draft:dictation:${id}`;
@@ -41,13 +40,11 @@ type Result = ReturnType<typeof compareDictation> & { kpm: number; netKpm: numbe
 
 export function DictationPlayer({
   item,
-  userId,
   nextId,
   lastAccuracy,
   mode,
 }: {
   item: DictationItem;
-  userId: string;
   nextId: string | null;
   lastAccuracy: number | null;
   mode: Mode;
@@ -75,19 +72,13 @@ export function DictationPlayer({
     const netKpm = minutes >= 0.05 ? Math.round(netKeystrokes(r.answerMarks) / minutes) : 0;
     setResult({ ...r, kpm, netKpm, typed: text });
     saveDraft(key, "");
-    // 打字模式記的是「只算打對的字」的速度，用 mode 跟聽力模式分開（我的頁面畫打字速度用）。
-    // 紀錄失敗不影響畫面
-    await createClient()
-      .from("dictation_attempts")
-      .insert(
-        mode === "type"
-          ? { user_id: userId, clip_id: item.id, typed: text, accuracy: r.accuracy, kpm: Math.min(netKpm, 3000), mode }
-          : { user_id: userId, clip_id: item.id, typed: text, accuracy: r.accuracy, kpm: Math.min(kpm, 3000) },
-      )
-      .then(
-        () => {},
-        () => {},
-      );
+    // 紀錄交給伺服器：正確率和速度在伺服器重新計算，使用者改不了分數。紀錄失敗不影響畫面
+    const ms = startedAt.current ? Date.now() - startedAt.current : 0;
+    await fetch("/api/dictation", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ clipId: item.id, typed: text, mode, ms: Math.min(ms, 3_600_000) }),
+    }).catch(() => {});
   }
 
   function retry() {

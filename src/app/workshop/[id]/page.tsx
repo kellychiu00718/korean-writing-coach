@@ -50,7 +50,7 @@ export default async function LessonPage({
       .order("created_at", { ascending: false })
       .limit(30),
     supabase.from("review_cards").select("prompt_index").eq("user_id", user.id).eq("grammar_id", id),
-    usedToday(supabase, user.id),
+    usedToday(supabase),
   ]);
   const remaining = used === null ? null : Math.max(0, DAILY_LIMIT - used);
   // 預先寫好的參考寫法不送到瀏覽器，次數用完時才由 /api/reference 給

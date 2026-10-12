@@ -72,7 +72,6 @@ export default async function DictationClipPage({
         <DictationPlayer
           key={mode}
           item={item}
-          userId={user.id}
           nextId={next}
           lastAccuracy={data?.[0]?.accuracy ?? null}
           mode={mode}

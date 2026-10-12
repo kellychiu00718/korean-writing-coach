@@ -7,6 +7,7 @@ import { getLesson } from "@/lib/lessons";
 import { consumeQuota, DAILY_LIMIT, refundQuota } from "@/lib/limits";
 import { promote } from "@/lib/progress";
 import { AUTO_ADD_FROM_ATTEMPT, saveReviewCard } from "@/lib/review";
+import { adminConfigured, createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 
 const Body = z.object({
@@ -34,6 +35,9 @@ export async function POST(request: Request) {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) return fail(401, "請先登入。");
+  // 寫入紀錄要用伺服器專用的連線；還沒設定好就先停，不要扣次數、也不要呼叫 AI
+  if (!adminConfigured()) return fail(500, "伺服器設定還沒完成，請稍後再試。");
+  const admin = createAdminClient();
 
   // 第幾次送出由伺服器判斷，避免直接跳到第 3 層拿答案。上一輪已經揭曉參考寫法，就開新的一輪。
   const { data: history, error: historyError } = await supabase
@@ -81,7 +85,7 @@ export async function POST(request: Request) {
     otherIds = fb.other_grammar_ids;
   } catch (error) {
     // AI 沒有成功回覆，這次不算
-    await refundQuota(supabase, quota.usageId).catch(() => {});
+    await refundQuota(admin, quota.usageId, user.id).catch(() => {});
     if (error instanceof Anthropic.AuthenticationError) return fail(500, "AI 金鑰還沒設定好。");
     if (error instanceof Anthropic.RateLimitError) return fail(503, "現在使用的人有點多，過幾秒再試一次。");
     if (error instanceof Anthropic.APIError) return fail(502, "AI 暫時沒有回應，請稍後再試。");
@@ -89,8 +93,8 @@ export async function POST(request: Request) {
     throw error;
   }
 
-  // 只存已揭曉的內容，參考寫法不會提早出現在資料庫裡。
-  const { error: insertError } = await supabase.from("attempts").insert({
+  // 只存已揭曉的內容，參考寫法不會提早出現在資料庫裡。使用者不能自己寫這張表，只能由伺服器寫。
+  const { error: insertError } = await admin.from("attempts").insert({
     user_id: user.id,
     grammar_id: grammarId,
     prompt_index: promptIndex,
@@ -120,7 +124,7 @@ export async function POST(request: Request) {
 
   let promoted: { grammarId: string; state: string }[] = [];
   try {
-    promoted = await promote(supabase, user.id, changes);
+    promoted = await promote(admin, user.id, changes);
   } catch {
     // 地圖沒更新不影響這次回饋，下次寫對會再補上。
   }
@@ -128,7 +132,7 @@ export async function POST(request: Request) {
   // 錯了兩次（第 3 次才結束這題）就自動加入複習字卡；失敗不影響這次回饋。
   let reviewCard: "auto" | null = null;
   if (revealed.level === 3 && attempt >= AUTO_ADD_FROM_ATTEMPT) {
-    const saved = await saveReviewCard(supabase, user.id, grammarId, promptIndex, "auto").catch(() => null);
+    const saved = await saveReviewCard(admin, user.id, grammarId, promptIndex, "auto").catch(() => null);
     if (saved?.ok) reviewCard = "auto";
   }
 

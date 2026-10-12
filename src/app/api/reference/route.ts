@@ -19,7 +19,7 @@ export async function POST(request: Request) {
   } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: "請先登入。" }, { status: 401 });
 
-  const used = await usedToday(supabase, user.id);
+  const used = await usedToday(supabase);
   if (used === null) return NextResponse.json({ error: "讀取紀錄時出了問題，請稍後再試。" }, { status: 500 });
   if (used < DAILY_LIMIT) return NextResponse.json({ error: "今天還可以請教練看，先自己試試看吧！" }, { status: 403 });
 
