@@ -521,10 +521,16 @@
     "hash": "cfe70d781b",
     "reason": "輪流"
   },
-  "variety-biseojin-leeseojin-1": {
+  "drama-hospital-ep1-1": {
     "voice": "M1",
+    "file": "/audio/clips/drama-hospital-ep1-1.mp3",
+    "hash": "35a35b9fc4",
+    "reason": "輪流"
+  },
+  "variety-biseojin-leeseojin-1": {
+    "voice": "F1",
     "file": "/audio/clips/variety-biseojin-leeseojin-1.mp3",
-    "hash": "2d2f67311c",
+    "hash": "a130c056df",
     "reason": "輪流"
   }
 }

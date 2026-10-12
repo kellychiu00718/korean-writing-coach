@@ -876,6 +876,21 @@
     }
   },
   {
+    "id": "drama-hospital-ep1-1",
+    "videoId": "0dEJWFZCpkg",
+    "start": 121,
+    "end": 126,
+    "text_ko": "나도 분명히 얘기했다. 밴드 할 시간이 없다.",
+    "text_zh": "我也講得很清楚了，我沒時間玩樂團。",
+    "level": 0,
+    "genre": "drama",
+    "source": {
+      "title": "'갑' 유연석을 당황하게 한 '을' 김대명의 소원♬ | 슬기로운 의사생활 Hospital Playlist EP.1",
+      "channel": "tvN",
+      "url": "https://www.youtube.com/watch?v=0dEJWFZCpkg"
+    }
+  },
+  {
     "id": "variety-biseojin-leeseojin-1",
     "videoId": "OtdJJtghknk",
     "start": 42,
