@@ -9,7 +9,7 @@ import { getProfile } from "@/lib/profile";
 import { getProgressRows } from "@/lib/progress";
 import { createClient } from "@/lib/supabase/server";
 
-const LEVELS = [3, 4];
+const LEVELS = [1, 2, 3, 4, 5, 6];
 
 export default async function WorkshopPage() {
   const supabase = await createClient();
@@ -42,6 +42,23 @@ export default async function WorkshopPage() {
           const items = grammar.filter((g) => g.level === level);
           const ready = items.filter((g) => getLesson(g.id));
           const upcoming = items.filter((g) => !getLesson(g.id));
+          // 還沒有任何課程的級數：只列標題和文法清單，標示準備中
+          if (ready.length === 0) {
+            return (
+              <section key={level} className="mb-6" aria-labelledby={`level-${level}`}>
+                <h2 id={`level-${level}`} className="mb-2 flex flex-wrap items-center gap-2 text-xl font-bold">
+                  {level} 級
+                  <span className="rounded-full bg-peach px-2.5 py-0.5 text-sm font-normal">還在準備中</span>
+                </h2>
+                <details className="rounded-3xl border-2 border-dashed border-line bg-white/60 px-5 py-3">
+                  <summary className="cursor-pointer text-sm text-ink-soft">看看這一級的 {items.length} 項文法</summary>
+                  <p lang="ko" className="mt-2 text-sm leading-8 text-ink-soft">
+                    {items.map((g) => displayForm(g.form)).join("・")}
+                  </p>
+                </details>
+              </section>
+            );
+          }
           return (
             <section key={level} className="mb-12" aria-labelledby={`level-${level}`}>
               <h2 id={`level-${level}`} className="mb-4 text-xl font-bold">
