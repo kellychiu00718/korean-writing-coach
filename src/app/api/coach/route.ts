@@ -10,6 +10,9 @@ import { AUTO_ADD_FROM_ATTEMPT, saveReviewCard } from "@/lib/review";
 import { adminConfigured, createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 
+// AI 回覆可能要等十幾秒，部署到 Vercel 時讓這支 API 最多可以跑 60 秒
+export const maxDuration = 60;
+
 const Body = z.object({
   grammarId: z.string(),
   promptIndex: z.number().int().min(0),
