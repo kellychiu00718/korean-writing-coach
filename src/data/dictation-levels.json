@@ -937,6 +937,286 @@
     ],
     "unknown": []
   },
+  "music-nerdconnection-ifihaveyou-1": {
+    "level": 3,
+    "hardest": [
+      {
+        "type": "文法",
+        "text": "-던-",
+        "level": 3
+      }
+    ],
+    "unknown": []
+  },
+  "music-nerdconnection-ifihaveyou-2": {
+    "level": 3,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "곁",
+        "level": 3
+      },
+      {
+        "type": "文法",
+        "text": "-어야",
+        "level": 3
+      },
+      {
+        "type": "文法",
+        "text": "-으면 안 되다",
+        "level": 3
+      }
+    ],
+    "unknown": []
+  },
+  "music-nerdconnection-ifihaveyou-3": {
+    "level": 5,
+    "hardest": [
+      {
+        "type": "文法",
+        "text": "-었던",
+        "level": 5
+      }
+    ],
+    "unknown": []
+  },
+  "music-soyeon-quit-1": {
+    "level": 2,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "거",
+        "level": 2
+      },
+      {
+        "type": "文法",
+        "text": "-을",
+        "level": 2
+      }
+    ],
+    "unknown": [
+      "퇴사"
+    ]
+  },
+  "music-soyeon-quit-2": {
+    "level": 5,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "청춘",
+        "level": 5
+      }
+    ],
+    "unknown": []
+  },
+  "music-hwasa-goodgoodbye-1": {
+    "level": 6,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "짓밟다",
+        "level": 6
+      }
+    ],
+    "unknown": []
+  },
+  "music-hwasa-goodgoodbye-2": {
+    "level": 2,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "거",
+        "level": 2
+      },
+      {
+        "type": "文法",
+        "text": "-게",
+        "level": 2
+      },
+      {
+        "type": "文法",
+        "text": "-을",
+        "level": 2
+      }
+    ],
+    "unknown": [
+      "우아"
+    ]
+  },
+  "music-hwasa-goodgoodbye-3": {
+    "level": 3,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "후회",
+        "level": 3
+      },
+      {
+        "type": "文法",
+        "text": "-도록",
+        "level": 3
+      }
+    ],
+    "unknown": []
+  },
+  "music-10cm-toreachyou-1": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "햇살",
+        "level": 4
+      },
+      {
+        "type": "單字",
+        "text": "퍼지다",
+        "level": 4
+      }
+    ],
+    "unknown": [
+      "따사",
+      "종소리"
+    ]
+  },
+  "music-10cm-toreachyou-2": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "뺨",
+        "level": 4
+      }
+    ],
+    "unknown": [
+      "매만지다"
+    ]
+  },
+  "music-10cm-toreachyou-3": {
+    "level": 5,
+    "hardest": [
+      {
+        "type": "文法",
+        "text": "-었던",
+        "level": 5
+      }
+    ],
+    "unknown": []
+  },
+  "music-day6-beautiful-1": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "잠들다",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
+  "music-day6-beautiful-2": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "오직",
+        "level": 4
+      },
+      {
+        "type": "文法",
+        "text": "-는 듯",
+        "level": 4
+      }
+    ],
+    "unknown": [
+      "듯"
+    ]
+  },
+  "music-melomance-gift-1": {
+    "level": 3,
+    "hardest": [
+      {
+        "type": "文法",
+        "text": "-던-",
+        "level": 3
+      }
+    ],
+    "unknown": []
+  },
+  "music-melomance-gift-2": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "설레다",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
+  "music-melomance-gift-3": {
+    "level": 3,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "커지다",
+        "level": 3
+      }
+    ],
+    "unknown": [
+      "자그마"
+    ]
+  },
+  "music-melomance-gift-4": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "마냥",
+        "level": 4
+      },
+      {
+        "type": "單字",
+        "text": "맘",
+        "level": 4
+      },
+      {
+        "type": "單字",
+        "text": "설레다",
+        "level": 4
+      }
+    ],
+    "unknown": []
+  },
+  "music-psy-whatwould-1": {
+    "level": 4,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "시절",
+        "level": 4
+      }
+    ],
+    "unknown": [
+      "웬만",
+      "독주"
+    ]
+  },
+  "music-psy-whatwould-2": {
+    "level": 2,
+    "hardest": [
+      {
+        "type": "單字",
+        "text": "그때",
+        "level": 2
+      },
+      {
+        "type": "單字",
+        "text": "줄",
+        "level": 2
+      }
+    ],
+    "unknown": []
+  },
   "news-kbsweb-hangul-1": {
     "level": 4,
     "hardest": [

@@ -919,6 +919,306 @@
     "speaker": "male"
   },
   {
+    "id": "music-nerdconnection-ifihaveyou-1",
+    "videoId": "IMWT6937uUs",
+    "start": 15,
+    "end": 28,
+    "text_ko": "날 사랑해서 떠난다며 눈물짓던 그대의 말을 믿을 수 없죠",
+    "text_zh": "你流著淚說是因為愛我才離開，這句話我沒辦法相信",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "If I have you only (My love X Nerd Connection) (그대만 있다면 (여름날 우리 X 너드커넥션 (Nerd Connection)))",
+      "channel": "Nerd Connection - Topic",
+      "url": "https://www.youtube.com/watch?v=IMWT6937uUs"
+    },
+    "speaker": "male"
+  },
+  {
+    "id": "music-nerdconnection-ifihaveyou-2",
+    "videoId": "IMWT6937uUs",
+    "start": 58,
+    "end": 70,
+    "text_ko": "이대로 내 곁에 있어야 해요. 나를 떠나면 안 돼요",
+    "text_zh": "你要就這樣留在我身邊，不可以離開我",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "If I have you only (My love X Nerd Connection) (그대만 있다면 (여름날 우리 X 너드커넥션 (Nerd Connection)))",
+      "channel": "Nerd Connection - Topic",
+      "url": "https://www.youtube.com/watch?v=IMWT6937uUs"
+    },
+    "speaker": "male"
+  },
+  {
+    "id": "music-nerdconnection-ifihaveyou-3",
+    "videoId": "IMWT6937uUs",
+    "start": 87,
+    "end": 101,
+    "text_ko": "함께 웃던 시간들을, 함께했던 약속들을 지금 또 영원히 기억하겠어요",
+    "text_zh": "那些一起笑過的時光、一起許下的約定，我現在、也會永遠記得",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "If I have you only (My love X Nerd Connection) (그대만 있다면 (여름날 우리 X 너드커넥션 (Nerd Connection)))",
+      "channel": "Nerd Connection - Topic",
+      "url": "https://www.youtube.com/watch?v=IMWT6937uUs"
+    },
+    "speaker": "male"
+  },
+  {
+    "id": "music-soyeon-quit-1",
+    "videoId": "7mDDM0eBWR0",
+    "start": 7,
+    "end": 13,
+    "text_ko": "퇴사할게요. 아쉬울 거도 없거든요",
+    "text_zh": "我要離職了，反正也沒什麼好留戀的",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "소연 (SOYEON) '퇴사할게여 (Narr. 기안84)' Official Music Video",
+      "channel": "i-dle (아이들)",
+      "url": "https://www.youtube.com/watch?v=7mDDM0eBWR0"
+    }
+  },
+  {
+    "id": "music-soyeon-quit-2",
+    "videoId": "7mDDM0eBWR0",
+    "start": 39,
+    "end": 45,
+    "text_ko": "그래, 이팔청춘 후회하면 어때요. 당장 저 문밖으로 떠나요",
+    "text_zh": "對啊，青春正好，後悔又怎樣，現在就走出那扇門吧",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "소연 (SOYEON) '퇴사할게여 (Narr. 기안84)' Official Music Video",
+      "channel": "i-dle (아이들)",
+      "url": "https://www.youtube.com/watch?v=7mDDM0eBWR0"
+    }
+  },
+  {
+    "id": "music-hwasa-goodgoodbye-1",
+    "videoId": "Qe8fa4b5xNU",
+    "start": 5,
+    "end": 13,
+    "text_ko": "나를 그냥 짓밟고 가. 괜찮아, 돌아보지 마",
+    "text_zh": "就踩過我走吧，沒關係，別回頭",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "화사 (HWASA) - 'Good Goodbye' MV",
+      "channel": "HWASA",
+      "url": "https://www.youtube.com/watch?v=Qe8fa4b5xNU"
+    },
+    "speaker": "female"
+  },
+  {
+    "id": "music-hwasa-goodgoodbye-2",
+    "videoId": "Qe8fa4b5xNU",
+    "start": 43,
+    "end": 51,
+    "text_ko": "안녕은 우릴 아프게 하지만 우아할 거야",
+    "text_zh": "道別會讓我們心痛，但會是優雅的",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "화사 (HWASA) - 'Good Goodbye' MV",
+      "channel": "HWASA",
+      "url": "https://www.youtube.com/watch?v=Qe8fa4b5xNU"
+    },
+    "speaker": "female"
+  },
+  {
+    "id": "music-hwasa-goodgoodbye-3",
+    "videoId": "Qe8fa4b5xNU",
+    "start": 53,
+    "end": 61,
+    "text_ko": "나 땅을 치고 후회하도록 넌 크게 웃어 줘",
+    "text_zh": "你就大聲笑吧，笑到讓我捶胸頓足地後悔",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "화사 (HWASA) - 'Good Goodbye' MV",
+      "channel": "HWASA",
+      "url": "https://www.youtube.com/watch?v=Qe8fa4b5xNU"
+    },
+    "speaker": "female"
+  },
+  {
+    "id": "music-10cm-toreachyou-1",
+    "videoId": "RZMp2kQObCs",
+    "start": 10,
+    "end": 16,
+    "text_ko": "따사로운 햇살 속에서 종소리가 울려 퍼지네",
+    "text_zh": "在溫暖的陽光裡，鐘聲響了開來",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "To Reach You (너에게 닿기를)",
+      "channel": "10CM - Topic",
+      "url": "https://www.youtube.com/watch?v=RZMp2kQObCs"
+    },
+    "speaker": "male"
+  },
+  {
+    "id": "music-10cm-toreachyou-2",
+    "videoId": "RZMp2kQObCs",
+    "start": 17,
+    "end": 19,
+    "text_ko": "뺨을 매만지는 바람",
+    "text_zh": "輕撫臉頰的風",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "To Reach You (너에게 닿기를)",
+      "channel": "10CM - Topic",
+      "url": "https://www.youtube.com/watch?v=RZMp2kQObCs"
+    },
+    "speaker": "male"
+  },
+  {
+    "id": "music-10cm-toreachyou-3",
+    "videoId": "RZMp2kQObCs",
+    "start": 38,
+    "end": 49,
+    "text_ko": "신이 나서 날아갈 정도로 웃었던 날도 사랑스럽고 소중하게 키울 수 있도록",
+    "text_zh": "讓那些開心到快飛起來、笑個不停的日子，也能被可愛又珍惜地好好養大",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "To Reach You (너에게 닿기를)",
+      "channel": "10CM - Topic",
+      "url": "https://www.youtube.com/watch?v=RZMp2kQObCs"
+    },
+    "speaker": "male"
+  },
+  {
+    "id": "music-day6-beautiful-1",
+    "videoId": "BS7tz2rAOSA",
+    "start": 46,
+    "end": 56,
+    "text_ko": "잠들기 전에, 또 눈 뜨자마자 말해 주던 너 생각이 나 말해 보는 거야",
+    "text_zh": "睡前、一睜開眼就對我說話的你，我想起你，所以也試著說說看",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "DAY6 \"You Were Beautiful(예뻤어)\" M/V",
+      "channel": "JYP Entertainment",
+      "url": "https://www.youtube.com/watch?v=BS7tz2rAOSA"
+    },
+    "speaker": "male"
+  },
+  {
+    "id": "music-day6-beautiful-2",
+    "videoId": "BS7tz2rAOSA",
+    "start": 79,
+    "end": 103,
+    "text_ko": "예뻤어, 더 바랄 게 없는 듯한 느낌. 오직 너만이 주던 순간들. 다 지났지만, 넌 너무 예뻤어",
+    "text_zh": "你好美，那種再也別無所求的感覺，只有你給得了的那些瞬間。雖然都過去了，但你真的好美",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "DAY6 \"You Were Beautiful(예뻤어)\" M/V",
+      "channel": "JYP Entertainment",
+      "url": "https://www.youtube.com/watch?v=BS7tz2rAOSA"
+    },
+    "speaker": "male"
+  },
+  {
+    "id": "music-melomance-gift-1",
+    "videoId": "vVRg-bsSTIg",
+    "start": 35,
+    "end": 49,
+    "text_ko": "항상 알고 있던 것들도 어딘가 새롭게 바뀐 것 같아",
+    "text_zh": "連一直都知道的事情，好像也哪裡變得不一樣了",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "Gift (선물)",
+      "channel": "MeloMance - Topic",
+      "url": "https://www.youtube.com/watch?v=vVRg-bsSTIg"
+    },
+    "speaker": "male"
+  },
+  {
+    "id": "music-melomance-gift-2",
+    "videoId": "vVRg-bsSTIg",
+    "start": 50,
+    "end": 60,
+    "text_ko": "남의 얘기 같던 설레는 일들이 내게 일어나고 있어",
+    "text_zh": "那些像是別人故事裡的心動事，正發生在我身上",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "Gift (선물)",
+      "channel": "MeloMance - Topic",
+      "url": "https://www.youtube.com/watch?v=vVRg-bsSTIg"
+    },
+    "speaker": "male"
+  },
+  {
+    "id": "music-melomance-gift-3",
+    "videoId": "vVRg-bsSTIg",
+    "start": 61,
+    "end": 73,
+    "text_ko": "나에게만 준비된 선물 같아. 자그마한 모든 게 커져만 가",
+    "text_zh": "像是只為我準備的禮物，所有小小的東西都越變越大",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "Gift (선물)",
+      "channel": "MeloMance - Topic",
+      "url": "https://www.youtube.com/watch?v=vVRg-bsSTIg"
+    },
+    "speaker": "male"
+  },
+  {
+    "id": "music-melomance-gift-4",
+    "videoId": "vVRg-bsSTIg",
+    "start": 95,
+    "end": 115,
+    "text_ko": "별생각 없이 지나치던 것들이 이제는 오 마냥 내겐 예뻐 보이고 내 맘을 설레게 해",
+    "text_zh": "以前沒多想就錯過的東西，現在在我眼裡都好美，讓我心動",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "Gift (선물)",
+      "channel": "MeloMance - Topic",
+      "url": "https://www.youtube.com/watch?v=vVRg-bsSTIg"
+    },
+    "speaker": "male"
+  },
+  {
+    "id": "music-psy-whatwould-1",
+    "videoId": "iT267zwmFBw",
+    "start": 36,
+    "end": 42,
+    "text_ko": "그 시절 우리의 도수는 거의 웬만한 독주보다 높았어",
+    "text_zh": "那時候我們的濃度，幾乎比一般的烈酒還高",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "어땠을까 (What Would Have Been) ft. 박정현",
+      "channel": "Psy - Topic",
+      "url": "https://www.youtube.com/watch?v=iT267zwmFBw"
+    }
+  },
+  {
+    "id": "music-psy-whatwould-2",
+    "videoId": "iT267zwmFBw",
+    "start": 53,
+    "end": 64,
+    "text_ko": "왜 그랬을까. 그땐 사랑이 뭔지 몰랐어. 사랑이 사랑인 줄 몰랐어",
+    "text_zh": "為什麼會那樣呢？那時不知道愛是什麼，不知道那就是愛",
+    "level": 0,
+    "genre": "music",
+    "source": {
+      "title": "어땠을까 (What Would Have Been) ft. 박정현",
+      "channel": "Psy - Topic",
+      "url": "https://www.youtube.com/watch?v=iT267zwmFBw"
+    }
+  },
+  {
     "id": "news-kbsweb-hangul-1",
     "text_ko": "붓끝을 조심스럽게 누르고 떼자 반듯한 한글이 모습을 드러냅니다.",
     "text_zh": "筆尖小心地按下再提起，一個個端正的韓文字就出現了。",
@@ -1281,7 +1581,8 @@
       "title": "[조물주픽/도깨비] 안이루어졌잖아요 남!친! ٩( ′ㅂ`)و ̑̑",
       "channel": "tvN D ENT",
       "url": "https://www.youtube.com/watch?v=iC1GghHs9R8"
-    }
+    },
+    "end": 135
   },
   {
     "id": "drama-doctorx-norok-1",
