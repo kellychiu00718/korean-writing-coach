@@ -55,7 +55,12 @@ export type VoiceItem = {
 
 export type DictationItem = Clip | VoiceItem;
 
-const levels = levelData as Record<string, { level: number; hardest: Hardest[] }>;
+const levels = levelData as Record<string, { level: number; hardest: Hardest[]; items?: Hardest[] }>;
+
+/** 句子裡所有查得到級數的單字和文法（只給伺服器算統計用，不放進傳到瀏覽器的題目資料） */
+export function levelItems(id: string): Hardest[] {
+  return levels[id]?.items ?? [];
+}
 
 const allClips: Clip[] = (clipData as Omit<Clip, "kind" | "audio" | "hardest">[])
   .filter((c) => c.text_ko.trim())

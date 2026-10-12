@@ -314,3 +314,209 @@ export function BarList({
     </ul>
   );
 }
+
+/** 量容器寬度，依實際寬度畫圖（手機上字才不會縮到看不清楚） */
+function useWidth(dep: unknown) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [w, setW] = useState(560);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const ro = new ResizeObserver(([entry]) => setW(Math.max(160, Math.round(entry.contentRect.width))));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [dep]);
+  return [ref, w] as const;
+}
+
+/** 提示框的高度：上方放不下時改放到下方 */
+function useTipHeight(dep: unknown) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [h, setH] = useState(0);
+  useLayoutEffect(() => {
+    if (ref.current) setH(ref.current.offsetHeight);
+  }, [dep]);
+  return [ref, h] as const;
+}
+
+/**
+ * 聽力模式每天的平均正確率（0–100%）。虛線是「聽懂」的標準。
+ * 只列出有練習的日子。
+ */
+export function AccuracyChart({ days, goal }: { days: { date: string; count: number; avg: number }[]; goal: number }) {
+  const [active, setActive] = useState<number | null>(null);
+  const [boxRef, W] = useWidth(days.length);
+  const [tipRef, tipH] = useTipHeight(active);
+  const H = W < 420 ? 190 : 210;
+  const pad = { l: 36, r: 8, t: 12, b: 30 };
+  const plotW = W - pad.l - pad.r;
+  const slot = plotW / Math.max(1, days.length);
+  const barW = Math.min(40, Math.max(6, slot - 8));
+  const x = (i: number) => pad.l + slot * i + (slot - barW) / 2;
+  const y = (v: number) => pad.t + (1 - v / 100) * (H - pad.t - pad.b);
+  const base = y(0);
+  const every = Math.ceil(days.length / Math.max(1, Math.floor(plotW / 48)));
+  const tip = active !== null ? days[active] : null;
+
+  return (
+    <figure>
+      <div ref={boxRef} className="relative">
+        <svg
+          viewBox={`0 0 ${W} ${H}`}
+          className="w-full"
+          role="img"
+          aria-label={`聽力模式每天的平均正確率，共 ${days.length} 天`}
+          onPointerLeave={() => setActive(null)}
+        >
+          {[0, 50, 100].map((v) => (
+            <g key={v}>
+              <line x1={pad.l} x2={W - pad.r} y1={y(v)} y2={y(v)} stroke="#F0D9C6" />
+              <text x={pad.l - 8} y={y(v) + 4} textAnchor="end" fontSize="11" fill="#6E5157">
+                {v}%
+              </text>
+            </g>
+          ))}
+          {days.map((d, i) => {
+            const top = y(d.avg);
+            const r = Math.min(4, barW / 2, Math.max(0, base - top));
+            return (
+              <g
+                key={d.date}
+                tabIndex={0}
+                role="button"
+                aria-label={`${d.date}：練了 ${d.count} 次，平均正確率 ${d.avg}%`}
+                onPointerEnter={() => setActive(i)}
+                onFocus={() => setActive(i)}
+                onBlur={() => setActive(null)}
+                onClick={() => setActive(i)}
+                className="cursor-pointer outline-none"
+              >
+                <rect x={pad.l + slot * i} y={pad.t} width={slot} height={base - pad.t} fill="transparent" />
+                <path
+                  d={`M${x(i)},${base} V${top + r} q0,${-r} ${r},${-r} H${x(i) + barW - r} q${r},0 ${r},${r} V${base} Z`}
+                  fill={active === i ? BAR_ACTIVE : BAR}
+                />
+                {i % every === 0 && (
+                  <text x={x(i) + barW / 2} y={base + 18} textAnchor="middle" fontSize="12" fill="#6E5157">
+                    {d.date.slice(5)}
+                  </text>
+                )}
+              </g>
+            );
+          })}
+          {/* 聽懂的標準線 */}
+          <line x1={pad.l} x2={W - pad.r} y1={y(goal)} y2={y(goal)} stroke="#4A3036" strokeOpacity="0.5" strokeDasharray="4 4" />
+          <text x={W - pad.r} y={y(goal) - 5} textAnchor="end" fontSize="11" fill="#6E5157">
+            聽懂 {goal}%
+          </text>
+          <line x1={pad.l} x2={W - pad.r} y1={base} y2={base} stroke="#4A3036" strokeOpacity="0.35" />
+        </svg>
+        {tip && active !== null && (
+          <div
+            ref={tipRef}
+            role="status"
+            className="pointer-events-none absolute z-10 w-max rounded-2xl border-2 border-ink bg-white px-3 py-2 text-sm shadow-md"
+            style={tipPosition(x(active) + barW / 2, y(tip.avg), W, tipH)}
+          >
+            <p className="text-xs tabular-nums text-ink-soft">{tip.date}</p>
+            <p className="whitespace-nowrap">
+              平均 <b className="tabular-nums">{tip.avg}%</b>・練了 <span className="tabular-nums">{tip.count}</span> 次
+            </p>
+          </div>
+        )}
+      </div>
+      <figcaption className="mt-1 text-sm text-ink-soft">每一條是那一天聽力模式的平均正確率，虛線是「聽懂」的標準。</figcaption>
+    </figure>
+  );
+}
+
+/**
+ * 打字模式每一次的淨速度（只算打對的字，타／分鐘）。
+ * 虛線是大韓商工會議所過去打字技能檢定的 3／2／1 級標準。
+ */
+export function SpeedChart({ points, grades }: { points: { stamp: string; kpm: number }[]; grades: readonly { grade: string; min: number }[] }) {
+  const [active, setActive] = useState<number | null>(null);
+  const [boxRef, W] = useWidth(points.length);
+  const [tipRef, tipH] = useTipHeight(active);
+  const H = W < 420 ? 200 : 220;
+  const pad = { l: 36, r: 40, t: 14, b: 30 };
+  const plotW = W - pad.l - pad.r;
+  const top = Math.max(300, Math.ceil((Math.max(...points.map((p) => p.kpm)) * 1.1) / 50) * 50);
+  const slot = plotW / Math.max(1, points.length);
+  const x = (i: number) => pad.l + slot * i + slot / 2;
+  const y = (v: number) => pad.t + (1 - v / top) * (H - pad.t - pad.b);
+  const base = y(0);
+  const every = Math.ceil(points.length / Math.max(1, Math.floor(plotW / 56)));
+  const tip = active !== null ? points[active] : null;
+  const path = points.map((p, i) => `${i ? "L" : "M"}${x(i)},${y(p.kpm)}`).join(" ");
+
+  return (
+    <figure>
+      <div ref={boxRef} className="relative">
+        <svg
+          viewBox={`0 0 ${W} ${H}`}
+          className="w-full"
+          role="img"
+          aria-label={`打字模式每一次的速度，共 ${points.length} 次`}
+          onPointerLeave={() => setActive(null)}
+        >
+          {[0, top / 2, top].map((v) => (
+            <g key={v}>
+              <line x1={pad.l} x2={W - pad.r} y1={y(v)} y2={y(v)} stroke="#F0D9C6" />
+              <text x={pad.l - 8} y={y(v) + 4} textAnchor="end" fontSize="11" fill="#6E5157">
+                {v}
+              </text>
+            </g>
+          ))}
+          {grades.map((g) => (
+            <g key={g.grade}>
+              <line x1={pad.l} x2={W - pad.r} y1={y(g.min)} y2={y(g.min)} stroke="#4A3036" strokeOpacity="0.45" strokeDasharray="4 4" />
+              <text x={W - pad.r + 4} y={y(g.min) + 4} fontSize="11" fill="#6E5157">
+                {g.grade}
+              </text>
+            </g>
+          ))}
+          <line x1={pad.l} x2={W - pad.r} y1={base} y2={base} stroke="#4A3036" strokeOpacity="0.35" />
+          {points.length > 1 && <path d={path} fill="none" stroke={BAR} strokeWidth="2" strokeLinejoin="round" />}
+          {points.map((p, i) => (
+            <g
+              key={i}
+              tabIndex={0}
+              role="button"
+              aria-label={`${p.stamp}：每分鐘 ${p.kpm} 타`}
+              onPointerEnter={() => setActive(i)}
+              onFocus={() => setActive(i)}
+              onBlur={() => setActive(null)}
+              onClick={() => setActive(i)}
+              className="cursor-pointer outline-none"
+            >
+              <rect x={pad.l + slot * i} y={pad.t} width={slot} height={base - pad.t} fill="transparent" />
+              <circle cx={x(i)} cy={y(p.kpm)} r={active === i ? 6 : 4} fill={active === i ? BAR_ACTIVE : BAR} stroke="#FFF8F1" strokeWidth="2" />
+              {i % every === 0 && (
+                <text x={x(i)} y={base + 18} textAnchor="middle" fontSize="12" fill="#6E5157">
+                  {p.stamp.slice(0, 5)}
+                </text>
+              )}
+            </g>
+          ))}
+        </svg>
+        {tip && active !== null && (
+          <div
+            ref={tipRef}
+            role="status"
+            className="pointer-events-none absolute z-10 w-max rounded-2xl border-2 border-ink bg-white px-3 py-2 text-sm shadow-md"
+            style={tipPosition(x(active), y(tip.kpm), W, tipH)}
+          >
+            <p className="text-xs tabular-nums text-ink-soft">{tip.stamp}</p>
+            <p className="whitespace-nowrap">
+              每分鐘 <b className="tabular-nums">{tip.kpm}</b> 타
+            </p>
+          </div>
+        )}
+      </div>
+      <figcaption className="mt-1 text-sm text-ink-soft">
+        每一點是一次打字模式的速度（只算打對的字）。虛線參考大韓商工會議所過去的打字技能檢定：每分鐘 150／200／250 타是 3／2／1 級。
+      </figcaption>
+    </figure>
+  );
+}

@@ -2,9 +2,11 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { AppHeader } from "@/components/AppHeader";
 import { getProfile } from "@/lib/profile";
+import { getDictationStats } from "@/lib/dictation-stats";
 import { getStats } from "@/lib/stats";
 import { createClient } from "@/lib/supabase/server";
 import { DeleteAccount } from "./DeleteAccount";
+import { DictationProgress } from "./DictationProgress";
 import { ProfileForm } from "./ProfileForm";
 import { ProgressDashboard } from "./ProgressDashboard";
 import { SentenceBook } from "./SentenceBook";
@@ -17,7 +19,7 @@ export default async function MePage() {
   if (!user) redirect("/login?next=/me");
 
   const profile = getProfile(user);
-  const stats = await getStats(supabase, user.id);
+  const [stats, dictation] = await Promise.all([getStats(supabase, user.id), getDictationStats(supabase, user.id)]);
 
   return (
     <>
@@ -43,6 +45,13 @@ export default async function MePage() {
             topCategories={stats.topCategories}
             solvedRounds={stats.solvedRounds}
           />
+        </section>
+
+        <section aria-labelledby="dictation-growth" className="mb-10">
+          <h2 id="dictation-growth" className="mb-4 text-xl font-bold">
+            聽打練習的進步
+          </h2>
+          <DictationProgress s={dictation} />
         </section>
 
         <section aria-labelledby="sentences" className="mb-10">

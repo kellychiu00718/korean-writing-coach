@@ -128,7 +128,9 @@ def _estimate_tokens(tokens):
     items = [("單字", k, v) for k, v in words.items()] + [("文法", k, v) for k, v in gram.items()]
     level = max((v for _, _, v in items), default=1)
     hardest = [{"type": t, "text": k, "level": v} for t, k, v in items if v == level and v >= 2]
-    return {"level": level, "hardest": hardest, "unknown": unknown}
+    # 句子裡所有查得到級數的單字和文法（我的頁面算「聽懂過的單字和文法」用）
+    all_items = [{"type": t, "text": k, "level": v} for t, k, v in items]
+    return {"level": level, "hardest": hardest, "items": all_items, "unknown": unknown}
 
 
 def main():
