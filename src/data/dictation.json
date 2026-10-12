@@ -771,6 +771,21 @@
     }
   },
   {
+    "id": "variety-daemyung-teaser1-1",
+    "videoId": "YgMrWpyEqPA",
+    "start": 24,
+    "end": 27,
+    "text_ko": "이렇게 걸어서 도착하면 배고프겠다.",
+    "text_zh": "這樣一路走過來，到的時候應該會很餓吧。",
+    "level": 0,
+    "genre": "variety",
+    "source": {
+      "title": "[1차 티저] 이번엔 길따라 갑니다 | 🌅🍚맛따라 길따라 대명이따라",
+      "channel": "tvN",
+      "url": "https://www.youtube.com/watch?v=YgMrWpyEqPA"
+    }
+  },
+  {
     "id": "variety-daemyung-1",
     "videoId": "RdXnIcz95gs",
     "start": 3,

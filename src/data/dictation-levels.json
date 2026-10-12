@@ -798,6 +798,24 @@
     ],
     "unknown": []
   },
+  "variety-daemyung-teaser1-1": {
+    "level": 2,
+    "hardest": [
+      {
+        "type": "文法",
+        "text": "-으면",
+        "level": 2
+      },
+      {
+        "type": "文法",
+        "text": "-다가",
+        "level": 2
+      }
+    ],
+    "unknown": [
+      "이렇게"
+    ]
+  },
   "variety-daemyung-1": {
     "level": 4,
     "hardest": [
