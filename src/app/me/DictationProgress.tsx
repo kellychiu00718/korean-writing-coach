@@ -181,12 +181,12 @@ function LevelRows({ s }: { s: DictationStats }) {
           <span className="font-medium">{l.level}&nbsp;級</span>
           {/* 淺色是練過的句子，綠色是其中聽懂的 */}
           <span
-            className="relative h-3 rounded-full bg-cream"
+            className="relative h-3 overflow-hidden rounded-full bg-cream"
             role="img"
             aria-label={`${l.level} 級：題庫 ${l.total} 句，練過 ${l.practiced} 句，聽懂 ${l.understood} 句`}
           >
-            <span className="absolute inset-y-0 left-0 rounded-full bg-sage-soft" style={{ width: `${(l.practiced / Math.max(1, l.total)) * 100}%` }} />
-            <span className="absolute inset-y-0 left-0 rounded-full bg-sage" style={{ width: `${(l.understood / Math.max(1, l.total)) * 100}%` }} />
+            <span className="absolute inset-y-0 left-0 rounded-full bg-sage-soft" style={{ width: pct(l.practiced, l.total) }} />
+            <span className="absolute inset-y-0 left-0 rounded-full bg-sage" style={{ width: pct(l.understood, l.total) }} />
           </span>
           <span className="col-start-2 text-xs text-ink-soft tabular-nums">
             {l.level}&nbsp;級的句子：題庫 {l.total} 句，練過 {l.practiced}、聽懂 {l.understood}
@@ -197,6 +197,11 @@ function LevelRows({ s }: { s: DictationStats }) {
       ))}
     </ul>
   );
+}
+
+/** 長條寬度：限制在 0–100%，資料異常（例如題庫減少）時也不會畫出框外 */
+function pct(value: number, total: number) {
+  return `${Math.min(100, Math.max(0, (value / Math.max(1, total)) * 100))}%`;
 }
 
 function Empty({ children }: { children: React.ReactNode }) {

@@ -270,11 +270,11 @@ export function BarList({
         const bar = (
           <>
             <span className="truncate text-left">{r.label}</span>
-            <span className="h-3 rounded-full bg-cream">
+            <span className="h-3 overflow-hidden rounded-full bg-cream">
               <span
                 className="block h-3 rounded-full"
                 style={{
-                  width: `${(r.value / max) * 100}%`,
+                  width: `${Math.min(100, Math.max(0, (r.value / max) * 100))}%`,
                   minWidth: r.value ? 6 : 0,
                   background: BAR,
                 }}
