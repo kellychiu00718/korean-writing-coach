@@ -78,7 +78,7 @@ export function LoginForm({ next }: { next?: string }) {
     e.preventDefault();
     const token = code.replace(/\s/g, "");
     if (!/^\d{8}$/.test(token)) {
-      setCodeError("驗證碼是信裡的 6 位數字，再確認一下？");
+      setCodeError("驗證碼是信裡的 8 位數字，再確認一下？");
       return;
     }
     setBusy(true);
@@ -117,7 +117,7 @@ export function LoginForm({ next }: { next?: string }) {
               maxLength={8}
               value={code}
               onChange={(e) => setCode(e.target.value)}
-              placeholder="6 位數字"
+              placeholder="8 位數字"
               aria-invalid={codeError ? true : undefined}
               aria-describedby={codeError ? "otp-error" : undefined}
               className="field min-w-0 flex-1 tracking-[0.3em] tabular-nums placeholder:tracking-normal"
