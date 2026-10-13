@@ -77,7 +77,7 @@ export function LoginForm({ next }: { next?: string }) {
   async function verify(e: React.FormEvent) {
     e.preventDefault();
     const token = code.replace(/\s/g, "");
-    if (!/^\d{6,8}$/.test(token)) {
+    if (!/^\d{8}$/.test(token)) {
       setCodeError("驗證碼是信裡的 6 位數字，再確認一下？");
       return;
     }
