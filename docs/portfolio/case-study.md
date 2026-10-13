@@ -4,7 +4,7 @@
 > The AI coach gives hints instead of answers, so learners think before they get help.
 
 **Role:** Product owner, UX designer, content curator, and QA. Implementation was done with an AI coding agent (Claude Code) under my direction: I wrote the requirements, made every product decision, reviewed each change in the browser, and ran the verification.
-**Timeline:** First commit on Oct 9, 2026; 77 commits in the first 4 days.
+**Timeline:** First commit on Oct 9, 2026; 81 commits in the first 5 days (Oct 9–13).
 **Status:** Feature-complete MVP, security-reviewed, preparing a closed beta (not yet public).
 **Stack:** Next.js 15 · Supabase (Postgres + Auth + RLS) · Anthropic Claude API · Supertonic TTS · Kiwi (Korean morphological analyzer) · Python data scripts.
 
@@ -43,7 +43,7 @@ Principles that guided every decision:
 
 ```mermaid
 flowchart TD
-    L[Landing page] --> A[Login: magic link or 6-digit code]
+    L[Landing page] --> A[Login: magic link or 8-digit code]
     A --> W[Welcome: nickname + interests]
     W --> WS
     subgraph App
