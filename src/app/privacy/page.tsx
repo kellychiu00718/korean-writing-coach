@@ -22,6 +22,12 @@ const COLLECTED = [
   { item: "登入狀態（cookie）", why: "讓你不用每次都重新登入", keep: "登出或過期後失效" },
 ];
 
+// 表格在手機上改成一列一張卡片（欄位名稱寫在每個值上面），不用左右滑
+const ROW = "block border-t border-line px-4 py-3 align-top first:border-t-0 sm:table-row sm:p-0 sm:first:border-t";
+const FIRST_CELL = "block pb-1 font-medium sm:table-cell sm:px-4 sm:py-2 sm:font-normal";
+const CELL =
+  "block py-1 before:block before:text-xs before:text-ink-soft before:content-[attr(data-label)] sm:table-cell sm:px-4 sm:py-2 sm:before:content-none";
+
 const PROCESSORS = [
   {
     name: "Supabase Inc.",
@@ -81,8 +87,8 @@ export default function PrivacyPage() {
         <section>
           <h2 className="mb-2 text-xl font-bold">2. 收集哪些資料、為什麼、保存多久</h2>
           <div className="overflow-x-auto rounded-2xl border-2 border-line bg-white">
-            <table className="w-full min-w-[560px] text-left text-sm">
-              <thead className="bg-cream">
+            <table className="w-full text-left text-sm sm:min-w-[560px]">
+              <thead className="hidden bg-cream sm:table-header-group">
                 <tr>
                   <th className="px-4 py-2 font-medium">資料</th>
                   <th className="px-4 py-2 font-medium">用途</th>
@@ -91,10 +97,14 @@ export default function PrivacyPage() {
               </thead>
               <tbody>
                 {COLLECTED.map((r) => (
-                  <tr key={r.item} className="border-t border-line align-top">
-                    <td className="px-4 py-2">{r.item}</td>
-                    <td className="px-4 py-2">{r.why}</td>
-                    <td className="px-4 py-2">{r.keep}</td>
+                  <tr key={r.item} className={ROW}>
+                    <td className={FIRST_CELL}>{r.item}</td>
+                    <td className={CELL} data-label="用途">
+                      {r.why}
+                    </td>
+                    <td className={CELL} data-label="保存期間">
+                      {r.keep}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -111,8 +121,8 @@ export default function PrivacyPage() {
             資料只用在第 2 點寫的用途，使用期間就是表格裡的保存期間。除了下面這些代為處理的服務，以及法律要求的情況以外，我們不會把你的資料提供給其他人。這些服務位在台灣以外的地區，所以資料會被傳送到國外處理：
           </p>
           <div className="overflow-x-auto rounded-2xl border-2 border-line bg-white">
-            <table className="w-full min-w-[560px] text-left text-sm">
-              <thead className="bg-cream">
+            <table className="w-full text-left text-sm sm:min-w-[560px]">
+              <thead className="hidden bg-cream sm:table-header-group">
                 <tr>
                   <th className="px-4 py-2 font-medium">服務</th>
                   <th className="px-4 py-2 font-medium">處理內容</th>
@@ -122,11 +132,17 @@ export default function PrivacyPage() {
               </thead>
               <tbody>
                 {PROCESSORS.map((p) => (
-                  <tr key={p.name} className="border-t border-line align-top">
-                    <td className="px-4 py-2">{p.name}</td>
-                    <td className="px-4 py-2">{p.task}</td>
-                    <td className="px-4 py-2">{p.where}</td>
-                    <td className="px-4 py-2">{p.data}</td>
+                  <tr key={p.name} className={ROW}>
+                    <td className={FIRST_CELL}>{p.name}</td>
+                    <td className={CELL} data-label="處理內容">
+                      {p.task}
+                    </td>
+                    <td className={CELL} data-label="所在地">
+                      {p.where}
+                    </td>
+                    <td className={CELL} data-label="傳送的資料">
+                      {p.data}
+                    </td>
                   </tr>
                 ))}
               </tbody>
