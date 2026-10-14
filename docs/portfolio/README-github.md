@@ -71,7 +71,6 @@ python scripts/generate_voice_audio.py   # synthesize audio for new sentences
 ## Project docs
 
 - Product case study: [`docs/portfolio/case-study.md`](docs/portfolio/case-study.md)
-- Security review: [`docs/security-review-2026-10-12.md`](docs/security-review-2026-10-12.md)
 
 ---
 
