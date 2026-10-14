@@ -45,3 +45,9 @@ public/mascot-options.html
 
 # 產生語音檔用的 Python 環境
 .venv-tts/
+
+# 本機雜檔
+.Rhistory
+__pycache__/
+*.pyc
+.playwright-mcp/

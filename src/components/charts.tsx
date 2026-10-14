@@ -135,7 +135,7 @@ function GrowthBars({
         <svg
           viewBox={`0 0 ${W} ${H}`}
           className="w-full"
-          role="img"
+          role="group"
           aria-label={`每個${mode === "time" ? "時間點" : "日子"}新寫對的文法數，目前累積 ${total} 項`}
           onPointerLeave={() => setActive(null)}
         >
@@ -427,7 +427,7 @@ export function AccuracyChart({ days: allDays, goal }: { days: { date: string; c
         <svg
           viewBox={`0 0 ${W} ${H}`}
           className="w-full"
-          role="img"
+          role="group"
           aria-label={`聽力模式每天的平均正確率，共 ${allDays.length} 天`}
           onPointerLeave={() => setActive(null)}
         >
@@ -532,7 +532,7 @@ export function SpeedChart({
         <svg
           viewBox={`0 0 ${W} ${H}`}
           className="w-full"
-          role="img"
+          role="group"
           aria-label={`打字模式每一次的速度，共 ${allPoints.length} 次`}
           onPointerLeave={() => setActive(null)}
         >

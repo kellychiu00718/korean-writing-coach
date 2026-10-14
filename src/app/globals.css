@@ -88,9 +88,12 @@ p {
     @apply inline-flex items-center justify-center gap-2 rounded-full border-2 border-ink bg-rose px-6 py-3 font-bold text-ink transition-transform duration-100;
     box-shadow: 0 4px 0 var(--color-ink);
   }
-  .btn:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 0 var(--color-ink);
+  /* 只在有滑鼠的裝置浮起來；手機點完不會一直卡在浮起的樣子 */
+  @media (hover: hover) and (pointer: fine) {
+    .btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 0 var(--color-ink);
+    }
   }
   .btn:active:not(:disabled) {
     transform: translateY(3px);
