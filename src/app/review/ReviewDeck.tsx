@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { WordHints } from "@/components/WordHints";
 
 export type Card = {
   id: number;
@@ -11,6 +12,7 @@ export type Card = {
   form: string;
   level: number;
   situation: string;
+  words?: { ko: string; zh: string }[];
   mine: string;
   reference: string;
   note: string | null;
@@ -96,7 +98,10 @@ export function ReviewDeck({ cards: initial }: { cards: Card[] }) {
                   {c.revisions > 0 && `・修改 ${c.revisions} 次`}
                 </span>
               </div>
-              <p className="text-lg">{c.situation}</p>
+              <div>
+                <p className="text-lg">{c.situation}</p>
+                <WordHints words={c.words} className="mt-2" />
+              </div>
 
               <div id={`card-back-${c.id}`} hidden={!open} className="grid gap-2">
                 <div className="rounded-2xl border-2 border-dashed border-line px-4 py-2">

@@ -21,6 +21,8 @@ export type Lesson = {
     situation_zh: string;
     /** 預先寫好的一種寫法：只有當天 AI 次數用完、使用者主動要看時才給 */
     reference_ko: string;
+    /** 比這課級數高、或詞表沒有的單字，直接顯示在情境下面 */
+    words?: { ko: string; zh: string }[];
   }[];
   reviewed: boolean;
 };

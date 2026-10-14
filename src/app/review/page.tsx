@@ -40,6 +40,7 @@ export default async function ReviewPage() {
       level: g?.level ?? 0,
       // 題目文字改過的話用最新版，找不到才用加入時存下的那份
       situation: getLesson(r.grammar_id)?.prompts[r.prompt_index]?.situation_zh ?? r.situation_zh,
+      words: getLesson(r.grammar_id)?.prompts[r.prompt_index]?.words,
       mine: r.my_sentence,
       reference: r.reference_ko,
       note: r.note_zh,

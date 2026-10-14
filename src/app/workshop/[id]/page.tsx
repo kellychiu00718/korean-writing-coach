@@ -54,7 +54,7 @@ export default async function LessonPage({
   ]);
   const remaining = used === null ? null : Math.max(0, DAILY_LIMIT - used);
   // 預先寫好的參考寫法不送到瀏覽器，次數用完時才由 /api/reference 給
-  const prompts = lesson.prompts.map(({ scene, situation_zh }) => ({ scene, situation_zh }));
+  const prompts = lesson.prompts.map(({ scene, situation_zh, words }) => ({ scene, situation_zh, words }));
   const cardPrompts = (cardRows ?? []).map((r) => r.prompt_index as number);
 
   const openRounds: Record<number, RoundEntry[]> = {};

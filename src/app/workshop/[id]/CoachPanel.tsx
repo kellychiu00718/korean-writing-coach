@@ -4,12 +4,13 @@ import { useEffect, useId, useState } from "react";
 import type { RevealedFeedback } from "@/lib/coach";
 import { displayForm, getGrammar, STATE_LABEL, type Lesson, type ProgressState } from "@/lib/grammar";
 import { CoachWaiting } from "./CoachWaiting";
+import { WordHints } from "@/components/WordHints";
 
 export type RoundEntry = { attempt: number; sentence: string; feedback: RevealedFeedback };
 
 type Props = {
   grammarId: string;
-  prompts: Pick<Lesson["prompts"][number], "scene" | "situation_zh">[];
+  prompts: Pick<Lesson["prompts"][number], "scene" | "situation_zh" | "words">[];
   openRounds: Record<number, RoundEntry[]>;
   initialPrompt?: number;
   /** 已經在複習字卡裡的情境 */
@@ -191,6 +192,7 @@ export function CoachPanel({ grammarId, prompts, openRounds, initialPrompt = 0, 
       <p className="mb-4 rounded-2xl bg-cream px-4 py-3">
         <span className="mb-1 block text-xs text-ink-soft">情境</span>
         {prompts[promptIndex].situation_zh}
+        <WordHints words={prompts[promptIndex].words} className="mt-2" />
       </p>
 
       <ol className="mb-4 grid grid-cols-3 gap-2" aria-label="提示進度">
