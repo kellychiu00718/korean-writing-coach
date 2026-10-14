@@ -1,3 +1,4 @@
+import "server-only";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 /** 每人每天可以請 AI 教練看幾次（韓國時間每天 00:00 重算）。資料庫另有天花板 50 次。 */

@@ -1,3 +1,4 @@
+import "server-only";
 import lessonData from "@/data/lessons.json";
 import type { Lesson } from "@/lib/grammar";
 
