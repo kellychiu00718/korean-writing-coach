@@ -4,7 +4,7 @@ A Korean writing and listening practice site for Traditional Chinese speakers.
 **Always think it through on your own first, then let the AI coach help you fix it, one step at a time.**
 
 🔗 **Live (beta):** https://writeitslowly.com · [中文說明](README.zh-TW.md)
-https://github.com/user-attachments/assets/d1b27752-d467-4e5b-a527-d6856a65de9c
+**Video:** https://github.com/user-attachments/assets/d1b27752-d467-4e5b-a527-d6856a65de9c
 
 
 
