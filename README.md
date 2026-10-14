@@ -1,25 +1,25 @@
 # Write It Slowly · 慢慢寫 · 천천히 쓰기
 
-A Korean writing and listening practice web app for Traditional Chinese speakers.
-**Think first, then let the AI coach help you revise.**
+A Korean writing and listening practice site for Traditional Chinese speakers.
+**Always think it through on your own first, then let the AI coach help you fix it, one step at a time.**
 
-🔗 **Live (public beta):** https://writeitslowly.com · UI in Traditional Chinese · [中文說明](README.zh-TW.md)
+🔗 **Live (beta):** https://writeitslowly.com · [中文說明](README.zh-TW.md)
 
-## Why
+## Why I built this
 
-Most AI writing tools hand you a finished sentence. It feels efficient, but you skip the part that builds skill: retrieving the words yourself. Write It Slowly gives hints in layers and only shows a reference answer after you have tried, and it tracks which grammar you can actually *use*, not just recognize.
+It started with something I noticed about myself. Once I had AI tools, I relied on them more and more. Whether I was translating or editing something I wrote, they would quickly hand me a reply that looked perfect. It was efficient, but I wasn't really thinking, so I wasn't really learning either. That was how the first version of Write It Slowly came about. I hope people who use it (me included) can rediscover the value of thinking for themselves and the joy of learning. Here, the AI coach gives hints one layer at a time. You have to take the Korean words and grammar in your head, actually use them, and put them together into a Korean sentence before you can see the reference answer. The grammar map records the grammar you can really use, not just the grammar you can read.
 
 ## Features
 
 | | |
 |---|---|
-| **Sentence Workshop** | Pick a grammar point, read a situation in Chinese, write the Korean sentence. The AI coach answers in three server-controlled levels: where the problem is → a clue → the reference sentence. Words above the lesson's level are shown as small hints under the situation. |
-| **Grammar Map** | All 336 grammar points (levels 1–6) from the National Institute of Korean Language standard curriculum. A point lights up only when you use it correctly in your own sentence. |
-| **Dictation** | 116 sentences from Korean dramas, songs, news, and variety shows, leveled 1–6. Listening mode (hear and type) and typing mode (measure net typing speed). Missing and wrong syllables are marked; the source is linked after you answer. No AI cost. |
-| **Review cards** | Sentences you struggled with are saved for review. |
-| **My page** | Progress for both practices: grammar growth, accuracy trend, highest level understood, typing speed, and a filterable sentence book. |
+| **Sentence Workshop** | Pick a grammar point, read a situation written in Chinese, and write the Korean sentence yourself. The AI coach replies in three layers: what needs fixing → a further clue → a reference sentence. Grammar is grouped by TOPIK level, so when a sentence calls for a word above that level, it appears as a small hint under the situation. |
+| **Grammar Map** | The 336 grammar points (levels 1–6) in the National Institute of Korean Language standard curriculum. A square lights up only when you use that grammar correctly in a Korean sentence you wrote yourself. |
+| **Dictation** | 116 sentences so far from Korean dramas, music, news, and variety shows, sorted into levels 1–6. Listening mode (listen, then type what you hear) and typing mode (test your typing speed). Missed and mistyped syllables are marked, and after you answer, the original source is linked below so you can click through and hear how Korean speakers actually say it. |
+| **Review cards** | Save any grammar point or sentence you got stuck on and review it later. |
+| **My page** | Shows your progress in charts. |
 
-Beta limits: the workshop currently covers levels 3–4 (12 lessons, reviewed by a native speaker), and AI coaching has a per-user and a site-wide daily cap.
+Beta limits: the Sentence Workshop only covers levels 3 and 4 for now (12 lessons, reviewed and approved by a native Korean speaker). The AI coach has a daily cap for each user and for the whole site.
 
 ## Architecture
 
@@ -36,47 +36,36 @@ flowchart LR
   D --> N
 ```
 
-- **All writes go through the server.** Users can read their own rows (row-level security) but cannot insert or update them directly; dictation scores are recomputed on the server.
-- **AI usage is metered in the database.** A Postgres function checks and consumes quota atomically (per user and site-wide) before any AI call; failed calls are refunded server-side only.
-- **Reference answers stay on the server** until the learner earns them.
+- **All writes go through the server.** Users can only read their own data (row-level security) and cannot add or change it directly. Dictation scores are recalculated on the server.
+- **AI usage is counted in the database.** Before every AI call, a database function checks and deducts the count in one step (per user and site-wide). If a call fails, only the server can give the count back.
+- **Reference answers stay on the server** until your sentence is correct or you have answered three times.
 - **Bot protection:** Cloudflare Turnstile on login (verified by Supabase) and on the feedback form (verified by the server).
-- **Content Security Policy** with a per-request nonce, plus security headers on every response.
-- **Monitoring:** error-alert emails, a private health check run by a daily cron job, and external uptime monitoring.
+- **Content Security Policy:** each request gets a one-time nonce, and every response carries security headers.
+- **Monitoring:** alert emails when the server hits an error, a private health check that runs once a day on a schedule, and external uptime monitoring.
 
 ## Tech stack
 
-Next.js 15 (App Router, TypeScript) · Tailwind CSS 4 · Supabase (Postgres, Auth, RLS) · Anthropic Claude API (`@anthropic-ai/sdk`, zod structured output) · Cloudflare Turnstile · Resend · Vercel · Python (Kiwi morphological analyzer, Supertonic TTS)
+Next.js 15 (App Router, TypeScript) · Tailwind CSS 4 · Supabase (Postgres, Auth, RLS) · Anthropic Claude API · Cloudflare Turnstile · Resend · Vercel · Python (Kiwi morphological analyzer, Supertonic TTS)
 
-## Getting started
+## Local development
 
 ```bash
 fnm use            # Node 22
 npm install
-cp .env.example .env.local   # fill in the values (see the comments in the file)
+cp .env.example .env.local   # fill in the values as described in the file
 npm run dev
 ```
 
-Run the SQL files in `supabase/` in order (`schema.sql`, then `002`–`008`) in the Supabase SQL Editor.
+Run the SQL files in `supabase/` in order in the Supabase SQL Editor (`schema.sql`, then `002`–`008`).
 
 Environment variables (names only): `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` (server only), `ANTHROPIC_API_KEY`, `COACH_MODEL`, `COACH_EFFORT`, `DAILY_AI_LIMIT`, `GLOBAL_DAILY_AI_LIMIT`, `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`, `RESEND_API_KEY`, `ALERT_EMAIL_TO`, `ALERT_EMAIL_FROM`, `CRON_SECRET`.
-
-### Data scripts
-
-```bash
-python scripts/estimate_levels.py        # level each dictation sentence (Kiwi + NIKL lists)
-python scripts/generate_voice_audio.py   # synthesize audio for new sentences
-```
 
 ## Data sources & credits
 
 - Word and grammar levels: National Institute of Korean Language, *2017 International Standard Curriculum of Korean Application Study (Phase 4)* word/grammar lists, released under KOGL Type 1 (공공누리 제1유형).
 - Dictionary definitions and examples: National Institute of Korean Language, *Basic Korean Dictionary* (한국어기초사전), CC BY-SA 2.0 KR.
-- Dictation sentences quote a single line from each source with a link to the original; audio is synthesized with Supertone's Supertonic, not taken from the original media. All rights to the original media belong to their owners.
-
-## Project docs
-
-- Product case study: [`docs/portfolio/case-study.md`](docs/portfolio/case-study.md)
+- Each dictation sentence quotes only one line from its source and links to the original. The audio is synthesized with Supertone's Supertonic, not taken from the original video. All rights to the original works belong to their owners.
 
 ---
 
-Built by Kelly, a Taiwanese learner living in Korea, with Claude Code as the AI coding agent.
+Built by Kelly, who is from Taiwan and lives in Korea, with Claude Code (an AI coding agent).
