@@ -13,7 +13,7 @@ It started with something I noticed about myself. Once I had AI tools, I relied 
 
 | | |
 |---|---|
-| **Sentence Workshop** | Pick a grammar point, read a situation written in Chinese, and write the Korean sentence yourself. The AI coach replies in three layers: what needs fixing → a further clue → a reference sentence. Grammar is grouped by TOPIK level, so when a sentence calls for a word above that level, it appears as a small hint under the situation. |
+| **Sentence Workshop** | Pick a grammar point, read a situation written in Chinese, and write the Korean sentence yourself. The AI coach replies in three layers: what needs fixing → a further clue → a reference sentence. Grammar is grouped into the National Institute of Korean Language levels 1–6 (roughly matching TOPIK levels), so when a sentence calls for a word above that level, it appears as a small hint under the situation. |
 | **Grammar Map** | The 336 grammar points (levels 1–6) in the National Institute of Korean Language standard curriculum. A square lights up only when you use that grammar correctly in a Korean sentence you wrote yourself. |
 | **Dictation** | 116 sentences so far from Korean dramas, music, news, and variety shows, sorted into levels 1–6. Listening mode (listen, then type what you hear) and typing mode (test your typing speed). Missed and mistyped syllables are marked, and after you answer, the original source is linked below so you can click through and hear how Korean speakers actually say it. |
 | **Review cards** | Save any grammar point or sentence you got stuck on and review it later. |
@@ -65,7 +65,3 @@ Environment variables (names only): `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUP
 - Word and grammar levels: National Institute of Korean Language, *2017 International Standard Curriculum of Korean Application Study (Phase 4)* word/grammar lists, released under KOGL Type 1 (공공누리 제1유형).
 - Dictionary definitions and examples: National Institute of Korean Language, *Basic Korean Dictionary* (한국어기초사전), CC BY-SA 2.0 KR.
 - Each dictation sentence quotes only one line from its source and links to the original. The audio is synthesized with Supertone's Supertonic, not taken from the original video. All rights to the original works belong to their owners.
-
----
-
-Built by Kelly, who is from Taiwan and lives in Korea, with Claude Code (an AI coding agent).
