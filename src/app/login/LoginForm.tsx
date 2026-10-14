@@ -4,6 +4,7 @@ import type { AuthError } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
 import { safePath } from "@/lib/safe-path";
 import { createClient } from "@/lib/supabase/client";
+import { TURNSTILE_FAILED, useTurnstile } from "@/components/Turnstile";
 
 /** Supabase 規定同一個信箱 60 秒內只能再寄一次。 */
 const RESEND_SECONDS = 60;
@@ -39,6 +40,7 @@ export function LoginForm({ next }: { next?: string }) {
   // 可以再寄的時間（只限同一個信箱）；倒數期間按鈕會顯示還要等幾秒
   const [cooldown, setCooldown] = useState({ email: "", until: 0 });
   const [now, setNow] = useState(() => Date.now());
+  const turnstile = useTurnstile("login");
   const current = view === "sent" ? sentTo : email.trim();
   const wait = cooldown.email === current ? Math.max(0, Math.ceil((cooldown.until - now) / 1000)) : 0;
 
@@ -53,11 +55,19 @@ export function LoginForm({ next }: { next?: string }) {
     if (!address) return;
     setBusy(true);
     setProblem(null);
+    let captchaToken: string | null;
+    try {
+      captchaToken = await turnstile.getToken();
+    } catch {
+      setBusy(false);
+      setProblem({ text: TURNSTILE_FAILED });
+      return;
+    }
     const redirect = new URL("/auth/callback", window.location.origin);
     if (next) redirect.searchParams.set("next", next);
     const { error } = await createClient().auth.signInWithOtp({
       email: address,
-      options: { emailRedirectTo: redirect.toString() },
+      options: { emailRedirectTo: redirect.toString(), captchaToken: captchaToken ?? undefined },
     });
     setBusy(false);
     setNow(Date.now());
@@ -154,6 +164,7 @@ export function LoginForm({ next }: { next?: string }) {
           </p>
         )}
         <p className="text-xs text-ink-soft">找不到信的話，看看垃圾郵件或促銷內容分類。</p>
+        <div ref={turnstile.ref} />
       </div>
     );
   }
@@ -191,6 +202,7 @@ export function LoginForm({ next }: { next?: string }) {
           {problem.text}
         </p>
       )}
+      <div ref={turnstile.ref} />
     </form>
   );
 }

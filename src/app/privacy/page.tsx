@@ -36,6 +36,18 @@ const PROCESSORS = [
     data: "你送出的句子、題目情境與文法（不包含電子信箱和暱稱）",
   },
   {
+    name: "Resend, Inc.",
+    task: "寄送登入信",
+    where: "美國（寄信伺服器在日本東京）",
+    data: "你的電子信箱與登入信內容",
+  },
+  {
+    name: "Cloudflare, Inc.（Turnstile）",
+    task: "登入和意見回報時確認是真人，擋下機器人",
+    where: "美國等地",
+    data: "IP 位址、瀏覽器與裝置資訊",
+  },
+  {
     name: "Google LLC（Google Fonts）",
     task: "提供網站字型",
     where: "美國等地",

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { adminConfigured, createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
+import { verifyTurnstile } from "@/lib/turnstile";
 
 const Body = z.object({
   kind: z.enum(["bug", "idea", "other"]),
@@ -10,14 +11,19 @@ const Body = z.object({
   page: z.string().max(300).optional(),
   // 機器人常會把所有欄位填滿；這個欄位對使用者是隱藏的，有值就當成垃圾訊息
   website: z.string().max(0).optional(),
+  turnstileToken: z.string().max(2048).optional(),
 });
 
 export async function POST(request: Request) {
   const parsed = Body.safeParse(await request.json().catch(() => null));
   if (!parsed.success) return NextResponse.json({ error: "內容好像有點問題，確認一下再送出？" }, { status: 400 });
-  const { kind, message, replyEmail, page } = parsed.data;
+  const { kind, message, replyEmail, page, turnstileToken } = parsed.data;
   if (replyEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(replyEmail)) {
     return NextResponse.json({ error: "電子信箱的格式好像不太對。" }, { status: 400 });
+  }
+
+  if (!(await verifyTurnstile(request, turnstileToken, "feedback"))) {
+    return NextResponse.json({ error: "沒辦法確認你是真人，重新整理頁面再試一次？" }, { status: 403 });
   }
 
   const supabase = await createClient();

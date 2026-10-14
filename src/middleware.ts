@@ -11,6 +11,7 @@ function isProtected(path: string) {
  * 內容安全政策（CSP）：每次請求產生一次性的 nonce，只有帶著這個 nonce 的腳本能執行
  * （Next.js 會自動把 nonce 加到自己的腳本上），被塞進頁面的惡意腳本跑不起來。
  * 樣式允許行內（React 的 style 屬性需要）；字型來自 Google Fonts；資料連線只到自己和 Supabase。
+ * Cloudflare Turnstile（防機器人）要載入它的腳本和一個驗證框。
  */
 function contentSecurityPolicy(nonce: string) {
   const dev = process.env.NODE_ENV !== "production";
@@ -19,13 +20,13 @@ function contentSecurityPolicy(nonce: string) {
   return [
     "default-src 'self'",
     // 開發模式的熱更新需要 eval；正式環境不開
-    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${dev ? " 'unsafe-eval'" : ""}`,
+    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' https://challenges.cloudflare.com${dev ? " 'unsafe-eval'" : ""}`,
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
     "font-src 'self' https://fonts.gstatic.com data:",
     "img-src 'self' data: blob:",
     "media-src 'self' blob:",
     `connect-src 'self' ${supabase} ${supabaseWs}`.trim(),
-    "frame-src 'none'",
+    "frame-src https://challenges.cloudflare.com",
     "object-src 'none'",
     "base-uri 'self'",
     "form-action 'self'",

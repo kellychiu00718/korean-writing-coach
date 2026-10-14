@@ -3,7 +3,7 @@
 /** TODO: 開好網站專用信箱後填進來，頁尾和隱私權政策會自動顯示。 */
 export const CONTACT_EMAIL = "";
 
-export const PRIVACY_EFFECTIVE_DATE = "2026-10-10";
+export const PRIVACY_EFFECTIVE_DATE = "2026-10-14";
 
 export const SOURCES = {
   nikl: {

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { TURNSTILE_FAILED, useTurnstile } from "@/components/Turnstile";
 
 const KINDS = [
   { id: "bug", label: "回報問題" },
@@ -15,6 +16,7 @@ export function FeedbackForm({ defaultEmail, page }: { defaultEmail: string; pag
   const [email, setEmail] = useState(defaultEmail);
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [error, setError] = useState("");
+  const turnstile = useTurnstile("feedback");
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -25,11 +27,26 @@ export function FeedbackForm({ defaultEmail, page }: { defaultEmail: string; pag
     }
     setStatus("sending");
     const website = (e.currentTarget.elements.namedItem("website") as HTMLInputElement).value;
+    let turnstileToken: string | null;
+    try {
+      turnstileToken = await turnstile.getToken();
+    } catch {
+      setStatus("error");
+      setError(TURNSTILE_FAILED);
+      return;
+    }
     try {
       const res = await fetch("/api/feedback", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ kind, message, replyEmail: email || undefined, page, website: website || undefined }),
+        body: JSON.stringify({
+          kind,
+          message,
+          replyEmail: email || undefined,
+          page,
+          website: website || undefined,
+          turnstileToken: turnstileToken ?? undefined,
+        }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -109,6 +126,7 @@ export function FeedbackForm({ defaultEmail, page }: { defaultEmail: string; pag
       </div>
       {/* 給機器人的陷阱欄位，使用者看不到 */}
       <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
+      <div ref={turnstile.ref} />
       <div className="flex flex-wrap items-center gap-3">
         <button type="submit" className="btn" disabled={status === "sending"}>
           {status === "sending" ? "送出中…" : "送出"}
