@@ -11,10 +11,12 @@ export async function BackToApp({ className = "" }: { className?: string }) {
     } = await supabase.auth.getUser();
     loggedIn = Boolean(user);
   }
+  // 首頁 landing.html 是靜態檔，用一般連結；用 <Link> 會去預先載入不存在的頁面資料（404）
+  const Tag = loggedIn ? Link : "a";
   return (
-    <Link href={loggedIn ? "/workshop" : "/landing.html"} className={`btn btn-ghost btn-sm ${className}`}>
+    <Tag href={loggedIn ? "/workshop" : "/landing.html"} className={`btn btn-ghost btn-sm ${className}`}>
       <span aria-hidden="true">←</span>
       {loggedIn ? "回到句子工坊" : "回到首頁"}
-    </Link>
+    </Tag>
   );
 }

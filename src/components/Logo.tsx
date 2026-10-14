@@ -24,11 +24,13 @@ export function MascotLockup({
 }
 
 export function Logo({ href, size = 40 }: { href: string; size?: number }) {
+  // landing.html 是靜態檔，不是 Next.js 頁面；用 <Link> 會去預先載入一個不存在的頁面資料（404）
+  const Tag = href.endsWith(".html") ? "a" : Link;
   return (
-    <Link href={href} className="inline-flex no-underline">
+    <Tag href={href} className="inline-flex no-underline">
       <MascotLockup size={size} textPx={20}>
         慢慢寫
       </MascotLockup>
-    </Link>
+    </Tag>
   );
 }
