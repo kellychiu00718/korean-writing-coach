@@ -7,19 +7,19 @@ A Korean writing and listening practice site for Traditional Chinese speakers.
 
 ## Why I built this
 
-It started with something I noticed about myself. Once I had AI tools, I relied on them more and more. Whether I was translating or editing something I wrote, they would quickly hand me a reply that looked perfect. It was efficient, but I wasn't really thinking, so I wasn't really learning either. That was how the first version of Write It Slowly came about. I hope people who use it (me included) can rediscover the value of thinking for themselves and the joy of learning. Here, the AI coach gives hints one layer at a time. You have to take the Korean words and grammar in your head, actually use them, and put them together into a Korean sentence before you can see the reference answer. The grammar map records the grammar you can really use, not just the grammar you can read.
+It started with something I noticed about myself. I relied on AI tools so much that I couldn't live without them. Whether I was translating or editing something I wrote, they would quickly hand me a reply that looked perfect. It was efficient, but the problem was that I wasn't really thinking, so I wasn't really learning either. That was how the first version of Write It Slowly came about. I hope people who use it (me included) can rediscover the value of thinking and the joy of learning.
 
 ## Features
 
 | | |
 |---|---|
-| **Sentence Workshop** | Pick a grammar point, read a situation written in Chinese, and write the Korean sentence yourself. The AI coach replies in three layers: what needs fixing → a further clue → a reference sentence. Grammar is grouped into the National Institute of Korean Language levels 1–6 (roughly matching TOPIK levels), so when a sentence calls for a word above that level, it appears as a small hint under the situation. |
-| **Grammar Map** | The 336 grammar points (levels 1–6) in the National Institute of Korean Language standard curriculum. A square lights up only when you use that grammar correctly in a Korean sentence you wrote yourself. |
-| **Dictation** | 116 sentences so far from Korean dramas, music, news, and variety shows, sorted into levels 1–6. Listening mode (listen, then type what you hear) and typing mode (test your typing speed). Missed and mistyped syllables are marked, and after you answer, the original source is linked below so you can click through and hear how Korean speakers actually say it. |
-| **Review cards** | Save any grammar point or sentence you got stuck on and review it later. |
-| **My page** | Shows your progress in charts. |
+| **Sentence Workshop** | Pick a grammar point, read a situation written in Chinese, and write the Korean sentence yourself. The AI coach replies in three layers: what needs fixing → a further clue → a reference sentence. Grammar is grouped into the National Institute of Korean Language levels 1–6 (roughly matching TOPIK levels), so when a sentence includes a word above that level, it shows a small hint under the situation section. |
+| **Grammar Map** | The 336 grammar points (levels 1–6) in the National Institute of Korean Language standard curriculum. A square lights up only when users use that grammar correctly in a Korean sentence they wrote themselves. |
+| **Dictation** | 116 sentences so far from Korean dramas, music, news, and variety shows, sorted into levels 1–6. Listening mode (listen, then type what you hear) and typing mode (test your typing speed). Missed and mistyped syllables are marked, and after users answer, the original source is linked below so users can click through and hear how Korean speakers actually say it. |
+| **Review cards** | Users can save any grammar point or sentence they got stuck on and review it later. |
+| **My page** | Shows users' progress in charts. |
 
-Beta limits: the Sentence Workshop only covers levels 3 and 4 for now (12 lessons, reviewed and approved by a native Korean speaker). The AI coach has a daily cap for each user and for the whole site.
+Beta limits: the Sentence Workshop only covers levels 3 and 4 for now (12 lessons, reviewed and approved by a native Korean speaker). The AI coach has daily limits for each user and for the whole site.
 
 ## Architecture
 
