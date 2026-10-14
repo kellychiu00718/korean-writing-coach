@@ -1,7 +1,7 @@
 // 網站共用的聯絡方式與資料來源標示。landing（public/landing.html）是靜態頁，改這裡時記得一起改。
 
-/** TODO: 開好網站專用信箱後填進來，頁尾和隱私權政策會自動顯示。 */
-export const CONTACT_EMAIL = "";
+/** 網站專用信箱（Cloudflare Email Routing 轉寄到 Kelly 的信箱）；頁尾和隱私權政策會自動顯示。 */
+export const CONTACT_EMAIL = "hello@writeitslowly.com";
 
 export const PRIVACY_EFFECTIVE_DATE = "2026-10-14";
 
