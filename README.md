@@ -13,9 +13,9 @@ It started with something I noticed about myself. I relied on AI tools so much t
 
 | | |
 |---|---|
-| **Sentence Workshop** | Pick a grammar point, read a situation written in Chinese, and write the Korean sentence yourself. The AI coach replies in three layers: what needs fixing → a further clue → a reference sentence. Grammar is grouped into the National Institute of Korean Language levels 1–6 (roughly matching TOPIK levels), so when a sentence includes a word above that level, it shows a small hint under the situation section. |
+| **Sentence Workshop** | Users pick a grammar point, read a situation written in Chinese, and write the Korean sentence themselves. The AI coach replies in three layers: what needs fixing → a further clue → a reference sentence. Grammar is grouped into the National Institute of Korean Language levels 1–6 (roughly matching TOPIK levels), so when a sentence includes a word above that level, it shows a small hint under the situation section. |
 | **Grammar Map** | The 336 grammar points (levels 1–6) in the National Institute of Korean Language standard curriculum. A square lights up only when users use that grammar correctly in a Korean sentence they wrote themselves. |
-| **Dictation** | 116 sentences so far from Korean dramas, music, news, and variety shows, sorted into levels 1–6. Listening mode (listen, then type what you hear) and typing mode (test your typing speed). Missed and mistyped syllables are marked, and after users answer, the original source is linked below so users can click through and hear how Korean speakers actually say it. |
+| **Dictation** | 116 sentences so far from Korean dramas, music, news, and variety shows, sorted into levels 1–6. Listening mode (users listen, then type what they hear) and typing mode (users test their typing speed). Missed and mistyped syllables are marked, and after users answer, the original source is linked below so users can click through and hear how Korean speakers actually say it. |
 | **Review cards** | Users can save any grammar point or sentence they got stuck on and review it later. |
 | **My page** | Shows users' progress in charts. |
 
@@ -38,7 +38,7 @@ flowchart LR
 
 - **All writes go through the server.** Users can only read their own data (row-level security) and cannot add or change it directly. Dictation scores are recalculated on the server.
 - **AI usage is counted in the database.** Before every AI call, a database function checks and deducts the count in one step (per user and site-wide). If a call fails, only the server can give the count back.
-- **Reference answers stay on the server** until your sentence is correct or you have answered three times.
+- **Reference answers stay on the server** until the user's sentence is correct or they have answered three times.
 - **Bot protection:** Cloudflare Turnstile on login (verified by Supabase) and on the feedback form (verified by the server).
 - **Content Security Policy:** each request gets a one-time nonce, and every response carries security headers.
 - **Monitoring:** alert emails when the server hits an error, a private health check that runs once a day on a schedule, and external uptime monitoring.
