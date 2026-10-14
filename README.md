@@ -5,9 +5,7 @@ A Korean writing and listening practice site for Traditional Chinese speakers.
 
 🔗 **Live (beta):** https://writeitslowly.com · [中文說明](README.zh-TW.md)
 
-**Video:** https://github.com/user-attachments/assets/d1b27752-d467-4e5b-a527-d6856a65de9c
-
-
+https://github.com/user-attachments/assets/d1b27752-d467-4e5b-a527-d6856a65de9c
 
 ## Why I built this
 
