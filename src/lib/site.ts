@@ -3,7 +3,7 @@
 /** 網站專用信箱（Cloudflare Email Routing 轉寄到 Kelly 的信箱）；頁尾和隱私權政策會自動顯示。 */
 export const CONTACT_EMAIL = "hello@writeitslowly.com";
 
-export const PRIVACY_EFFECTIVE_DATE = "2026-10-14";
+export const PRIVACY_EFFECTIVE_DATE = "2026-10-15";
 
 export const SOURCES = {
   nikl: {

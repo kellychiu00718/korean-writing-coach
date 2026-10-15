@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
+import { SiteAnalytics } from "@/components/SiteAnalytics";
 import { SiteFooter } from "@/components/SiteFooter";
 import "./globals.css";
 
@@ -26,6 +27,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
       <body suppressHydrationWarning>
         {children}
         <SiteFooter />
+        <SiteAnalytics />
       </body>
     </html>
   );

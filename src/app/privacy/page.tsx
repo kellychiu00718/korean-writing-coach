@@ -20,6 +20,11 @@ const COLLECTED = [
   { item: "聽打練習的紀錄（你打的句子、正確率、打字速度）", why: "顯示你上次的正確率、記錄你的進步", keep: "到你刪除帳號為止" },
   { item: "意見回報的內容與回覆用電子信箱（選填）", why: "回覆你、改善網站", keep: "收到後最多保存 1 年" },
   { item: "登入狀態（cookie）", why: "讓你不用每次都重新登入", keep: "登出或過期後失效" },
+  {
+    item: "匿名的瀏覽統計（看了哪一頁、從哪個網站連過來、國家、裝置與瀏覽器類型）",
+    why: "知道哪些頁面有人用、哪裡需要改善",
+    keep: "不用 cookie、不記 IP，也不會連到你的帳號；辨識同一位訪客用的代碼 24 小時後就丟掉",
+  },
 ];
 
 // 表格在手機上改成一列一張卡片（欄位名稱寫在每個值上面），不用左右滑
@@ -29,6 +34,12 @@ const CELL =
   "block py-1 before:block before:text-xs before:text-ink-soft before:content-[attr(data-label)] sm:table-cell sm:px-4 sm:py-2 sm:before:content-none";
 
 const PROCESSORS = [
+  {
+    name: "Vercel Inc.",
+    task: "網站主機，以及匿名的瀏覽統計（Vercel Web Analytics）",
+    where: "網站主機在日本東京；統計資料在美國等地",
+    data: "瀏覽網站時的 IP 位址與瀏覽器資訊（主機運作需要），以及上表的匿名瀏覽統計",
+  },
   {
     name: "Supabase Inc.",
     task: "會員登入與資料庫（存放上面列的資料）",
@@ -73,7 +84,7 @@ export default function PrivacyPage() {
           <span className="eyebrow mb-3">隱私權政策</span>
           <h1 className="text-3xl font-bold">我們怎麼處理你的資料</h1>
           <p className="mt-2 text-ink-soft">
-            慢慢寫只收集提供練習需要的資料：不放廣告、不做追蹤分析，也不會把你的資料賣給任何人。這份政策依台灣《個人資料保護法》第 8
+            慢慢寫只收集提供練習需要的資料：不放廣告、不做跨網站追蹤，也不會把你的資料賣給任何人；只用不認得個人的匿名瀏覽統計，了解哪些頁面有人用。這份政策依台灣《個人資料保護法》第 8
             條規定的告知事項撰寫；因為網站在韓國經營，也參考了韓國《個人資訊保護法》第 30 條的公開要求。
           </p>
           <p className="mt-1 text-sm text-ink-soft">生效日期：{PRIVACY_EFFECTIVE_DATE}（韓國時間）</p>
