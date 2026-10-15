@@ -14,7 +14,7 @@ const securityHeaders = [
   { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains" },
 ];
 
-// landing.html 是靜態檔，不經過 middleware，用固定的 CSP：腳本只能來自網站本身（/landing.js），不允許內嵌腳本
+// 網站介紹（/about，實際檔案是 public/landing.html）是靜態檔，不經過 middleware，用固定的 CSP：腳本只能來自網站本身（/landing.js），不允許內嵌腳本
 const landingCsp = [
   "default-src 'self'",
   "script-src 'self'",
@@ -34,8 +34,15 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       { source: "/:path*", headers: securityHeaders },
-      { source: "/landing.html", headers: [{ key: "Content-Security-Policy", value: landingCsp }] },
+      { source: "/about", headers: [{ key: "Content-Security-Policy", value: landingCsp }] },
     ];
+  },
+  // 網站介紹的網址是 /about；舊網址 /landing.html 轉過來，已經分享出去的連結不會壞
+  async redirects() {
+    return [{ source: "/landing.html", destination: "/about", permanent: true }];
+  },
+  async rewrites() {
+    return [{ source: "/about", destination: "/landing.html" }];
   },
 };
 

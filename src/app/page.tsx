@@ -11,5 +11,6 @@ export default async function Home() {
     } = await supabase.auth.getUser();
     if (user) redirect("/workshop");
   }
-  redirect("/landing.html");
+  // 沒登入的人直接進登入頁；網站介紹放在 /about
+  redirect("/login");
 }

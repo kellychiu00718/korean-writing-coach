@@ -19,7 +19,7 @@ export function DeleteAccount() {
       return;
     }
     await supabase.auth.signOut();
-    window.location.href = "/landing.html";
+    window.location.href = "/about";
   }
 
   if (!open) {

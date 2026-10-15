@@ -13,7 +13,7 @@ export default async function LoginPage({
   return (
     <main className="mx-auto flex min-h-dvh max-w-md flex-col justify-center px-4 py-10">
       <div className="mb-6">
-        <Logo href="/landing.html" size={48} />
+        <Logo href="/about" size={48} />
       </div>
       <div className="card">
         <h1 className="mb-1 text-2xl font-bold">登入開始練習</h1>
@@ -38,6 +38,12 @@ export default async function LoginPage({
           。
         </p>
       </div>
+      <p className="mt-4 text-center text-sm text-ink-soft">
+        第一次來？
+        <a href="/about" className="underline underline-offset-2">
+          看看慢慢寫怎麼練習
+        </a>
+      </p>
     </main>
   );
 }

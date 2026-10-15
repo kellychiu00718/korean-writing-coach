@@ -96,8 +96,8 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // 靜態檔（圖片、音檔、landing 頁和它的腳本）不需要登入檢查，也不經過這裡，載入比較快
+  // 靜態檔（圖片、音檔、網站介紹 /about 和它的腳本）不需要登入檢查，也不經過這裡，載入比較快
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|landing.html|landing.js|audio/|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|mp3|m4a|wav|js|css|woff2?|txt|xml)$).*)",
+    "/((?!_next/static|_next/image|favicon.ico|about|landing.html|landing.js|audio/|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|mp3|m4a|wav|js|css|woff2?|txt|xml)$).*)",
   ],
 };
