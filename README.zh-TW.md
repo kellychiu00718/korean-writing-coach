@@ -5,7 +5,7 @@
 
 🔗 **網站（測試版）：** https://writeitslowly.com · [English](README.md)
 
-https://github.com/user-attachments/assets/d1b27752-d467-4e5b-a527-d6856a65de9c
+https://github.com/user-attachments/assets/924a139a-79dc-481b-b018-a6168dbf1042
 
 ## 動機和目的
 
